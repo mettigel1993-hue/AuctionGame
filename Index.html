@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spiele-Launcher</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap');
+        body { font-family: 'Outfit', sans-serif; background-color: #1c1917; color: #f5f5f4; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
+    <h1 class="text-4xl font-black text-white mb-10">Wähle dein Spiel</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl w-full">
+        <a href="game.html?theme=wehleiden" class="block bg-[#292524] border-2 border-orange-500 hover:border-orange-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🚨</div>
+            <h2 class="text-xl font-black text-orange-500 uppercase tracking-wide">Ausbruch aus Wehleiden</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Kämpfe dich durch den Zellenblock und sammle den größten Zigaretten-Vorrat.</p>
+        </a>
+
+        <a href="game.html?theme=office" class="block bg-[#292524] border-2 border-blue-500 hover:border-blue-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">👔</div>
+            <h2 class="text-xl font-black text-blue-500 uppercase tracking-wide">Survive the Office</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Überlebe den Großraumbüro-Wahnsinn und sichere dir das Abteilungsbudget.</p>
+        </a>
+
+        <a href="game.html?theme=line" class="block bg-[#292524] border-2 border-yellow-500 hover:border-yellow-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🏭</div>
+            <h2 class="text-xl font-black text-yellow-500 uppercase tracking-wide">Survive the Line</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Überlebe die Fließbandarbeit, bewältige Werks-Chaos und takte deine Bauteile in der Schicht.</p>
+        </a>
+
+        <a href="game.html?theme=alman" class="block bg-[#292524] border-2 border-green-500 hover:border-green-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🌻</div>
+            <h2 class="text-xl font-black text-green-500 uppercase tracking-wide">Alman Eskalation</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Kämpfe am Gartenzaun! Sammle juristische Beweise und treibe deinen Nachbarn in den Wahnsinn.</p>
+        </a>
+
+        <a href="game.html?theme=memories" class="block bg-[#292524] border-2 border-fuchsia-500 hover:border-fuchsia-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">💾</div>
+            <h2 class="text-xl font-black text-fuchsia-500 uppercase tracking-wide">Core Memories</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Kram in der Erinnerungskiste und sammle das meiste Taschengeld für die besten Kindheits-Vibes.</p>
+        </a>
+
+        <a href="game.html?theme=eigenheim" class="block bg-[#292524] border-2 border-red-500 hover:border-red-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🏗️</div>
+            <h2 class="text-xl font-black text-red-500 uppercase tracking-wide">Projekt Eigenheim</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Stelle dich dem ultimativen Behördenkampf, überstehe das Handwerker-Chaos und ziehe dein Traumhaus hoch.</p>
+        </a>
+
+        <a href="game.html?theme=airline" class="block bg-[#292524] border-2 border-sky-500 hover:border-sky-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">✈️</div>
+            <h2 class="text-xl font-black text-sky-500 uppercase tracking-wide">Low-Budget Airline</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Gründe die katastrophalste Billig-Airline und maximiere deine Profite über den Wolken.</p>
+        </a>
+
+        <a href="audit.html" class="block bg-[#1c1917] border-2 border-stone-600 hover:border-orange-500 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full relative group">
+            <div class="absolute top-3 right-3 bg-orange-950 text-orange-400 border border-orange-800 text-[10px] font-black px-2 py-0.5 rounded-md uppercase tracking-wider">SYSTEM</div>
+            <div class="text-4xl mb-4">⚙️</div>
+            <h2 class="text-xl font-black text-white uppercase tracking-wide group-hover:text-orange-500 transition">Engine Core Audit</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Interaktiver, laienverständlicher Funktions-Katalog. Gehe jede Code-Zeile Schritt für Schritt durch.</p>
+        </a>
+
+        <a href="game.html?theme=bahn" class="block bg-[#292524] border-2 border-[#ec0016] hover:border-[#ff3a4c] rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🚆</div>
+            <h2 class="text-xl font-black text-[#ec0016] uppercase tracking-wide">Sehr geehrte Fahrgäste</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Plane die katastrophalste Bahnreise deines Lebens – zwischen Schienenersatzverkehr, Bordbistro und der elften Durchsage.</p>
+        </a>
+
+        <a href="game.html?theme=wedding" class="block bg-[#292524] border-2 border-rose-500 hover:border-rose-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">💒</div>
+            <h2 class="text-xl font-black text-rose-500 uppercase tracking-wide">Die Horror-Hochzeit</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Plane die katastrophalste Hochzeit aller Zeiten und überlebe den Eklat-Marathon.</p>
+        </a>
+
+       <a href="game.html?theme=nooblobby" class="block bg-[#292524] border-2 border-amber-500 hover:border-amber-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🎮</div>
+            <h2 class="text-xl font-black text-amber-500 uppercase tracking-wide">Die Noob-Lobby</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Baue das schlimmste Ranked-Match aller Zeiten – vom Loadout bis zum Ragequit.</p>
+        </a>
+
+         <a href="game.html?theme=diktatur" class="block bg-[#292524] border-2 border-amber-500 hover:border-amber-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🎖️</div>
+            <h2 class="text-xl font-black text-amber-500 uppercase tracking-wide">Bananenrepublik</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Ruf deine eigene Diktatur aus: Titel, Palast, Geheimpolizei – und einen Fluchtplan für den Tag X.</p>
+        </a>
+
+        <a href="game.html?theme=warzone" class="block bg-[#292524] border-2 border-lime-500 hover:border-lime-400 rounded-xl p-6 transition transform hover:-translate-y-1 shadow-lg flex flex-col h-full">
+            <div class="text-4xl mb-4">🪂</div>
+            <h2 class="text-xl font-black text-lime-500 uppercase tracking-wide">Warzone Legenden</h2>
+            <p class="text-stone-400 text-sm mt-2 flex-grow">Map, Loadout, Squad und Setup ersteigern – und hoffen, dass der Gulag gnädig ist.</p>
+        </a>
+
+    </div>
+</body>
+</html>

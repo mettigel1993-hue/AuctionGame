@@ -1,0 +1,267 @@
+{
+  "themeId": "wehleiden",
+  "windowTitle": "🚔 Ausbruch aus Wehlheiden",
+  "gameTitle": "Ausbruch aus Wehlheiden",
+  "themeIcon": "🚨",
+  "colors": {
+    "primary": "orange-500",
+    "gradientStart": "orange-600",
+    "gradientEnd": "yellow-500"
+  },
+  "currency": {
+    "name": "Zigaretten-Vorrat",
+    "symbol": "🚬",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Insassen",
+    "playerSingular": "Insasse",
+    "drawButtonText": "📦 Neue Lieferung ziehen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Zellenblock",
+    "adminTab2": "Schmuggel-Katalog",
+    "adminTab3": "Gesichert",
+    "adminTab4": "Im Klo versenkt",
+    "eventTitle": "Hof-Gerüchte",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Isolation",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Schutzgeld",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Bestechen",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🎓",
+        "label": "Schmuggel",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "🗑️",
+        "label": "Ins Klo",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Keine Zigaretten mehr. Die Zelle bleibt zu."
+  },
+  "databaseFile": "db/prison_db_export.json",
+  "categories": {
+    "CRIME": {
+      "icon": "⚖️",
+      "name": "Straftat",
+      "desc": "Warum du überhaupt hier bist."
+    },
+    "MATE": {
+      "icon": "🧑‍🤝‍🧑",
+      "name": "Genosse",
+      "desc": "Dein Zellengenosse."
+    },
+    "GUARD": {
+      "icon": "👮",
+      "name": "Wärter",
+      "desc": "Wer schiebt heute Wache?"
+    },
+    "VISIT": {
+      "icon": "📞",
+      "name": "Besuch",
+      "desc": "Wer kommt am Wochenende vorbei?"
+    },
+    "PLAN": {
+      "icon": "🗺️",
+      "name": "Plan",
+      "desc": "Dein meisterhafter Ausbruchsplan."
+    },
+    "WEAPON": {
+      "icon": "🥄",
+      "name": "Fluchtwaffe",
+      "desc": "Dein Werkzeug für die Freiheit."
+    },
+    "LOOT": {
+      "icon": "🍫",
+      "name": "Schmuggelware",
+      "desc": "Knast-Währung und Items."
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Justitias Irrtum",
+      "desc": "Eigentlich unschuldig, aber zu faul für den Ausbruch. Sitzt die Zeit brav ab und baut Streichholz-Schlösser."
+    },
+    "perk1": {
+      "name": "🎯 Inspektor Gadget der Unterwelt",
+      "desc": "Hat Taschen in Taschen. +50% auf zwei Kernkompetenzen und die Wärter finden bei ihm nicht mal Staub."
+    },
+    "perk2": {
+      "name": "🐷 Der Lungenbrötchen-Baron",
+      "desc": "Rauchen ist tödlich, Sparen macht frei! Für je 20.000 gebunkerte Zichten gibt's zum Schluss 5 Punkte extra aufs Fluchtkonto."
+    },
+    "perk3": {
+      "name": "🔥 Der Schrottplatz-MacGyver",
+      "desc": "Baut aus Kaugummi und Büroklammern 'nen Hubschrauber. Schrott-Karten (🤡) kriegen am Ende einen +50% Genialitäts-Boost."
+    },
+    "perk4": {
+      "name": "🚀 Der Spätzünder-Escobar",
+      "desc": "Fängt als kleiner Fisch an (-25% Startkapital), aber casht im Lategame bei allen Boni & Rädern fette +25% extra ab!"
+    },
+    "perk5": {
+      "name": "🤝 Der Strippenzieher",
+      "desc": "Kennt den Schwippschwager vom Cousin vom Wärter. Hat beim Schmuggeln immer 3 Optionen zur Auswahl."
+    },
+    "perk6": {
+      "name": "👑 Der Liebling des Direktors",
+      "desc": "Immunität gegen finanzielle Strafen. Beim Schmuggel-Roulette gibt's pauschal +10%."
+    },
+    "perk7": {
+      "name": "🤫 Der Judas vom C-Block",
+      "desc": "Verkauft seine eigene Mutter für 'nen extra Pudding. Schickt 2 Leute ins Loch und hat selbst eine 'Du kommst aus dem Gefängnis frei'-Karte gegen die Iso."
+    },
+    "perk8": {
+      "name": "⏱️ Der Tunnel-Gräber",
+      "desc": "Keine Zeit für Freunde, der Löffel ruft! Spielt komplett jokerlos, schaufelt sich aber harte +10 Extra-Punkte pro Karte frei."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Care-Paket vom Roten Kreuz!",
+      "desc": "Ein anonymes Care-Paket wurde abgegeben. Der ärmste Schlucker im Block freut sich.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Unerwartete Zellen-Razzia!",
+      "desc": "Die Schließer durchsuchen die Zellen der Reichsten. Wer protzt, verliert!",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Soli-Beitrag für den Schließer!",
+      "desc": "Der Wärter hat Geburtstag. Die Gangs treiben für ihn Zigaretten ein – einer profitiert.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Zigaretten-Steuer der Gangs!",
+      "desc": "Die Syndikate erheben eine pauschale Steuer auf alle Insassen. Keiner kommt drumherum.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Fehlkalkulation in der Kantine!",
+      "desc": "Überraschung! Es gibt extra Portionen, die auf dem Schwarzmarkt für viel Geld weggehen.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Belohnung für gutes Betragen!",
+      "desc": "Der Direktor belohnt alle, die nicht auffällig geworden sind (Joker gespart haben).",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Besuchersperre!",
+      "desc": "Sämtliche Kontakte nach draußen sind gekappt. Es können keine Deals mehr erzwungen werden.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Stromausfall im Trakt!",
+      "desc": "Absolutes Chaos im Zellenblock. Die nächsten Schmuggel-Aktionen laufen komplett im Dunkeln ab.",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Hof-Schlägerei!",
+      "desc": "Großes Chaos auf dem Hof. Die Wachen konfiszieren zur Strafe Zigaretten von jedem.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Mengenrabatt beim Schieber!",
+      "desc": "Der letzte Käufer hat einen guten Deal ausgehandelt. Die halbe Zahlung kommt zurück!",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Strengere Hofgang-Regeln!",
+      "desc": "Die Wärter passen genauer auf. Niemand kann mehr Mitinsassen in die Isolationshaft tricksen.",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Schutzgeld-Razzia!",
+      "desc": "Die Wärter haben die Verstecke für das Schutzgeld gefunden. Nichts gibt's mehr zurück.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Hofgang komplett gestrichen!",
+      "desc": "Aufgrund von Unruhen bleiben alle in den Zellen. Tauschen und Schmuggeln unmöglich!",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Gefängnischor-Auftritt!",
+      "desc": "Alle lauschen friedlich dem Gesang. Absolute Ruhe. Keine besonderen Vorkommnisse.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Allgemeine Amnestie!",
+      "desc": "Feiertag! Die Insassen vergeben einander, die Wärter drücken ein Auge zu. Ein Wunder!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Neuer Gefängnisdirektor!",
+      "desc": "Die Leitung wechselt. Alle Privilegien eines bestimmten Bereichs werden radikal gestrichen!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Luft und Liebe",
+    "desc": "Du hast den finanziellen Tiefpunkt erreicht. Du überlegst nun, ob man aus Gitterstäbe-Rost und Staubflocken etwas drehen kann.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "💨",
+    "dbCategory": "LOSER",
+    "tags": [
+      "Ausschuss"
+    ]
+  },
+  "theme": {
+    "description": "Knast-Orange & Beton-Schwarz – verwittert wie ein altes Schreibmaschinenformular",
+    "font": "Special Elite",
+    "mood": "rau, abgenutzt, wie handgeschriebene Gefängnisnotizen auf Packpapier",
+    "primaryColor": "#fb923c",
+    "accentColor": "#fcd34d",
+    "bgBase": "#0d0a06",
+    "bgCard": "#181210"
+  }
+}

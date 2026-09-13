@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="ui-window-title">Lade Spiel...</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --clr-primary: #f97316;
+            --clr-primary-hover: #ea6e0b;
+            --clr-accent: #facc15;
+            --clr-accent-dim: #854d0e;
+            --bg-base: #1c1917;
+            --bg-card: #292524;
+            --bg-card-2: #1c1917;
+            --border-color: #44403c;
+            --border-subtle: #292524;
+            --text-dim: #78716c;
+            --text-muted: #a8a29e;
+            --scrollbar-color: #f97316;
+            --gradient-start: #f97316;
+            --gradient-end: #facc15;
+            --font-display: 'Outfit', sans-serif;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Permanent+Marker&family=VT323&family=Special+Elite&family=Rajdhani:wght@400;600;700&family=Bebas+Neue&family=Cinzel:wght@700;900&family=Press+Start+2P&family=Barrio&family=Audiowide&display=swap');
+
+        body {
+            font-family: var(--font-display);
+            background-color: var(--bg-base);
+            color: #f5f5f4;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.04;
+            background-image: var(--bg-pattern, none);
+        }
+
+        .transition-all-custom { transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tags-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .tags-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .tags-scrollbar::-webkit-scrollbar-thumb { background: var(--scrollbar-color); border-radius: 4px; }
+
+        @keyframes floatOutGreen { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-50px) scale(1.5); } }
+        @keyframes floatOutRed { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(50px) scale(1.5); } }
+        .animate-float-out-green { animation: floatOutGreen 1.5s ease-out forwards; color: #4ade80; }
+        .animate-float-out-red { animation: floatOutRed 1.5s ease-out forwards; color: #ef4444; }
+        
+        /* GLÜCKSRAD LINKS-RECHTS FLUG ANIMATION */
+        @keyframes flyLeftToRight {
+            0% { opacity: 0; transform: translateX(-120px) scale(0.7); }
+            25% { opacity: 1; transform: translateX(0) scale(1.4); }
+            75% { opacity: 1; transform: translateX(0) scale(1.4); }
+            100% { opacity: 0; transform: translateX(120px) scale(0.7); }
+        }
+        .animate-fly-left-right {
+            animation: flyLeftToRight 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .confetti-piece { position: absolute; width: 10px; height: 20px; background: var(--clr-accent); top: 0; opacity: 0; animation: fall linear infinite; z-index: 1000; }
+        @keyframes fall { 0% { opacity: 1; top: -10%; transform: translateX(0) rotateX(0) rotateY(0); } 100% { opacity: 0; top: 100%; transform: translateX(20px) rotateX(360deg) rotateY(360deg); } }
+        @keyframes flyHammer { 0% { transform: translate(100vw, -50vh) rotate(45deg) scale(1); opacity: 1; } 50% { transform: translate(30vw, 30vh) rotate(-45deg) scale(3); } 100% { transform: translate(-50vw, 100vh) rotate(-135deg) scale(1.5); opacity: 1; } }
+        .animate-hammer { animation: flyHammer 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        @keyframes popUpPrice { 0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; } 30% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; } 80% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; } }
+        .animate-price-pop { animation: popUpPrice 1.5s ease-out forwards; }
+
+        .theme-primary-text    { color: var(--clr-primary) !important; }
+        .theme-primary-bg      { background-color: var(--clr-primary) !important; }
+        .theme-primary-border  { border-color: var(--clr-primary) !important; }
+        .theme-accent-text     { color: var(--clr-accent) !important; }
+        .theme-gradient-title  { background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .theme-gradient-btn    { background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)) !important; }
+        .theme-bg-card         { background-color: var(--bg-card) !important; }
+        .theme-bg-base         { background-color: var(--bg-base) !important; }
+        .theme-border          { border-color: var(--border-color) !important; }
+        .theme-border-subtle   { border-color: var(--border-subtle) !important; }
+        .theme-header-bg       { background-color: var(--bg-card); border-color: var(--border-color); }
+        .theme-font-display    { font-family: var(--font-display) !important; }
+
+        body.theme-scanlines::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.07) 2px, rgba(0,0,0,0.07) 4px);
+        }
+
+        .theme-glow { box-shadow: 0 0 20px var(--clr-primary-glow, rgba(249,115,22,0.3)); }
+        
+        .glass {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.2);
+        }
+
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
+            backdrop-filter: blur(24px) saturate(200%);
+            -webkit-backdrop-filter: blur(24px) saturate(200%);
+            border: 1px solid rgba(255,255,255,0.10);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.12), inset 0 -1px 0 rgba(0,0,0,0.3);
+        }
+
+        .glass-deal {
+            background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.2) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.09);
+            box-shadow: 0 0 0 1px rgba(var(--clr-primary-rgb, 249,115,22), 0.15), 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+        }
+
+        .glass-inset {
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .glass-header {
+            background: rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .glass-log {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.06);
+            box-shadow: inset 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        .glass-bar {
+            background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.15) 100%);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.07);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+        }
+
+        .glass-input {
+            background: rgba(0,0,0,0.3) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+            color: white !important;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .glass-input:focus {
+            border-color: var(--clr-primary) !important;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3), 0 0 0 2px rgba(var(--clr-primary-rgb,249,115,22),0.2) !important;
+            outline: none;
+        }
+        .glass-input::placeholder { color: rgba(255,255,255,0.25); }
+
+        select.glass-input option { background: #1a1a2e; color: white; }
+
+        #view-matrix .matrix-table-wrap {
+            background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(0,0,0,0.1) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        #matrix-header-row th {
+            background: rgba(0,0,0,0.35) !important;
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em;
+            font-size: 10px;
+        }
+
+        #matrix-body tr { transition: background 0.15s; }
+        #matrix-body tr:hover { background: rgba(255,255,255,0.03); }
+        #matrix-body td { border-bottom: 1px solid rgba(255,255,255,0.04) !important; }
+
+        .glass-action-btn {
+            background: rgba(255,255,255,0.06) !important;
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.12);
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            color: white !important;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .glass-action-btn:hover {
+            background: rgba(255,255,255,0.11) !important;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 1px var(--clr-primary) !important;
+            transform: translateY(-1px);
+        }
+        .glass-action-btn.btn-rad { border-color: rgba(var(--clr-primary-rgb,249,115,22), 0.4) !important; color: var(--clr-accent) !important; }
+        .glass-action-btn.btn-rad:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 16px rgba(var(--clr-primary-rgb,249,115,22),0.3) !important; }
+        .glass-action-btn.btn-sale { border-color: rgba(239,68,68,0.4) !important; color: #fca5a5 !important; }
+        .glass-action-btn.btn-sale:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.4), 0 0 16px rgba(239,68,68,0.3) !important; }
+        .glass-action-btn.btn-blind { border-color: rgba(148,163,184,0.25) !important; }
+
+        #btn-draw {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.15) !important;
+            box-shadow: 0 0 20px rgba(var(--clr-primary-rgb,249,115,22),0.25), 0 8px 24px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2) !important;
+            transition: all 0.2s;
+        }
+        #btn-draw::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%); pointer-events: none; }
+        #btn-draw:hover { box-shadow: 0 0 32px rgba(var(--clr-primary-rgb,249,115,22),0.4), 0 12px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.25) !important; transform: translateY(-1px); }
+
+        #joker-legend { background: rgba(0,0,0,0.2) !important; backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.06) !important; }
+        #matrix-active-bid-start-price { font-size: 18px; font-weight: 900; text-shadow: 0 0 12px rgba(163,230,53,0.5); }
+        .joker-badge { backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+
+        #matrix-search-results { background: rgba(15,15,25,0.95) !important; backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1) !important; }
+        #matrix-search-results li { border-bottom: 1px solid rgba(255,255,255,0.05); }
+        #matrix-search-results li:hover { background: rgba(255,255,255,0.07); }
+
+        /* ACTION LOG BEGRENZUNG AUF 8 ZEILEN */
+        #sap-log-list {
+            max-height: 160px;
+            overflow-y: auto;
+        }
+
+        /* RECHTES PANEL EIN-/AUSKLAPPEN */
+        #right-panel {
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        min-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            min-width: 220px;
+        }
+        #right-panel-content {
+            transition: opacity 0.2s ease;
+        }
+        #right-panel.panel-collapsed {
+            width: 0 !important;
+            min-width: 0 !important;
+        }
+        #right-panel.panel-collapsed #right-panel-content {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+        /* Toggle-Button: eigene Grid-Zelle, klebt immer am Panel-Rand */
+        #panel-toggle-col {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            flex-shrink: 0;
+        }
+        #panel-toggle {
+            position: sticky;
+            top: 50%;
+            width: 16px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #292524;
+            border: 1px solid #57534e;
+            border-right: none;
+            border-radius: 8px 0 0 8px;
+            color: #a8a29e;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            font-size: 9px;
+            box-shadow: -2px 0 8px rgba(0,0,0,0.5);
+            padding: 0;
+        }
+        #panel-toggle:hover {
+            background: #7c2d12;
+            color: white;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between relative">
+
+    <header class="theme-header-bg border-b-2 px-6 py-4 flex flex-wrap justify-between items-center shadow-lg relative z-20">
+        <div class="flex items-center gap-3">
+            <span id="ui-theme-icon" class="text-3xl animate-bounce">⏳</span>
+            <div>
+                <h1 id="ui-game-title" class="font-black text-2xl theme-gradient-title tracking-wide uppercase theme-font-display">Lade...</h1>
+                <p id="game-info-subtitle" class="text-xs text-stone-400"></p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-start gap-4 mt-4 lg:mt-0">
+            <div class="flex flex-col gap-2">
+                <div id="setup-controls" class="bg-black/40 px-3 py-1.5 rounded-xl border border-stone-700 flex flex-wrap items-center gap-2">
+                    <div class="flex items-center gap-2">
+                        <span id="ui-player-term" class="text-xs font-bold text-stone-400">Spieler:</span>
+                        <div class="flex gap-1" id="mgr-count-buttons"></div>
+                    </div>
+                    <div class="flex items-center gap-2 border-l border-stone-700 pl-3">
+                        <span id="ui-budget-term" class="text-[10px] font-bold text-stone-400">Start:</span>
+                        <input type="number" id="input-start-budget" value="1000000" step="50000" min="10000" class="bg-[#1c1917] border border-stone-600 text-white text-[11px] rounded p-1 w-20 outline-none text-center font-bold">
+                    </div>
+                    <div class="flex items-center gap-2 border-l border-stone-700 pl-3">
+                        <span class="text-[10px] font-bold text-yellow-500" title="Event-Wahrscheinlichkeit">Event:</span>
+                        <select id="input-event-chance" class="bg-[#1c1917] border border-yellow-900/50 text-white text-[11px] rounded p-1 outline-none text-center font-bold focus:border-yellow-500" onchange="updateEventChanceDisplays()">
+                            <option value="0">0%</option>
+                            <option value="0.05">5%</option>
+                            <option value="0.10" selected>10%</option>
+                            <option value="0.15">15%</option>
+                            <option value="0.20">20%</option>
+                        </select>
+                    </div>
+                    <div class="border-l border-stone-700 pl-3 flex gap-1">
+                        <button onclick="openCategoryModal()" class="bg-[#1c1917] hover:bg-orange-900 text-stone-300 hover:text-white text-[10px] font-bold px-2 py-1 rounded transition border border-stone-600">
+                            <i class="fa-solid fa-layer-group"></i> Kategorien
+                        </button>
+                        <button onclick="document.getElementById('shortcuts-modal').classList.remove('hidden')" class="bg-[#1c1917] hover:bg-stone-700 text-stone-300 hover:text-white text-[10px] font-bold px-2 py-1 rounded transition border border-stone-600">
+                            <i class="fa-solid fa-keyboard"></i> Shortcuts
+                        </button>
+<button onclick="document.getElementById('settings-modal').classList.remove('hidden'); initSettingsModal()" class="bg-[#1c1917] hover:bg-stone-700 text-stone-300 hover:text-white text-[10px] font-bold px-2 py-1 rounded transition border border-stone-600" title="Spiel-Einstellungen">
+    <i class="fa-solid fa-gear"></i>
+</button>
+                        <button onclick="promptRestart(countManagers)" class="bg-[#1c1917] hover:bg-red-900 text-stone-300 hover:text-white text-[10px] font-bold px-2 py-1 rounded transition border border-stone-600">
+                            <i class="fa-solid fa-rotate-right"></i> Neustart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex rounded-lg bg-black/40 p-1 border border-stone-700">
+                <button id="tab-matrix" onclick="switchView('matrix')" class="px-4 py-1.5 rounded-md text-xs font-bold text-white transition-all-custom">Hauptansicht</button>
+                <button id="tab-admin" onclick="switchView('admin')" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#1c1917] text-stone-400 hover:text-white border border-stone-700 transition-all-custom">Datenbank</button>
+                <button id="tab-used" onclick="switchView('used')" class="px-4 py-1.5 rounded-md text-xs font-bold text-stone-400 hover:text-white transition-all-custom">Gesichert</button>
+                <button id="tab-shredded" onclick="switchView('shredded')" class="px-4 py-1.5 rounded-md text-xs font-bold text-stone-400 hover:text-white transition-all-custom">Klo</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow p-4 md:p-6" id="main-content">
+        <div id="view-matrix" class="grid grid-cols-1 xl:grid-cols-[1fr_16px_minmax(0,auto)] gap-0 xl:gap-x-0 h-full min-h-[calc(100vh-160px)]">
+            <div class="flex flex-col h-full gap-4 xl:pr-0 min-w-0">
+                
+                <div class="matrix-table-wrap flex-grow overflow-hidden relative">
+                    <div class="overflow-x-auto h-full">
+                        <table class="w-full text-left border-collapse table-fixed">
+                            <thead class="sticky top-0 z-[40] shadow-md">
+                                <tr id="matrix-header-row" class="text-[10px] uppercase tracking-wider font-black text-stone-400"></tr>
+                            </thead>
+                            <tbody id="matrix-body" class="divide-y divide-white/[0.04] text-sm"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-toggle-col">
+                <button id="panel-toggle" onclick="toggleRightPanel()" title="Panel ein-/ausklappen">
+                    <i id="panel-toggle-icon" class="fa-solid fa-chevron-right"></i>
+                </button>
+            </div>
+            <div id="right-panel" class="flex flex-col gap-4 h-full xl:pl-4">
+                <div id="right-panel-content" class="flex flex-col gap-4 h-full">
+                    <div class="flex gap-2 shrink-0">
+                        <button onclick="spinBonusWheelAll()" class="flex-1 glass-action-btn btn-rad py-2.5 rounded-xl text-[11px]">
+                            <i class="fa-solid fa-dharmachakra"></i> Rad
+                        </button>
+                        <button onclick="startDutchAuction()" class="flex-1 glass-action-btn btn-sale py-2.5 rounded-xl text-[11px]">
+                            <i class="fa-solid fa-fire"></i> Sale
+                        </button>
+                        <button onclick="triggerBlindAuctionEvent()" class="flex-1 glass-action-btn btn-blind py-2.5 rounded-xl text-[11px]">
+                            <i class="fa-solid fa-eye-slash"></i> Blind
+                        </button>
+                    </div>
+
+                    <button id="btn-draw" onclick="drawMatrixRandomPlayer()" class="w-full shrink-0 relative group overflow-hidden theme-gradient-btn text-stone-900 font-black py-3.5 px-6 rounded-xl shadow-lg border border-stone-500 transition-all-custom text-[11px] tracking-widest uppercase theme-font-display">
+                        Neue Lieferung Ziehen
+                    </button>
+
+                    <div class="glass-deal rounded-2xl p-4 relative overflow-visible flex flex-col gap-3 shrink-0">
+                        <div class="flex justify-between items-center glass-header pb-2 mb-1 gap-2">
+                            <h3 class="text-sm font-black text-white/90 uppercase tracking-wider flex items-center gap-2 shrink-0">
+                                <i class="fa-solid fa-gavel" style="color:var(--clr-primary)"></i> Aktueller Deal
+                            </h3>
+                            <div class="relative w-24 shrink-0 z-[60]">
+                                <div class="flex items-center glass rounded-lg px-2 transition">
+                                    <i class="fa-solid fa-search text-stone-500 text-[8px] ml-1"></i>
+                                    <input type="text" id="matrix-manual-search" oninput="handleMatrixSearch(this.value)" placeholder="Karte suchen..." class="w-full bg-transparent text-white text-[8px] p-1.5 outline-none font-semibold placeholder:text-white/25">
+                                </div>
+                                <ul id="matrix-search-results" class="absolute left-0 right-0 top-full mt-1 bg-stone-800 border border-stone-600 rounded-lg shadow-2xl max-h-48 overflow-y-auto hidden z-[100]"></ul>
+                            </div>
+                        </div>
+                        <div class="glass-inset rounded-xl p-3 min-h-[110px] flex flex-col justify-center relative">
+                            <div id="matrix-active-bid-target" class="text-lg font-black text-white mb-1 leading-tight">Nichts gezogen</div>
+                            <div id="matrix-active-bid-start-price" class="text-[16px] font-bold text-lime-400 mb-1"></div>
+                            <div id="matrix-active-bid-desc" class="text-stone-400 italic"></div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <select id="matrix-auction-buyer" class="w-full glass-input font-bold rounded-lg p-2 text-xs"></select>
+                            <div class="relative">
+                                <input type="number" id="matrix-auction-price" class="w-full glass-input font-bold rounded-lg p-2 text-xs" placeholder="Betrag eingeben...">
+                                <div class="flex gap-1.5 mt-1.5">
+                                    <button onclick="getConf('economy','biddingStep')" class="flex-[0.8] glass-action-btn btn-blind py-1.5 rounded-lg text-[10px]">+5k</button>
+                                    <button id="btn-punish" onclick="punishLoser()" class="flex-1 bg-red-900/40 hover:bg-red-800/60 text-red-400 hover:text-white font-black py-1.5 rounded border border-red-900 text-[10px] uppercase shadow transition">Strafe</button>
+                                    <button onclick="executeMatrixAuction()" class="flex-[1.5] bg-green-600 hover:bg-green-500 text-white text-[11px] font-black py-1.5 rounded border border-green-700 shadow uppercase transition">Kaufen</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="joker-legend" class="bg-[#292524]/50 p-3.5 rounded-xl border border-stone-700/60 shrink-0 w-full"></div>
+
+                    <div class="glass-log rounded-2xl p-3 flex flex-col flex-grow min-h-[150px]">
+                        <h3 class="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1.5 border-b border-white/[0.06] pb-1 flex justify-between shrink-0">
+                            <span>Aktivitäten-Log</span>
+                            <button id="btn-undo-purchase" onclick="undoLastPurchase()" class="text-red-400 hover:text-red-300 hidden"><i class="fa-solid fa-rotate-left"></i> Storno</button>
+                        </h3>
+                        <ul id="sap-log-list" class="flex-grow overflow-y-auto space-y-1 pr-1 tags-scrollbar text-[10px]"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-admin" class="hidden h-full flex flex-col gap-4">
+            <div class="flex flex-wrap items-center justify-between gap-4 bg-[#292524] p-3 rounded-xl border border-stone-700 shadow-sm shrink-0">
+                <div class="flex gap-2">
+                    <button onclick="switchAdminTab('catalog')" id="admin-subtab-catalog" class="px-4 py-2 rounded-lg text-xs font-bold theme-primary-bg text-stone-900 shadow-md transition-all-custom">Inventar</button>
+                    <button onclick="switchAdminTab('events')" id="admin-subtab-events" class="px-4 py-2 rounded-lg text-xs font-bold bg-[#1c1917] text-stone-400 hover:text-white border border-stone-700 transition-all-custom">Gerüchte & Events</button>
+                </div>
+                
+                <div class="flex items-center gap-3 border-l border-stone-700 pl-4">
+                    <button onclick="resetDatabase()" class="text-[10px] text-stone-500 hover:text-red-400 transition font-bold"><i class="fa-solid fa-rotate-left"></i> DB Reset</button>
+                    <span class="text-stone-600">|</span>
+                    <button onclick="exportDB()" class="text-[10px] text-stone-500 hover:text-green-400 transition font-bold"><i class="fa-solid fa-download"></i> Export</button>
+                    <button onclick="document.getElementById('import-file').click()" class="text-[10px] text-stone-500 hover:text-orange-400 transition ml-2 font-bold"><i class="fa-solid fa-upload"></i> Import</button>
+                    <input type="file" id="import-file" class="hidden" accept=".json" onchange="importDB(event)">
+                </div>
+            </div>
+
+            <div id="admin-catalog-view" class="flex flex-col flex-grow gap-4">
+                <div class="flex flex-col md:flex-row justify-between gap-4 shrink-0">
+                    <div id="admin-category-filters" class="flex flex-wrap gap-1.5 bg-black/50 p-2 rounded-lg border border-stone-700"></div>
+                    <div class="flex items-center bg-black border border-stone-600 rounded-lg px-2 w-full md:w-64">
+                        <i class="fa-solid fa-search text-stone-500 text-[10px] ml-1"></i>
+                        <input type="text" id="admin-search-input" oninput="renderAdminPool()" placeholder="Suchen..." class="w-full bg-transparent text-white text-[11px] p-2 outline-none font-semibold">
+                    </div>
+                </div>
+
+                <div id="quick-auction-panel" class="bg-[#1c1917] p-4 rounded-xl border border-stone-700 shrink-0 grid grid-cols-1 md:grid-cols-12 gap-4 items-center shadow-lg">
+                    <div id="auction-details-container" class="md:col-span-10 grid grid-cols-1 md:grid-cols-10 gap-4 w-full">
+                        <div class="md:col-span-4">
+                            <span class="text-xs text-stone-400 block mb-1">Ausgewählte Ware:</span>
+                            <div id="active-bid-target" class="text-base font-black text-orange-400">Nichts ausgewählt</div>
+                            <div id="active-bid-start-price" class="text-xs text-stone-500">Mindestpreis: -</div>
+                            <div id="active-bid-desc" class="text-stone-400 mt-2 italic"></div>
+                        </div>
+                        <div class="md:col-span-3 flex flex-col justify-center">
+                            <select id="auction-buyer" class="w-full bg-[#292524] border border-stone-600 text-white rounded p-2 text-xs outline-none"></select>
+                        </div>
+                        <div class="md:col-span-3 flex flex-col justify-center">
+                            <input id="auction-price" type="number" step="5000" placeholder="Kosten manuell..." class="w-full bg-[#292524] border border-stone-600 text-white rounded p-2 text-xs outline-none">
+                        </div>
+                    </div>
+                    
+                    <div id="shredder-details-container" class="hidden md:col-span-10 flex items-center justify-center border-2 border-dashed border-red-900 bg-red-950/20 rounded-lg p-4">
+                        <div class="text-center">
+                            <i class="fa-solid fa-toilet text-red-500 text-2xl mb-1 animate-pulse"></i>
+                            <div class="text-red-400 font-bold text-sm">Spül-Modus aktiv</div>
+                            <div class="text-stone-300 text-xs mt-1">Klicke unten Karten an, um sie ins Klo zu werfen!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:col-span-2 flex flex-col gap-1.5" id="admin-controls-container">
+                        <div id="normal-admin-controls" class="flex flex-col gap-1.5">
+                            <button onclick="executeAuction()" class="w-full theme-primary-bg text-stone-900 text-xs font-bold py-2 rounded shadow transition">Zuweisen</button>
+                            <div class="flex gap-1.5">
+                                <button id="manual-catalog-toggle" onclick="toggleCatalogManually()" class="flex-1 w-full bg-[#292524] hover:bg-stone-700 text-stone-300 text-[10px] font-bold py-1.5 px-1 rounded transition border border-stone-600">Verbergen</button>
+                                <button onclick="toggleShredderMode()" class="flex-1 w-full bg-red-900/80 hover:bg-red-600 text-white text-[10px] font-bold py-1.5 px-1 rounded transition border border-red-700 shadow">🚽 Spülen</button>
+                            </div>
+                        </div>
+                        <div id="shredder-admin-controls" class="hidden flex flex-col gap-1.5">
+                            <button onclick="executeShredding()" id="btn-execute-shred" class="w-full bg-red-600 hover:bg-red-500 text-white text-xs font-bold py-2 rounded shadow transition">0 Vernichten</button>
+                            <button onclick="selectAllBadItems()" class="w-full bg-red-900/50 hover:bg-red-800 text-red-200 text-[10px] font-bold py-1.5 px-1 rounded transition border border-red-700">Alle Clowns markieren</button>
+                            <button onclick="toggleShredderMode()" class="w-full bg-stone-700 hover:bg-stone-600 text-stone-300 text-[10px] font-bold py-1.5 px-1 rounded transition border border-stone-600">Abbrechen</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="catalog-hidden-placeholder" class="hidden bg-[#1c1917]/90 border-2 border-dashed border-orange-500/30 rounded-xl p-12 text-center my-4 shrink-0">
+                    <span class="text-5xl mb-4 animate-bounce block">🔒</span>
+                    <h3 class="text-lg font-black text-orange-400 uppercase">Katalog geschlossen</h3>
+                    <button onclick="forceShowCatalog()" class="mt-4 bg-stone-700 hover:bg-stone-600 text-stone-300 text-xs font-bold py-2 px-5 rounded">Aufbrechen</button>
+                </div>
+
+                <div id="catalog-container" class="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-grow overflow-hidden">
+                    <div class="bg-[#1c1917]/80 rounded-xl border border-stone-800 p-3 flex flex-col h-full relative">
+                        <h3 class="text-[11px] font-black text-yellow-500 uppercase mb-2 border-b border-stone-700 pb-1 sticky top-0 bg-[#1c1917] z-10">🏆 Premium</h3>
+                        <div id="pool-gut" class="flex flex-col gap-2 overflow-y-auto tags-scrollbar flex-grow pr-1"></div>
+                    </div>
+                    <div class="bg-[#1c1917]/80 rounded-xl border border-stone-800 p-3 flex flex-col h-full relative">
+                        <h3 class="text-[11px] font-black text-blue-400 uppercase mb-2 border-b border-stone-700 pb-1 sticky top-0 bg-[#1c1917] z-10">⚖️ Standard</h3>
+                        <div id="pool-mittel" class="flex flex-col gap-2 overflow-y-auto tags-scrollbar flex-grow pr-1"></div>
+                    </div>
+                    <div class="bg-[#1c1917]/80 rounded-xl border border-stone-800 p-3 flex flex-col h-full relative">
+                        <h3 class="text-[11px] font-black text-rose-500 uppercase mb-2 border-b border-stone-700 pb-1 sticky top-0 bg-[#1c1917] z-10">🤡 Schrott</h3>
+                        <div id="pool-schlecht" class="flex flex-col gap-2 overflow-y-auto tags-scrollbar flex-grow pr-1"></div>
+                    </div>
+                </div>
+            </div>
+
+              <div id="admin-events-view" class="hidden flex-grow overflow-y-auto">
+                <div class="mb-4">
+                    <h2 class="text-lg font-bold text-yellow-500 uppercase tracking-widest"><i class="fa-solid fa-bullhorn"></i> Events / Gerüchte</h2>
+                    <p class="text-xs text-stone-400 mt-1">Aktuelle Wahrscheinlichkeit: <span id="event-chance-display-admin" class="text-yellow-400 font-bold">10%</span>.</p>
+                </div>
+                <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+            </div>
+        </div>
+        
+        <div id="view-used" class="hidden h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4 bg-[#292524] p-4 rounded-xl border border-stone-700">
+                <div>
+                    <h2 class="text-lg font-bold text-orange-400"><i class="fa-solid fa-check-double"></i> Gesicherte Ware</h2>
+                    <p class="text-[10px] text-stone-400">Alles, was bereits fest einem Spieler zugewiesen wurde.</p>
+                </div>
+                <button onclick="returnAllToPool()" class="bg-stone-700 hover:bg-stone-600 text-stone-300 hover:text-white text-xs font-bold py-2 px-4 rounded transition border border-stone-500">Alle zurück in den Katalog</button>
+            </div>
+            <div id="used-container" class="grid grid-cols-2 lg:grid-cols-6 gap-4 overflow-y-auto content-start flex-grow"></div>
+        </div>
+        
+        <div id="view-shredded" class="hidden h-full flex flex-col">
+            <div class="flex justify-between items-center mb-4 bg-[#292524] p-4 rounded-xl border border-stone-700">
+                <div>
+                    <h2 class="text-lg font-bold text-red-500"><i class="fa-solid fa-toilet"></i> Verstopftes Klo (Vernichtet)</h2>
+                    <p class="text-[10px] text-stone-400">Karten, die aussortiert wurden.</p>
+                </div>
+                <button onclick="emptyTrash()" class="bg-red-900/80 hover:bg-red-600 text-white text-xs font-bold py-2 px-4 rounded transition border border-red-700">Endgültig leeren</button>
+            </div>
+            <div id="shredded-container" class="grid grid-cols-2 lg:grid-cols-6 gap-4 overflow-y-auto content-start flex-grow"></div>
+        </div>
+    </main>
+
+    <!-- JOKER MODAL MIT NEUEN REGELN -->
+<div id="joker-phase-modal" class="fixed inset-0 bg-stone-900/80 backdrop-blur-sm hidden flex items-center justify-center z-[140] p-4">
+    <div class="bg-[#121212] border border-stone-800 max-w-4xl w-full rounded-xl shadow-2xl flex flex-col overflow-hidden">
+        <div class="px-6 py-5 border-b border-stone-800 flex justify-between items-center bg-[#181818]">
+            <div>
+                <h2 class="text-lg font-semibold text-stone-100 tracking-tight">Joker wählen</h2>
+                <p class="text-xs text-stone-500 mt-1">Spezialaktionen sind auf eine Nutzung pro Phase limitiert.</p>
+            </div>
+            <div class="h-8 w-8 rounded bg-stone-800 flex items-center justify-center text-stone-400">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+        </div>
+        
+        <div class="p-6 bg-[#121212]">
+            <div id="joker-phase-list" class="flex flex-col max-h-[50vh] overflow-y-auto pr-2 tags-scrollbar"></div>
+        </div>
+        
+        <div class="px-6 py-4 border-t border-stone-800 bg-[#181818] flex justify-end">
+            <button onclick="closeJokerPhase()" class="px-5 py-2 text-sm font-medium text-stone-900 bg-stone-200 hover:bg-white rounded transition-colors shadow-sm">
+                Weiterspielen
+            </button>
+        </div>
+    </div>
+</div>
+    <div id="category-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center z-[250] p-4">
+        <div class="bg-[#292524] border-2 border-orange-500 max-w-sm w-full rounded-xl p-5 shadow-2xl relative z-10">
+            <h3 class="text-xl font-bold text-white mb-4"><i class="fa-solid fa-layer-group text-orange-400"></i> Aktive Kategorien</h3>
+            <p class="text-xs text-stone-400 mb-4">Wähle, welche Kategorien in dieser Zelle aktiv sein sollen.</p>
+            <div id="category-checkboxes" class="flex flex-col gap-2 mb-6 max-h-[50vh] overflow-y-auto tags-scrollbar"></div>
+            <div class="flex justify-center gap-3">
+                <button onclick="saveCategories()" class="w-full theme-primary-bg text-stone-900 font-bold text-xs py-2 px-5 rounded transition uppercase shadow">Speichern & Schließen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shortcuts-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center z-[300] p-4">
+        <div class="bg-[#292524] border-2 border-stone-500 max-w-lg w-full rounded-xl p-6 shadow-2xl relative z-10">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-white"><i class="fa-solid fa-keyboard text-stone-400 mr-2"></i> Tastaturkürzel</h3>
+                <button onclick="document.getElementById('shortcuts-modal').classList.add('hidden')" class="text-stone-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="grid grid-cols-2 gap-x-8 gap-y-6 text-xs text-stone-300">
+                <div class="space-y-3">
+                    <h4 class="font-bold text-orange-400 border-b border-stone-700 pb-1 mb-2">System</h4>
+                    <div class="flex justify-between items-center"><span>Ware ziehen</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">Leertaste</kbd></div>
+                    <div class="flex justify-between items-center"><span>Kaufen / Okay</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">Enter</kbd></div>
+                    <div class="flex justify-between items-center"><span>Glücksrad</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">G</kbd></div>
+                    <div class="flex justify-between items-center"><span>Storno (Undo)</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">Z</kbd></div>
+                </div>
+                <div class="space-y-3">
+                    <h4 class="font-bold text-orange-400 border-b border-stone-700 pb-1 mb-2">Auktion</h4>
+                    <div class="flex justify-between items-center"><span>Spieler wählen</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">Num 1 - 7</kbd></div>
+                    <div class="flex justify-between items-center"><span>Preis + Step</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">↑ Hoch</kbd></div>
+                    <div class="flex justify-between items-center"><span>Preis - Step</span><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">↓ Runter</kbd></div>
+                </div>
+                <div class="space-y-3 col-span-2 mt-2">
+                    <h4 class="font-bold text-orange-400 border-b border-stone-700 pb-1 mb-2">Navigation (Tabs)</h4>
+                    <div class="flex justify-between items-center max-w-sm mx-auto w-full gap-4">
+                        <span class="flex items-center gap-2"><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">M</kbd> Matrix</span>
+                        <span class="flex items-center gap-2"><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">A</kbd> Katalog</span>
+                        <span class="flex items-center gap-2"><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">U</kbd> Gesichert</span>
+                        <span class="flex items-center gap-2"><kbd class="bg-stone-800 border border-stone-600 px-2 py-0.5 rounded text-white shadow">S</kbd> Klo</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center z-[300] p-4">
+        <div class="bg-[#292524] border-2 border-stone-500 max-w-sm w-full rounded-xl p-5 text-center shadow-2xl relative z-10">
+            <h3 class="text-xl font-bold text-white mb-4">Akte bearbeiten</h3>
+            <input type="hidden" id="edit-item-id"><input type="hidden" id="edit-item-cat">
+            <div class="flex flex-col gap-4 mb-6 text-left">
+                <div>
+                    <label class="text-xs text-stone-400 block mb-1">Kategorie ändern</label>
+                    <select id="edit-item-dbcat" class="w-full bg-stone-800 border border-stone-600 text-white rounded p-2 text-sm outline-none font-bold focus:border-orange-500"></select>
+                </div>
+                <div>
+                    <label class="text-xs text-stone-400 block mb-1">Qualität (Stufe)</label>
+                    <select id="edit-item-tier" class="w-full bg-stone-800 border border-stone-600 text-white rounded p-2 text-sm outline-none font-bold focus:border-orange-500">
+                        <option value="gut">🏆 Premium (Hilfreich)</option>
+                        <option value="mittel">⚖️ Standard</option>
+                        <option value="schlecht">🤡 Schrott (Nutzlos/Risiko)</option>
+                    </select>
+                </div>
+                <div class="flex gap-4">
+                    <div class="w-1/2">
+                        <label class="text-xs text-stone-400 block mb-1">Preis / Kosten</label>
+                        <input type="number" id="edit-item-price" class="w-full bg-stone-800 border border-stone-600 text-white rounded p-2 text-sm outline-none font-bold focus:border-orange-500">
+                    </div>
+                    <div class="w-1/2">
+                        <label class="text-xs text-stone-400 block mb-1">Punkte / Wert</label>
+                        <input type="number" id="edit-item-score" class="w-full bg-stone-800 border border-stone-600 text-white rounded p-2 text-sm outline-none font-bold focus:border-orange-500">
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center gap-3">
+                <button onclick="saveEditItem()" class="theme-primary-bg text-stone-900 font-bold text-xs py-2 px-5 rounded transition uppercase shadow">Speichern</button>
+                <button onclick="document.getElementById('edit-modal').classList.add('hidden')" class="bg-stone-700 hover:bg-stone-600 text-stone-300 font-bold text-xs py-2 px-5 rounded transition uppercase border border-stone-600">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="perks-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden flex items-center justify-center z-[110] p-4">
+        <div class="theme-bg-card border-2 theme-primary-border rounded-2xl p-6 max-w-2xl w-full flex flex-col max-h-[90vh]">
+            <div class="text-center mb-6 border-b border-stone-700 pb-4 shrink-0">
+                <h2 class="text-3xl font-black theme-primary-text uppercase tracking-widest theme-font-display"><i class="fa-solid fa-id-card"></i> Rollen & Setup</h2>
+                <p class="text-stone-300 text-sm mt-2">Wählt die Fähigkeiten (Perks) für diese Runde aus.</p>
+            </div>
+            <div id="perk-setup-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow overflow-y-auto mb-6 pr-2"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-3 mt-auto shrink-0">
+                <button onclick="openPerkCatalog()" class="flex-1 bg-stone-700 hover:bg-stone-600 text-stone-300 hover:text-white font-bold text-sm py-2.5 rounded-xl transition uppercase border border-stone-500">
+                    <i class="fa-solid fa-book-open mr-1"></i> Perks prüfen
+                </button>
+                <button onclick="startGameWithoutPerks()" class="flex-1 bg-red-900/50 hover:bg-red-800 text-red-200 hover:text-white font-bold text-sm py-2.5 rounded-xl transition uppercase border border-red-700">
+                    Ohne Spielen
+                </button>
+                <button onclick="applyPerksAndStart()" class="flex-[2] theme-gradient-btn text-stone-900 font-black text-sm py-2.5 rounded-xl transition uppercase shadow-lg hover:scale-[1.02]">
+                    Starten
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="perk-catalog-modal" class="fixed inset-0 bg-black/95 backdrop-blur-md hidden flex flex-col items-center justify-center z-[500] p-4">
+        <div class="theme-bg-base border-4 theme-primary-border max-w-3xl w-full rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closePerkCatalog()" class="absolute top-4 right-4 text-stone-400 hover:text-white transition text-2xl"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="text-3xl font-black theme-primary-text mb-2 uppercase tracking-widest text-center theme-font-display"><i class="fa-solid fa-book-open"></i> Perk-Lexikon</h2>
+            <p class="text-stone-300 text-sm mb-6 text-center"> Eine Übersicht aller Spezialfähigkeiten und ihrer Effekte.</p>
+            <div id="perk-catalog-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto pr-2 tags-scrollbar"></div>
+            <button onclick="closePerkCatalog()" class="mt-6 w-full bg-stone-700 hover:bg-stone-600 text-white font-black text-lg py-3 rounded-xl transition uppercase shadow-lg">Zurück zur Auswahl</button>
+        </div>
+    </div>
+
+    <div id="event-modal" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-[100] backdrop-blur-sm"><div class="bg-[#1c1917] border-2 border-yellow-500 rounded-2xl p-8 max-w-md w-full text-center relative overflow-hidden"><div class="text-5xl mb-4 animate-bounce">📰</div><h2 id="event-modal-title" class="text-2xl font-black text-yellow-400 mb-4 uppercase tracking-widest">Event</h2><p id="event-modal-desc" class="text-stone-300 mb-6 text-sm bg-black/40 p-4 rounded-xl border border-stone-800"></p><div id="event-modal-result" class="text-lg font-bold text-white bg-stone-800 p-4 rounded-xl border border-stone-600 mb-6"></div><button onclick="document.getElementById('event-modal').classList.add('hidden')" class="w-full bg-yellow-600 text-black font-black py-3 rounded-xl uppercase">Verstanden</button></div></div>
+    <div id="confirm-modal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[200] backdrop-blur-sm"><div class="bg-[#292524] border border-stone-600 rounded-xl p-6 max-w-sm w-full text-center"><p id="confirm-text" class="text-white font-bold mb-6"></p><div class="flex gap-3"><button onclick="closeConfirmModal()" class="flex-1 bg-[#1c1917] text-stone-300 py-2 rounded-lg border border-stone-700">Abbrechen</button><button id="confirm-yes-btn" class="flex-1 theme-primary-bg text-stone-900 font-bold py-2 rounded-lg">Bestätigen</button></div></div></div>
+    <div id="custom-modal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[200] backdrop-blur-sm"><div class="bg-[#292524] border border-stone-600 rounded-xl p-6 max-w-sm w-full text-center"><h2 id="modal-title" class="text-xl font-black text-white mb-2"></h2><p id="modal-text" class="text-stone-300 text-sm mb-6"></p><button onclick="closeModal()" class="w-full theme-primary-bg text-stone-900 font-bold py-2 rounded-lg">OK</button></div></div>
+    
+    <!-- GLÜCKSRAD ROULETTE MODAL MIT ZENTRALEM BTN -->
+    <div id="wheel-modal" class="fixed inset-0 bg-black/95 hidden flex flex-col items-center justify-center z-[150] backdrop-blur-md overflow-hidden p-4">
+        <h2 class="text-3xl font-black theme-gradient-title mb-4 uppercase tracking-widest theme-font-display"><i class="fa-solid fa-dharmachakra animate-spin" style="animation-duration: 20s"></i> Roulette</h2>
+        
+        <button id="wheel-spin-all-btn" onclick="spinAllWheels()" class="mb-6 bg-gradient-to-r from-orange-600 to-yellow-500 text-stone-900 text-xs font-black py-3 px-8 rounded-xl shadow-lg uppercase tracking-wider hover:scale-105 transition transform">
+            <i class="fa-solid fa-play mr-1"></i> Glücksrad Drehen
+        </button>
+
+        <div id="wheels-grid" class="flex flex-wrap justify-center gap-6 mb-8 w-full max-w-5xl overflow-y-auto max-h-[50vh] p-2 tags-scrollbar"></div>
+        <button id="wheel-close-btn" onclick="closeWheelModal()" class="hidden bg-stone-700 text-white font-black py-3 px-8 rounded-xl uppercase border border-stone-600">Beenden</button>
+    </div>
+
+    <div id="dutch-modal" class="fixed inset-0 bg-black/95 hidden flex flex-col items-center justify-center z-[100] backdrop-blur-md"><div class="text-center mb-8"><h2 class="text-4xl font-black text-red-500 uppercase animate-pulse mb-2">🔥 Notverkauf 🔥</h2></div><div class="bg-[#292524] border-4 border-red-600 rounded-2xl p-8 max-w-md w-full text-center mb-8"><div id="dutch-item-title" class="text-2xl font-black text-white mb-2"></div><div id="dutch-item-desc" class="text-sm text-stone-400 italic mb-6"></div><div class="bg-black/50 rounded-xl p-4 border border-stone-700"><div id="dutch-price" class="text-5xl font-black text-green-400"></div></div></div><div id="dutch-buttons-container" class="flex flex-wrap justify-center gap-4 max-w-4xl w-full px-4"></div><button onclick="clearInterval(dutchInterval); document.getElementById('dutch-modal').classList.add('hidden');" class="mt-5 text-stone-500 text-[10px] hover:text-white underline transition">Verkauf abbrechen</button></div>
+    <div id="block-modal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[150] backdrop-blur-sm"><div class="bg-[#292524] border-2 border-red-500 rounded-xl p-6 max-w-sm w-full text-center"><h2 class="text-2xl font-black text-red-500 mb-2 uppercase tracking-widest">Blockieren</h2><p class="text-stone-300 text-sm mb-6">Wen möchtest du sperren?</p><select id="block-select" class="w-full bg-[#1c1917] text-white p-3 rounded-lg border border-stone-600 mb-6 font-bold"></select><div class="flex gap-3"><button onclick="document.getElementById('block-modal').classList.add('hidden')" class="flex-1 bg-[#1c1917] text-stone-300 font-bold py-2 rounded-lg border border-stone-700">Abbrechen</button><button id="block-confirm-btn" class="flex-1 bg-red-600 text-white font-black py-2 rounded-lg">Sperren</button></div></div></div>
+    <div id="gamble-modal" class="fixed inset-0 bg-black/80 hidden flex items-center justify-center z-[150] backdrop-blur-sm"><div class="bg-[#292524] border-2 border-orange-500 rounded-xl p-6 max-w-sm w-full text-center"><h2 class="text-2xl font-black text-orange-500 mb-2 uppercase tracking-widest">Umtauschen</h2><select id="gamble-select" class="w-full bg-[#1c1917] text-white p-3 rounded-lg border border-stone-600 mb-6 text-sm"></select><div class="flex gap-3"><button onclick="document.getElementById('gamble-modal').classList.add('hidden')" class="flex-1 bg-[#1c1917] text-stone-300 font-bold py-2 rounded-lg border border-stone-700">Abbrechen</button><button id="gamble-confirm-btn" class="flex-1 bg-orange-600 text-white font-black py-2 rounded-lg">Tauschen</button></div></div></div>
+    <div id="gamble-choice-modal" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-[160] backdrop-blur-sm"><div class="bg-[#1c1917] border-2 border-orange-500 rounded-2xl p-6 max-w-4xl w-full flex flex-col max-h-[90vh]"><h2 class="text-2xl font-black text-orange-500 mb-6 uppercase text-center">Dein Privileg (Auswahl)</h2><div id="gamble-choice-options" class="grid grid-cols-1 md:grid-cols-3 gap-4 overflow-y-auto mb-4"></div><button onclick="cancelGambleChoice()" class="bg-[#292524] text-stone-400 text-sm font-bold py-3 rounded-xl border border-stone-700 mt-auto">Auswahl abbrechen</button></div></div>
+    <div id="blind-modal" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-[150] backdrop-blur-sm"><div class="bg-[#292524] border-4 border-stone-500 rounded-xl p-6 max-w-lg w-full text-center"><div class="text-4xl mb-4">❓</div><h2 class="text-2xl font-black text-white mb-4 uppercase">Blindflug</h2><p class="text-stone-300 text-sm mb-6 leading-relaxed">Kategorie: <strong id="blind-cat-name" class="text-white uppercase"></strong>. Jeder gibt einen Tipp ab! Wer am nächsten dran ist, bekommt es zur Hälfte.</p><div id="blind-inputs" class="flex flex-col gap-3 mb-6"></div><div class="flex gap-3"><button onclick="document.getElementById('blind-modal').classList.add('hidden')" class="flex-1 bg-[#1c1917] text-stone-300 font-bold py-3 rounded-lg border border-stone-700">Abbrechen</button><button id="blind-confirm-btn" class="flex-1 bg-stone-200 text-black font-black py-3 rounded-lg">Aufdecken</button></div></div></div>
+    <div id="endgame-modal" class="fixed inset-0 bg-black/95 hidden flex items-center justify-center z-[200] backdrop-blur-md"><div id="confetti-container" class="absolute inset-0 pointer-events-none overflow-hidden"></div><div class="bg-[#1c1917] border-2 border-yellow-500 rounded-3xl p-8 max-w-3xl w-full text-center relative shadow-[0_0_100px_rgba(234,179,8,0.2)] z-10"><h2 class="text-5xl font-black theme-gradient-title mb-2 uppercase tracking-widest theme-font-display">Endabrechnung</h2><div id="endgame-podium" class="flex flex-col gap-3 mb-8 text-left max-h-[50vh] overflow-y-auto pr-2 tags-scrollbar"></div><button onclick="location.reload()" class="bg-stone-800 text-white font-black py-3 px-8 rounded-xl uppercase border border-stone-600 shadow-lg hover:scale-105 transition transform">Neues Spiel starten</button></div></div>
+    <div id="hammer-container" class="fixed inset-0 pointer-events-none hidden z-[200]"><i class="fa-solid fa-handshake drop-shadow-[0_20px_20px_rgba(0,0,0,0.8)] absolute top-0 left-0 text-9xl" style="color: var(--clr-primary)"></i></div>
+    <div id="price-popup-container" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden z-[210] text-red-600 font-black text-8xl md:text-9xl drop-shadow-[0_0_30px_rgba(255,0,0,0.8)] whitespace-nowrap"></div>
+
+<div id="settings-modal" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-[500] backdrop-blur-md p-4" style="display:none">
+    <div class="bg-[#1c1917] border border-stone-700 rounded-2xl max-w-4xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+        
+        <div class="flex items-center justify-between px-6 py-4 border-b border-stone-700 bg-[#1c1917] z-10 shrink-0">
+            <h2 class="text-lg font-black uppercase tracking-widest text-orange-400">
+                <i class="fa-solid fa-sliders mr-2"></i> Spiel-Einstellungen
+            </h2>
+            <div class="flex items-center gap-4">
+                <button onclick="resetAllSettings()" class="text-xs text-stone-400 hover:text-yellow-400 font-bold transition border border-stone-700 hover:border-yellow-600 bg-stone-800 rounded px-3 py-1.5 shadow-sm">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> Standardwerte
+                </button>
+                <button onclick="document.getElementById('settings-modal').style.display='none'" class="text-stone-500 hover:text-white transition text-2xl leading-none">&times;</button>
+            </div>
+        </div>
+        
+        <div class="flex flex-col md:flex-row flex-grow overflow-hidden">
+            
+            <div id="settings-tabs-sidebar" class="w-full md:w-[35%] bg-[#292524] border-b md:border-b-0 md:border-r border-stone-700 overflow-y-auto tags-scrollbar p-3 shrink-0">
+                </div>
+            
+            <div id="settings-modal-body" class="w-full md:w-[65%] p-6 overflow-y-auto tags-scrollbar bg-[#1c1917]">
+                </div>
+            
+        </div>
+        
+        <div class="px-6 py-3 border-t border-stone-700 text-[10px] font-bold uppercase tracking-wider text-stone-500 text-center bg-[#292524] shrink-0">
+            Änderungen werden live übernommen und gelten sofort für das aktuelle Spiel.
+        </div>
+        
+    </div>
+</div>
+
+    <script>
+    (function() {
+const THEMES = {
+    alman: {
+        bgBase: '#0f1a0f', bgCard: '#162016', bgCard2: '#0f1a0f', borderColor: '#2d4a2d', borderSubtle: '#1e321e', primary: '#4ade80', primaryHover: '#22c55e', primaryGlow: 'rgba(74,222,128,0.25)', accent: '#a3e635', accentDim: '#1a2e08', gradientStart: '#4ade80', gradientEnd: '#a3e635', scrollbar: '#4ade80', fontDisplay: "'Rajdhani', sans-serif", bgPattern: "repeating-linear-gradient(45deg, rgba(74,222,128,0.1) 0px, rgba(74,222,128,0.1) 1px, transparent 1px, transparent 12px)", scanlines: false, textDim: '#4a6b4a', textMuted: '#7aab7a',
+    },
+    line: {
+        bgBase: '#100d08', bgCard: '#1a1410', bgCard2: '#100d08', borderColor: '#3d2e1a', borderSubtle: '#2a1e10', primary: '#f97316', primaryHover: '#ea6e0b', primaryGlow: 'rgba(249,115,22,0.3)', accent: '#fbbf24', accentDim: '#78350f', gradientStart: '#f97316', gradientEnd: '#fbbf24', scrollbar: '#f97316', fontDisplay: "'Bebas Neue', sans-serif", bgPattern: "repeating-linear-gradient(90deg, rgba(249,115,22,0.08) 0px, rgba(249,115,22,0.08) 1px, transparent 1px, transparent 40px), repeating-linear-gradient(0deg, rgba(249,115,22,0.08) 0px, rgba(249,115,22,0.08) 1px, transparent 1px, transparent 40px)", scanlines: false, textDim: '#6b4a26', textMuted: '#a87440',
+    },
+    memories: {
+        bgBase: '#0a0015', bgCard: '#130020', bgCard2: '#0a0015', borderColor: '#3d0060', borderSubtle: '#220040', primary: '#e879f9', primaryHover: '#d946ef', primaryGlow: 'rgba(232,121,249,0.3)', accent: '#22d3ee', accentDim: '#083344', gradientStart: '#e879f9', gradientEnd: '#22d3ee', scrollbar: '#e879f9', fontDisplay: "'Press Start 2P', monospace", bgPattern: "radial-gradient(circle at 25% 25%, rgba(232,121,249,0.12) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(34,211,238,0.12) 0%, transparent 50%)", scanlines: true, textDim: '#5a1f6b', textMuted: '#9b4dab',
+    },
+    office: {
+        bgBase: '#060a10', bgCard: '#0d1420', bgCard2: '#060a10', borderColor: '#1e3050', borderSubtle: '#131d2e', primary: '#38bdf8', primaryHover: '#0ea5e9', primaryGlow: 'rgba(56,189,248,0.25)', accent: '#818cf8', accentDim: '#1e1b4b', gradientStart: '#38bdf8', gradientEnd: '#818cf8', scrollbar: '#38bdf8', fontDisplay: "'Audiowide', monospace", bgPattern: "repeating-linear-gradient(0deg, transparent, transparent 31px, rgba(56,189,248,0.06) 31px, rgba(56,189,248,0.06) 32px)", scanlines: false, textDim: '#1e4060', textMuted: '#3a7090',
+    },
+    wehleiden: {
+        bgBase: '#0d0a06', bgCard: '#181210', bgCard2: '#0d0a06', borderColor: '#3d2510', borderSubtle: '#261606', primary: '#fb923c', primaryHover: '#f97316', primaryGlow: 'rgba(251,146,60,0.25)', accent: '#fcd34d', accentDim: '#713f12', gradientStart: '#fb923c', gradientEnd: '#fcd34d', scrollbar: '#fb923c', fontDisplay: "'Special Elite', cursive", bgPattern: "url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cpath d=%22M0 30h60M30 0v60%22 stroke=%22rgba(251,146,60,0.07)%22 stroke-width=%221%22/%3E%3C/svg%3E')", scanlines: false, textDim: '#5a3010', textMuted: '#8a5030',
+    },
+    hausbau: {
+        bgBase: '#0a0a0a', bgCard: '#141414', bgCard2: '#0a0a0a', borderColor: '#ea580c', borderSubtle: '#222222', primary: '#f97316', primaryHover: '#ea580c', primaryGlow: 'rgba(249,115,22,0.3)', accent: '#facc15', accentDim: '#291103', gradientStart: '#ea580c', gradientEnd: '#f97316', scrollbar: '#f97316', fontDisplay: "'Oswald', sans-serif", bgPattern: "none", scanlines: false, textDim: '#a3a3a3', textMuted: '#ffffff',
+    },
+    wedding: {
+        bgBase: '#0f0508', bgCard: '#1a0a10', bgCard2: '#0f0508',
+        borderColor: '#4a1525', borderSubtle: '#2d0c18',
+        primary: '#e11d48', primaryHover: '#be123c',
+        primaryGlow: 'rgba(225,29,72,0.25)',
+        accent: '#fbbf24', accentDim: '#451a03',
+        gradientStart: '#e11d48', gradientEnd: '#fbbf24',
+        scrollbar: '#e11d48',
+        fontDisplay: "'Cinzel', serif",
+        bgPattern: "radial-gradient(circle at 20% 80%, rgba(225,29,72,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(251,191,36,0.06) 0%, transparent 50%)",
+        scanlines: false,
+        textDim: '#8a7048', textMuted: '#c8a878',
+    }
+};
+
+        window.applyTheme = function(themeId) {
+            const t = THEMES[themeId]; if (!t) return;
+            const root = document.documentElement;
+            root.style.setProperty('--bg-base', t.bgBase);
+            root.style.setProperty('--bg-card', t.bgCard);
+            root.style.setProperty('--bg-card-2', t.bgCard2);
+            root.style.setProperty('--border-color', t.borderColor);
+            root.style.setProperty('--border-subtle', t.borderSubtle);
+            root.style.setProperty('--clr-primary', t.primary);
+            root.style.setProperty('--clr-primary-hover', t.primaryHover);
+            root.style.setProperty('--clr-primary-glow', t.primaryGlow);
+            root.style.setProperty('--clr-accent', t.accent);
+            root.style.setProperty('--clr-accent-dim', t.accentDim);
+            root.style.setProperty('--gradient-start', t.gradientStart);
+            root.style.setProperty('--gradient-end', t.gradientEnd);
+            root.style.setProperty('--scrollbar-color', t.scrollbar);
+            root.style.setProperty('--font-display', t.fontDisplay);
+            root.style.setProperty('--text-dim', t.textDim);
+            root.style.setProperty('--text-muted', t.textMuted);
+            if (t.bgPattern) root.style.setProperty('--bg-pattern', t.bgPattern);
+            document.body.style.backgroundColor = t.bgBase;
+            document.body.style.fontFamily = t.fontDisplay.replace(/'/g,"");
+            if (t.scanlines) document.body.classList.add('theme-scanlines');
+
+            const hammer = document.getElementById('hammer-container');
+            if (hammer) { const icon = hammer.querySelector('i'); if (icon) icon.style.color = t.primary; }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const urlTheme = params.get('theme');
+        if (urlTheme && THEMES[urlTheme]) window.applyTheme(urlTheme);
+
+        let _themeApplied = !!urlTheme;
+        const _themePoller = setInterval(() => {
+            if (_themeApplied) { clearInterval(_themePoller); return; }
+            const cfg = window.GAME_CONFIG || window.gameConfig || window.config;
+            if (cfg && cfg.themeId) { window.applyTheme(cfg.themeId); _themeApplied = true; clearInterval(_themePoller); }
+        }, 50);
+        setTimeout(() => clearInterval(_themePoller), 10000);
+    })();
+    </script>
+<!-- 3a: Config laden -->
+<script src="js/config_settings.js"></script>
+
+<!-- 3b: Modal-Logik + updateConfig() Bridge -->
+<script>
+const _settingsDefaults = JSON.parse(JSON.stringify(GameSettings));
+let currentSettingsTab = 'economy'; // Merkt sich den aktiven Tab
+
+const _settingsCategoryLabels = {
+    economy:     '💰 Ökonomie & BasisWerte',
+    mechanics:   '⚙️ Spielmechaniken',
+    roulette:    '🎡 Glücksrad',
+    dutchAuction:'🔥 Notverkauf',
+    scoring:     '🏆 Scoring & Abrechnung',
+    perks:       '🌟 Perk-Balancing',
+    ui:          '🎨 UI & Animationen'
+};
+
+// Neue Beschreibungen für die einzelnen Kategorien
+const _settingsCategoryDescriptions = {
+    economy: 'Verwalte das grundlegende Startkapital und die Biet-Schritte für Auktionen.',
+    mechanics: 'Passe Kernwahrscheinlichkeiten und Multiplikatoren für Joker-Einsätze an.',
+    roulette: 'Kontrolliere die Wahrscheinlichkeit und Dauer der Glücksrad-Eskalation.',
+    dutchAuction: 'Stelle ein, wie rasant die Preise im Notverkauf abstürzen.',
+    scoring: 'Definiere, wie viele Extrapunkte durch Synergien und Mitleids-Boni vergeben werden.',
+    perks: 'Balanciere die Stärken und Schwächen der individuellen Spieler-Fähigkeiten aus.',
+    ui: 'Optische Anpassungen wie Animationsgeschwindigkeiten und UI-Elemente.'
+};
+
+function initSettingsModal(activeCat = 'economy') {
+    currentSettingsTab = activeCat;
+    const modal = document.getElementById('settings-modal');
+    if (!modal) return;
+    
+    modal.style.display = 'flex';
+    modal.classList.remove('hidden');
+    
+    renderSettingsTabs();
+    renderSettingsContent(currentSettingsTab);
+}
+
+function renderSettingsTabs() {
+    const sidebar = document.getElementById('settings-tabs-sidebar');
+    if (!sidebar) return;
+    sidebar.innerHTML = '';
+    
+    Object.keys(GameSettings).forEach(cat => {
+        const isActive = cat === currentSettingsTab;
+        const btn = document.createElement('button');
+        
+        // Tailwind Styling für aktive/inaktive Tabs
+        btn.className = `w-full text-left px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 mb-1.5 flex items-center gap-3 ${
+            isActive 
+            ? 'bg-orange-600/20 text-orange-400 border border-orange-500/50 shadow-inner' 
+            : 'text-stone-400 hover:bg-stone-800 hover:text-stone-200 border border-transparent'
+        }`;
+        
+        btn.onclick = () => {
+            currentSettingsTab = cat;
+            renderSettingsTabs();
+            renderSettingsContent(cat);
+        };
+        
+        // Icon und Text splitten (für schöneres Layout)
+        const labelFull = _settingsCategoryLabels[cat] || cat;
+        const icon = labelFull.substring(0, 2);
+        const title = labelFull.substring(2).trim();
+        
+        btn.innerHTML = `<span class="text-xl">${icon}</span> <span>${title}</span>`;
+        sidebar.appendChild(btn);
+    });
+}
+
+function renderSettingsContent(cat) {
+    const body = document.getElementById('settings-modal-body');
+    if (!body) return;
+    body.innerHTML = '';
+    
+    // Kategorie-Kopfzeile
+    const headerInfo = document.createElement('div');
+    headerInfo.className = 'mb-6 pb-4 border-b border-stone-800';
+    headerInfo.innerHTML = `
+        <h3 class="text-2xl font-black text-white mb-2 tracking-wide">${_settingsCategoryLabels[cat] || cat}</h3>
+        <p class="text-sm text-stone-400 leading-relaxed italic">${_settingsCategoryDescriptions[cat] || ''}</p>
+    `;
+    body.appendChild(headerInfo);
+
+    // Wrapper für die Slider
+    const section = document.createElement('div');
+    section.className = 'flex flex-col gap-5';
+
+    Object.keys(GameSettings[cat]).forEach(key => {
+        const conf = GameSettings[cat][key];
+        const explanation = getSettingExplanation(key);
+        
+        const row = document.createElement('div');
+        row.className = 'bg-black/30 border border-stone-800 p-4 rounded-xl hover:border-stone-600 transition-colors shadow-inner';
+        row.innerHTML = `
+            <div class="flex justify-between items-start mb-3">
+                <div class="pr-4">
+                    <label class="text-sm font-bold text-stone-200 block mb-1">${conf.label}</label>
+                    <span class="text-[11px] text-stone-500 block leading-snug">${explanation}</span>
+                </div>
+                <div class="bg-stone-900 border border-stone-700 px-3 py-1.5 rounded-lg shrink-0 min-w-[70px] text-center shadow-md">
+                    <span id="sval-${cat}-${key}" class="text-orange-400 font-black text-sm tabular-nums">${conf.value.toLocaleString('de-DE')}</span>
+                </div>
+            </div>
+            <div class="relative pt-2">
+                <input type="range" min="${conf.min}" max="${conf.max}" step="${conf.step}" value="${conf.value}"
+                    class="w-full h-2 rounded-full appearance-none accent-orange-500 cursor-pointer bg-stone-700"
+                    oninput="updateConfig('${cat}','${key}',this.value)">
+                <div class="flex justify-between text-[10px] text-stone-600 mt-2 font-bold tracking-wider">
+                    <span>${conf.min.toLocaleString('de-DE')}</span>
+                    <span>${conf.max.toLocaleString('de-DE')}</span>
+                </div>
+            </div>`;
+        section.appendChild(row);
+    });
+    body.appendChild(section);
+}
+
+// Zentrale Funktion für verständliche Erklärungen im UI
+function getSettingExplanation(key) {
+    const explanations = {
+        startingBudget: "Das Startkapital jedes Spielers. Wird erst bei einem Neustart angewendet.",
+        biddingStep: "Der Betrag (+/-), um den der Preis per Klick im Auktionsfenster skaliert wird.",
+        defaultPlayerCount: "Die voreingestellte Anzahl der Manager beim Laden der Seite.",
+        baseEventChance: "Die Chance (z.B. 0.10 = 10%), dass beim Kartenziehen ein globales Gerücht triggert.",
+        autoBuyMultiplier: "Preisfaktor für den 'Bestechen'-Joker. (1.5 = 150% des Normalwerts der Karte).",
+        bonusCashbackFraction: "Wie viel Prozent des Kaufpreises der 'Schutz'-Joker direkt zurückerstattet.",
+        blindWinCostFraction: "Wie viel der Sieger eines Blindflugs vom tatsächlichen Kartenwert zahlen muss.",
+        highRollerChance: "Wahrscheinlichkeit, dass das Glücksrad in die völlige Eskalation wechselt.",
+        spinDurationMs: "Wie lange die Rad-Animation der Roulette-Runde dauert (in Millisekunden).",
+        priceDropFraction: "Der prozentuale Preisverfall vom Startbudget pro Tick im Notverkauf.",
+        tickIntervalMs: "Geschwindigkeit: Wie viele Millisekunden vergehen zwischen den Preis-Drops.",
+        synergyPointsPerTag: "Extrapunkte pro dupliziertem Hashtag-Tag im finalen Deck eines Spielers.",
+        loserBonusFraction: "Prozentualer Punkte-Boost (Mitleids-Bonus) für den Letztplatzierten am Spielende.",
+        perk1_protegeMultiplier: "Punkte-Multiplikator für Karten in den zugewiesenen Lieblingskategorien.",
+        perk2_interestDivisor: "Divisor zur Berechnung der Zinsen des Sparfuchses am Spielende.",
+        perk2_interestMultiplier: "Skalierungs-Faktor, der auf die Rendite angewendet wird.",
+        perk3_badTierMultiplier: "Multipliziert die erhaltenen Punkte von gezogenen Schrott-Karten (Clown-Tier).",
+        perk4_budgetMultiplier: "Reduziert das anfängliche Startbudget für diesen Perk (0.75 = 75%).",
+        perk4_incomeMultiplier: "Erhöht sämtliche Zusatzeinnahmen (Events/Cashback) aus externen Quellen.",
+        perk5_gambleChoices: "Anzahl der Alternativkarten, aus denen der Spieler beim Schmuggel wählen darf.",
+        perk6_wheelBonusMultiplier: "Bonus-Faktor auf alle positiven Glücksrad-Gewinne.",
+        perk7_startingBlocks: "Wie viele Isolations-Joker dieser Spieler zum Rundenstart exklusiv erhält.",
+        perk8_flatScoreBonus: "Feste Extrapunkte, die automatisch auf jede gekaufte Karte addiert werden."
+    };
+    return explanations[key] || "Passt diesen internen Variablenwert in der Engine an.";
+}
+
+function updateConfig(cat, key, rawValue) {
+    const value = parseFloat(rawValue);
+    GameSettings[cat][key].value = value;
+    const display = document.getElementById(`sval-${cat}-${key}`);
+    if (display) display.textContent = value.toLocaleString('de-DE');
+
+    if (cat === 'economy' && key === 'startingBudget') {
+        window.startingBudget = value;
+        const inp = document.getElementById('input-start-budget');
+        if (inp) inp.value = value;
+    }
+
+    if (cat === 'economy' && key === 'biddingStep') {
+        document.querySelectorAll('[data-bid-step]').forEach(btn => {
+            btn.setAttribute('onclick', `addBid(${value})`);
+            btn.textContent = `+${value >= 1000 ? value / 1000 + 'k' : value}`;
+        });
+    }
+}
+
+function resetAllSettings() {
+    Object.keys(_settingsDefaults).forEach(cat =>
+        Object.keys(_settingsDefaults[cat]).forEach(key => {
+            GameSettings[cat][key].value = _settingsDefaults[cat][key].value;
+        })
+    );
+    // Modal im aktuell offenen Tab neu rendern
+    renderSettingsContent(currentSettingsTab); 
+    updateConfig('economy', 'startingBudget', GameSettings.economy.startingBudget.value);
+}
+</script>
+
+<!-- 3c: Engine laden (war bereits vorhanden) -->
+<script src="js/engine.js"></script>
+
+</body>
+</html>

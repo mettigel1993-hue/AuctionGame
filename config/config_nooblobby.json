@@ -1,0 +1,287 @@
+{
+  "themeId": "nooblobby",
+  "windowTitle": "🎮 Die Noob-Lobby – Ranked Nightmare",
+  "gameTitle": "Die Noob-Lobby",
+  "themeIcon": "🎮",
+  "colors": {
+    "primary": "amber-500",
+    "gradientStart": "amber-500",
+    "gradientEnd": "green-400"
+  },
+  "currency": {
+    "name": "Credits",
+    "symbol": "💰",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Rekruten",
+    "playerSingular": "Rekrut",
+    "drawButtonText": "🎲 Loot-Drop öffnen",
+    "punishButtonText": "Ragequit erzwingen",
+    "adminTab1": "Lobby",
+    "adminTab2": "Waffenkammer",
+    "adminTab3": "Inventar",
+    "adminTab4": "Recycled",
+    "eventTitle": "Server-Events",
+    "jokers": {
+      "block": {
+        "icon": "🚫",
+        "label": "Votekick",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💎",
+        "label": "Loot-Drop",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🤖",
+        "label": "Auto-Buy",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🔄",
+        "label": "Reroll",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "💀",
+        "label": "Ragequit",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Keine Credits mehr. Rage-Quit."
+  },
+  "databaseFile": "db/nooblobby_db_export.json",
+  "categories": {
+    "WAFFE": {
+      "icon": "🔫",
+      "name": "Waffe",
+      "desc": "Dein Primary Loadout – vom Sniper bis zur Banane"
+    },
+    "TEAMMATE": {
+      "icon": "👥",
+      "name": "Teammate",
+      "desc": "Wer ist in deinem Squad?"
+    },
+    "MAP": {
+      "icon": "🗺️",
+      "name": "Map",
+      "desc": "Auf welchem Schlachtfeld wird gekämpft?"
+    },
+    "SKIN": {
+      "icon": "🎭",
+      "name": "Skin / Operator",
+      "desc": "Dein Look im Match"
+    },
+    "TAKTIK": {
+      "icon": "🧠",
+      "name": "Taktik",
+      "desc": "Der Gameplan des Squads"
+    },
+    "EQUIPMENT": {
+      "icon": "🎒",
+      "name": "Equipment",
+      "desc": "Granaten, Rüstung und Gadgets"
+    },
+    "VOICECHAT": {
+      "icon": "🎧",
+      "name": "Voice-Chat",
+      "desc": "Die Kommunikation im Team"
+    },
+    "GEGNER": {
+      "icon": "⚔️",
+      "name": "Gegner",
+      "desc": "Gegen wen trittst du an?"
+    },
+    "FAIL": {
+      "icon": "💥",
+      "name": "Fail-Moment",
+      "desc": "Was geht maximal schief?"
+    },
+    "ENDSCREEN": {
+      "icon": "🏆",
+      "name": "Endscreen",
+      "desc": "Wie endet das Match?"
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Standard-Rekrut",
+      "desc": "Default-Loadout, keine Sonderfähigkeiten. Geht rein, stirbt als erstes, beschwert sich im Chat."
+    },
+    "perk1": {
+      "name": "🎯 Der Tryhard",
+      "desc": "Hat 2 Kern-Kategorien im Griff (+50% Punkte). Immun gegen Ragequit in diesen Bereichen. Spielt als wäre es ein Major-Finale."
+    },
+    "perk2": {
+      "name": "💰 Der Economy-Player",
+      "desc": "Spart Credits wie ein Irrer. Pro 20.000 💰 Restbudget gibt's 5 Extra-Punkte. Eco-Round-Meister."
+    },
+    "perk3": {
+      "name": "🤡 Der Troll",
+      "desc": "Liebt Chaos. Schlecht-Karten bringen +50% Punkte am Ende. Je schlimmer das Match, desto besser für ihn."
+    },
+    "perk4": {
+      "name": "🥷 Der Smurf",
+      "desc": "Startet mit -25% Credits, casht dafür bei Events und Roulette fette +25% ab. Globaler Elite auf Silber-Account."
+    },
+    "perk5": {
+      "name": "🔄 Der Reroll-King",
+      "desc": "Beim Reroll gibt's 3 Optionen statt nur eine. Kennt jeden Loot-Table auswendig."
+    },
+    "perk6": {
+      "name": "🍀 Der RNG-Gott",
+      "desc": "Immun gegen finanzielle Katastrophen. Beim Roulette pauschal +10% obendrauf. Born lucky."
+    },
+    "perk7": {
+      "name": "🗣️ Der Toxic Player",
+      "desc": "Verteilt 2x Votekick und ist selbst immun gegen fremde Votekicks. All-Chat-Warrior."
+    },
+    "perk8": {
+      "name": "🤖 Der AFK-Bot",
+      "desc": "Verzichtet auf alle Joker, bringt aber +10 Punkte pro Karte. Steht nur rum, sammelt trotzdem XP."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Care-Package für den Underdog!",
+      "desc": "Der Server wirft dem ärmsten Rekruten einen fetten Loot-Drop zu.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "VAC-Ban für den Reichsten!",
+      "desc": "Anti-Cheat schlägt zu! Der Rekrut mit den meisten Credits verliert einen Teil.",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Robin-Hood-Hack!",
+      "desc": "Ein Hacker verteilt Credits um – von reich zu arm.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Server-Wartungsgebühr!",
+      "desc": "Valve kassiert unerwartet Serverkosten. Jeder zahlt.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Double-XP-Weekend!",
+      "desc": "Bonus-Event! Alle bekommen Extra-Credits geschenkt.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Achievement Unlocked: Joker-Sparer!",
+      "desc": "Wer seine Joker gespart hat, bekommt eine Belohnung.",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Auto-Buy wurde deaktiviert!",
+      "desc": "Server-Patch: Auto-Buy funktioniert nicht mehr diese Runde.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Smoke-Spam! Null Sicht!",
+      "desc": "Jemand hat alle Smokes gleichzeitig geworfen. Blind-Draws für alle!",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Lootbox-Steuer!",
+      "desc": "Die EU hat zugeschlagen: Extra-Abgabe auf alle Käufe.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Refund-Exploit entdeckt!",
+      "desc": "Steam erstattet den letzten Kauf zur Hälfte zurück.",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Votekick-System offline!",
+      "desc": "Der Server hat Votekick deaktiviert. Keine Kicks mehr möglich.",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Loot-Drop-Server down!",
+      "desc": "Item-Server ausgefallen. Keine Bonus-Drops mehr.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Reroll-Cooldown aktiv!",
+      "desc": "Zu viele Rerolls. 24h Cooldown. Kein Umtauschen mehr.",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Timeout-Pause.",
+      "desc": "Jemand hat Timeout gerufen. Kurze Verschnaufpause. Nichts passiert.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Server-Rollback!",
+      "desc": "Ein Crash hat den Server zurückgesetzt. Alle Joker wiederhergestellt!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Map-Rotation! Eine Kategorie wird entfernt!",
+      "desc": "Der Server rotiert die Map-Rotation. Eine Kategorie fliegt komplett raus!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Connection Lost",
+    "desc": "Verbindung zum Server verloren. Ping: 9999ms. Kein Loadout, kein Team, keine Hoffnung. Du starrst auf einen Ladebildschirm während alle anderen spielen.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "📡",
+    "dbCategory": "LOSER",
+    "tags": []
+  },
+  "auctionAnimation": {
+    "flyingEmoji": "🎯",
+    "priceEmoji": "💰",
+    "dealConfirmTitle": "🎯 SOLD! GG EZ!",
+    "dealRescuedTitle": "🔥 LAST-SECOND BUY!",
+    "dealBlindTitle": "🎲 RANDOM LOOT DROP!"
+  },
+  "theme": {
+    "description": "CS2-HUD – Amber und Neongrün auf taktischem Schwarz",
+    "font": "Audiowide",
+    "mood": "militärisch, taktisch, wie ein CS2-Buy-Menü bei Nacht",
+    "primaryColor": "#ea923a",
+    "accentColor": "#22c55e",
+    "bgBase": "#080a06",
+    "bgCard": "#12160e"
+  }
+}

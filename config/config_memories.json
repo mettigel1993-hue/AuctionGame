@@ -1,0 +1,272 @@
+{
+  "themeId": "memories",
+  "windowTitle": "🕹️ Core Memories – Das Retro-Quartett",
+  "gameTitle": "Core Memories",
+  "themeIcon": "💾",
+  "colors": {
+    "primary": "fuchsia-600",
+    "gradientStart": "fuchsia-600",
+    "gradientEnd": "cyan-500"
+  },
+  "currency": {
+    "name": "Taschengeld",
+    "symbol": "✨",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Freunde",
+    "playerSingular": "Freund",
+    "drawButtonText": "✨ In der Kiste kramen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Das Kinderzimmer",
+    "adminTab2": "Das Sammelalbum",
+    "adminTab3": "Im Herzen",
+    "adminTab4": "Verdrängt",
+    "eventTitle": "Schicksalsschläge",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Hausarrest",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Spardose",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Quengeln",
+        "color": "fuchsia"
+      },
+      "gamble": {
+        "icon": "🎓",
+        "label": "Schulhof-Tausch",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "🗑️",
+        "label": "Verdrängen",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Taschengeld alle. Mama sagt Nein."
+  },
+  "databaseFile": "db/core_memories_db.json",
+  "categories": {
+    "TV": {
+      "icon": "📺",
+      "name": "Flimmerkiste",
+      "desc": "Samstagmorgen-Cartoons, Super RTL und der erste Gameboy."
+    },
+    "CANDY": {
+      "icon": "🍭",
+      "name": "Kiosk-Beute",
+      "desc": "Zuckerschocks für 10 Pfennig und klebrige Hände."
+    },
+    "TOYS": {
+      "icon": "🪀",
+      "name": "Schulhof-Hype",
+      "desc": "Tamagotchi pflegen, Diddl tauschen und Beyblade kämpfen."
+    },
+    "SCHOOL": {
+      "icon": "🎒",
+      "name": "Kreidestaub",
+      "desc": "Der Overhead-Projektor blendet und Völkerball ist Krieg."
+    },
+    "OUTDOOR": {
+      "icon": "🚲",
+      "name": "Straßenkinder",
+      "desc": "Klingelstreiche, blutige Knie und Buden im Wald bauen."
+    },
+    "FAMILY": {
+      "icon": "🛋️",
+      "name": "Wohnzimmer",
+      "desc": "Wetten, dass..?, Raufasertapete und das Einwählgeräusch vom Modem."
+    },
+    "REBELS": {
+      "icon": "😈",
+      "name": "Erste Sünden",
+      "desc": "Erste Zigaretten, Penis-Zeichnungen und DSF nach 12 Uhr."
+    },
+    "TRAUMA": {
+      "icon": "🌪️",
+      "name": "Traumata",
+      "desc": "Kratzepullis, Zahnspangen und fiese Friseur-Fails."
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Normalo",
+      "desc": "Keine besonderen Fähigkeiten."
+    },
+    "perk1": {
+      "name": "🧸 Nostalgie-Nerd",
+      "desc": "Wählt bei Spielstart 2 zufällige Lieblings-Kategorien. Karten darin bringen +50% Punkte & sind immun gegen Trendwechsel!"
+    },
+    "perk2": {
+      "name": "🐷 Sparschwein-König",
+      "desc": "Am Ende des Spiels gibt es für je 20.000 ✨ Rest-Taschengeld fette 5 Extra-Punkte (Vibes)."
+    },
+    "perk3": {
+      "name": "🩹 Pflaster-Sammler",
+      "desc": "Traumata und Peinlichkeiten (Karten-Stufe 🤡) bringen am Ende +50% Punkte."
+    },
+    "perk4": {
+      "name": "🚀 Pausenhof-Zocker",
+      "desc": "Startet mit -25% Taschengeld, bekommt aber +25% auf alle Gewinne (Events, Roulette, Spardose)!"
+    },
+    "perk5": {
+      "name": "🃏 Diddl-Mogul (Scout)",
+      "desc": "Beim Schulhof-Tausch (Tauschen-Joker) darf aus 3 zufälligen Karten gewählt werden."
+    },
+    "perk6": {
+      "name": "🍀 Glücksbärchi",
+      "desc": "Absolut immun gegen jeglichen Geldverlust durch Events! +10% auf alle Roulette-Gewinne."
+    },
+    "perk7": {
+      "name": "🤫 Die Ober-Petze",
+      "desc": "Startet mit 2x Hausarrest-Joker und ist selbst komplett immun gegen Hausarrest durch andere!"
+    },
+    "perk8": {
+      "name": "🏃 Draufgänger",
+      "desc": "Startet komplett OHNE Joker. Dafür gibt es am Ende fette +10 Extra-Punkte auf JEDE gesammelte Erinnerung."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Weihnachtsgeld von Oma!",
+      "desc": "Oma drückt dir beim Abschied heimlich einen Schein in die Hand.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Gameboy ins Klo gefallen!",
+      "desc": "Eine absolute Tragödie. Dein Erspartes geht für einen neuen drauf.",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Sammeln für den Super Nintendo!",
+      "desc": "Ihr legt alle zusammen, um euch das geilste Spiel der Welt zu kaufen.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Jamba Abo-Falle!",
+      "desc": "Du wolltest nur den Klingelton. Jetzt ziehen sie dir jede Woche Geld ab.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Ein gutes Zeugnis!",
+      "desc": "Nur Einsen und Zweien! Die Eltern sind stolz und das Sparschwein füllt sich.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Die Zahnfee war da!",
+      "desc": "Wer Spezialfähigkeiten aufspart, wird belohnt. Ein Geldstück unterm Kissen!",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Verbot für Quengler!",
+      "desc": "Im Supermarkt weinen zieht nicht mehr. Das wird verboten.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Stromausfall beim Sandmännchen!",
+      "desc": "Plötzlich ist alles dunkel. Man sieht nicht, was als nächstes passiert. Es wird blind gekauft!",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Fensterscheibe eingeschossen!",
+      "desc": "Mit dem Ball direkt in Nachbars Fenster. Das Taschengeld ist weg.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Pfandflaschen-Goldgrube!",
+      "desc": "Ein unfassbarer Gewinn!",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Die große Versöhnung!",
+      "desc": "Alle vertragen sich wieder im Sandkasten. Niemand bekommt mehr Hausarrest.",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Spardose ist leer!",
+      "desc": "Es gibt kein Cashback mehr für niemanden.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Tauschbörse geschlossen!",
+      "desc": "Alle Karten auf dem Schulhof wurden konfisziert.",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Ferienbeginn!",
+      "desc": "Schulfrei! Keine negativen Effekte, einfach nur Vibes.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Ein neuer Buntstiftkasten!",
+      "desc": "Die Motivation ist riesig, alles ist wieder möglich! Joker wieder da.",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Ein neuer Trend kommt auf!",
+      "desc": "Alles, was ihr davor gesammelt habt, ist peinlich!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Der peinliche Topfschnitt",
+    "desc": "Kein Geld für den Friseur. Deine Mutter hat zur Küchenschere und einer Salatschüssel gegriffen. Das Trauma dieser Frisur wird dich auf jedem Klassenfoto verfolgen.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "✂️",
+    "dbCategory": "LOSER",
+    "tags": [
+      "Peinlich"
+    ]
+  },
+  "theme": {
+    "description": "Fuchsia & Cyan Retro-Pixel – 90er Game Boy Palette, Neon auf Schwarz",
+    "font": "Press Start 2P",
+    "mood": "nostalgisch, pixelig, wie Super Nintendo auf einem alten Röhren-TV",
+    "primaryColor": "#e879f9",
+    "accentColor": "#22d3ee",
+    "bgBase": "#0a0015",
+    "bgCard": "#130020"
+  }
+}

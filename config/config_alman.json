@@ -1,0 +1,272 @@
+{
+  "themeId": "alman",
+  "windowTitle": "🌻 Alman Eskalation – Kampf am Gartenzaun",
+  "gameTitle": "Alman Eskalation",
+  "themeIcon": "🌻",
+  "colors": {
+    "primary": "green-500",
+    "gradientStart": "green-500",
+    "gradientEnd": "lime-400"
+  },
+  "currency": {
+    "name": "Rechtsschutz-Budget",
+    "symbol": "€",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Sheriffs",
+    "playerSingular": "Sheriff",
+    "drawButtonText": "🔭 Über die Hecke linsen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Gartenzaun",
+    "adminTab2": "Grundbuchamt",
+    "adminTab3": "Eigentum",
+    "adminTab4": "Altpapier",
+    "eventTitle": "Gemeindeblatt",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Anzeige",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Ersatz",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Eilantrag",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🎲",
+        "label": "Tausch",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "⏭️",
+        "label": "Skip",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Rechtsschutz aufgebraucht. Der Nachbar gewinnt."
+  },
+  "databaseFile": "db/alman_datenbank.json",
+  "categories": {
+    "NEMESIS": {
+      "icon": "👿",
+      "name": "Feind",
+      "desc": "Gegen wen ziehst du ins Feld?"
+    },
+    "REASON": {
+      "icon": "📜",
+      "name": "Grund",
+      "desc": "Was hat das Fass zum Überlaufen gebracht?"
+    },
+    "FORTRESS": {
+      "icon": "🧱",
+      "name": "Festung",
+      "desc": "Wie schützt du dein Grundstück?"
+    },
+    "WEAPON": {
+      "icon": "🪚",
+      "name": "Gerät",
+      "desc": "Womit wird der Feind beschossen?"
+    },
+    "PSYCHO": {
+      "icon": "🧠",
+      "name": "Psycho",
+      "desc": "Wie zermürbst du die Nerven des Feindes?"
+    },
+    "BUREAUCRACY": {
+      "icon": "🗂️",
+      "name": "Amt",
+      "desc": "Welches Amt wird eingeschaltet?"
+    },
+    "SABOTAGE": {
+      "icon": "✂️",
+      "name": "Sabotage",
+      "desc": "Wie schadest du dem Feind heimlich?"
+    },
+    "SCANDAL": {
+      "icon": "🚨",
+      "name": "Skandal",
+      "desc": "Was konntest du per Foto/Video dokumentieren?"
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Normalo",
+      "desc": "Keine besonderen Fähigkeiten. Spielt nach den Standardregeln."
+    },
+    "perk1": {
+      "name": "🌻 Garten-Nazi",
+      "desc": "Zwei Kategorien sind seine Lieblinge (+50% Punkte am Ende, immun gegen Löschung)."
+    },
+    "perk2": {
+      "name": "💰 Bausparer",
+      "desc": "Gibt am Ende +5 Punkte pro 20.000 € übrigem Restbudget."
+    },
+    "perk3": {
+      "name": "♻️ Müll-Trenner",
+      "desc": "Sämtliche Schrott-Karten (Meme-Tier) geben ihm am Ende +50% Punkte."
+    },
+    "perk4": {
+      "name": "🎰 Sportwetten-Sören",
+      "desc": "-25% Startbudget. Dafür +25% bei Events, Rad-Gewinnen & 25% Cashback pro Aktenkauf."
+    },
+    "perk5": {
+      "name": "👀 Vergleichsportal-Nutzer",
+      "desc": "Reklamation gewährt die freie Auswahl aus 3 gezogenen Akten."
+    },
+    "perk6": {
+      "name": "🛡️ Teflon-Alman",
+      "desc": "Absolut immun gegen finanzielle Strafen! +10% auf Schicksalsrad-Gewinne."
+    },
+    "perk7": {
+      "name": "👮 Hilfssheriff",
+      "desc": "Startet mit 2x Anzeige. Ist absolut immun gegen fremde Anzeigen!"
+    },
+    "perk8": {
+      "name": "👷 Malocher",
+      "desc": "Startet komplett ohne Joker (0). Dafür pauschal +10 Punkte pro verbauter Akte am Ende."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Staatliche Prozesskostenhilfe",
+      "desc": "Das Sozialamt hat Mitleid mit der desolaten juristischen Lage. Ein Härtefallantrag wurde ausnahmsweise blitzschnell bewilligt!",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Sonderprüfung des Finanzamts",
+      "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Die Steuerfahndung steht mit durchgeladenen Aktenordnern vor der Tür!",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Tombola für den guten Zweck",
+      "desc": "Das Straßenfest zwingt zur Solidarität. Es werden Lose gekauft und der Erlös geht komplett an den Verlierer der Straße.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Anliegergebühr für Glasfaser",
+      "desc": "Die Straße wird aufgerissen, um schnelles Internet in die Vorstadt zu bringen. Die Gemeinde reicht die Rechnung direkt an alle Anlieger weiter.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Unerwartete Steuerrückerstattung",
+      "desc": "Ein seltener Fehler beim Finanzamt zu euren Gunsten! Die Lohnsteuer-Jahresausgleiche waren fehlerhaft, das Geld ist da.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Prämie für Zurückhaltung",
+      "desc": "Die Schiedsstelle belohnt alle Bürger, die nicht wegen jeder Kleinigkeit sofort eskalieren. Friedliches Miteinander zahlt sich aus!",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Betriebsausflug des Amtsgerichts",
+      "desc": "Die Beamten machen einen dreiwöchigen Betriebsausflug in den Harz. Wer zu lange gewartet hat, hat Pech gehabt.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Fataler SAP-Fehler",
+      "desc": "Ein verheerender Software-Absturz im Rathaus! Akten sind temporär unauffindbar und das absolute Chaos regiert.",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Ornithologen-Invasion",
+      "desc": "Ein entflogener Ara sitzt auf eurem Zaun. Ein wilder Mob aus Vogelbeobachtern trampelt rücksichtslos eure englischen Rasen platt.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Baumarkt-Preisgarantie",
+      "desc": "Nachträglicher Kassenzettel-Check! Ein aufmerksamer Sheriff hat bemerkt, dass der Baumarkt im Nachbardorf deutlich billiger war.",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Streik beim Ordnungsamt",
+      "desc": "Die Beamten legen heute die Arbeit nieder. Niemand nimmt mehr Beschwerden oder Ruhestörungen an!",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Insolvenz der Versicherung",
+      "desc": "Eure Sammel-Rechtsschutzversicherung ist pleite gegangen. Es gibt von nun an keinen einzigen Cent mehr vom Gericht zurück.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Der Filialleiter streikt",
+      "desc": "Der örtliche Händler hat die Rückgaberichtlinien massiv verschärft. Gekauft ist gekauft!",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Löschung der WhatsApp-Gruppe",
+      "desc": "Der Admin hat die Gruppe nach einem eskalierten Streit gelöscht. Keine Kommunikation mehr möglich.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Versöhnungsfest",
+      "desc": "Ein absolutes Wunder! Bei Bier und Bratwurst begraben alle das Kriegsbeil. Eine Amnestie für alle!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Bürokratischer Formfehler",
+      "desc": "Ein Stempel wurde vergessen! Alle Beweise und Klagen einer voll eskalierten Kategorie sind plötzlich absolut wertlos.",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Brieffreundschaft mit dem Vorstand",
+    "desc": "Du kannst deine Pacht nicht zahlen. Dafür bekommst du wöchentlich laminierte Abmahnungen wegen unzulässiger Heckenhöhe und falscher Kompostierung.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "✉️",
+    "dbCategory": "LOSER",
+    "tags": [
+      "Ausschuss"
+    ]
+  },
+  "theme": {
+    "description": "Amtsstube-Grün & Bürokratie-Beige – wirkt wie ein verwittertes Grundbuchamt",
+    "font": "Rajdhani",
+    "mood": "militärisch-behördlich, schwerfällig, grün wie Gartenarbeit",
+    "primaryColor": "#4ade80",
+    "accentColor": "#a3e635",
+    "bgBase": "#0f1a0f",
+    "bgCard": "#162016"
+  }
+}

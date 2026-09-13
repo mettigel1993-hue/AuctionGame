@@ -1,0 +1,86 @@
+{
+  "themeId": "line",
+  "windowTitle": "🏭 Survive the Line – Kampf am Fließband",
+  "gameTitle": "Survive the Line",
+  "themeIcon": "🏭",
+  "colors": {
+    "primary": "orange-500",
+    "gradientStart": "orange-500",
+    "gradientEnd": "yellow-400"
+  },
+  "currency": {
+    "name": "Werksbudget",
+    "symbol": "€",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Schichtarbeiter",
+    "playerSingular": "Band",
+    "drawButtonText": "🎫 Stücklisten Position abrufen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Der Leitstand",
+    "adminTab2": "Die Stückliste",
+    "adminTab3": "Ans Band geliefert",
+    "adminTab4": "Ausschuss",
+    "eventTitle": "Corporate News",
+    "jokers": {
+      "block": {"icon": "🛑", "label": "Nacharbeit", "color": "red"},
+      "bonus": {"icon": "💰", "label": "Sonderschicht", "color": "green"},
+      "autoBuy": {"icon": "🎯", "label": "VIP-Prio", "color": "purple"},
+      "gamble": {"icon": "🎓", "label": "Outsourcen", "color": "orange"},
+      "skip": {"icon": "🗑️", "label": "Ignorieren", "color": "cyan"}
+    }
+  },
+  "databaseFile": "line_db_export.json",
+  "categories": {
+    "BOSS": { "icon": "👔", "name": "Vorgesetzter", "desc": "Von Prozess-Optimierer bis zum Zahlen-Diktator, der Taktzeit über Menschenleben stellt." },
+    "KOLLEGE": { "icon": "🧑‍🔧", "name": "Kollege", "desc": "Von genialen Takt-Rettern bis zu Meister-Petzen. Mit wem stehst du am Band?" },
+    "SABOTAGE": { "icon": "⏳", "name": "Arbeitszeitbetrug", "desc": "Strategisch kluge Aktionen, um am Band unbemerkt zu chillen und Pausen herauszuschlagen." },
+    "RULES": { "icon": "📜", "name": "Regeln", "desc": "TÜV, Geweraufsicht und interne Auditoren suchen nach nicht getragenen Schutzbrillen." },
+    "EXCUSES": { "icon": "🤷", "name": "Ausreden", "desc": "Die Charge kam schon komplett kaputt und falsch lackiert hier am Tor an!" },
+    "RUMORS": { "icon": "🤫", "name": "Gerüchte", "desc": "Der Vorstand war gestern heimlich hier. Die verlagern uns alle nach Osteuropa!" },
+    "KITCHEN": { "icon": "☕", "name": "Pausenraum", "desc": "Epische Konflikte um die legendäre Currywurst, Schichtwechsel und Automaten-Kaffee." },
+    "CHAOS": { "icon": "🌪️", "name": "Chaos", "desc": "Das absolute Worst-Case-Szenario. Sirenen heulen, jede Minute kostet Millionen." },
+    "SCHICHT": { "icon": "🔄", "name": "Schicht", "desc": "Horror-Rotationen, Urlaubs-Bugs und Kollegen, die dich in die Nachtschicht erpressen." }
+  },
+  "perks": {
+    "NONE": { "name": "🤷 Standard-Band", "desc": "Keine besonderen Fähigkeiten. Taktet einfach brav vor sich hin." },
+    "perk1": { "name": "🧨 Takt-Terrorist", "desc": "Zwei zufällige Kategorien bringen +50% Punkte und sind immun gegen Nullungs-Events." },
+    "perk2": { "name": "📈 Schwäbischer Schichtleiter", "desc": "Für je 20.000 € Restbudget gibt es am Ende 5 Punkte extra." },
+    "perk3": { "name": "♻️ Toleranz-Ignorant", "desc": "Alle 'schlechten' Bauteile geben am Ende +50% Punkte." },
+    "perk4": { "name": "🎲 Pausenraum-Buchmacher", "desc": "-25% Startbudget. Dafür +25% auf alle positiven Einnahmen (Events, Rad, Cashback)." },
+    "perk5": { "name": "🕵️ Lieferanten-Erpresser", "desc": "Beim Outsourcen (Tausch) wählst du aus 3 Karten, statt blind zu ziehen." },
+    "perk6": { "name": "🛡️ Unkündbares Betriebsinventar", "desc": "Immun gegen Budget-Strafen durch Events. +10% auf Schicksalsrad-Gewinne." },
+    "perk7": { "name": "👨‍⚖️ QS-Diktator", "desc": "Startet mit 2x Nacharbeit-Joker. Absolut immun gegen fremde Nacharbeit!" },
+    "perk8": { "name": "⚡ Hirn aus, Schlagschrauber an", "desc": "Startet ohne jegliche Joker. Dafür +10 Punkte für JEDE Karte am Ende." }
+  },
+  "events": [
+    { "id": 1, "title": "Zuschüsse vom Staat!", "desc": "Das Werk wird auf 'Green-Tech' umgerüstet. Der Staat zahlt massive Subventionen für die Abteilung!", "action": "bonus_lowest", "value": 0.2 },
+    { "id": 2, "title": "Gewinnwarnung des Vorstands!", "desc": "Die Absatzzahlen in China brechen ein. Das Controlling streicht allen Bereichen brutal das Budget!", "action": "tax_highest", "value": 0.2 },
+    { "id": 3, "title": "Sammeln für den Vorarbeiter!", "desc": "Der Meister feiert 40-jähriges Jubiläum am Band. Es wird rücksichtslos mit dem Hut durch die Reihen gegangen.", "action": "robin_hood_tax", "value": 0.1 },
+    { "id": 4, "title": "Werkzeug-Schwund!", "desc": "Aus dem Magazin fehlen Kistenweise 10mm-Nüsse und Akkuschrauber. Jeder muss für den Schaden aufkommen.", "action": "tax_all", "value": 50000 },
+    { "id": 5, "title": "Produktions-Rekord gebrochen!", "desc": "Der Tages-Takt wurde übertroffen! Der Werksleiter schüttet spontan eine Prämie für alle Bänder aus.", "action": "bonus_all", "value": 50000 },
+    { "id": 6, "title": "Prämie für Materialschoner!", "desc": "Die Linie belohnt alle, die ihre Joker (Ressourcen) gespart haben. Lean Production zahlt sich aus!", "action": "bonus_for_unused_jokers", "value": 50000 },
+    { "id": 7, "title": "Beschaffungs-Sperre!", "desc": "Der Einkauf verbietet alle Direktbestellungen am Controlling vorbei. Der Dienstweg muss eingehalten werden.", "action": "disable_joker", "value": "autoBuy" },
+    { "id": 8, "title": "SAP-System Totalausfall!", "desc": "Der Zentralrechner in Wolfsburg/München ist down. Stücklisten sind unleserlich, das absolute Chaos regiert.", "action": "blind_draws", "value": 2 },
+    { "id": 9, "title": "Gabelstapler-Unfall!", "desc": "Ein Stapler ist in das Hochregallager gefahren. Massive Sachbeschädigung und alle Budgets werden zur Reparatur angezapft.", "action": "tax_all", "value": 25000 },
+    { "id": 10, "title": "Mengenrabatt vom Zulieferer!", "desc": "Der Tier-1-Supplier hat zu viel produziert und storniert 50% eurer letzten Rechnung. Das Geld fließt zurück!", "action": "refund_last_purchase", "value": 0.5 },
+    { "id": 11, "title": "Betriebsrat greift ein!", "desc": "Die Gewerkschaft verbietet jegliche Überstunden und erzwungene Nacharbeit. Das Band muss pünktlich stehen!", "action": "disable_joker", "value": "block" },
+    { "id": 12, "title": "Nachtschicht-Zuschläge gestrichen!", "desc": "Das Management hat das Budget für Wochenend- und Sonderschichten gestrichen. Es gibt nichts mehr extra.", "action": "disable_joker", "value": "bonus" },
+    { "id": 13, "title": "Zulieferer insolvent!", "desc": "Der externe Dienstleister ist pleite. Niemand kann mehr Produktionsschritte outsourcen!", "action": "disable_joker", "value": "gamble" },
+    { "id": 14, "title": "Maschinenwartung!", "desc": "Das Haupt-Förderband wird 30 Minuten gewartet. Die gesamte Halle atmet bei einem kollektiven Kaffee durch.", "action": "nothing", "value": 0 },
+    { "id": 15, "title": "Die legendäre Betriebsfeier!", "desc": "Freibier in Halle 4! Meister, Azubis und Management liegen sich in den Armen. Alle Streitigkeiten sind vergessen!", "action": "restore_jokers", "value": 1 },
+    { "id": 16, "title": "Neues Fahrzeugmodell!", "desc": "Das Facelift-Modell wird vorgezogen. Die gesamte Linie muss sofort umgebaut werden, alte Teile sind wertlos!", "action": "destroy_random_category", "value": 0 }
+  ],
+  "punishCardTemplate": {
+    "name": "Kaffeepause am defekten Automaten",
+    "desc": "Keine Kohle für den Pausensnack. Du verbringst deine hart erkämpften 15 Minuten damit, traurig auf das leuchtende 'Außer Betrieb'-Schild zu starren.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "☕",
+    "dbCategory": "LOSER",
+    "tags": ["Ausschuss"]
+  }
+}

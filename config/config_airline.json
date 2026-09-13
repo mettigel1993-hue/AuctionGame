@@ -1,0 +1,299 @@
+{
+  "themeId": "airline",
+  "windowTitle": "✈️ Budget Airline Simulator",
+  "gameTitle": "Low-Budget Airline",
+  "themeIcon": "✈️",
+  "databaseFile": "db/airline_db.json",
+  "colors": {
+    "primary": "sky-500",
+    "gradientStart": "sky-600",
+    "gradientEnd": "blue-600"
+  },
+  "currency": {
+    "name": "Budget",
+    "symbol": "€",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Airline Mogule",
+    "playerSingular": "Airline Mogul",
+    "drawButtonText": "✈️ Nächsten Flug planen",
+    "punishButtonText": "🪂 Ohne Fallschirm abwerfen",
+    "adminTab1": "🗺️ Flugradar",
+    "adminTab2": "📋 Flugplan",
+    "adminTab3": "✅ Eingecheckt",
+    "adminTab4": "🚽 Bordtoilette",
+    "eventTitle": "Tower-Notruf",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Flugverbot",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💶",
+        "label": "Staatliche Rettung",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Priority Boarding",
+        "color": "blue"
+      },
+      "gamble": {
+        "icon": "🧳",
+        "label": "Kofferklau",
+        "color": "purple"
+      },
+      "skip": {
+        "icon": "🚽",
+        "label": "Spülung",
+        "color": "orange"
+      }
+    },
+    "bankruptLine": "Überbucht. Du bleibst am Boden."
+  },
+  "categories": {
+    "FLOTTE": {
+      "icon": "✈️",
+      "name": "Flotte & Fluggerät",
+      "desc": "Vom Propellerflugzeug bis zum geklebten Jet."
+    },
+    "COCKPIT": {
+      "icon": "🧑‍✈️",
+      "name": "Cockpit-Crew",
+      "desc": "Wer steuert die Kiste?"
+    },
+    "KABINE": {
+      "icon": "💁",
+      "name": "Kabinenpersonal",
+      "desc": "Das freundliche Service-Personal."
+    },
+    "SITZE": {
+      "icon": "💺",
+      "name": "Sitzplatz-Konzepte",
+      "desc": "Sitzkomfort und Beinfreiheit."
+    },
+    "CATERING": {
+      "icon": "🥪",
+      "name": "Bordverpflegung",
+      "desc": "Kulinarische Meisterwerke an Bord."
+    },
+    "GEPAECK": {
+      "icon": "🧳",
+      "name": "Gepäck-Logistik",
+      "desc": "Das Bermuda-Dreieck der Koffer."
+    },
+    "BOARDING": {
+      "icon": "🏃",
+      "name": "Boarding-Prozess",
+      "desc": "Das Chaos beim Einstieg."
+    },
+    "ENTERTAINMENT": {
+      "icon": "🎬",
+      "name": "Bordunterhaltung",
+      "desc": "Zeitvertreib über den Wolken."
+    },
+    "GEBUEHREN": {
+      "icon": "💸",
+      "name": "Versteckte Gebühren",
+      "desc": "Das wahre Geschäftsmodell der Airline."
+    },
+    "WARTUNG": {
+      "icon": "🔧",
+      "name": "Wartung & Sicherheit",
+      "desc": "Reparaturen und Technik."
+    },
+    "KUNDENSERVICE": {
+      "icon": "🎧",
+      "name": "Kundenservice",
+      "desc": "Die Hotline ins Nirgendwo."
+    },
+    "MARKETING": {
+      "icon": "📢",
+      "name": "Marketing & Image",
+      "desc": "Irreführende Werbung und PR."
+    },
+    "ROUTEN": {
+      "icon": "🗺️",
+      "name": "Flughäfen & Routen",
+      "desc": "Reiseziele und Landebahnen."
+    },
+    "SANITAER": {
+      "icon": "🚽",
+      "name": "Bord-Toiletten",
+      "desc": "Hygiene und Sanitäranlagen."
+    },
+    "NOTFALL": {
+      "icon": "🦺",
+      "name": "Notfall-Ausrüstung",
+      "desc": "Schwimmwesten und Sauerstoff."
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Ahnungsloser Passagier",
+      "desc": "Hat eigentlich nur einen Flug gebucht und leitet jetzt aus Versehen eine Airline. Keine Boni, keine Strafen."
+    },
+    "perk1": {
+      "name": "💺 Der Beinfreiheit-Beschneider",
+      "desc": "Zählt jeden Zentimeter. +50% Bonuspunkte auf Objekte aus seinen zwei zugewiesenen Kernkompetenzen."
+    },
+    "perk2": {
+      "name": "📜 Der Kleingedruckten-Akrobat",
+      "desc": "Erfindet Gebühren, wo keine sind. Spart sein Budget auf und kassiert am Ende extrem hohe Zinsen für nicht ausgegebenes Geld."
+    },
+    "perk3": {
+      "name": "🛢️ Der dubiose Flotten-Finanzier",
+      "desc": "Liebt Panzertape. Schrott-Karten (🤡) erhalten am Spielende pauschal einen gewaltigen +50% Punkte-Bonus!"
+    },
+    "perk4": {
+      "name": "💨 Der Atemluft-Besteuerer",
+      "desc": "Startet mit 25% weniger Kapital, holt aber bei jedem Cashback und finanziellen Bonus +25% mehr raus."
+    },
+    "perk5": {
+      "name": "🕶️ Der Hangar-Hehler",
+      "desc": "Kennt die Jungs von der Gepäckabfertigung. Hat beim Tauschen/Schmuggeln immer 3 Optionen zur Auswahl."
+    },
+    "perk6": {
+      "name": "🎰 Der Radar-Roulette-Spieler",
+      "desc": "Fliegt blind durchs Unwetter. Bekommt auf alle Gewinne am Glücksrad pauschal +10% Bonus."
+    },
+    "perk7": {
+      "name": "🌩️ Der Tower-Saboteur",
+      "desc": "Böse Zungen behaupten, er kappt fremde Funkantennen. Startet mit einem Extra-Block-Joker ins Spiel."
+    },
+    "perk8": {
+      "name": "⭐ Der 5-Sterne-Fälscher",
+      "desc": "Spielt komplett ohne Joker, lässt aber Bewertungs-Bots laufen: +10 Punkte pauschal auf absolut jede gekaufte Karte."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Vergessener Koffer gefunden!",
+      "desc": "Ein Koffer voller Bargeld wird herrenlos am Gate gefunden. Die Airline mit dem wenigsten Budget greift ihn ab.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Prüfung der Luftfahrtbehörde!",
+      "desc": "Wegen extremer Lärmbelästigung muss die momentan reichste Airline ein heftiges Bußgeld zahlen.",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Gewerkschafts-Streik!",
+      "desc": "Das Bodenpersonal streikt und verlangt Geld von allen. Die kleinste Airline übernimmt die Streikbrecher und profitiert!",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Erhöhte Kerosin-Steuer!",
+      "desc": "Die Regierung schlägt zu. Jede Airline muss pauschal Steuern nachzahlen. Autsch!",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Staatliche Subventionen!",
+      "desc": "Der Staat fördert den Luftverkehr. Jeder bekommt eine ordentliche Finanzspritze auf das Budget.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Sicherheits-Zertifikat bestanden!",
+      "desc": "Airlines, die bisher fair gespielt haben (unbenutzte Joker), erhalten vom TÜV eine dicke Prämie.",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Zoll-Kontrolle am Gate!",
+      "desc": "Der Zoll überwacht die Terminals. Priority Boarding (Bestechungen) sind vorübergehend komplett gesperrt.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Radarausfall im Tower!",
+      "desc": "Der Bildschirm ist schwarz! Die nächsten zwei Auktionen finden völlig im Blindflug (verdeckt) statt.",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Luftraum-Sperrung!",
+      "desc": "Ein Vulkan ist ausgebrochen. Die massiven Verspätungen am Gate kosten jeden Mogul harte Strafgelder.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Versicherungsbetrug!",
+      "desc": "Die letzte Anschaffung geht 'zufällig' kaputt. Die Versicherung zahlt dem Käufer sofort 50% der Kosten zurück!",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Anti-Monopol-Behörde greift ein!",
+      "desc": "Airlines dürfen sich nicht mehr sabotieren. Flugverbote (Block-Joker) werden ersatzlos gestrichen.",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Rettungsschirme gestrichen!",
+      "desc": "Der Staat hat kein Geld mehr für marode Airlines. Der Cashback-Joker (Schutz) fällt ab sofort aus.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Verschärfte Gepäckkontrollen!",
+      "desc": "Kofferklau und Schmuggel-Aktionen sind durch das neue Sicherheitspersonal völlig unmöglich geworden.",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Ruhiger Reiseflug.",
+      "desc": "Keine Turbulenzen. Die Anschnallzeichen sind erloschen. Ein völlig friedlicher Moment über den Wolken.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Kaffee-Wunder im Tower!",
+      "desc": "Das Personal ist frisch motiviert und die Piloten sind hellwach! Alle verbrauchten Joker werden sofort regeneriert.",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Rückruf-Aktion vom Hersteller!",
+      "desc": "Katastrophe! Ein kritisches Bauteil muss weltweit stillgelegt werden. Eine komplette Kategorie verliert all ihre Punkte!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Ticket für den Frachtraum",
+    "desc": "Die Airline ist fast pleite. Du musst den Flug zwischen schlecht gesicherten Koffern und Hühnerkäfigen verbringen.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "📦",
+    "dbCategory": "LOSER",
+    "tags": [
+      "Insolvenz",
+      "Strafe"
+    ]
+  }
+}

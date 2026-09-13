@@ -1,0 +1,3425 @@
+{
+  "db": {
+    "CRIME": [
+      {
+        "id": "crime_1",
+        "name": "Der Jahrhundert-Bankraub",
+        "tier": "gut",
+        "cost": 500000,
+        "score": 99,
+        "tags": [
+          "Verbrechen",
+          "Geld",
+          "Hardcore"
+        ],
+        "desc": "Du hast die Zentralbank mit einem Helikopter ausgeräumt. Eine Legende.",
+        "adminDesc": "Du hast die Zentralbank mit einem Helikopter ausgeräumt. Eine Legende.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_4",
+        "name": "Casino-System gehackt",
+        "tier": "gut",
+        "cost": 350000,
+        "score": 92,
+        "tags": [
+          "Verbrechen",
+          "Casino",
+          "Hardcore"
+        ],
+        "desc": "Die Slots so manipuliert, dass sie nur noch Jackpots spucken.",
+        "adminDesc": "Die Slots so manipuliert, dass sie nur noch Jackpots spucken.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_7",
+        "name": "Cyber-Terrorist",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Verbrechen",
+          "IT",
+          "Hardcore"
+        ],
+        "desc": "Du hast das Internet gelöscht. Fast.",
+        "adminDesc": "Du hast das Internet gelöscht. Fast.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_12",
+        "name": "Pizza Hawaii Verbrechen",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Verbrechen",
+          "Essen",
+          "Meme"
+        ],
+        "desc": "Ein kulinarisches Verbrechen, das vom höchsten Gericht in Neapel bestraft wurde.",
+        "adminDesc": "Ein kulinarisches Verbrechen, das vom höchsten Gericht in Neapel bestraft wurde.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_13",
+        "name": "Der Steuer-Flüchtling",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Verbrechen",
+          "Geld",
+          "Steuern"
+        ],
+        "desc": "Hast deine Einkünfte auf den Kaimaninseln versteckt. Klassiker.",
+        "adminDesc": "Hast deine Einkünfte auf den Kaimaninseln versteckt. Klassiker.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_14",
+        "name": "Fake-Rolex Händler",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Verbrechen",
+          "Betrug",
+          "Uhr"
+        ],
+        "desc": "Deine Uhren haben 13 Stunden. Irgendwann ist es aufgeflogen.",
+        "adminDesc": "Deine Uhren haben 13 Stunden. Irgendwann ist es aufgeflogen.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_15",
+        "name": "Pyramiden-System-Erfinder",
+        "tier": "mittel",
+        "cost": 160000,
+        "score": 67,
+        "tags": [
+          "Verbrechen",
+          "Scam",
+          "MLM"
+        ],
+        "desc": "Du hast Leuten Aloe-Vera-Cremes als Finanzanlage verkauft.",
+        "adminDesc": "Du hast Leuten Aloe-Vera-Cremes als Finanzanlage verkauft.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_16",
+        "name": "Schiedsrichter bestochen",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 64,
+        "tags": [
+          "Verbrechen",
+          "Sport",
+          "Korruption"
+        ],
+        "desc": "Hast dem Schiri in der Kreisliga 50 Euro und einen Kasten Bier gegeben.",
+        "adminDesc": "Hast dem Schiri in der Kreisliga 50 Euro und einen Kasten Bier gegeben.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_18",
+        "name": "Kunstfälscher",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Verbrechen",
+          "Kunst",
+          "Malen"
+        ],
+        "desc": "Hast Malen-nach-Zahlen-Bilder als verschollene Picassos verkauft.",
+        "adminDesc": "Hast Malen-nach-Zahlen-Bilder als verschollene Picassos verkauft.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_20",
+        "name": "Der Pfandflaschen-Hacker",
+        "tier": "mittel",
+        "cost": 60000,
+        "score": 50,
+        "tags": [
+          "Verbrechen",
+          "Pfand",
+          "IT"
+        ],
+        "desc": "Hast ein Barcode-System entwickelt, das jede Flasche für 25 Cent scannt.",
+        "adminDesc": "Hast ein Barcode-System entwickelt, das jede Flasche für 25 Cent scannt.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_21",
+        "name": "BAföG-Antrag fehlerhaft",
+        "tier": "schlecht",
+        "cost": 45000,
+        "score": 49,
+        "tags": [
+          "Lappalie",
+          "Behörde",
+          "Student"
+        ],
+        "desc": "Du hast vergessen, die Zinsen vom Sparbuch deiner Oma anzugeben.",
+        "adminDesc": "Du hast vergessen, die Zinsen vom Sparbuch deiner Oma anzugeben.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_22",
+        "name": "Zu oft falsch geparkt",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 45,
+        "tags": [
+          "Lappalie",
+          "Auto",
+          "Knöllchen"
+        ],
+        "desc": "73 unbezahlte Strafzettel wegen 'Parken entgegen der Fahrtrichtung'.",
+        "adminDesc": "73 unbezahlte Strafzettel wegen 'Parken entgegen der Fahrtrichtung'.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_24",
+        "name": "Kehrwoche verweigert",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Lappalie",
+          "Schwaben",
+          "Nachbarn"
+        ],
+        "desc": "Die Nachbarn in Stuttgart haben dich direkt dem SEK übergeben.",
+        "adminDesc": "Die Nachbarn in Stuttgart haben dich direkt dem SEK übergeben.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_25",
+        "name": "Müll falsch getrennt",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Lappalie",
+          "Müll",
+          "Alman"
+        ],
+        "desc": "Ein Stück Plastik landete im Biomüll. Das Ordnungsamt kennt keine Gnade.",
+        "adminDesc": "Ein Stück Plastik landete im Biomüll. Das Ordnungsamt kennt keine Gnade.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_28",
+        "name": "Facebook Beleidigung",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Lappalie",
+          "Internet",
+          "Boomer"
+        ],
+        "desc": "Du hast den Bürgermeister unter einem Lokalartikel als 'Spargeltarzan' betitelt.",
+        "adminDesc": "Du hast den Bürgermeister unter einem Lokalartikel als 'Spargeltarzan' betitelt.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_8",
+        "name": "Kartell-Anführer",
+        "tier": "gut",
+        "cost": 100000,
+        "score": 83,
+        "tags": [
+          "Verbrechen",
+          "Mafia",
+          "Hardcore"
+        ],
+        "desc": "Du leitest ein weltweites Schmuggel-Imperium für verbotene Energydrinks.",
+        "adminDesc": "Du leitest ein weltweites Schmuggel-Imperium für verbotene Energydrinks.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      },
+      {
+        "id": "crime_27",
+        "name": "Sonntags Rasen gemäht",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Lappalie",
+          "Ruhe",
+          "Sonntag"
+        ],
+        "desc": "Der Benzinrasenmäher um 13:00 Uhr an einem Sonntag. Ein brutales Verbrechen.",
+        "adminDesc": "Der Benzinrasenmäher um 13:00 Uhr an einem Sonntag. Ein brutales Verbrechen.",
+        "icon": "⚖️",
+        "dbCategory": "CRIME"
+      }
+    ],
+    "MATE": [
+      {
+        "id": "mate_2",
+        "name": "Der Tunnelgräber",
+        "tier": "gut",
+        "cost": 450000,
+        "score": 97,
+        "tags": [
+          "Genosse",
+          "Flucht",
+          "Schaufel"
+        ],
+        "desc": "Hat angeblich schon mal den Ärmelkanal mit einem Teelöffel untergraben.",
+        "adminDesc": "Hat angeblich schon mal den Ärmelkanal mit einem Teelöffel untergraben.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_3",
+        "name": "Der Chefkoch",
+        "tier": "gut",
+        "cost": 400000,
+        "score": 95,
+        "tags": [
+          "Genosse",
+          "Essen",
+          "Luxus"
+        ],
+        "desc": "Macht aus trockenem Brot und Leitungswasser ein 3-Gänge-Menü.",
+        "adminDesc": "Macht aus trockenem Brot und Leitungswasser ein 3-Gänge-Menü.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_4",
+        "name": "Der Schmuggler",
+        "tier": "gut",
+        "cost": 350000,
+        "score": 92,
+        "tags": [
+          "Genosse",
+          "Schwarzmarkt",
+          "Handel"
+        ],
+        "desc": "Besorgt dir von iPhones bis zu Beluga-Kaviar alles. Frag nicht, wie.",
+        "adminDesc": "Besorgt dir von iPhones bis zu Beluga-Kaviar alles. Frag nicht, wie.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_5",
+        "name": "Der Mafia-Boss",
+        "tier": "gut",
+        "cost": 300000,
+        "score": 90,
+        "tags": [
+          "Genosse",
+          "Pate",
+          "Schutz"
+        ],
+        "desc": "Niemand wagt es, euch auch nur böse anzusehen. Absoluter VIP-Schutz.",
+        "adminDesc": "Niemand wagt es, euch auch nur böse anzusehen. Absoluter VIP-Schutz.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_7",
+        "name": "Der Apotheker",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Genosse",
+          "Chemie",
+          "Medizin"
+        ],
+        "desc": "Weiß genau, aus welchen Putzmitteln man Schlafgas mischen kann.",
+        "adminDesc": "Weiß genau, aus welchen Putzmitteln man Schlafgas mischen kann.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_8",
+        "name": "Der Schlossknacker",
+        "tier": "gut",
+        "cost": 100000,
+        "score": 83,
+        "tags": [
+          "Genosse",
+          "Türen",
+          "Freiheit"
+        ],
+        "desc": "Öffnet Sicherheitstüren mit einer Nudel und einem Kaugummi.",
+        "adminDesc": "Öffnet Sicherheitstüren mit einer Nudel und einem Kaugummi.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_9",
+        "name": "Ex-Navy SEAL",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Genosse",
+          "Kampf",
+          "Taktik"
+        ],
+        "desc": "Kann 14 Wärter lautlos ausschalten und dir dabei noch Überlebenstipps geben.",
+        "adminDesc": "Kann 14 Wärter lautlos ausschalten und dir dabei noch Überlebenstipps geben.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_10",
+        "name": "Der Architekt",
+        "tier": "gut",
+        "cost": 20000,
+        "score": 80,
+        "tags": [
+          "Genosse",
+          "Pläne",
+          "Schlau"
+        ],
+        "desc": "Kennt die Baupläne des gesamten Trakts auswendig. Ein Genie.",
+        "adminDesc": "Kennt die Baupläne des gesamten Trakts auswendig. Ein Genie.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_11",
+        "name": "Der Verschwörungstheoretiker",
+        "tier": "mittel",
+        "cost": 240000,
+        "score": 79,
+        "tags": [
+          "Genosse",
+          "Aluhut",
+          "Redselig"
+        ],
+        "desc": "Glaubt, dass das Gefängnis gar nicht existiert und ihr in einer Simulation seid.",
+        "adminDesc": "Glaubt, dass das Gefängnis gar nicht existiert und ihr in einer Simulation seid.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_12",
+        "name": "Der Bodybuilder",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Genosse",
+          "Stark",
+          "Ego"
+        ],
+        "desc": "Macht den ganzen Tag Liegestütze und weint, wenn ihm Proteine fehlen.",
+        "adminDesc": "Macht den ganzen Tag Liegestütze und weint, wenn ihm Proteine fehlen.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_16",
+        "name": "Der Pokerspieler",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 64,
+        "tags": [
+          "Genosse",
+          "Karten",
+          "Sucht"
+        ],
+        "desc": "Hat schon sein Bett, sein Essen und seine Schuhe an Wärter verspielt.",
+        "adminDesc": "Hat schon sein Bett, sein Essen und seine Schuhe an Wärter verspielt.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_17",
+        "name": "Der Philosoph",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 60,
+        "tags": [
+          "Genosse",
+          "Denker",
+          "Müde"
+        ],
+        "desc": "Hinterfragt, was 'Freiheit' überhaupt bedeutet. Man will ihn nur noch schlagen.",
+        "adminDesc": "Hinterfragt, was 'Freiheit' überhaupt bedeutet. Man will ihn nur noch schlagen.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_18",
+        "name": "Der TikToker",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Genosse",
+          "Cringe",
+          "Tanz"
+        ],
+        "desc": "Übt den ganzen Tag Tanz-Choreografien für den Fall seiner Entlassung.",
+        "adminDesc": "Übt den ganzen Tag Tanz-Choreografien für den Fall seiner Entlassung.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_19",
+        "name": "Der DJ",
+        "tier": "mittel",
+        "cost": 80000,
+        "score": 54,
+        "tags": [
+          "Genosse",
+          "Lärm",
+          "Musik"
+        ],
+        "desc": "Beatboxt pausenlos. Es klingt wie ein sterbender Rasenmäher.",
+        "adminDesc": "Beatboxt pausenlos. Es klingt wie ein sterbender Rasenmäher.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_20",
+        "name": "Der Krypto-Broker",
+        "tier": "mittel",
+        "cost": 60000,
+        "score": 50,
+        "tags": [
+          "Genosse",
+          "Bitcoin",
+          "Scam"
+        ],
+        "desc": "Versucht dir im Knast einen Coin anzudrehen, der 'to the moon' geht.",
+        "adminDesc": "Versucht dir im Knast einen Coin anzudrehen, der 'to the moon' geht.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_21",
+        "name": "Der Schnarcher",
+        "tier": "schlecht",
+        "cost": 45000,
+        "score": 49,
+        "tags": [
+          "Genosse",
+          "Lärm",
+          "Qual"
+        ],
+        "desc": "Lautstärke: Presslufthammer. Du hast seit drei Jahren nicht mehr geschlafen.",
+        "adminDesc": "Lautstärke: Presslufthammer. Du hast seit drei Jahren nicht mehr geschlafen.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_22",
+        "name": "Der Seifen-Fallensteller",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 45,
+        "tags": [
+          "Genosse",
+          "Gefahr",
+          "Troll"
+        ],
+        "desc": "Präpariert den Duschboden absichtlich, um das Chaos brennen zu sehen.",
+        "adminDesc": "Präpariert den Duschboden absichtlich, um das Chaos brennen zu sehen.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_23",
+        "name": "Die Petze",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Genosse",
+          "Verrat",
+          "Gefahr"
+        ],
+        "desc": "Meldet dem Wärter sofort, wenn du auch nur an einen Fluchtplan denkst.",
+        "adminDesc": "Meldet dem Wärter sofort, wenn du auch nur an einen Fluchtplan denkst.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_25",
+        "name": "Die Heulsuse",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Genosse",
+          "Tränen",
+          "Nervig"
+        ],
+        "desc": "Weint jede Nacht bitterlich nach seiner Mama. Es bricht dir den Verstand.",
+        "adminDesc": "Weint jede Nacht bitterlich nach seiner Mama. Es bricht dir den Verstand.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_26",
+        "name": "Der Psycho",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Genosse",
+          "Angst",
+          "Blick"
+        ],
+        "desc": "Steht manchmal nachts einfach stumm an deinem Bett und starrt dich an.",
+        "adminDesc": "Steht manchmal nachts einfach stumm an deinem Bett und starrt dich an.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_27",
+        "name": "Das Plappermaul",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Genosse",
+          "Reden",
+          "Qual"
+        ],
+        "desc": "Redet ununterbrochen. 24/7. Er atmet ein und spricht beim Ausatmen.",
+        "adminDesc": "Das Plappermaul redet ununterbrochen. 24/7. Er atmet ein und spricht beim Ausatmen.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_28",
+        "name": "Der Stinker",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Genosse",
+          "Ekel",
+          "Gestank"
+        ],
+        "desc": "Verweigert das Duschen aus 'protestrechtlichen Gründen'. Toxische Wolke.",
+        "adminDesc": "Verweigert das Duschen aus 'protestrechtlichen Gründen'. Toxische Wolke.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_29",
+        "name": "Die Ratte",
+        "tier": "schlecht",
+        "cost": 150000,
+        "score": 12,
+        "tags": [
+          "Genosse",
+          "Spion",
+          "Gefahr"
+        ],
+        "desc": "Er ist offensichtlich ein eingeschleuster Polizei-Informant mit Mikro.",
+        "adminDesc": "Er ist offensichtlich ein eingeschleuster Polizei-Informant mit Mikro.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      },
+      {
+        "id": "mate_30",
+        "name": "Der Pessimist",
+        "tier": "schlecht",
+        "cost": 350000,
+        "score": 10,
+        "tags": [
+          "Genosse",
+          "Negativ",
+          "Traurig"
+        ],
+        "desc": "Saugt dir jegliche Lebensenergie aus. 'Wir werden hier alle sterben'.",
+        "adminDesc": "Saugt dir jegliche Lebensenergie aus. 'Wir werden hier alle sterben'.",
+        "icon": "👬",
+        "dbCategory": "MATE"
+      }
+    ],
+    "GUARD": [
+      {
+        "id": "guard_1",
+        "name": "Der Bestechliche",
+        "tier": "gut",
+        "cost": 500000,
+        "score": 99,
+        "tags": [
+          "Wärter",
+          "Korrupt",
+          "Freiheit"
+        ],
+        "desc": "Macht für eine Stange Zigaretten beide Augen und die Zellentür zu.",
+        "adminDesc": "Macht für eine Stange Zigaretten beide Augen und die Zellentür zu.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_2",
+        "name": "Der Blinde",
+        "tier": "gut",
+        "cost": 450000,
+        "score": 97,
+        "tags": [
+          "Wärter",
+          "Blind",
+          "Blindfisch"
+        ],
+        "desc": "Hat seine Brille verloren. Du könntest den Fernseher raustragen, er merkt nichts.",
+        "adminDesc": "Hat seine Brille verloren. Du könntest den Fernseher raustragen, er merkt nichts.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_3",
+        "name": "Der Schläfer",
+        "tier": "gut",
+        "cost": 400000,
+        "score": 95,
+        "tags": [
+          "Wärter",
+          "Schlaf",
+          "Schnarchen"
+        ],
+        "desc": "Seine Nachtschicht besteht aus 8 Stunden Tiefschlaf im Stuhl.",
+        "adminDesc": "Seine Nachtschicht besteht aus 8 Stunden Tiefschlaf im Stuhl.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_4",
+        "name": "Der Handysüchtige",
+        "tier": "gut",
+        "cost": 350000,
+        "score": 92,
+        "tags": [
+          "Wärter",
+          "Handy",
+          "Zocker"
+        ],
+        "desc": "Spielt ununterbrochen Candy Crush und guckt nie auf die Kameras.",
+        "adminDesc": "Spielt ununterbrochen Candy Crush und guckt nie auf die Kameras.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_6",
+        "name": "Der Kater-Haber",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 88,
+        "tags": [
+          "Wärter",
+          "Krank",
+          "Müde"
+        ],
+        "desc": "Hat jeden Morgen so massive Kopfschmerzen, dass ihm alles egal ist.",
+        "adminDesc": "Hat jeden Morgen so massive Kopfschmerzen, dass ihm alles egal ist.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_7",
+        "name": "Der Schmuggler-Wärter",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Wärter",
+          "Handel",
+          "Geld"
+        ],
+        "desc": "Bringt dir alles mit rein, solange die Bezahlung stimmt.",
+        "adminDesc": "Bringt dir alles mit rein, solange die Bezahlung stimmt.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_9",
+        "name": "Der Angsthase",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Wärter",
+          "Panik",
+          "Feige"
+        ],
+        "desc": "Zuckt schon zusammen, wenn jemand auf dem Flur niest. Leicht zu manipulieren.",
+        "adminDesc": "Zuckt schon zusammen, wenn jemand auf dem Flur niest. Leicht zu manipulieren.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_11",
+        "name": "Die Helikopter-Wärterin",
+        "tier": "mittel",
+        "cost": 240000,
+        "score": 79,
+        "tags": [
+          "Wärter",
+          "Mutter",
+          "Nervig"
+        ],
+        "desc": "Kontrolliert besorgt, ob du genug Wasser getrunken hast und dir nicht kalt ist.",
+        "adminDesc": "Kontrolliert besorgt, ob du genug Wasser getrunken hast und dir nicht kalt ist.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_12",
+        "name": "Der gescheiterte Schauspieler",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Wärter",
+          "Drama",
+          "Kunst"
+        ],
+        "desc": "Inszeniert jede Hofgang-Ankündigung wie einen Shakespeare-Monolog.",
+        "adminDesc": "Inszeniert jede Hofgang-Ankündigung wie einen Shakespeare-Monolog.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_13",
+        "name": "Der Bürokrat",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Wärter",
+          "Papier",
+          "Regeln"
+        ],
+        "desc": "Ein Ausbruch ist okay, solange du vorher das Formular B38 ausfüllst.",
+        "adminDesc": "Ein Ausbruch ist okay, solange du vorher das Formular B38 ausfüllst.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_14",
+        "name": "Der Neuling",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Wärter",
+          "Streber",
+          "Lost"
+        ],
+        "desc": "Kennt das Handbuch auswendig, weiß aber nicht, wo die Toilette ist.",
+        "adminDesc": "Kennt das Handbuch auswendig, weiß aber nicht, wo die Toilette ist.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_15",
+        "name": "Der Fitness-Bro",
+        "tier": "mittel",
+        "cost": 160000,
+        "score": 67,
+        "tags": [
+          "Wärter",
+          "Pumpen",
+          "Ego"
+        ],
+        "desc": "Macht im Dienst nur Liegestütze und bewundert seinen Bizeps im Glas.",
+        "adminDesc": "Macht im Dienst nur Liegestütze und bewundert seinen Bizeps im Glas.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_16",
+        "name": "Der Träumer",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 64,
+        "tags": [
+          "Wärter",
+          "Kopf",
+          "Wolken"
+        ],
+        "desc": "Starrt stundenlang aus dem Fenster und denkt über das Leben nach.",
+        "adminDesc": "Starrt stundenlang aus dem Fenster und denkt über das Leben nach.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_17",
+        "name": "Die Plaudertasche",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 60,
+        "tags": [
+          "Wärter",
+          "Reden",
+          "Nervig"
+        ],
+        "desc": "Quatscht dich mit Geschichten über seine Katzen voll. Unerträglich.",
+        "adminDesc": "Quatscht dich mit Geschichten über seine Katzen voll. Unerträglich.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_22",
+        "name": "Der Ex-Militär",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 45,
+        "tags": [
+          "Wärter",
+          "Drill",
+          "Stress"
+        ],
+        "desc": "Lässt dich den Zellenboden mit einer Zahnbürste auf Hochglanz polieren.",
+        "adminDesc": "Lässt dich den Zellenboden mit einer Zahnbürste auf Hochglanz polieren.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_23",
+        "name": "Der Paragrafenreiter",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Wärter",
+          "Regeln",
+          "Alman"
+        ],
+        "desc": "Bestraft dich, weil dein Kissenbezug um 2 Zentimeter verrutscht ist.",
+        "adminDesc": "Bestraft dich, weil dein Kissenbezug um 2 Zentimeter verrutscht ist.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_24",
+        "name": "Die Schnüffelnase",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Wärter",
+          "Riechen",
+          "Gefahr"
+        ],
+        "desc": "Riecht Schmuggelware auf 50 Meter gegen den Wind. Entdeckt jedes Versteck.",
+        "adminDesc": "Riecht Schmuggelware auf 50 Meter gegen den Wind. Entdeckt jedes Versteck.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_26",
+        "name": "Der Sadist",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Wärter",
+          "Psycho",
+          "Böse"
+        ],
+        "desc": "Pfeift dir morgens um 4:00 Uhr mit der Trillerpfeife direkt ins Ohr.",
+        "adminDesc": "Pfeift dir morgens um 4:00 Uhr mit der Trillerpfeife direkt ins Ohr.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_27",
+        "name": "Der Kontrollfreak",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Wärter",
+          "Check",
+          "Panik"
+        ],
+        "desc": "Durchsucht deine Zelle dreimal täglich. Dreht jede Socke auf links.",
+        "adminDesc": "Durchsucht deine Zelle dreimal täglich. Dreht jede Socke auf links.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_28",
+        "name": "Der Kamerasüchtige",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Wärter",
+          "Augen",
+          "BigBrother"
+        ],
+        "desc": "Starrt ohne zu blinzeln auf die Monitore. Ihm entgeht nicht mal eine Fliege.",
+        "adminDesc": "Starrt ohne zu blinzeln auf die Monitore. Ihm entgeht nicht mal eine Fliege.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_29",
+        "name": "Der Marathonläufer",
+        "tier": "schlecht",
+        "cost": 150000,
+        "score": 12,
+        "tags": [
+          "Wärter",
+          "Sport",
+          "Schnell"
+        ],
+        "desc": "Wenn du wegrennst, holt er dich ein. Er läuft Ultra-Marathons aus Spaß.",
+        "adminDesc": "Wenn du wegrennst, holt er dich ein. Er läuft Ultra-Marathons aus Spaß.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_8",
+        "name": "Der Bald-Rentner",
+        "tier": "gut",
+        "cost": 100000,
+        "score": 83,
+        "tags": [
+          "Wärter",
+          "Alt",
+          "Egal"
+        ],
+        "desc": "Geht in drei Wochen in Rente. Er riskiert hier absolut gar nichts mehr.",
+        "adminDesc": "Geht in drei Wochen in Rente. Er riskiert hier absolut gar nichts mehr.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_21",
+        "name": "Der Terminator",
+        "tier": "schlecht",
+        "cost": 45000,
+        "score": 49,
+        "tags": [
+          "Wärter",
+          "Maschine",
+          "Hardcore"
+        ],
+        "desc": "Spürt keine Schmerzen, zeigt keine Emotionen, findet jeden Fehler.",
+        "adminDesc": "Spürt keine Schmerzen, zeigt keine Emotionen, findet jeden Fehler.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_25",
+        "name": "Der Unbestechliche",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Wärter",
+          "Stolz",
+          "Rein"
+        ],
+        "desc": "Lehnt selbst Millionenbeträge ab. Sein Moral-Kompass ist aus Stahl.",
+        "adminDesc": "Lehnt selbst Millionenbeträge ab. Sein Moral-Kompass ist aus Stahl.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      },
+      {
+        "id": "guard_30",
+        "name": "Der Scharfschütze",
+        "tier": "schlecht",
+        "cost": 350000,
+        "score": 10,
+        "tags": [
+          "Wärter",
+          "Waffe",
+          "Tod"
+        ],
+        "desc": "Sitzt auf dem Wachturm und verfehlt niemals sein Ziel. Niemals.",
+        "adminDesc": "Sitzt auf dem Wachturm und verfehlt niemals sein Ziel. Niemals.",
+        "icon": "👮",
+        "dbCategory": "GUARD"
+      }
+    ],
+    "VISIT": [
+      {
+        "id": "visit_1",
+        "name": "Der Mafia-Pate",
+        "tier": "gut",
+        "cost": 500000,
+        "score": 99,
+        "tags": [
+          "Besuch",
+          "Geld",
+          "Hilfe"
+        ],
+        "desc": "Schmiert den Direktor und übergibt dir heimlich detaillierte Fluchtpläne.",
+        "adminDesc": "Schmiert den Direktor und übergibt dir heimlich detaillierte Fluchtpläne.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_3",
+        "name": "Der Helikopter-Pilot",
+        "tier": "gut",
+        "cost": 400000,
+        "score": 95,
+        "tags": [
+          "Besuch",
+          "Luft",
+          "Rettung"
+        ],
+        "desc": "Bespricht mit dir durch die Scheibe, wann er das Dach anfliegt.",
+        "adminDesc": "Bespricht mit dir durch die Scheibe, wann er das Dach anfliegt.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_4",
+        "name": "Der Meisterdieb",
+        "tier": "gut",
+        "cost": 350000,
+        "score": 92,
+        "tags": [
+          "Besuch",
+          "Ninja",
+          "Stealth"
+        ],
+        "desc": "Hat während des Besuchs bereits drei Wärtern die Schlüssel geklaut.",
+        "adminDesc": "Hat während des Besuchs bereits drei Wärtern die Schlüssel geklaut.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_6",
+        "name": "Verwirrter Pizzabote",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 88,
+        "tags": [
+          "Besuch",
+          "Pizza",
+          "Lost"
+        ],
+        "desc": "Hat sich ins Hochsicherheitstrakt verirrt und drückt dir eine Salami-Pizza durchs Glas.",
+        "adminDesc": "Hat sich ins Hochsicherheitstrakt verirrt und drückt dir eine Salami-Pizza durchs Glas.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_7",
+        "name": "Priester mit Flachmann",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Besuch",
+          "Kirche",
+          "Alkohol"
+        ],
+        "desc": "Bietet dir geistlichen Beistand und einen heimlichen Schluck Whisky.",
+        "adminDesc": "Bietet dir geistlichen Beistand und einen heimlichen Schluck Whisky.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_9",
+        "name": "Der Drohnen-Pilot",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Besuch",
+          "Technik",
+          "Luft"
+        ],
+        "desc": "Zeigt dir Live-Bilder vom Gefängnishof auf seinem versteckten Tablet.",
+        "adminDesc": "Zeigt dir Live-Bilder vom Gefängnishof auf seinem versteckten Tablet.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_10",
+        "name": "Der korrupte Kumpel",
+        "tier": "gut",
+        "cost": 20000,
+        "score": 80,
+        "tags": [
+          "Besuch",
+          "Polizei",
+          "Insider"
+        ],
+        "desc": "Ein Polizist im Dienst, der dir den Schichtplan der Wärter zusteckt.",
+        "adminDesc": "Ein Polizist im Dienst, der dir den Schichtplan der Wärter zusteckt.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_12",
+        "name": "Der Brieffreund",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Besuch",
+          "Lüge",
+          "Treu"
+        ],
+        "desc": "Denkt, du bist auf Weltreise im 'Gitter-Muster-Hotel'. Freut sich total.",
+        "adminDesc": "Denkt, du bist auf Weltreise im 'Gitter-Muster-Hotel'. Freut sich total.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_13",
+        "name": "Der verirrte Tourist",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Besuch",
+          "Lost",
+          "Urlaub"
+        ],
+        "desc": "Fragt dich durch die Scheibe nach dem Weg zum nächsten Starbucks.",
+        "adminDesc": "Fragt dich durch die Scheibe nach dem Weg zum nächsten Starbucks.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_14",
+        "name": "Das Tinder-Date",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Besuch",
+          "Liebe",
+          "Cringe"
+        ],
+        "desc": "Ihr habt ein Match. Sie dachte, 'sicherer Wohnort' bedeutet was anderes.",
+        "adminDesc": "Ihr habt ein Match. Sie dachte, 'sicherer Wohnort' bedeutet was anderes.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_16",
+        "name": "Verwirrter Opa",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 64,
+        "tags": [
+          "Besuch",
+          "Alt",
+          "Vergessen"
+        ],
+        "desc": "Erzählt dir vom Krieg und wundert sich, warum die Bank hier so seltsam aussieht.",
+        "adminDesc": "Erzählt dir vom Krieg und wundert sich, warum die Bank hier so seltsam aussieht.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_17",
+        "name": "Immobilienmakler",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 60,
+        "tags": [
+          "Besuch",
+          "Haus",
+          "Verkauf"
+        ],
+        "desc": "Will dir ein Haus am See andrehen, für die Zeit 'danach'.",
+        "adminDesc": "Will dir ein Haus am See andrehen, für die Zeit 'danach'.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_18",
+        "name": "Der Fanboy",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Besuch",
+          "Fan",
+          "Creep"
+        ],
+        "desc": "Hat all deine Verbrechen gegoogelt und will ein Autogramm auf dem Arm.",
+        "adminDesc": "Hat all deine Verbrechen gegoogelt und will ein Autogramm auf dem Arm.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_19",
+        "name": "Der Ex-Boss",
+        "tier": "mittel",
+        "cost": 80000,
+        "score": 54,
+        "tags": [
+          "Besuch",
+          "Arbeit",
+          "Chef"
+        ],
+        "desc": "Fragt durch die Scheibe, wo du die Projekt-Ordner auf dem Server abgelegt hast.",
+        "adminDesc": "Fragt durch die Scheibe, wo du die Projekt-Ordner auf dem Server abgelegt hast.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_23",
+        "name": "Die Ex mit Neuem",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Besuch",
+          "Ex",
+          "Peinlich"
+        ],
+        "desc": "Bringt aus unerfindlichen Gründen den neuen, perfekten Partner zum Besuch mit.",
+        "adminDesc": "Bringt aus unerfindlichen Gründen den neuen, perfekten Partner zum Besuch mit.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_24",
+        "name": "Der Steuerprüfer",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Besuch",
+          "Finanzamt",
+          "Angst"
+        ],
+        "desc": "Will auch im Knast noch Belege aus dem Jahr 2018 von dir sehen.",
+        "adminDesc": "Will auch im Knast noch Belege aus dem Jahr 2018 von dir sehen.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_25",
+        "name": "Der Enttäuschte Vater",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Besuch",
+          "Traurig",
+          "Schuld"
+        ],
+        "desc": "Schüttelt 15 Minuten lang nur wortlos und enttäuscht den Kopf.",
+        "adminDesc": "Schüttelt 15 Minuten lang nur wortlos und enttäuscht den Kopf.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_26",
+        "name": "Inkasso-Moskau",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Besuch",
+          "Geld",
+          "Gefahr"
+        ],
+        "desc": "Erinnert dich sehr nachdrücklich an deine noch offenen Schulden draußen.",
+        "adminDesc": "Erinnert dich sehr nachdrücklich an deine noch offenen Schulden draußen.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_27",
+        "name": "Gerichtsvollzieher",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Besuch",
+          "Pfändung",
+          "Pleite"
+        ],
+        "desc": "Klebt den Kuckuck direkt auf die Trennscheibe im Besuchsraum.",
+        "adminDesc": "Klebt den Kuckuck direkt auf die Trennscheibe im Besuchsraum.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_28",
+        "name": "Nerviger Nachbar",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 31,
+        "tags": [
+          "Besuch",
+          "Nachbar",
+          "Spießer"
+        ],
+        "desc": "Kommt extra vorbei, um dir zu sagen, dass dein Briefkasten draußen überquillt.",
+        "adminDesc": "Kommt extra vorbei, um dir zu sagen, dass dein Briefkasten draußen überquillt.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_30",
+        "name": "Der Stalker",
+        "tier": "schlecht",
+        "cost": 350000,
+        "score": 10,
+        "tags": [
+          "Besuch",
+          "Creep",
+          "Angst"
+        ],
+        "desc": "Atmet nur schwer in den Hörer, sagt nichts, drückt die Hand ans Glas.",
+        "adminDesc": "Atmet nur schwer in den Hörer, sagt nichts, drückt die Hand ans Glas.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_29",
+        "name": "Schadenfreudiger Feind",
+        "tier": "schlecht",
+        "cost": 150000,
+        "score": 12,
+        "tags": [
+          "Besuch",
+          "Feind",
+          "Hass"
+        ],
+        "desc": "Kommt nur, um dich im Overall auszulachen und dann wieder zu gehen.",
+        "adminDesc": "Kommt nur, um dich im Overall auszulachen und dann wieder zu gehen.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      },
+      {
+        "id": "visit_22",
+        "name": "Die Schwiegermutter",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 13,
+        "tags": [
+          "Besuch",
+          "Trocken",
+          "Qual"
+        ],
+        "desc": "Bringt einen extrem trockenen Sandkuchen mit. Fast schlimmer als die Haft.",
+        "adminDesc": "Bringt einen extrem trockenen Sandkuchen mit. Fast schlimmer als die Haft.",
+        "icon": "📞",
+        "dbCategory": "VISIT"
+      }
+    ],
+    "PLAN": [
+      {
+        "id": "plan_1",
+        "name": "Das System crashen",
+        "tier": "gut",
+        "cost": 500000,
+        "score": 99,
+        "tags": [
+          "Plan",
+          "IT",
+          "Hacker"
+        ],
+        "desc": "Die Datenbank so tief verschachteln, dass alle Türen aus Panik entriegeln.",
+        "adminDesc": "Die Datenbank so tief verschachteln, dass alle Türen aus Panik entriegeln.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_2",
+        "name": "Heli-Rettung",
+        "tier": "gut",
+        "cost": 450000,
+        "score": 97,
+        "tags": [
+          "Plan",
+          "Luft",
+          "Kino"
+        ],
+        "desc": "Mitten im Hofgang seilt sich ein Spezialeinheit-Helikopter für dich ab.",
+        "adminDesc": "Mitten im Hofgang seilt sich ein Spezialeinheit-Helikopter für dich ab.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_3",
+        "name": "EMP-Schock",
+        "tier": "gut",
+        "cost": 400000,
+        "score": 95,
+        "tags": [
+          "Plan",
+          "Technik",
+          "Blackout"
+        ],
+        "desc": "Ein elektromagnetischer Impuls legt das gesamte Sicherheitssystem lahm.",
+        "adminDesc": "Ein elektromagnetischer Impuls legt das gesamte Sicherheitssystem lahm.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_4",
+        "name": "Direktor-Entführung",
+        "tier": "gut",
+        "cost": 350000,
+        "score": 92,
+        "tags": [
+          "Plan",
+          "Geisel",
+          "Risiko"
+        ],
+        "desc": "Du nimmst den Chef als Geisel und spazierst entspannt zum Haupteingang.",
+        "adminDesc": "Du nimmst den Chef als Geisel und spazierst entspannt zum Haupteingang.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_5",
+        "name": "Uniform-Tarnung",
+        "tier": "gut",
+        "cost": 300000,
+        "score": 90,
+        "tags": [
+          "Plan",
+          "Kleidung",
+          "Illusion"
+        ],
+        "desc": "In einer gestohlenen Wärteruniform winkst du beim Rausgehen freundlich.",
+        "adminDesc": "In einer gestohlenen Wärteruniform winkst du beim Rausgehen freundlich.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_6",
+        "name": "Fake-Entlassung",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 88,
+        "tags": [
+          "Plan",
+          "Papier",
+          "Genie"
+        ],
+        "desc": "Hast die Unterschrift des Richters gefälscht. Sie bringen dich zur Tür.",
+        "adminDesc": "Hast die Unterschrift des Richters gefälscht. Sie bringen dich zur Tür.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_7",
+        "name": "Bestechung-Luxus",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Plan",
+          "Geld",
+          "Easy"
+        ],
+        "desc": "Du kaufst das Gefängnis kurzerhand und entlässt dich als neuer Inhaber selbst.",
+        "adminDesc": "Du kaufst das Gefängnis kurzerhand und entlässt dich als neuer Inhaber selbst.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_9",
+        "name": "Food-Truck Hijack",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Plan",
+          "Auto",
+          "Essen"
+        ],
+        "desc": "Versteckst dich im Lieferwagen für die Kantine und isst dich auf dem Weg frei.",
+        "adminDesc": "Versteckst dich im Lieferwagen für die Kantine und isst dich auf dem Weg frei.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_10",
+        "name": "Bestechung (Pokémon)",
+        "tier": "gut",
+        "cost": 20000,
+        "score": 80,
+        "tags": [
+          "Plan",
+          "Handel",
+          "Nerd"
+        ],
+        "desc": "Du tauschst dein Glurak in Holo (1st Edition) gegen den Zentralschlüssel.",
+        "adminDesc": "Du tauschst dein Glurak in Holo (1st Edition) gegen den Zentralschlüssel.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_12",
+        "name": "Verkleidet im Wäschesack",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Plan",
+          "Wäsche",
+          "Hitze"
+        ],
+        "desc": "Einfach reinlegen und hoffen, dass sie die Wäsche nicht bei 90 Grad kochen.",
+        "adminDesc": "Einfach reinlegen und hoffen, dass sie die Wäsche nicht bei 90 Grad kochen.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_13",
+        "name": "Müllwagen-Flucht",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Plan",
+          "Müll",
+          "Ekel"
+        ],
+        "desc": "Du springst in die Presse. Sehr riskant und extrem stinkig.",
+        "adminDesc": "Du springst in die Presse. Sehr riskant und extrem stinkig.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_14",
+        "name": "Flashmob",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Plan",
+          "Tanz",
+          "Ablenkung"
+        ],
+        "desc": "Den Block zur Musical-Nummer animieren und im Chaos durch die Tür spazieren.",
+        "adminDesc": "Den Block zur Musical-Nummer animieren und im Chaos durch die Tür spazieren.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_15",
+        "name": "Fake-Krankheit",
+        "tier": "mittel",
+        "cost": 160000,
+        "score": 67,
+        "tags": [
+          "Plan",
+          "Krankenhaus",
+          "Schauspiel"
+        ],
+        "desc": "Täuschst einen Blinddarmdurchbruch vor und fliehst aus dem Krankenwagen.",
+        "adminDesc": "Täuschst einen Blinddarmdurchbruch vor und fliehst aus dem Krankenwagen.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_16",
+        "name": "Paket-Versteck",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 64,
+        "tags": [
+          "Plan",
+          "Post",
+          "Karton"
+        ],
+        "desc": "Schickst dich selbst in einem Amazon-Karton an deine Oma zurück.",
+        "adminDesc": "Schickst dich selbst in einem Amazon-Karton an deine Oma zurück.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_18",
+        "name": "Heliumballons",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Plan",
+          "Luft",
+          "Film"
+        ],
+        "desc": "Nach Vorbild des Films 'Oben' mit 50.000 Ballons übers Dach schweben.",
+        "adminDesc": "Nach Vorbild des Films 'Oben' mit 50.000 Ballons übers Dach schweben.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_19",
+        "name": "Seduction",
+        "tier": "mittel",
+        "cost": 80000,
+        "score": 54,
+        "tags": [
+          "Plan",
+          "Flirt",
+          "Liebe"
+        ],
+        "desc": "Flirtest so lange mit der Wache, bis sie die Tür aus Liebe offen lässt.",
+        "adminDesc": "Flirtest so lange mit der Wache, bis sie die Tür aus Liebe offen lässt.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_22",
+        "name": "Schlechte Witze",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 45,
+        "tags": [
+          "Plan",
+          "Humor",
+          "Qual"
+        ],
+        "desc": "Den Wärter so lange mit Flachwitzen foltern, bis er freiwillig aufschließt.",
+        "adminDesc": "Den Wärter so lange mit Flachwitzen foltern, bis er freiwillig aufschließt.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_23",
+        "name": "Die Mauer abwarten",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Plan",
+          "Warten",
+          "Bau"
+        ],
+        "desc": "Einfach warten, bis das Gebäude wegen fehlenden Fördergeldern einstürzt.",
+        "adminDesc": "Einfach warten, bis das Gebäude wegen fehlenden Fördergeldern einstürzt.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_24",
+        "name": "Papierflügel",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Plan",
+          "Flug",
+          "Dumm"
+        ],
+        "desc": "Bastelst dir Flügel aus Toilettenpapier und springst vom Wachturm.",
+        "adminDesc": "Bastelst dir Flügel aus Toilettenpapier und springst vom Wachturm.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_25",
+        "name": "Hände-Graben",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Plan",
+          "Graben",
+          "Blut"
+        ],
+        "desc": "Versuchst, dich wie ein Maulwurf mit bloßen Händen durch Beton zu wühlen.",
+        "adminDesc": "Versuchst, dich wie ein Maulwurf mit bloßen Händen durch Beton zu wühlen.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_26",
+        "name": "Ganz lieb fragen",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Plan",
+          "Bitte",
+          "Naiv"
+        ],
+        "desc": "'Könnte ich vielleicht nach Hause gehen? Mache es auch nie wieder.'",
+        "adminDesc": "'Könnte ich vielleicht nach Hause gehen? Mache es auch nie wieder.'",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_27",
+        "name": "Unsichtbarkeitstrank",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Plan",
+          "Magie",
+          "Fake"
+        ],
+        "desc": "Trinkst Spülmittel und denkst ernsthaft, du wärst jetzt unsichtbar.",
+        "adminDesc": "Trinkst Spülmittel und denkst ernsthaft, du wärst jetzt unsichtbar.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_28",
+        "name": "Geist-Spielen",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Plan",
+          "Spuk",
+          "Bettlaken"
+        ],
+        "desc": "Bettlaken über den Kopf, Löcher für die Augen. 'Huuuu, ich bin ein Geist'.",
+        "adminDesc": "Bettlaken über den Kopf, Löcher für die Augen. 'Huuuu, ich bin ein Geist'.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_29",
+        "name": "Arme-Flattern",
+        "tier": "schlecht",
+        "cost": 150000,
+        "score": 12,
+        "tags": [
+          "Plan",
+          "Vogel",
+          "Verrückt"
+        ],
+        "desc": "Du rennst auf dem Hof im Kreis und flatterst extrem schnell mit den Armen.",
+        "adminDesc": "Du rennst auf dem Hof im Kreis und flatterst extrem schnell mit den Armen.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      },
+      {
+        "id": "plan_21",
+        "name": "Löffel-Tunnel",
+        "tier": "schlecht",
+        "cost": 45000,
+        "score": 49,
+        "tags": [
+          "Plan",
+          "Zeit",
+          "Löffel"
+        ],
+        "desc": "Jeden Tag 2 Gramm Dreck auf dem Hof verstreuen. Dauert nur 40 Jahre.",
+        "adminDesc": "Jeden Tag 2 Gramm Dreck auf dem Hof verstreuen. Dauert nur 40 Jahre.",
+        "icon": "🗺️",
+        "dbCategory": "PLAN"
+      }
+    ],
+    "WEAPON": [
+      {
+        "id": "weapon_2",
+        "name": "Elektroschocker (Eigenbau)",
+        "tier": "gut",
+        "cost": 450000,
+        "score": 97,
+        "tags": [
+          "Waffe",
+          "Strom",
+          "Gefahr"
+        ],
+        "desc": "Aus einer Autobatterie und Gabeln gebastelt. Brutale Voltzahl.",
+        "adminDesc": "Aus einer Autobatterie und Gabeln gebastelt. Brutale Voltzahl.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_5",
+        "name": "Eisenrohr",
+        "tier": "gut",
+        "cost": 300000,
+        "score": 90,
+        "tags": [
+          "Waffe",
+          "Metall",
+          "Grob"
+        ],
+        "desc": "Aus der Heizung gerissen. Tropft noch etwas, schlägt aber hart zu.",
+        "adminDesc": "Aus der Heizung gerissen. Tropft noch etwas, schlägt aber hart zu.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_6",
+        "name": "Pfefferspray (geschmuggelt)",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 88,
+        "tags": [
+          "Waffe",
+          "Chemie",
+          "Blind"
+        ],
+        "desc": "Für Bärenabwehr gedacht. Setzt jeden Wärter sofort außer Gefecht.",
+        "adminDesc": "Für Bärenabwehr gedacht. Setzt jeden Wärter sofort außer Gefecht.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_8",
+        "name": "Bleistift-Armbrust",
+        "tier": "gut",
+        "cost": 100000,
+        "score": 83,
+        "tags": [
+          "Waffe",
+          "Distanz",
+          "McGyver"
+        ],
+        "desc": "Verschießt angespitzte Bleistifte mit unglaublicher Präzision.",
+        "adminDesc": "Verschießt angespitzte Bleistifte mit unglaublicher Präzision.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_9",
+        "name": "Blendgranate",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Waffe",
+          "Licht",
+          "Militär"
+        ],
+        "desc": "Vom Schwarzmarkt. Eine Detonation und der ganze Block ist blind.",
+        "adminDesc": "Vom Schwarzmarkt. Eine Detonation und der ganze Block ist blind.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_10",
+        "name": "Seifen-Socken-Morgenstern",
+        "tier": "gut",
+        "cost": 20000,
+        "score": 80,
+        "tags": [
+          "Waffe",
+          "Klassiker",
+          "Gefahr"
+        ],
+        "desc": "Drei Stücke harte Kernseife in einer Tennissocke. Gefürchtet im Trakt.",
+        "adminDesc": "Drei Stücke harte Kernseife in einer Tennissocke. Gefürchtet im Trakt.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_11",
+        "name": "Angespitzte Zahnbürste",
+        "tier": "mittel",
+        "cost": 240000,
+        "score": 79,
+        "tags": [
+          "Waffe",
+          "Spitz",
+          "Hygiene"
+        ],
+        "desc": "Der absolute Knast-Klassiker. Gut für den Nahkampf und die Zähne.",
+        "adminDesc": "Der absolute Knast-Klassiker. Gut für den Nahkampf und die Zähne.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_12",
+        "name": "Bio-Waffe (Kantinen-Bohnen)",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Waffe",
+          "Gas",
+          "Essen"
+        ],
+        "desc": "Pürierte Kantinen-Bohnen von letzter Woche. Reines Giftgas.",
+        "adminDesc": "Pürierte Kantinen-Bohnen von letzter Woche. Reines Giftgas.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_13",
+        "name": "Abgelaufene Schokolade",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Waffe",
+          "Hart",
+          "Süß"
+        ],
+        "desc": "So steinhart geworden, dass man damit problemlos Glas zerschlagen kann.",
+        "adminDesc": "So steinhart geworden, dass man damit problemlos Glas zerschlagen kann.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_14",
+        "name": "Glasscherbe",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Waffe",
+          "Scharf",
+          "Blutig"
+        ],
+        "desc": "Aus dem kaputten Spiegel in Isolationshaft gesichert.",
+        "adminDesc": "Aus dem kaputten Spiegel in Isolationshaft gesichert.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_15",
+        "name": "Kochendes Wasser",
+        "tier": "mittel",
+        "cost": 160000,
+        "score": 67,
+        "tags": [
+          "Waffe",
+          "Heiß",
+          "Schmerz"
+        ],
+        "desc": "Im Becherwärmer zubereitet. Ins Gesicht geworfen sehr effektiv.",
+        "adminDesc": "Im Becherwärmer zubereitet. Ins Gesicht geworfen sehr effektiv.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_17",
+        "name": "Dicker Duden",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 60,
+        "tags": [
+          "Waffe",
+          "Wissen",
+          "Schwer"
+        ],
+        "desc": "Rechtschreibung tut weh. Besonders, wenn man das Buch an den Kopf kriegt.",
+        "adminDesc": "Rechtschreibung tut weh. Besonders, wenn man das Buch an den Kopf kriegt.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_18",
+        "name": "Abgebrochenes Tablett",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Waffe",
+          "Plastik",
+          "Kantine"
+        ],
+        "desc": "Scharfkantiges Plastik. Optimal als improvisierter Schild.",
+        "adminDesc": "Scharfkantiges Plastik. Optimal als improvisierter Schild.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_20",
+        "name": "Nasses Handtuch",
+        "tier": "mittel",
+        "cost": 60000,
+        "score": 50,
+        "tags": [
+          "Waffe",
+          "Klatscher",
+          "Nass"
+        ],
+        "desc": "Zusammengerollt und nass gemacht – klatscht ordentlich.",
+        "adminDesc": "Zusammengerollt und nass gemacht – klatscht ordentlich.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_21",
+        "name": "Plastikgabel",
+        "tier": "schlecht",
+        "cost": 45000,
+        "score": 49,
+        "tags": [
+          "Waffe",
+          "Plastik",
+          "Fail"
+        ],
+        "desc": "Bricht beim ersten Stich sofort ab, sieht aber in der Hand bedrohlich aus.",
+        "adminDesc": "Bricht beim ersten Stich sofort ab, sieht aber in der Hand bedrohlich aus.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_25",
+        "name": "Gummiband",
+        "tier": "schlecht",
+        "cost": 25000,
+        "score": 28,
+        "tags": [
+          "Waffe",
+          "Flitsche",
+          "Nervig"
+        ],
+        "desc": "Du kannst es flitschen lassen. Das zwiebelt leicht auf der Haut.",
+        "adminDesc": "Du kannst es flitschen lassen. Das zwiebelt leicht auf der Haut.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_26",
+        "name": "Kopfkissen",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Waffe",
+          "Feder",
+          "Schlaf"
+        ],
+        "desc": "Eine gepflegte Kissenschlacht hat noch niemandem wehgetan.",
+        "adminDesc": "Eine gepflegte Kissenschlacht hat noch niemandem wehgetan.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_27",
+        "name": "Plastiklöffel",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Waffe",
+          "Rund",
+          "Schwach"
+        ],
+        "desc": "Weniger gefährlich als die Gabel. Absolut nutzlos im Nahkampf.",
+        "adminDesc": "Weniger gefährlich als die Gabel. Absolut nutzlos im Nahkampf.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_28",
+        "name": "Nasse Nudel",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Waffe",
+          "Essen",
+          "Lappig"
+        ],
+        "desc": "Du schlägst jemanden mit einer gekochten Spaghetti. Es ist nur peinlich.",
+        "adminDesc": "Du schlägst jemanden mit einer gekochten Spaghetti. Es ist nur peinlich.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_30",
+        "name": "Fingerpistole",
+        "tier": "schlecht",
+        "cost": 350000,
+        "score": 10,
+        "tags": [
+          "Waffe",
+          "Imaginär",
+          "Peng"
+        ],
+        "desc": "Du formst eine Pistole mit der Hand und rufst laut 'Pew Pew!'.",
+        "adminDesc": "Du formst eine Pistole mit der Hand und rufst laut 'Pew Pew!'.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_23",
+        "name": "Stinkesocke",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Waffe",
+          "Geruch",
+          "Ekel"
+        ],
+        "desc": "Wird wie ein Jo-Jo geschleudert. Der Geruch betäubt den Gegner.",
+        "adminDesc": "Wird wie ein Jo-Jo geschleudert. Der Geruch betäubt den Gegner.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      },
+      {
+        "id": "weapon_24",
+        "name": "Schaumstoff-Finger",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Waffe",
+          "Fan",
+          "Weich"
+        ],
+        "desc": "Macht überhaupt keinen Schaden, aber du hast den Swag auf deiner Seite.",
+        "adminDesc": "Macht überhaupt keinen Schaden, aber du hast den Swag auf deiner Seite.",
+        "icon": "🥄",
+        "dbCategory": "WEAPON"
+      }
+    ],
+    "LOOT": [
+      {
+        "id": "loot_1",
+        "name": "Generalschlüssel",
+        "tier": "gut",
+        "cost": 500000,
+        "score": 99,
+        "tags": [
+          "Beute",
+          "Freiheit",
+          "Schlüssel"
+        ],
+        "desc": "Öffnet buchstäblich jede Tür. Der heilige Gral des Gefängnisses.",
+        "adminDesc": "Öffnet buchstäblich jede Tür. Der heilige Gral des Gefängnisses.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_2",
+        "name": "Die Personalakte des Direktors",
+        "tier": "gut",
+        "cost": 450000,
+        "score": 97,
+        "tags": [
+          "Beute",
+          "Erpressung",
+          "Geheim"
+        ],
+        "desc": "Voller dunkler Geheimnisse. Perfektes Erpressungsmaterial.",
+        "adminDesc": "Voller dunkler Geheimnisse. Perfektes Erpressungsmaterial.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_3",
+        "name": "Kiste voller Schmuggelware",
+        "tier": "gut",
+        "cost": 400000,
+        "score": 95,
+        "tags": [
+          "Beute",
+          "Reich",
+          "Schwarzmarkt"
+        ],
+        "desc": "Zigaretten, Handys, Kaviar. Du bist jetzt der König des Trakts.",
+        "adminDesc": "Zigaretten, Handys, Kaviar. Du bist jetzt der König des Trakts.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_5",
+        "name": "Original-Baupläne",
+        "tier": "gut",
+        "cost": 300000,
+        "score": 90,
+        "tags": [
+          "Beute",
+          "Plan",
+          "Architektur"
+        ],
+        "desc": "Zeigt jeden geheimen Lüftungsschacht und toten Winkel der Kameras.",
+        "adminDesc": "Zeigt jeden geheimen Lüftungsschacht und toten Winkel der Kameras.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_7",
+        "name": "Gefälschter Pass",
+        "tier": "gut",
+        "cost": 150000,
+        "score": 85,
+        "tags": [
+          "Beute",
+          "Identität",
+          "Reise"
+        ],
+        "desc": "Du heißt jetzt 'Miguel' und darfst in alle Länder einreisen.",
+        "adminDesc": "Du heißt jetzt 'Miguel' und darfst in alle Länder einreisen.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_8",
+        "name": "Diamantring",
+        "tier": "gut",
+        "cost": 100000,
+        "score": 83,
+        "tags": [
+          "Beute",
+          "Schmuck",
+          "Wertvoll"
+        ],
+        "desc": "Aus dem Tresor der Wache. Besticht jeden Beamten sofort.",
+        "adminDesc": "Aus dem Tresor der Wache. Besticht jeden Beamten sofort.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_9",
+        "name": "Goldbarren",
+        "tier": "gut",
+        "cost": 40000,
+        "score": 81,
+        "tags": [
+          "Beute",
+          "Gold",
+          "Schwer"
+        ],
+        "desc": "Erschwert das Laufen, macht dich aber unfassbar reich.",
+        "adminDesc": "Erschwert das Laufen, macht dich aber unfassbar reich.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_11",
+        "name": "Walkie-Talkie",
+        "tier": "mittel",
+        "cost": 240000,
+        "score": 79,
+        "tags": [
+          "Beute",
+          "Funk",
+          "Abhören"
+        ],
+        "desc": "Du hörst jetzt jeden Plan der Wärter. Und ihre schlechten Witze.",
+        "adminDesc": "Du hörst jetzt jeden Plan der Wärter. Und ihre schlechten Witze.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_12",
+        "name": "Taschenlampe",
+        "tier": "mittel",
+        "cost": 220000,
+        "score": 76,
+        "tags": [
+          "Beute",
+          "Licht",
+          "Nachts"
+        ],
+        "desc": "Ideal für nächtliche Spaziergänge durch den Lüftungsschacht.",
+        "adminDesc": "Ideal für nächtliche Spaziergänge durch den Lüftungsschacht.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_13",
+        "name": "Zippo Feuerzeug",
+        "tier": "mittel",
+        "cost": 200000,
+        "score": 73,
+        "tags": [
+          "Beute",
+          "Feuer",
+          "Nützlich"
+        ],
+        "desc": "Damit kannst du im Notfall Ablenkungsfeuer legen.",
+        "adminDesc": "Damit kannst du im Notfall Ablenkungsfeuer legen.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_14",
+        "name": "Profi-Dietrich",
+        "tier": "mittel",
+        "cost": 180000,
+        "score": 70,
+        "tags": [
+          "Beute",
+          "Schloss",
+          "Werkzeug"
+        ],
+        "desc": "Besser als eine rostige Büroklammer. Knackt Standardtüren.",
+        "adminDesc": "Besser als eine rostige Büroklammer. Knackt Standardtüren.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_15",
+        "name": "Schraubenzieher",
+        "tier": "mittel",
+        "cost": 160000,
+        "score": 67,
+        "tags": [
+          "Beute",
+          "Werkzeug",
+          "Metall"
+        ],
+        "desc": "Öffnet jedes Lüftungsgitter in Sekundenschnelle.",
+        "adminDesc": "Öffnet jedes Lüftungsgitter in Sekundenschnelle.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_17",
+        "name": "Energy-Drinks (Palette)",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 60,
+        "tags": [
+          "Beute",
+          "Wach",
+          "Tausch"
+        ],
+        "desc": "Hält dich für den Ausbruch tagelang wach.",
+        "adminDesc": "Hält dich für den Ausbruch tagelang wach.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_18",
+        "name": "Kartenspiel",
+        "tier": "mittel",
+        "cost": 100000,
+        "score": 57,
+        "tags": [
+          "Beute",
+          "Spaß",
+          "Glücksspiel"
+        ],
+        "desc": "Die einzige Art, um im Block an Zigaretten zu kommen.",
+        "adminDesc": "Die einzige Art, um im Block an Zigaretten zu kommen.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_19",
+        "name": "Schmuggel-Whisky",
+        "tier": "mittel",
+        "cost": 80000,
+        "score": 54,
+        "tags": [
+          "Beute",
+          "Alkohol",
+          "Luxus"
+        ],
+        "desc": "Ein guter Tropfen, um die Wachen abzufüllen.",
+        "adminDesc": "Ein guter Tropfen, um die Wachen abzufüllen.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_22",
+        "name": "Angebrochene Handcreme",
+        "tier": "schlecht",
+        "cost": 40000,
+        "score": 45,
+        "tags": [
+          "Beute",
+          "Pflege",
+          "Cringe"
+        ],
+        "desc": "Geklaut aus der Wärter-Toilette. Keine rauen Hände mehr.",
+        "adminDesc": "Geklaut aus der Wärter-Toilette. Keine rauen Hände mehr.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_23",
+        "name": "Benutztes Pflaster",
+        "tier": "schlecht",
+        "cost": 35000,
+        "score": 39,
+        "tags": [
+          "Beute",
+          "Ekel",
+          "Müll"
+        ],
+        "desc": "Du dachtest, es wäre Geld im Dunkeln. Ein absoluter Fehlgriff.",
+        "adminDesc": "Du dachtest, es wäre Geld im Dunkeln. Ein absoluter Fehlgriff.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_24",
+        "name": "Falscher Alarm-Knopf",
+        "tier": "schlecht",
+        "cost": 30000,
+        "score": 34,
+        "tags": [
+          "Beute",
+          "Plastik",
+          "Nutzlos"
+        ],
+        "desc": "Eine rote Plastikkappe. Du drückst drauf, aber nichts passiert.",
+        "adminDesc": "Eine rote Plastikkappe. Du drückst drauf, aber nichts passiert.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_26",
+        "name": "Leere Coladose",
+        "tier": "schlecht",
+        "cost": 20000,
+        "score": 23,
+        "tags": [
+          "Beute",
+          "Müll",
+          "Pfand"
+        ],
+        "desc": "Nicht mal Pfand drauf. Völlig wertlos.",
+        "adminDesc": "Nicht mal Pfand drauf. Völlig wertlos.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_27",
+        "name": "Kaputter Kuli",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 18,
+        "tags": [
+          "Beute",
+          "Stift",
+          "Schrott"
+        ],
+        "desc": "Die Tinte ist ausgelaufen und deine Hände sind jetzt blau.",
+        "adminDesc": "Die Tinte ist ausgelaufen und deine Hände sind jetzt blau.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_28",
+        "name": "Alte Zeitung",
+        "tier": "schlecht",
+        "cost": 10000,
+        "score": 14,
+        "tags": [
+          "Beute",
+          "Papier",
+          "Alt"
+        ],
+        "desc": "Vier Jahre alt. Die Kreuzworträtsel sind schon ausgefüllt.",
+        "adminDesc": "Vier Jahre alt. Die Kreuzworträtsel sind schon ausgefüllt.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      },
+      {
+        "id": "loot_30",
+        "name": "Vergammelter Apfel",
+        "tier": "schlecht",
+        "cost": 350000,
+        "score": 10,
+        "tags": [
+          "Beute",
+          "Essen",
+          "Ekel"
+        ],
+        "desc": "Befindet sich bereits im Endstadium der Verwesung.",
+        "adminDesc": "Befindet sich bereits im Endstadium der Verwesung.",
+        "icon": "🍫",
+        "dbCategory": "LOOT"
+      }
+    ]
+  },
+  "shredded": [
+    {
+      "id": "visit_20",
+      "name": "Die müde Studentin",
+      "tier": "mittel",
+      "cost": 60000,
+      "score": 50,
+      "tags": [
+        "Besuch",
+        "Müde",
+        "Stress"
+      ],
+      "desc": "Schläft während der 15 Minuten Besuchszeit vor Erschöpfung am Hörer ein.",
+      "adminDesc": "Schläft während der 15 Minuten Besuchszeit vor Erschöpfung am Hörer ein.",
+      "icon": "📞",
+      "dbCategory": "VISIT"
+    },
+    {
+      "id": "visit_5",
+      "name": "Der Anwalt (Bäcker)",
+      "tier": "gut",
+      "cost": 300000,
+      "score": 90,
+      "tags": [
+        "Besuch",
+        "Jura",
+        "Essen"
+      ],
+      "desc": "Verwechselt Paragrafen mit Rezepten, bringt aber geile Croissants mit Feile drin mit.",
+      "adminDesc": "Verwechselt Paragrafen mit Rezepten, bringt aber geile Croissants mit Feile drin mit.",
+      "icon": "📞",
+      "dbCategory": "VISIT"
+    },
+    {
+      "id": "weapon_1",
+      "name": "Teleobjektiv-Keule",
+      "tier": "gut",
+      "cost": 500000,
+      "score": 99,
+      "tags": [
+        "Waffe",
+        "Schwer",
+        "Teuer"
+      ],
+      "desc": "Ziemlich schwer, robust und perfekt als eiserne Keule einsetzbar.",
+      "adminDesc": "Ziemlich schwer, robust und perfekt als eiserne Keule einsetzbar.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON"
+    },
+    {
+      "id": "weapon_3",
+      "name": "Laserpointer aus CD-Player",
+      "tier": "gut",
+      "cost": 400000,
+      "score": 95,
+      "tags": [
+        "Waffe",
+        "Licht",
+        "Technik"
+      ],
+      "desc": "Professionell umgebaut. Ideal, um die Wachtürme nachts zu blenden.",
+      "adminDesc": "Professionell umgebaut. Ideal, um die Wachtürme nachts zu blenden.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON"
+    },
+    {
+      "id": "crime_29",
+      "name": "Ruhebereich-Atmer",
+      "tier": "schlecht",
+      "cost": 150000,
+      "score": 12,
+      "tags": [
+        "Lappalie",
+        "Bahn",
+        "Nervig"
+      ],
+      "desc": "Du hast im Ruhebereich des ICEs eine Paprika-Chips-Tüte geöffnet.",
+      "adminDesc": "Du hast im Ruhebereich des ICEs eine Paprika-Chips-Tüte geöffnet.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME"
+    },
+    {
+      "id": "weapon_29",
+      "name": "Böses Wort",
+      "tier": "schlecht",
+      "cost": 150000,
+      "score": 12,
+      "tags": [
+        "Waffe",
+        "Wort",
+        "Gefühl"
+      ],
+      "desc": "Du sagst dem Wärter, dass er einen blöden Haarschnitt hat. Autsch.",
+      "adminDesc": "Du sagst dem Wärter, dass er einen blöden Haarschnitt hat. Autsch.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON"
+    },
+    {
+      "id": "loot_10",
+      "name": "Cold-Storage Krypto-Wallet",
+      "tier": "gut",
+      "cost": 20000,
+      "score": 80,
+      "tags": [
+        "Beute",
+        "Bitcoin",
+        "IT"
+      ],
+      "desc": "Enthält 500 Bitcoins von einem inhaftierten Hacker.",
+      "adminDesc": "Enthält 500 Bitcoins von einem inhaftierten Hacker.",
+      "icon": "🍫",
+      "dbCategory": "LOOT"
+    },
+    {
+      "id": "loot_25",
+      "name": "Taschen-Fussel",
+      "tier": "schlecht",
+      "cost": 25000,
+      "score": 28,
+      "tags": [
+        "Beute",
+        "Nichts",
+        "Staub"
+      ],
+      "desc": "Eine große Kugel aus Bauchnabel- und Hosentaschenfusseln.",
+      "adminDesc": "Eine große Kugel aus Bauchnabel- und Hosentaschenfusseln.",
+      "icon": "🍫",
+      "dbCategory": "LOOT"
+    },
+    {
+      "id": "loot_21",
+      "name": "Halbe Schokolade",
+      "tier": "schlecht",
+      "cost": 45000,
+      "score": 49,
+      "tags": [
+        "Beute",
+        "Essen",
+        "Traurig"
+      ],
+      "desc": "Schon leicht weiß angelaufen, schmeckt aber wie pure Freiheit.",
+      "adminDesc": "Schon leicht weiß angelaufen, schmeckt aber wie pure Freiheit.",
+      "icon": "🍫",
+      "dbCategory": "LOOT"
+    }
+  ],
+  "used": [
+    {
+      "id": "crime_2",
+      "name": "Goldtransporter-Hijack",
+      "tier": "gut",
+      "cost": 450000,
+      "score": 97,
+      "tags": [
+        "Verbrechen",
+        "Gold",
+        "Hardcore"
+      ],
+      "desc": "Drei Tonnen Gold auf der Autobahn erbeutet. Der Staat kocht vor Wut.",
+      "adminDesc": "Drei Tonnen Gold auf der Autobahn erbeutet. Der Staat kocht vor Wut.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 1"
+    },
+    {
+      "id": "crime_6",
+      "name": "Mona Lisa Entführer",
+      "tier": "gut",
+      "cost": 260000,
+      "score": 88,
+      "tags": [
+        "Verbrechen",
+        "Kunst",
+        "Hardcore"
+      ],
+      "desc": "Das Gemälde hängt jetzt bei dir im Gäste-WC.",
+      "adminDesc": "Das Gemälde hängt jetzt bei dir im Gäste-WC.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 3"
+    },
+    {
+      "id": "crime_30",
+      "name": "Einkaufswagen geklaut",
+      "tier": "schlecht",
+      "cost": 350000,
+      "score": 10,
+      "tags": [
+        "Lappalie",
+        "Supermarkt",
+        "Dumm"
+      ],
+      "desc": "Wolltest den Euro nicht im Wagen lassen und hast ihn einfach mitgenommen.",
+      "adminDesc": "Wolltest den Euro nicht im Wagen lassen und hast ihn einfach mitgenommen.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 4"
+    },
+    {
+      "id": "crime_17",
+      "name": "Zeugnisfälschung",
+      "tier": "mittel",
+      "cost": 120000,
+      "score": 60,
+      "tags": [
+        "Verbrechen",
+        "Betrug",
+        "Schule"
+      ],
+      "desc": "Aus der 5 in Mathe einfach mit Tipp-Ex eine 2 gemacht. Genial.",
+      "adminDesc": "Aus der 5 in Mathe einfach mit Tipp-Ex eine 2 gemacht. Genial.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 1"
+    },
+    {
+      "id": "mate_1",
+      "name": "Der Hacker",
+      "tier": "gut",
+      "cost": 500000,
+      "score": 99,
+      "tags": [
+        "Genosse",
+        "IT",
+        "Nützlich"
+      ],
+      "desc": "Hat das WLAN-Passwort des Gefängnisdirektors gehackt. Ein Gott unter Sträflingen.",
+      "adminDesc": "Hat das WLAN-Passwort des Gefängnisdirektors gehackt. Ein Gott unter Sträflingen.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Insasse 1"
+    },
+    {
+      "id": "crime_10",
+      "name": "Satelliten-Hacker",
+      "tier": "gut",
+      "cost": 20000,
+      "score": 80,
+      "tags": [
+        "Verbrechen",
+        "Space",
+        "Hardcore"
+      ],
+      "desc": "Hast geheime Militärsatelliten genutzt, um Pay-TV gratis zu schauen.",
+      "adminDesc": "Hast geheime Militärsatelliten genutzt, um Pay-TV gratis zu schauen.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 1"
+    },
+    {
+      "id": "crime_9",
+      "name": "Identitätsraub (Kanzler)",
+      "tier": "gut",
+      "cost": 40000,
+      "score": 81,
+      "tags": [
+        "Verbrechen",
+        "Staat",
+        "Hardcore"
+      ],
+      "desc": "Du hast 3 Monate lang erfolgreich das Land regiert. Niemand hat's gemerkt.",
+      "adminDesc": "Du hast 3 Monate lang erfolgreich das Land regiert. Niemand hat's gemerkt.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 2"
+    },
+    {
+      "id": "crime_26",
+      "name": "Ummeldung verpasst",
+      "tier": "schlecht",
+      "cost": 20000,
+      "score": 23,
+      "tags": [
+        "Lappalie",
+        "Bürokratie",
+        "Amt"
+      ],
+      "desc": "Du hast dich nach dem Umzug nicht rechtzeitig umgemeldet. Lebenslänglich.",
+      "adminDesc": "Du hast dich nach dem Umzug nicht rechtzeitig umgemeldet. Lebenslänglich.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Insasse 4"
+    },
+    {
+      "id": "crime_5",
+      "name": "U-Boot Piraterie",
+      "tier": "gut",
+      "cost": 300000,
+      "score": 90,
+      "tags": [
+        "Verbrechen",
+        "Marine",
+        "Hardcore"
+      ],
+      "desc": "Du hast ein militärisches U-Boot gekapert, um damit ungestört Urlaub zu machen.",
+      "adminDesc": "Du hast ein militärisches U-Boot gekapert, um damit ungestört Urlaub zu machen.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Allahu Akbar"
+    },
+    {
+      "id": "crime_23",
+      "name": "GEZ ignoriert",
+      "tier": "schlecht",
+      "cost": 35000,
+      "score": 39,
+      "tags": [
+        "Lappalie",
+        "Briefe",
+        "Rundfunk"
+      ],
+      "desc": "Du dachtest, gelbe Briefe kann man einfach ins Altpapier werfen. Falsch.",
+      "adminDesc": "Du dachtest, gelbe Briefe kann man einfach ins Altpapier werfen. Falsch.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Tho"
+    },
+    {
+      "id": "crime_19",
+      "name": "Ticketschwarzhändler",
+      "tier": "mittel",
+      "cost": 80000,
+      "score": 54,
+      "tags": [
+        "Verbrechen",
+        "Konzert",
+        "Gier"
+      ],
+      "desc": "Hast Taylor Swift Tickets für 40.000 Euro das Stück angeboten.",
+      "adminDesc": "Hast Taylor Swift Tickets für 40.000 Euro das Stück angeboten.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Basti"
+    },
+    {
+      "id": "crime_3",
+      "name": "Krypto-Börsen-Boss",
+      "tier": "gut",
+      "cost": 400000,
+      "score": 95,
+      "tags": [
+        "Verbrechen",
+        "Krypto",
+        "Hardcore"
+      ],
+      "desc": "Hast 5 Milliarden in Bitcoin veruntreut und deinen eigenen Tod vorgetäuscht.",
+      "adminDesc": "Hast 5 Milliarden in Bitcoin veruntreut und deinen eigenen Tod vorgetäuscht.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Daniel"
+    },
+    {
+      "id": "mate_13",
+      "name": "Der Prediger",
+      "tier": "mittel",
+      "cost": 200000,
+      "score": 73,
+      "tags": [
+        "Genosse",
+        "Glaube",
+        "Nervig"
+      ],
+      "desc": "Zitiert pausenlos Bibelverse, um dich von deinen Sünden reinzuwaschen.",
+      "adminDesc": "Zitiert pausenlos Bibelverse, um dich von deinen Sünden reinzuwaschen.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Basti"
+    },
+    {
+      "id": "mate_14",
+      "name": "Der Hypochonder",
+      "tier": "mittel",
+      "cost": 180000,
+      "score": 70,
+      "tags": [
+        "Genosse",
+        "Krank",
+        "Panik"
+      ],
+      "desc": "Denkt jede Woche, er hat eine neue tödliche Krankheit aus Tropenländern.",
+      "adminDesc": "Denkt jede Woche, er hat eine neue tödliche Krankheit aus Tropenländern.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Tho"
+    },
+    {
+      "id": "mate_6",
+      "name": "Der Fälscher",
+      "tier": "gut",
+      "cost": 260000,
+      "score": 88,
+      "tags": [
+        "Genosse",
+        "Papiere",
+        "Kunst"
+      ],
+      "desc": "Malt Entlassungspapiere, die echter aussehen als das Original.",
+      "adminDesc": "Malt Entlassungspapiere, die echter aussehen als das Original.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Daniel"
+    },
+    {
+      "id": "mate_15",
+      "name": "Der Magier",
+      "tier": "mittel",
+      "cost": 160000,
+      "score": 67,
+      "tags": [
+        "Genosse",
+        "Tricks",
+        "Karten"
+      ],
+      "desc": "Nervt dich ständig damit, eine Karte zu ziehen. Er findet sie aber nie.",
+      "adminDesc": "Nervt dich ständig damit, eine Karte zu ziehen. Er findet sie aber nie.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Niklas"
+    },
+    {
+      "id": "mate_24",
+      "name": "Der Kleptomane",
+      "tier": "schlecht",
+      "cost": 30000,
+      "score": 34,
+      "tags": [
+        "Genosse",
+        "Dieb",
+        "Verlust"
+      ],
+      "desc": "Klaut dir nachts die Socken von den Füßen, einfach weil er es muss.",
+      "adminDesc": "Klaut dir nachts die Socken von den Füßen, einfach weil er es muss.",
+      "icon": "👬",
+      "dbCategory": "MATE",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "guard_18",
+      "name": "Der Witzeerzähler",
+      "tier": "mittel",
+      "cost": 100000,
+      "score": 57,
+      "tags": [
+        "Wärter",
+        "Humor",
+        "Cringe"
+      ],
+      "desc": "Erzählt die schlechtesten Dad-Jokes, um das Eis im Block zu brechen.",
+      "adminDesc": "Erzählt die schlechtesten Dad-Jokes, um das Eis im Block zu brechen.",
+      "icon": "👮",
+      "dbCategory": "GUARD",
+      "owner": "Daniel"
+    },
+    {
+      "id": "guard_20",
+      "name": "Der Podcast-Hörer",
+      "tier": "mittel",
+      "cost": 60000,
+      "score": 50,
+      "tags": [
+        "Wärter",
+        "Musik",
+        "Taub"
+      ],
+      "desc": "Hat immer Noise-Cancelling-Kopfhörer auf. Hört keinen Alarm.",
+      "adminDesc": "Hat immer Noise-Cancelling-Kopfhörer auf. Hört keinen Alarm.",
+      "icon": "👮",
+      "dbCategory": "GUARD",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "guard_10",
+      "name": "Der Komplize",
+      "tier": "gut",
+      "cost": 20000,
+      "score": 80,
+      "tags": [
+        "Wärter",
+        "Freund",
+        "Flucht"
+      ],
+      "desc": "Hasst den Job so sehr, dass er dir aktiv beim Fluchtplan hilft.",
+      "adminDesc": "Hasst den Job so sehr, dass er dir aktiv beim Fluchtplan hilft.",
+      "icon": "👮",
+      "dbCategory": "GUARD",
+      "owner": "Basti"
+    },
+    {
+      "id": "guard_19",
+      "name": "Der Gleichgültige",
+      "tier": "mittel",
+      "cost": 80000,
+      "score": 54,
+      "tags": [
+        "Wärter",
+        "Egal",
+        "Chill"
+      ],
+      "desc": "Zuckt bei allem nur mit den Schultern. 'Ist mir doch egal, macht was ihr wollt'.",
+      "adminDesc": "Zuckt bei allem nur mit den Schultern. 'Ist mir doch egal, macht was ihr wollt'.",
+      "icon": "👮",
+      "dbCategory": "GUARD",
+      "owner": "Niklas"
+    },
+    {
+      "id": "visit_8",
+      "name": "Der Fluchtwagenfahrer",
+      "tier": "gut",
+      "cost": 100000,
+      "score": 83,
+      "tags": [
+        "Besuch",
+        "Auto",
+        "Schnell"
+      ],
+      "desc": "Sitzt im Besucherraum und lässt draußen schon mal den V8-Motor warmlaufen.",
+      "adminDesc": "Sitzt im Besucherraum und lässt draußen schon mal den V8-Motor warmlaufen.",
+      "icon": "📞",
+      "dbCategory": "VISIT",
+      "owner": "Niklas"
+    },
+    {
+      "id": "visit_2",
+      "name": "Die Hacker-Freundin",
+      "tier": "gut",
+      "cost": 450000,
+      "score": 97,
+      "tags": [
+        "Besuch",
+        "IT",
+        "Code"
+      ],
+      "desc": "Spielt dir über eine gefakte Grußkarte den Virus für die Schließanlage zu.",
+      "adminDesc": "Spielt dir über eine gefakte Grußkarte den Virus für die Schließanlage zu.",
+      "icon": "📞",
+      "dbCategory": "VISIT",
+      "owner": "Tho"
+    },
+    {
+      "id": "visit_11",
+      "name": "Die weinende Mutter",
+      "tier": "mittel",
+      "cost": 240000,
+      "score": 79,
+      "tags": [
+        "Besuch",
+        "Mama",
+        "Drama"
+      ],
+      "desc": "Bringt dir frische Wäsche und fragt, warum du nicht einfach 'brav' bist.",
+      "adminDesc": "Bringt dir frische Wäsche und fragt, warum du nicht einfach 'brav' bist.",
+      "icon": "📞",
+      "dbCategory": "VISIT",
+      "owner": "Basti"
+    },
+    {
+      "id": "crime_11",
+      "name": "USB-Stick nicht sicher entfernt",
+      "tier": "mittel",
+      "cost": 240000,
+      "score": 79,
+      "tags": [
+        "Verbrechen",
+        "IT",
+        "Meme"
+      ],
+      "desc": "Du hast ihn einfach rausgezogen. Die Gesellschaft war nicht bereit für diese Anarchie.",
+      "adminDesc": "Du hast ihn einfach rausgezogen. Die Gesellschaft war nicht bereit für diese Anarchie.",
+      "icon": "⚖️",
+      "dbCategory": "CRIME",
+      "owner": "Niklas"
+    },
+    {
+      "id": "visit_15",
+      "name": "Der Reporter",
+      "tier": "mittel",
+      "cost": 160000,
+      "score": 67,
+      "tags": [
+        "Besuch",
+        "Presse",
+        "Fragen"
+      ],
+      "desc": "Stellt unangenehme Fragen für seinen True-Crime-Podcast.",
+      "adminDesc": "Stellt unangenehme Fragen für seinen True-Crime-Podcast.",
+      "icon": "📞",
+      "dbCategory": "VISIT",
+      "owner": "Daniel"
+    },
+    {
+      "id": "visit_21",
+      "name": "Der GEZ-Eintreiber",
+      "tier": "schlecht",
+      "cost": 45000,
+      "score": 10,
+      "tags": [
+        "Besuch",
+        "Rundfunk",
+        "Horror"
+      ],
+      "desc": "Diese Leute finden dich wirklich überall. Keine Ausreden mehr möglich.",
+      "adminDesc": "Diese Leute finden dich wirklich überall. Keine Ausreden mehr möglich.",
+      "icon": "📞",
+      "dbCategory": "VISIT",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "plan_17",
+      "name": "Aufstand anzetteln",
+      "tier": "mittel",
+      "cost": 120000,
+      "score": 60,
+      "tags": [
+        "Plan",
+        "Chaos",
+        "Feuer"
+      ],
+      "desc": "Zettelst eine Revolte wegen kaltem Kaffee an und fliehst durch den Rauch.",
+      "adminDesc": "Zettelst eine Revolte wegen kaltem Kaffee an und fliehst durch den Rauch.",
+      "icon": "🗺️",
+      "dbCategory": "PLAN",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "plan_8",
+      "name": "Tunnel-Meisterwerk",
+      "tier": "gut",
+      "cost": 100000,
+      "score": 83,
+      "tags": [
+        "Plan",
+        "Graben",
+        "Shawshank"
+      ],
+      "desc": "Ein 500 Meter langer, abgestützter Tunnel mit Beleuchtung und WLAN.",
+      "adminDesc": "Ein 500 Meter langer, abgestützter Tunnel mit Beleuchtung und WLAN.",
+      "icon": "🗺️",
+      "dbCategory": "PLAN",
+      "owner": "Basti"
+    },
+    {
+      "id": "plan_20",
+      "name": "Flugmaschine aus Schrott",
+      "tier": "mittel",
+      "cost": 60000,
+      "score": 50,
+      "tags": [
+        "Plan",
+        "McGyver",
+        "Basteln"
+      ],
+      "desc": "Aus alten Rohren und geklauten Ventilatoren einen Propeller löten.",
+      "adminDesc": "Aus alten Rohren und geklauten Ventilatoren einen Propeller löten.",
+      "icon": "🗺️",
+      "dbCategory": "PLAN",
+      "owner": "Daniel"
+    },
+    {
+      "id": "plan_11",
+      "name": "Trojanisches Pferd",
+      "tier": "mittel",
+      "cost": 240000,
+      "score": 79,
+      "tags": [
+        "Plan",
+        "Antike",
+        "Holz"
+      ],
+      "desc": "Ein riesiges Pferd aus Klopapierrollen basteln und rausgeschoben werden.",
+      "adminDesc": "Ein riesiges Pferd aus Klopapierrollen basteln und rausgeschoben werden.",
+      "icon": "🗺️",
+      "dbCategory": "PLAN",
+      "owner": "Tho"
+    },
+    {
+      "id": "weapon_7",
+      "name": "Machete (Kantinen-Edition)",
+      "tier": "gut",
+      "cost": 150000,
+      "score": 85,
+      "tags": [
+        "Waffe",
+        "Scharf",
+        "Küche"
+      ],
+      "desc": "Das größte Fleischermesser der Küche, fachmännisch entwendet.",
+      "adminDesc": "Das größte Fleischermesser der Küche, fachmännisch entwendet.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON",
+      "owner": "Tho"
+    },
+    {
+      "id": "weapon_19",
+      "name": "Rostige Bettfeder",
+      "tier": "mittel",
+      "cost": 80000,
+      "score": 54,
+      "tags": [
+        "Waffe",
+        "Metall",
+        "Tetanus"
+      ],
+      "desc": "Fügt Schaden und eine 90%ige Chance auf Blutvergiftung zu.",
+      "adminDesc": "Fügt Schaden und eine 90%ige Chance auf Blutvergiftung zu.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON",
+      "owner": "Niklas"
+    },
+    {
+      "id": "weapon_22",
+      "name": "Papierflieger",
+      "tier": "schlecht",
+      "cost": 40000,
+      "score": 45,
+      "tags": [
+        "Waffe",
+        "Papier",
+        "Aero"
+      ],
+      "desc": "So scharf gefaltet, dass er Wärtern immerhin die Mütze vom Kopf segelt.",
+      "adminDesc": "So scharf gefaltet, dass er Wärtern immerhin die Mütze vom Kopf segelt.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "weapon_4",
+      "name": "Wärter-Schlagstock",
+      "tier": "gut",
+      "cost": 350000,
+      "score": 92,
+      "tags": [
+        "Waffe",
+        "Polizei",
+        "Original"
+      ],
+      "desc": "Irgendwie hast du den echten Knüppel vom Wachpersonal entwendet.",
+      "adminDesc": "Irgendwie hast du den echten Knüppel vom Wachpersonal entwendet.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON",
+      "owner": "Daniel"
+    },
+    {
+      "id": "loot_20",
+      "name": "MP3-Player",
+      "tier": "mittel",
+      "cost": 60000,
+      "score": 50,
+      "tags": [
+        "Beute",
+        "Musik",
+        "Entspannung"
+      ],
+      "desc": "Mit Kopfhörern. Lässt dich das Schnarchen der anderen ignorieren.",
+      "adminDesc": "Mit Kopfhörern. Lässt dich das Schnarchen der anderen ignorieren.",
+      "icon": "🍫",
+      "dbCategory": "LOOT",
+      "owner": "Niklas"
+    },
+    {
+      "id": "plan_30",
+      "name": "Verstecken spielen",
+      "tier": "schlecht",
+      "cost": 350000,
+      "score": 10,
+      "tags": [
+        "Plan",
+        "Kind",
+        "Suchen"
+      ],
+      "desc": "Du hältst dir einfach die Augen zu und denkst, niemand sieht dich.",
+      "adminDesc": "Du hältst dir einfach die Augen zu und denkst, niemand sieht dich.",
+      "icon": "🗺️",
+      "dbCategory": "PLAN",
+      "owner": "Niklas"
+    },
+    {
+      "id": "loot_16",
+      "name": "Brecheisen",
+      "tier": "mittel",
+      "cost": 140000,
+      "score": 64,
+      "tags": [
+        "Beute",
+        "Gewalt",
+        "Gordon"
+      ],
+      "desc": "Schweres Gerät für verschlossene Türen und Kisten.",
+      "adminDesc": "Schweres Gerät für verschlossene Türen und Kisten.",
+      "icon": "🍫",
+      "dbCategory": "LOOT",
+      "owner": "Basti"
+    },
+    {
+      "id": "guard_5",
+      "name": "Der Vergessliche",
+      "tier": "gut",
+      "cost": 300000,
+      "score": 90,
+      "tags": [
+        "Wärter",
+        "Verwirrt",
+        "Chaos"
+      ],
+      "desc": "Sucht ständig seinen Schlüssel. Meistens steckt er noch in der letzten Tür.",
+      "adminDesc": "Sucht ständig seinen Schlüssel. Meistens steckt er noch in der letzten Tür.",
+      "icon": "👮",
+      "dbCategory": "GUARD",
+      "owner": "Tho"
+    },
+    {
+      "id": "weapon_16",
+      "name": "Spitzes Lineal",
+      "tier": "mittel",
+      "cost": 140000,
+      "score": 64,
+      "tags": [
+        "Waffe",
+        "Schule",
+        "Spitz"
+      ],
+      "desc": "Ein Geo-Dreieck, das zu einem tödlichen Ninja-Wurfstern gefeilt wurde.",
+      "adminDesc": "Ein Geo-Dreieck, das zu einem tödlichen Ninja-Wurfstern gefeilt wurde.",
+      "icon": "🥄",
+      "dbCategory": "WEAPON",
+      "owner": "Basti"
+    },
+    {
+      "id": "loot_4",
+      "name": "Komplette Wärter-Uniform",
+      "tier": "gut",
+      "cost": 350000,
+      "score": 92,
+      "tags": [
+        "Beute",
+        "Tarnung",
+        "Flucht"
+      ],
+      "desc": "Passt perfekt, inklusive Dienstmarke und Mütze.",
+      "adminDesc": "Passt perfekt, inklusive Dienstmarke und Mütze.",
+      "icon": "🍫",
+      "dbCategory": "LOOT",
+      "owner": "Daniel"
+    },
+    {
+      "id": "loot_6",
+      "name": "Koffer voll Bargeld",
+      "tier": "gut",
+      "cost": 260000,
+      "score": 88,
+      "tags": [
+        "Beute",
+        "Geld",
+        "Reich"
+      ],
+      "desc": "Beschlagnahmtes Drogengeld aus der Asservatenkammer.",
+      "adminDesc": "Beschlagnahmtes Drogengeld aus der Asservatenkammer.",
+      "icon": "🍫",
+      "dbCategory": "LOOT",
+      "owner": "Onur<3"
+    },
+    {
+      "id": "loot_29",
+      "name": "Einzelner Schuh",
+      "tier": "schlecht",
+      "cost": 150000,
+      "score": 12,
+      "tags": [
+        "Beute",
+        "Kleidung",
+        "Nutzlos"
+      ],
+      "desc": "Ein linker Sneaker in Größe 48. Dir nützt er nichts.",
+      "adminDesc": "Ein linker Sneaker in Größe 48. Dir nützt er nichts.",
+      "icon": "🍫",
+      "dbCategory": "LOOT",
+      "owner": "Tho"
+    }
+  ]
+}

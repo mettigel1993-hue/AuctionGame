@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Deep Audit & Interaktiver Funktions-Katalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #12100e; 
+            color: #f5f5f4; 
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #ea580c; border-radius: 8px; }
+        code { font-family: 'JetBrains Mono', monospace; color: #f59e0b; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8 custom-scrollbar">
+
+    <header class="mb-8 border-b border-stone-800 pb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+        <div>
+            <h1 class="text-3xl md:text-4xl font-black text-orange-500 uppercase tracking-widest flex items-center gap-3">
+                <i class="fa-solid fa-gears animate-spin" style="animation-duration: 15s;"></i> Engine Core Audit
+            </h1>
+            <p class="text-stone-400 mt-1 text-sm">Vollständige technische Dekonstruktion & Schritt-für-Schritt Erklärung für Laien</p>
+        </div>
+        <a href="Index.html" class="bg-stone-800 hover:bg-stone-700 text-stone-300 px-5 py-2.5 rounded-xl text-sm font-bold transition border border-stone-700 shadow-lg shrink-0 flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Zurück zum Launcher
+        </a>
+    </header>
+
+    <main class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
+        
+        <section class="xl:col-span-4 flex flex-col gap-3 bg-[#1c1917] p-4 rounded-2xl border border-stone-800 shadow-xl">
+            <h2 class="text-xs font-black text-stone-500 uppercase tracking-widest px-2 mb-1">Funktionsgruppen Wählen</h2>
+            
+            <button onclick="selectGroup('UI_RENDERING')" id="btn-UI_RENDERING" class="group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800">
+                <span class="flex items-center gap-3"><i class="fa-solid fa-desktop text-purple-400 text-lg"></i> UI Rendering</span>
+                <span id="count-UI_RENDERING" class="bg-stone-800 text-stone-400 text-xs px-2.5 py-1 rounded-md font-black border border-stone-700">0</span>
+            </button>
+
+            <button onclick="selectGroup('DATA_MANAGEMENT')" id="btn-DATA_MANAGEMENT" class="group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800">
+                <span class="flex items-center gap-3"><i class="fa-solid fa-database text-blue-400 text-lg"></i> Daten-Management</span>
+                <span id="count-DATA_MANAGEMENT" class="bg-stone-800 text-stone-400 text-xs px-2.5 py-1 rounded-md font-black border border-stone-700">0</span>
+            </button>
+
+            <button onclick="selectGroup('GAME_LOGIK')" id="btn-GAME_LOGIK" class="group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800">
+                <span class="flex items-center gap-3"><i class="fa-solid fa-gamepad text-emerald-400 text-lg"></i> Spielmechanik & Logik</span>
+                <span id="count-GAME_LOGIK" class="bg-stone-800 text-stone-400 text-xs px-2.5 py-1 rounded-md font-black border border-stone-700">0</span>
+            </button>
+
+            <button onclick="selectGroup('EVENT_HANDLING')" id="btn-EVENT_HANDLING" class="group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800">
+                <span class="flex items-center gap-3"><i class="fa-solid fa-keyboard text-yellow-400 text-lg"></i> Event- & Input-Handling</span>
+                <span id="count-EVENT_HANDLING" class="bg-stone-800 text-stone-400 text-xs px-2.5 py-1 rounded-md font-black border border-stone-700">0</span>
+            </button>
+
+            <button onclick="selectGroup('HELPER')" id="btn-HELPER" class="group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800">
+                <span class="flex items-center gap-3"><i class="fa-solid fa-circle-info text-sky-400 text-lg"></i> Hilfsfunktionen</span>
+                <span id="count-HELPER" class="bg-stone-800 text-stone-400 text-xs px-2.5 py-1 rounded-md font-black border border-stone-700">0</span>
+            </button>
+        </section>
+
+        <section class="xl:col-span-8 flex flex-col bg-[#1c1917] border border-stone-800 rounded-2xl shadow-xl overflow-hidden min-h-[60vh]">
+            
+            <div id="placeholder-view" class="flex flex-col items-center justify-center p-12 text-center flex-grow">
+                <i class="fa-solid fa-mouse-pointer text-5xl text-stone-700 mb-4 animate-bounce"></i>
+                <h3 class="text-xl font-black uppercase text-stone-400">Keine Funktionsgruppe ausgewählt</h3>
+                <p class="text-stone-500 text-sm mt-1 max-w-sm">Wähle links eine Funktionsgruppe aus, um die detaillierte, laienverständliche Dokumentation Schritt für Schritt zu durchlaufen.</p>
+            </div>
+
+            <div id="interactive-view" class="hidden flex flex-col h-full flex-grow">
+                
+                <div class="bg-stone-900/60 p-4 border-b border-stone-800 flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <span id="active-group-badge" class="text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider">Gruppe</span>
+                        <h3 id="active-function-title" class="text-xl font-black text-white mt-1">functionName()</h3>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 bg-black/40 p-1.5 rounded-xl border border-stone-800">
+                        <button onclick="prevFunction()" class="bg-stone-800 hover:bg-stone-700 text-stone-300 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            <i class="fa-solid fa-chevron-left"></i> Zurück
+                        </button>
+                        <span id="function-index-counter" class="text-xs font-mono px-3 text-stone-400">1 / 10</span>
+                        <button onclick="nextFunction()" class="bg-orange-600 hover:bg-orange-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                            Weiter <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-6 space-y-6 flex-grow overflow-y-auto custom-scrollbar">
+                    
+                    <div class="bg-stone-900/40 p-4 rounded-xl border border-stone-800">
+                        <h4 class="text-orange-400 font-black text-xs uppercase tracking-widest mb-1.5 flex items-center gap-2">
+                            <i class="fa-solid fa-eye text-stone-500"></i> Was macht diese Funktion? (Für Nicht-Programmierer)
+                        </h4>
+                        <p id="desc-laie" class="text-stone-300 text-sm leading-relaxed">Erklärung für Laien...</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-purple-400 font-black text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-stone-500"></i> Schritt-für-Schritt-Ablauf im Hintergrund
+                        </h4>
+                        <ol id="desc-steps" class="list-decimal list-inside text-sm text-stone-300 space-y-2 bg-black/20 p-4 rounded-xl border border-stone-800/60">
+                            <li>Schritt 1</li>
+                        </ol>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-stone-900/20 p-4 rounded-xl border border-stone-800">
+                            <h4 class="text-emerald-400 font-black text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-desktop text-stone-500"></i> Visuelle UI-Auswirkungen
+                            </h4>
+                            <p id="desc-ui" class="text-stone-300 text-xs leading-relaxed">Welche Oberflächen-Elemente ändern sich...</p>
+                        </div>
+                        <div class="bg-stone-900/20 p-4 rounded-xl border border-stone-800">
+                            <h4 class="text-blue-400 font-black text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                                <i class="fa-solid fa-right-left text-stone-500"></i> Datenfluss & Variablen
+                            </h4>
+                            <p id="desc-data" class="text-stone-300 text-xs font-mono leading-relaxed">Welche globalen Daten verändert werden...</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+<div class="relative mb-6 mt-2">
+    <div class="flex items-center bg-stone-900 border border-stone-700 rounded-xl px-3 py-2.5 focus-within:border-orange-500 transition shadow-inner">
+        <i class="fa-solid fa-search text-stone-500 mr-2 text-sm"></i>
+        <input type="text" id="audit-search" oninput="handleAuditSearch(this.value)" placeholder="Funktion suchen (z.B. drawMatrix)..." class="bg-transparent w-full text-white text-sm outline-none placeholder:text-stone-600 font-mono">
+    </div>
+    <ul id="audit-search-results" class="absolute z-50 left-0 right-0 top-full mt-2 bg-[#292524] border border-stone-600 rounded-xl shadow-2xl max-h-64 overflow-y-auto hidden custom-scrollbar"></ul>
+</div>
+
+    <script>
+        // DIE KOMPLETTE FUNKTIONS-DATENBANK DER ENGINE.JS
+        const AUDIT_REGISTRY = {
+            UI_RENDERING: [
+                {
+                    name: "applyConfigToUI()",
+                    laie: "Diese Funktion ist das visuelle Fundament beim Spielstart. Sie liest die gesamte Konfigurationsdatei aus und passt alle Titel, Schaltflächen-Texte, Symbole und Währungsbezeichnungen dynamisch an das gewählte Spielthema an.",
+                    steps: [
+                        "Liest den Fenstertitel aus der Konfiguration aus und überschreibt das HTML-Dokument.",
+                        "Ersetzt die Titelüberschriften und Icons im Header mit dem entsprechenden Thema.",
+                        "Übersetzt Begrifflichkeiten wie 'Spieler', 'Zigaretten', 'Bürobudget' oder 'Bauteile' global auf allen Tabs.",
+                        "Generiert die Joker-Legende am unteren rechten Bildschirmrand vollautomatisch inklusive der konfigurierten Farben und Icons."
+                    ],
+                    ui: "Verändert Texte in Elementen wie 'ui-game-title', 'ui-player-term', 'btn-draw' sowie die Legende im Container 'joker-legend'.",
+                    data: "Liest ausschließlich aus dem globalen Objekt 'Config'."
+                },
+                {
+                    name: "renderManagerCountButtons()",
+                    laie: "Erzeugt dynamisch die Auswahltasten für die Spieleranzahl (2 bis 7 Spieler) im Header-Menü.",
+                    steps: [
+                        "Leert das HTML-Bedienelement für die Zähler-Buttons.",
+                        "Schleift von 2 bis 7 und generiert für jede Anzahl eine klickbare Schaltfläche.",
+                        "Prüft, welche Spieleranzahl gerade aktiv ist, und gibt dieser eine auffällige orangefarbene Markierung."
+                    ],
+                    ui: "Injiziert HTML in die ID 'mgr-count-buttons'. Aktive Buttons erhalten 'bg-orange-500', inaktive 'bg-[#292524]'.",
+                    data: "Liest die Variable 'countManagers' aus."
+                },
+                {
+                    name: "addLog(msg, type)",
+                    laie: "Schreibt eine neue Zeile in das sichtbare Aktivitäten-Protokoll unten rechts auf dem Bildschirm, damit alle Spieler sehen, was gerade passiert ist.",
+                    steps: [
+                        "Löscht Standard-Platzhaltertexte, wenn das Spiel aktiv wird.",
+                        "Ermittelt die aktuelle Uhrzeit im Format Stunden:Minuten.",
+                        "Erzeugt ein neues Listen-Element und weist ihm je nach Ereignistyp (Kauf, Warnung, Event) eine spezifische Farbe und ein Icon zu.",
+                        "Fügt das neue Element ganz oben an die Liste an (Präpendierung), sodass die neuesten Infos immer oben stehen."
+                    ],
+                    ui: "Injiziert farbige Listenpunkte in 'sap-log-list'. Verwendet Klassen wie 'text-green-400' (Kauf), 'text-red-400' (Warnung/Abzug) oder 'text-yellow-400' (Event).",
+                    data: "Verändert das DOM direkt, liest keine globalen Variablen."
+                },
+                {
+                    name: "showModal(title, text, callback) / closeModal()",
+                    laie: "Blendet ein großes, zentrales Hinweisfenster (z.B. 'DEAL PERFEKT!') im Vordergrund ein und verdunkelt das Spielfeld im Hintergrund. closeModal schließt dieses Fenster wieder.",
+                    steps: [
+                        "Setzt den Titel und die Textnachricht im Modal-Fenster.",
+                        "Speichert eine optionale Folgefunktion (Callback), die ausgeführt werden soll, sobald der Spieler das Fenster schließt.",
+                        "Entfernt die CSS-Klasse 'hidden', um das Fenster sichtbar zu machen.",
+                        "closeModal macht das Fenster durch Hinzufügen von 'hidden' wieder unsichtbar und führt die gespeicherte Folgefunktion aus."
+                    ],
+                    ui: "Manipuliert das Element 'custom-modal'. Schaltet die Sichtbarkeit via 'hidden'-Klasse um.",
+                    data: "Schreibt in die globale Variable 'customModalCallback'."
+                },
+                {
+                    name: "showConfirmModal(text, callback) / closeConfirmModal()",
+                    laie: "Ein Sicherheitsfenster, das den Benutzer bei kritischen Aktionen (wie dem Löschen von Daten oder einem Spielneustart) um Bestätigung bittet.",
+                    steps: [
+                        "Injiziert die Sicherheitsfrage in das Bestätigungsfenster.",
+                        "Verknüpft die Ja-Schaltfläche mit der auszuführenden Programmlogik.",
+                        "Blendet das Bestätigungsfenster ein.",
+                        "Bei Klick auf Abbrechen oder Bestätigen wird das Fenster wieder versteckt."
+                    ],
+                    ui: "Steuert das Element 'confirm-modal' durch Toggling der Klasse 'hidden'.",
+                    data: "Schreibt in die Variable 'currentConfirmCallback'."
+                },
+                {
+                    name: "switchView(view)",
+                    laie: "Wechselt zwischen den vier Hauptreitern des Spiels: Dem Hauptspielfeld (Matrix), der Admin-Datenbank, dem Lager für gesicherte Karten und dem Papierkorb (Klo).",
+                    steps: [
+                        "Versteckt alle vier großen Inhalts-Container des Spiels.",
+                        "Setzt die Menü-Farben aller Reiter auf den inaktiven Standardzustand zurück.",
+                        "Sucht den ausgewählten Reiter, färbt ihn auffällig orange ein und blendet den dazugehörigen Inhalts-Container ein.",
+                        "Löst je nach gewählter Ansicht die dazugehörige Render-Funktion aus, um die Daten frisch zu zeichnen."
+                    ],
+                    ui: "Wechselt Sichtbarkeiten zwischen 'view-matrix', 'view-admin', 'view-used' und 'view-shredded'. Aktiviert Klassen wie 'bg-orange-600' für den aktiven Tab.",
+                    data: "Schreibt in die Variable 'currentView'."
+                },
+                {
+                    name: "switchAdminTab(tab)",
+                    laie: "Schaltet im Adminbereich exklusiv zwischen der Inventar-Datenbank und der Liste der Gerüchte/Events hin und her.",
+                    steps: [
+                        "Wechselt die CSS-Stile der beiden Unterreiter (aktiv / inaktiv).",
+                        "Blendet entweder die Inventarlisten oder die Eventübersicht ein."
+                    ],
+                    ui: "Manipuliert 'admin-subtab-catalog', 'admin-subtab-events', 'admin-catalog-view' und 'admin-events-view'.",
+                    data: "Reine UI-Steuerung ohne globale Datenänderungen."
+                },
+                {
+                    name: "updateShredderButton()",
+                    laie: "Aktualisiert die Beschriftung der Löschtaste im Adminbereich, um anzuzeigen, wie viele Karten aktuell ins Klo geworfen werden.",
+                    steps: [
+                        "Zählt die Anzahl der aktuell markierten Karten-IDs.",
+                        "Schreibt die Zahl live auf die Schaltfläche 'Vernichten'."
+                    ],
+                    ui: "Ändert den Text des Elements 'btn-execute-shred' (z.B. '3 Vernichten').",
+                    data: "Liest die Länge des Arrays 'itemsToShred'."
+                },
+                {
+                    name: "renderCategoryButtons()",
+                    laie: "Zeignet die Kategorie-Filter-Leiste sowohl im Spieler-Hauptfenster als auch in der Admin-Ansicht vollautomatisch auf Basis der Konfigurationsdatei.",
+                    steps: [
+                        "Liest alle definierten Kategorien aus der Spieldokumentation.",
+                        "Generiert für jede Kategorie einen Button inklusive zugewiesenem Icon und Namen.",
+                        "Fügt das fertige HTML in die jeweiligen Filterleisten ein und hebt die allererste Kategorie als standardmäßig aktiv hervor."
+                    ],
+                    ui: "Befüllt die Elemente 'matrix-category-selector' und 'admin-category-filters'.",
+                    data: "Liest das Konfigurationsobjekt 'Config.categories'."
+                },
+                {
+                    name: "renderMatrix()",
+                    laie: "Das grafische Herzstück des Spiels. Diese Funktion zeichnet die gesamte Spieltabelle jede Runde komplett neu. Sie stellt alle Spieler, ihre gesicherten Karten, ihre aktuellen Budgets, Barometeranzeigen und aktivierte Jokertasten live dar.",
+                    steps: [
+                        "Generiert die Kopfzeile der Tabelle mit allen aktiven Kategorienamen und deren spezifischen Designfarben.",
+                        "Iteriert durch alle teilnehmenden Spieler und berechnet deren aktuellen Gesamtpunktestand (Basiswert der Karten + Synergie-Bonuspunkte).",
+                        "Prüft, ob ein Spieler durch einen Mitspieler blockiert ist, und legt gegebenenfalls eine rote Sperr-Maske über seine Zeile.",
+                        "Generiert für jeden Spieler die interaktiven Joker-Tasten. Ist ein Joker verbraucht, wird die Taste durchgestrichen dargestellt.",
+                        "Berechnet den prozentualen Budget-Füllstand und zeichnet einen animierten Fortschrittsbalken (grün oder rot bei akutem Geldmangel)."
+                    ],
+                    ui: "Befüllt die Tabellenelemente 'matrix-header-row' und 'matrix-body'. Nutzt Klassen wie 'bg-red-950/40' für blockierte Spieler und 'bg-stone-800' für Budgetbalken.",
+                    data: "Liest die Arrays 'managers', 'activeCategories', 'blockedPlayerId' und berechnet Synergien auf Basis von Objekt-Tags."
+                },
+                {
+                    name: "renderSlotCell(managerId, categoryKey, itemObject)",
+                    laie: "Wird von der Matrix aufgerufen, um ein einzelnes Kartenfeld für eine bestimmte Kategorie eines Spielers zu zeichnen. Ist das Feld leer, bleibt es dunkel; hat der Spieler dort etwas gekauft, wird eine schicke Karte gezeichnet.",
+                    steps: [
+                        "Prüft, ob der Spieler ein Item in dieser Kategorie besitzt. Wenn nein, wird eine leere Zelle zurückgegeben.",
+                        "Bestimmt die Rahmenfarbe der Karte anhand ihrer Qualität (Gold für Premium, Blau für Standard, Rot für Schrott).",
+                        "Berechnet, ob die Punktekarte durch eine aktive Rolle (Perk) verstärkt wird (z. B. 1,5-fache Punkte) und versieht die Punktzahl mit einem animierten Aufwärtspfeil.",
+                        "Generiert ein verstecktes Tooltip-Fenster mit der genauen Beschreibung der Karte, das erscheint, sobald man mit der Maus über das Feld fährt."
+                    ],
+                    ui: "Gibt HTML-Zellenstrukturen an die Matrix zurück. Nutzt Klassen wie 'border-b-yellow-400' (Premium) oder 'border-b-rose-500' (Schrott) und Steuerung via 'group-hover/cell'.",
+                    data: "Liest den Perk-Status des Spielers aus und wertet Karten-Attribute wie 'score' und 'tier' aus."
+                },
+                {
+                    name: "renderAdminPool()",
+                    laie: "Sortiert und zeichnet den gesamten globalen Warenkatalog im Admin-Bereich in drei übersichtlichen Spalten: Premium, Standard und Schrott.",
+                    steps: [
+                        "Filtert alle Karten der aktuell gewählten Admin-Kategorie anhand des Suchbegriffs aus dem Suchfeld.",
+                        "Leert die drei Spalten ('pool-gut', 'pool-mittel', 'pool-schlecht').",
+                        "Ordnet jede Karte ihrer Qualitätsspalte zu und generiert eine interaktive Datenkarte mit Name, Preis, Punkten, Tags und einer kleinen Bearbeitungstaste.",
+                        "Schaltet die Ansicht komplett ab und blendet ein 'Katalog geschlossen'-Schloss ein, falls gerade eine aktive Live-Auktion läuft (Verhindert Schummeln)."
+                    ],
+                    ui: "Injiziert Karten-HTML in 'pool-gut', 'pool-mittel' und 'pool-schlecht'. Versteckt oder zeigt den Container 'catalog-container' oder 'catalog-hidden-placeholder'.",
+                    data: "Liest die 'itemDatabase', den Suchstring aus 'admin-search-input' und den Status von 'isShredderMode'."
+                },
+                {
+                    name: "renderEventsPool()",
+                    laie: "Zeichnet die Übersicht aller verfügbaren globalen Ereignisse und Gerüchte auf dem dazugehörigen Admin-Tab.",
+                    steps: [
+                        "Iteriert durch die Liste aller in der Konfiguration hinterlegten Events.",
+                        "Erzeugt für jedes Event eine Infokarte mit Titel und Auswirkungstext."
+                    ],
+                    ui: "Injiziert Event-Karten in das Element 'events-container'.",
+                    data: "Liest das statische Array 'Config.events'."
+                },
+                {
+                    name: "renderUsedPool()",
+                    laie: "Befüllt die Übersicht 'Gesicherte Ware' mit allen Karten, die sich bereits im Besitz von Spielern befinden.",
+                    steps: [
+                        "Prüft, ob überhaupt schon Verkäufe stattgefunden haben.",
+                        "Generiert für jedes verkaufte Item eine Karte inklusive Angabe des aktuellen Besitzers und einer Rückgabetaste."
+                    ],
+                    ui: "Befüllt den Container 'used-container' mit Kacheln oder zeigt einen leeren Platzhaltertext an.",
+                    data: "Liest das globale Array 'usedDatabase'."
+                },
+                {
+                    name: "renderShreddedPool()",
+                    laie: "Befüllt die Ansicht 'Klo' mit allen Karten, die im Laufe des Spiels vernichtet oder aussortiert wurden.",
+                    steps: [
+                        "Iteriert durch die vernichteten Objekte.",
+                        "Rendert diese in einer ausgegrauten Optik mit einer Schaltfläche zur Wiederherstellung."
+                    ],
+                    ui: "Injiziert HTML-Kacheln in das Element 'shredded-container' mit der CSS-Klasse 'opacity-70'.",
+                    data: "Liest das globale Array 'shreddedDatabase'."
+                },
+                {
+                    name: "showPerksModal() / updatePerkDesc()",
+                    laie: "Öffnet zu Spielbeginn das große Setup-Fenster, in dem für jeden Spieler seine geheime Spezialfähigkeit (Perk) ausgewählt werden kann.",
+                    steps: [
+                        "Erzeugt für jeden Spieler ein Dropdown-Auswahlmenü mit allen verfügbaren Rollen.",
+                        "Fügt eine Echtzeit-Beschreibung hinzu, die sich sofort aktualisiert (via updatePerkDesc), sobald eine andere Rolle im Dropdown angeklickt wird."
+                    ],
+                    ui: "Manipuliert 'perk-setup-list' und schaltet 'perks-modal' sichtbar.",
+                    data: "Liest Rollendaten aus 'Config.perks' und schreibt temporär in 'selectedPerksPending'."
+                },
+                {
+                    name: "renderJokerPhaseModal()",
+                    laie: "Öffnet nach jedem erfolgreichen Kauf das strategische 'Joker-Phasen'-Fenster. Hier wird die aktuelle Zugreihenfolge der Spieler angezeigt, und jeder kann entscheiden, ob er einen Joker zünden will.",
+                    steps: [
+                        "Sortiert die Spieler in der korrekten, rotierenden Joker-Reihenfolge.",
+                        "Prüft für jeden Spieler, welche Joker er noch besitzt und ob diese in der aktuellen Situation legal eingesetzt werden dürfen (z.B. darf nur eine Blockierung pro Runde stattfinden).",
+                        "Generiert für jeden Spieler interaktive, farbcodierte Aktionstasten oder zeigt eine 'Blockiert'-Meldung an, falls der Spieler im Gefängnis sitzt."
+                    ],
+                    ui: "Injiziert komplexe Zeilenstrukturen in 'joker-phase-list' und öffnet 'joker-phase-modal'.",
+                    data: "Liest 'playerJokerOrder', 'managers', 'blockedPlayerId' und den State 'jokerPhaseState'."
+                },
+                {
+                    name: "playAuctionAnimation(price)",
+                    laie: "Löst den spektakulären visuellen Knalleffekt bei einem erfolgreichen Auktionszuschlag aus. Ein riesiger Handschlag/Hammer fliegt durch das Bild und der abgezogene Geldbetrag blinkt riesig in der Mitte auf.",
+                    steps: [
+                        "Schreibt den Minus-Betrag in das verdeckte Popup-Element.",
+                        "Entfernt alte Animationsklassen, um die Grafikeffekte zurückzusetzen.",
+                        "Erzwingt einen minimalen Browser-Neustart der CSS-Grafikengine (Reflow).",
+                        "Fügt die CSS-Animationsklassen hinzu, wodurch der Hammer einschlägt und der Text explodiert.",
+                        "Blendet beide Elemente nach genau 1,5 Sekunden automatisch wieder aus."
+                    ],
+                    ui: "Steuert 'hammer-container' und 'price-popup-container'. Nutzt die CSS-Animationen 'animate-hammer' und 'animate-price-pop'.",
+                    data: "Reiner Grafikeffekt, manipuliert keine Spieldaten."
+                },
+                {
+                    name: "animateBudgetChange(id, amount, isPositive)",
+                    laie: "Lässt direkt neben dem Kontostand eines Spielers eine kleine Zahl nach oben fliegen. Grün mit einem Plus bei Einnahmen, rot mit einem Minus bei Ausgaben.",
+                    steps: [
+                        "Sucht die Budget-Anzeige des betroffenen Spielers auf dem Bildschirm.",
+                        "Erzeugt ein neues, absolut positioniertes Textelement.",
+                        "Färbt es grün (Einnahme) oder rot (Ausgabe) und hängt den Betrag an.",
+                        "Startet die CSS-Fluganimation nach oben und löscht das Element nach 1,5 Sekunden restlos aus dem System."
+                    ],
+                    ui: "Hängt fliegende HTML-Knoten an das Elternelement von 'budget-display-${id}'. Verwendet 'animate-float-out-green' oder 'animate-float-out-red'.",
+                    data: "Reine UI-Animation."
+                },
+                {
+                    name: "openWheelModal() / drawRouletteWheel(...)",
+                    laie: "Öffnet das grafische Glücksrad-Fenster. drawRouletteWheel zeichnet dabei ein echtes, kreisrundes Casino-Glücksrad mit bunten Segmenten, Geldbeträgen und Leuchteffekten live auf den Bildschirm.",
+                    steps: [
+                        "Generiert für jeden Spieler ein individuelles Set an Gewinn- und Verlustbeträgen (Nieten werden bei hocheisigen Sessions entfernt).",
+                        "Berechnet die mathematischen Winkel für die Kuchenstücke des Rades.",
+                        "Nutzt die HTML5-Grafik-Engine (Canvas), um die Kreissegmente zu zeichnen: Rot für Abzüge, Gold für den Mega-Bonus, transparent-weiß für normale Beträge.",
+                        "Dreht den geschriebenen Text ('+50k', '-10k') mathematisch korrekt in die Mitte jedes einzelnen Segments."
+                    ],
+                    ui: "Öffnet 'wheel-modal', generiert Kartenstrukturen in 'wheels-grid' und zeichnet mit Pixelpräzision auf 'wheel-canvas-${m.id}'.",
+                    data: "Liest Spielerdaten und speichert die generierten Rad-Beträge in 'window.wheelValuesPerPlayer'."
+                }
+            ],
+            DATA_MANAGEMENT: [
+                {
+                    name: "buildDatabase()",
+                    laie: "Lädt beim Spielstart alle Karten aus dem Speicher des Webbrowsers. Ist dieser leer, holt die Funktion die originalen Karten vollautomatisch aus der im Thema hinterlegten JSON-Datei.",
+                    steps: [
+                        "Prüft den LocalStorage des Browsers auf vorhandene Inventar-, Sicherungs- und Klo-Daten.",
+                        "Falls vorhanden, werden die Daten aus einem Text-String zurück in echte JavaScript-Objekte verwandelt (JSON.parse).",
+                        "Falls nicht vorhanden, wird eine Server-Abfrage (fetch) an die Spieldatei gesendet.",
+                        "Sichert die geladenen Daten im System und stößt die ID-Zählung an."
+                    ],
+                    data: "Schreibt in 'itemDatabase', 'shreddedDatabase' und 'usedDatabase'. Schreibt in LocalStorage."
+                },
+                {
+                    name: "saveDatabases()",
+                    laie: "Die automatische Speicherfunktion. Sie sichert den exakten Zustand aller drei Kartendepots (Katalog, Gesichert, Klo) im permanenten Speicher des Browsers, damit das Spiel bei einem versehentlichen Neuladen der Seite nicht verloren geht.",
+                    steps: [
+                        "Verwandelt die komplexen Datenlisten in kompakte Text-Strings.",
+                        "Schreibt diese Strings unter themenspezifischen Schlüsseln in den Browser-LocalStorage."
+                    ],
+                    data: "Liest 'itemDatabase', 'shreddedDatabase', 'usedDatabase' und schreibt in den LocalStorage."
+                },
+                {
+                    name: "updateGlobalIdCounter()",
+                    laie: "Ein interner Nummernzähler. Er durchsucht alle vorhandenen Karten nach der höchsten ID-Nummer, damit neu erstellte oder editierte Karten eine fortlaufende, einzigartige ID erhalten und es nicht zu Systemkonflikten kommt.",
+                    steps: [
+                        "Iteriert durch alle Kategorien und jede einzelne Karte.",
+                        "Trennt den Textpräfix ab (z.B. extrahiert '42' aus 'item_42').",
+                        "Ermittelt den Maximalwert und setzt den globalen Zähler auf diesen Wert plus eins."
+                    ],
+                    data: "Schreibt in die globale Zähler-Variable 'globalIdCounter'."
+                },
+                {
+                    name: "importDB(event) / exportDB()",
+                    laie: "Ermöglicht es dem Administrator, den aktuellen Spielstand als Datei auf den PC herunterzuladen (Export) oder eine alte Spieldatei wieder in das System hochzuladen (Import).",
+                    steps: [
+                        "exportDB bündelt alle Datenbanken, erstellt einen virtuellen Download-Link und löst das Herunterladen einer Datei aus.",
+                        "importDB liest eine hochgeladene Datei ein, validiert die Struktur, überschreibt die aktuellen Listen und zwingt die Benutzeroberfläche zu einer kompletten Aktualisierung."
+                    ],
+                    ui: "Löst Datei-Downloads aus bzw. triggert die globalen Render-Funktionen aller Tabs nach erfolgreichem Import.",
+                    data: "Überschreibt oder liest 'itemDatabase', 'shreddedDatabase' und 'usedDatabase'."
+                },
+                {
+                    name: "resetDatabase()",
+                    laie: "Der nukleare Reset-Button im Admin-Menü. Löscht alle Spielstände, geleerten Runden, Kontostände und setzt die Spieldatenbank komplett auf den Auslieferungszustand zurück.",
+                    steps: [
+                        "Fragt den Admin über das Sicherheitsfenster, ob er das wirklich tun will.",
+                        "Löscht alle Einträge aus dem Browser-LocalStorage.",
+                        "Leert alle Arrays im Arbeitsspeicher und ruft buildDatabase() auf, um die originalen JSON-Daten frisch zu laden."
+                    ],
+                    ui: "Setzt Auktionsfelder zurück und leitet den Benutzer automatisch auf die Admin-Ansicht um, falls Fehler auftreten.",
+                    data: "Setzt alle globalen State-Arrays und Zähler komplett zurück."
+                },
+                {
+                    name: "toggleShredderSelection(id)",
+                    laie: "Markiert eine Karte im Admin-Katalog für die Vernichtung (Klo) oder entfernt die Markierung, falls man sich umentscheidet.",
+                    steps: [
+                        "Prüft, ob die übergebene Karten-ID bereits im Lösch-Array existiert.",
+                        "Wenn ja, wird sie herausgefiltert. Wenn nein, wird sie dem Array hinzugefügt.",
+                        "Ruft die UI-Aktualisierung für den Lösch-Button auf."
+                    ],
+                    ui: "Fügt der betroffenen Karte eine rote Warn-Maske hinzu oder entfernt sie. Aktualisiert 'btn-execute-shred'.",
+                    data: "Manipuliert das globale Array 'itemsToShred'."
+                },
+                {
+                    name: "selectAllBadItems()",
+                    laie: "Ein Zeitspar-Werkzeug für den Spielleiter. Markiert mit einem einzigen Klick alle Karten der Qualitätsstufe 'Schrott' in der aktuellen Kategorie für das Klo.",
+                    steps: [
+                        "Sucht alle Karten der aktiven Kategorie heraus.",
+                        "Prüft, ob das Attribut 'tier' den Wert 'schlecht' hat.",
+                        "Fügt alle Treffer-IDs automatisch dem Lösch-Array hinzu und zeichnet den Katalog neu."
+                    ],
+                    ui: "Sämtliche Schrott-Karten leuchten sofort rot auf.",
+                    data: "Liest aus 'itemDatabase' und schreibt in 'itemsToShred'."
+                },
+                {
+                    name: "executeShredding() / emptyTrash()",
+                    laie: "executeShredding wirft alle markierten Karten ins Klo. emptyTrash zieht die Spülung ab und löscht den Inhalt des Klos unwiderruflich aus dem gesamten Spiel.",
+                    steps: [
+                        "executeShredding schneidet die markierten Karten aus der itemDatabase heraus und verschiebt sie in die shreddedDatabase.",
+                        "emptyTrash leert das Klo-Array nach einer Bestätigung komplett und überschreibt den Speicher."
+                    ],
+                    ui: "Karten verschwinden aus dem Katalog und tauchen auf dem Klo-Tab auf. Nach emptyTrash ist das Klo leer.",
+                    data: "Mutiert 'itemDatabase', 'shreddedDatabase' und bereinigt 'itemsToShred'."
+                },
+                {
+                    name: "restoreFromShredder(id)",
+                    laie: "Holt eine versehentlich weggespülte Karte aus dem Klo zurück in den regulären Admin-Katalog.",
+                    steps: [
+                        "Sucht die Karte im Klo-Array.",
+                        "Entfernt sie dort und fügt sie wieder ihrer ursprünglichen Kategorie im Hauptkatalog hinzu.",
+                        "Sichert die Änderung und aktualisiert die Ansichten."
+                    ],
+                    ui: "Karte verschwindet vom Klo-Tab und wird im Katalog wieder eingeblendet.",
+                    data: "Schneidet aus 'shreddedDatabase' und fügt zu 'itemDatabase' hinzu."
+                },
+                {
+                    name: "returnToPool(id) / returnAllToPool()",
+                    laie: "Erlaubt es, eine bereits von einem Spieler gekaufte Karte wieder zu entziehen. Sie wird dem Spieler aus seiner Zeile gelöscht und wandert zurück auf den freien Markt des Katalogs. returnAllToPool macht das für alle vergebenen Karten gleichzeitig.",
+                    steps: [
+                        "Sucht das Item in der Liste der verkauften Waren.",
+                        "Löscht die Besitzermarkierung ('owner') von der Karte.",
+                        "Sucht den betroffenen Spieler und setzt das entsprechende Feld in seinem Team wieder auf 'null' (leer).",
+                        "Verschiebt die Karte zurück in den freien Katalog und speichert."
+                    ],
+                    ui: "Die Karte verschwindet aus der Zeile des Spielers in der Tabelle; das Feld ist wieder leer und der Katalog aktualisiert sich.",
+                    data: "Manipuliert 'usedDatabase', 'itemDatabase' und die 'team'-Unterobjekte im 'managers'-Array."
+                },
+                {
+                    name: "saveEditItem()",
+                    laie: "Speichert die Änderungen ab, wenn der Admin eine Karte im Bearbeitungsfenster editiert hat (z. B. Preis erhöht, Punkte geändert oder Kategorie gewechselt).",
+                    steps: [
+                        "Liest die eingegebenen Zahlen für Preis und Punkte aus dem Formular.",
+                        "Sucht die originale Karte in der Datenbank.",
+                        "Aktualisiert die Werte. Falls die Kategorie geändert wurde, wird die Karte physisch aus der alten Liste gelöscht und in die neue Kategorie-Liste eingefügt."
+                    ],
+                    ui: "Schließt das Bearbeitungsfenster und zeichnet die Tabellen und Kataloge sofort neu.",
+                    data: "Modifiziert direkt die Objekteigenschaften innerhalb der 'itemDatabase' und passt gegebenenfalls 'managers.team' an."
+                },
+                {
+                    name: "renameManager(id, newName)",
+                    laie: "Ermöglicht das Ändern von Spielernamen direkt durch Tippen in die Tabellenkopfzeile.",
+                    steps: [
+                        "Prüft, ob der eingegebene Name nicht leer ist.",
+                        "Überschreibt das Namens-Attribut des Spielers im Datensatz.",
+                        "Aktualisiert alle Dropdowns, damit dort sofort der neue Name erscheint."
+                    ],
+                    ui: "Live-Namensänderung im Dropdown 'matrix-auction-buyer' und 'auction-buyer'.",
+                    data: "Schreibt in das entsprechende 'name'-Feld im 'managers'-Array."
+                },
+                {
+                    name: "removePlayerFromMatrix(managerId, categoryKey)",
+                    laie: "Wird ausgelöst, wenn man auf dem Hauptspielfeld direkt auf eine Karte eines Spielers klickt. Entfernt diese sofort und gibt sie zurück in den Markt.",
+                    steps: [
+                        "Identifiziert den Spieler und die angeklickte Kategorie.",
+                        "Liest die ID der dort liegenden Karte aus und übergibt sie an returnToPool()."
+                    ],
+                    data: "Indirekte Datenmanipulation über 'returnToPool'."
+                }
+            ],
+            GAME_LOGIK: [
+                {
+                    name: "initGame(count, budget)",
+                    laie: "Bereitet ein komplett neues Spiel vor. Setzt alle Kontostände auf den Startwert, verteilt die Standard-Joker und leert die Spielfelder aller Teilnehmer.",
+                    steps: [
+                        "Speichert die Spieleranzahl und das Startbudget im System.",
+                        "Setzt alle Kontrollvariablen für Runden-Events und Stornos zurück.",
+                        "Erstellt für jeden Spieler ein frisches Datenobjekt mit Name, Kontostand, vollen Jokersätzen (je 1x Block, Bonus, Bestechen, Tausch, Skip) und einem leeren Team-Spielfeld.",
+                        "Generiert die Spieler-Reihenfolge für die Jokerphase und stößt das Mischen des ersten Kartendecks an."
+                    ],
+                    ui: "Aktualisiert die Budget-Anzeige im Header, leert das Aktivitäten-Protokoll und öffnet nach kurzer Verzögerung das Rollen-Setup.",
+                    data: "Überschreibt das komplette 'managers'-Array, leert 'draftedIds', 'triggeredEventIds' und setzt 'isGameEnded' auf false."
+                },
+                {
+                    name: "initCategoryDeck(category)",
+                    laie: "Mischt die Karten einer Kategorie im Hintergrund kräftig durch und legt einen verdeckten Ziehungsstapel bereit. Es werden genau so viele Karten bereitgestellt, wie Spieler teilnehmen.",
+                    steps: [
+                        "Kopiert alle Karten der gewählten Kategorie aus der Master-Datenbank.",
+                        "Mischt das Array nach dem Zufallsprinzip durch (RNG-Shuffling).",
+                        "Schneidet exakt die Anzahl der benötigten Karten (entspricht der Spieleranzahl) ab und speichert sie als aktiven Ziehungsstapel."
+                    ],
+                    data: "Schreibt das Ergebnis in das globale Array 'activeCategoryDeck'."
+                },
+                {
+                    name: "applyPerksAndStart() / startGameWithoutPerks()",
+                    laie: "Beendet das Start-Setup. applyPerksAndStart weißt den Spielern ihre gewählten Spezialrollen zu und berechnet sofortige Start-Auswirkungen (z. B. verringertes Budget bei Perk 4 oder extra Joker bei Perk 7).",
+                    steps: [
+                        "Liest die ausgewählten Rollen aus den Setup-Dropdowns ab.",
+                        "Weißt bei Perk 1 ('Protege') dem Spieler zwei zufällige Kategorien zu, in denen er später 50% mehr Punkte bekommt.",
+                        "Zieht bei Perk 4 sofort 25% des Budgets ab, gewährt im Gegenzug aber mehr Cashback.",
+                        "Entzieht bei Perk 8 ('Jokerlos') sofort alle Jokerkarten, erhöht aber den Wert aller gekauften Karten.",
+                        "Bliebt das Setup-Fenster aus und startet das Hauptspiel."
+                    ],
+                    ui: "Versteckt das 'perks-modal', zeichnet die Matrix komplett neu und aktualisiert die Rollen-Badges unter den Spielernamen.",
+                    data: "Mutiert die Attribute 'perk', 'budget', 'jokers' und 'protegeCats' im 'managers'-Array."
+                },
+                {
+                    name: "drawMatrixRandomPlayer()",
+                    laie: "Der 'Ziehen'-Button auf dem Hauptfeld. Holt die oberste Karte vom aktuellen Kategorie-Stapel und legt sie als Angebot auf den Auktionstisch. Wurde vorher eine Karte gezogen, aber von niemandem gekauft, wird sie strafend ans Ende des Stapels geschoben.",
+                    steps: [
+                        "Falls noch ein unverkauftes Item auf dem Tisch liegt, wird dieses ans Ende des Stapels verbannt und eventuell verfallene Joker-States bereinigt.",
+                        "Würfelt gegen die eingestellte Prozentchance, ob stattdessen ein unvorhergesehenes globales Zeitungs-Ereignis (Event) ausbricht.",
+                        "Falls kein Event kommt: Nimmt die oberste Karte aus dem 'activeCategoryDeck'.",
+                        "Prüft, ob ein 'Blindflug'-Event aktiv ist. Wenn ja, wird die Karte auf dem Bildschirm komplett als 'VERDECKT' dargestellt; wenn nein, werden Name, Grafik und Beschreibung enthüllt."
+                    ],
+                    ui: "Aktualisiert die Box 'Aktueller Deal' ('matrix-active-bid-target', 'matrix-active-bid-start-price', 'matrix-active-bid-desc') und befüllt das Preisfeld automatisch mit dem Mindestpreis.",
+                    data: "Entfernt ein Element aus 'activeCategoryDeck' (shift) und schreibt es in 'activeMatrixAuctionItem'."
+                },
+                {
+                    name: "executeMatrixAuction()",
+                    laie: "Schließt den Kauf für die aktuell aufgedeckte Karte auf dem Hauptspielfeld ab. Überprüft vorher penibel, ob der ausgewählte Spieler genug Geld hat, nicht im Gefängnis sitzt und das Feld bei ihm noch frei ist.",
+                    steps: [
+                        "Liest den gewählten Spieler und den eingegebenen Kaufpreis ein.",
+                        "Sicherheitsprüfungen: Ist der Preis höher als der Mindestpreis? Hat der Spieler genug Budget? Ist er blockiert? Ist sein Kategorie-Slot bereits besetzt?",
+                        "Sind alle Prüfungen bestanden, wird die Buchungsfunktion 'processPurchase' aufgerufen.",
+                        "Startet die Hammer-Animation und öffnet nach einer kurzen Verzögerung von 3 Sekunden automatisch das Fenster für die Joker-Phase."
+                    ],
+                    ui: "Blendet das 'DEAL PERFEKT!'-Erfolgsfenster ein, leert den aktuellen Auktionstisch und öffnet das Joker-Modal.",
+                    data: "Verringert den Zähler 'blindDrawsLeft', falls verdeckt gezogen wurde. Übergibt Daten an 'processPurchase'."
+                },
+                {
+                    name: "processPurchase(manager, price, item, category)",
+                    laie: "Das mathematische Kernstück der Engine. Hier werden die tatsächlichen Kontobewegungen verbucht, die Karte fest in das Team des Spielers eingetragen und komplexe Berechnungen wie die Bonus-Rückzahlung (Cashback) abgewickelt.",
+                    steps: [
+                        "Prüft, ob der Käufer vor dem Kauf den 'Bonus-Joker' aktiviert hatte.",
+                        "Deaktiviert den Bonus-Joker-Status für alle Spieler im System (Bonus gilt nur für einen Kauf).",
+                        "Schneidet die Karte aus dem freien Warenpool heraus und schiebt sie mit Besitzer-Stempel in die Liste der gesicherten Karten.",
+                        "Trägt die Karte in das entsprechende Kategorie-Feld im Team des Spielers ein.",
+                        "Zieht den Kaufpreis vom Budget ab.",
+                        "Falls der Bonus-Joker aktiv war: Berechnet 10% des Startbudgets (erhöht um 25% bei Perk 4) und zahlt diesen Cash-Betrag sofort wieder auf das Konto des Spielers ein.",
+                        "Registriert den Kauf im Stornospeicher 'lastPurchase' und prüft, ob das Spiel vorbei ist."
+                    ],
+                    ui: "Triggert die Budget-Fluganimationen, schreibt ins Aktivitäten-Protokoll und schaltet die 'Storno'-Taste im UI frei.",
+                    data: "Schreibt in 'itemDatabase', 'usedDatabase', 'manager.budget', 'manager.team', 'draftedIds' und setzt 'lastPurchase'."
+                },
+                {
+                    name: "undoLastPurchase()",
+                    laie: "Der 'Storno'-Button. Macht den allerletzten Kauf komplett ungeschehen. Der Spieler gibt die Karte zurück, erhält sein Geld auf den Cent genau wieder und eventuell verbrauchte Bonus-Joker werden wieder reaktiviert.",
+                    steps: [
+                        "Prüft, ob ein legaler Storno-Datensatz existiert.",
+                        "Zahlt dem Spieler den Kaufpreis wieder auf sein Konto ein.",
+                        "Zieht eventuell fälschlicherweise ausgezahltes Cashback-Geld wieder ab und schaltet den Bonus-Joker wieder scharf.",
+                        "Löscht die Karte aus dem Team des Spielers und transferiert sie aus dem gesicherten Lager zurück in den freien Katalog.",
+                        "Sperrt die Storno-Taste, da man nur einen Kauf weit in die Vergangenheit reisen kann."
+                    ],
+                    ui: "Die Karte verschwindet sofort aus der Zeile des Spielers, sein Geld springt zurück und die Storno-Taste 'btn-undo-purchase' wird wieder unsichtbar.",
+                    data: "Mutiert 'manager.budget', 'manager.team', 'usedDatabase', 'itemDatabase', 'draftedIds' und deaktiviert 'lastPurchase.isUndoable'."
+                },
+                {
+                    name: "punishLoser()",
+                    laie: "Der 'Strafe erteilen'-Button. Wird eine gezogene Karte von absolut niemandem gewollt, kann der Admin diese Funktion nutzen, um die Karte einem Spieler böswillig in sein Feld zu drücken. Die Karte bringt Minuspunkte und blockiert den Slot.",
+                    steps: [
+                        "Liest den ausgewählten Straf-Empfänger aus.",
+                        "Prüft, ob sein Feld in dieser Kategorie frei und er nicht isoliert ist.",
+                        "Generiert eine minderwertige Schrott-Karte ('Ausschuss / Loser-Karte') auf Basis der Konfigurationsvorlage und zwingt sie in das Team des Spielers."
+                    ],
+                    ui: "Zeigt ein dramatisches 'STRAFE!'-Modal an und zeichnet das Spielfeld mit der Schrottkarte neu.",
+                    data: "Schreibt direkt in 'manager.team[cat]' und löst einen Endgame-Check aus."
+                },
+                {
+                    name: "useBlockJoker(id) / useBonusJoker(id) / useAutoBuyJoker(id) / useGambleJoker(id) / useSkipJoker(id)",
+                    laie: "Diese fünf Funktionen steuern das Auslösen der Spieler-Joker. Blockiert Mitspieler, aktiviert Cashback, erzwingt Blindkäufe für den 1,5-fachen Preis, tauscht alte Karten um oder spült das aktuelle Angebot sofort im Klo hinunter.",
+                    steps: [
+                        "useBlockJoker: Öffnet das Sperrmenü, verringert den Jokerzähler und setzt die Ziel-ID auf 'blockedPlayerId'. Blockt Perk 7 das Event, verfällt der Joker wirkungslos.",
+                        "useBonusJoker: Markiert den Spieler für eine Geldrückzahlung beim nächsten Einkauf.",
+                        "useAutoBuyJoker: Zieht eine Zufallskarte aus dem Katalog, berechnet den 1,5-fachen Preis und zwingt sie direkt ins Team des Spielers.",
+                        "useGambleJoker: Öffnet das Tauschmenü. Bei Perk 5 werden 3 Karten gezogen, aus denen der Spieler wählen darf; ansonsten wird die Karte blind gegen eine neue Karte vom Markt getauscht.",
+                        "useSkipJoker: Löscht die aktuelle Karte vom Auktionstisch, befördert sie ins Klo und deckt sofort eine neue Ersatzkarte auf."
+                    ],
+                    ui: "Öffnet spezifische Unter-Modals ('block-modal', 'gamble-modal', 'gamble-choice-modal'), aktualisiert die Jokertasten in der Matrix und zeichnet Karten neu.",
+                    data: "Verringert die jeweiligen Joker-Zähler im 'managers'-Objekt und verändert Budgets sowie Team-Zuweisungen."
+                },
+                {
+                    name: "executeEventLogic(eventObject)",
+                    laie: "Wird vom System aufgerufen, wenn ein globales Ereignis ausbricht. Berechnet die mathematischen Auswirkungen wie 'Reichensteuer' für das meiste Geld, 'Robin Hood' (alle zahlen an den Ärmsten) oder Razzien, die eine ganze Kategorie entwerten.",
+                    steps: [
+                        "Ermittelt den reichsten ('highest') und den ärmsten ('lowest') Spieler der Runde.",
+                        "Führt Berechnungen je nach Event-Typ durch: Bei Steuern verliert der Reichste einen Prozentsatz seines Geldes; bei Robin Hood wird dieses Geld direkt dem Ärmsten gutgeschrieben.",
+                        "Bei einer 'Razzia' (destroy_random_category) wird eine zufällige Kategorie ausgewählt und der Punktwert aller dort liegenden Karten radikal auf 0 gesetzt."
+                    ],
+                    ui: "Gibt den berechneten Ereignistext an das Haupt-Eventmodal zurück.",
+                    data: "Modifiziert Budgets über 'applyBudgetChange' oder überschreibt 'item.score'-Werte im Team-Objekt bei Razzien."
+                },
+                {
+                    name: "startDutchAuction() / resolveDutchAuction(managerId)",
+                    laie: "Das 'Notverkauf'-Event. Eine wertvolle Karte wird angeboten, aber der Preis startet extrem hoch. Jede Sekunde fällt der Preis rapide ab. Wer zuerst auf seinen Button drückt, bekommt die Karte zum aktuell angezeigten Schleuderpreis.",
+                    steps: [
+                        "startDutchAuction: Sucht ein Premium-Item heraus, setzt den Auktionspreis auf das Maximum und startet einen unerbittlichen Sekunden-Timer (setInterval).",
+                        "Der Timer senkt den Preis alle 1,5 Sekunden um 5% des Startbudgets.",
+                        "resolveDutchAuction: Stoppt den Timer sofort, sobald ein Spieler zuschlägt. Prüft sein Budget und verbucht das Item zum aktuellen Stand des Preisverfalls."
+                    ],
+                    ui: "Öffnet das rote, pulsierende Ticker-Fenster 'dutch-modal' und aktualisiert live die riesige Preisanzeige. Schließt sich bei Zuschlag.",
+                    data: "Steuert die Variablen 'dutchPrice', 'dutchItem' und löscht den Intervall-Zeiger 'dutchInterval'."
+                },
+                {
+                    name: "spinCurrentPlayerWheel(managerId) / prepareNextWheelAction()",
+                    laie: "Dreht das Glücksrad für den aktuellen Spieler. Berechnet die physikalische Drehung der Grafik, ermittelt den Gewinn oder Verlust und schiebt das Rad danach an den nächsten Spieler weiter.",
+                    steps: [
+                        "Wählt einen zufälligen Betrag aus den Segmenten des Rades aus.",
+                        "Berechnet den exakten Drehwinkel im Bogenmaß (Rad), damit das Rad optisch genau auf dem gewählten Betrag stehen bleibt.",
+                        "Startet eine 2 Sekunden lange, flüssige CSS-Bremsrotation auf dem Canvas.",
+                        "Rechnet den Gewinn/Abzug auf das Spielerkonto an und blendet ein riesiges Punkte-Popup ein.",
+                        "prepareNextWheelAction schaltet die Steuerung auf den nächsten Spieler um oder blendet die Beenden-Taste ein."
+                    ],
+                    ui: "Dreht das Canvas-Element via 'transform: rotate', blendet das Panel 'wheel-pop-result' ein und steuert den zentralen Action-Button.",
+                    data: "Manipuliert Budgets über 'applyBudgetChange' und schreibt Ergebnisse in 'wheelSpinResults'."
+                },
+                {
+                    name: "checkEndgame() / triggerEndgame()",
+                    laie: "Überwacht das Spielfeld. Sobald alle Spieler alle ihre Kategorie-Slots komplett mit Karten gefüllt haben, wird das Spiel sofort angehalten und die große Endabrechnung gestartet.",
+                    steps: [
+                        "checkEndgame scannt jede einzelne Zelle aller Spieler. Ist kein einziges Feld mehr frei, wird triggerEndgame gezündet.",
+                        "Berechnet für jeden Spieler die finalen Punkte: Basis-Punkte + Rollen-Boni + Synergiepunkte (wenn man mehrere Karten mit den gleichen '#Tags' besitzt).",
+                        "Zahlt bei Perk 2 ('Sparfuchs') extra Punkte für je 20.000 verbliebene Geldeinheiten aus.",
+                        "Gewährt dem absoluten Verlierer der Runde automatisch einen 15%-igen Mitleids-Bonus auf seine Punkte, um das Ergebnis zu beschönigen.",
+                        "Sortiert die Spieler nach Punkten und öffnet das goldene Sieger-Podium."
+                    ],
+                    ui: "Öffnet das gigantische 'endgame-modal', baut das Ranglisten-Podium 'endgame-podium' auf und startet die Konfetti-Kanone 'fireConfetti'.",
+                    data: "Setzt 'isGameEnded' auf true und berechnet 'totalPoints' für alle Spieler-Objekte."
+                }
+            ],
+            EVENT_HANDLING: [
+                {
+                    name: "handleMatrixSearch(query)",
+                    laie: "Die Echtzeit-Suchleiste auf dem Spielfeld. Während du tippst, durchsucht diese Funktion blitzschnell den gesamten Katalog nach passenden Namen, Texten oder Hashtags und zeigt die Treffer in einer kleinen Liste an.",
+                    steps: [
+                        "Bricht sofort ab, wenn weniger als 2 Buchstaben eingetippt wurden.",
+                        "Durchsucht alle Kategorien der gesamten Spieldatenbank nach dem Suchbegriff.",
+                        "Erzeugt für die besten 8 Treffer einen schnellen Listeneintrag mit Icon, Name und Mindestpreis.",
+                        "Blendet die Trefferliste unter dem Suchfeld ein."
+                    ],
+                    ui: "Injiziert Suchtreffer in das Element 'matrix-search-results' und entfernt die Klasse 'hidden'.",
+                    data: "Liest aus der 'itemDatabase'."
+                },
+                {
+                    name: "selectManualMatrixCard(id, category)",
+                    laie: "Wird ausgelöst, wenn man auf einen Treffer in der Suchergebnisliste klickt. Die gesuchte Karte wird sofort auf den Auktionstisch geladen, genau so, als hätte man sie gerade zufällig gezogen.",
+                    steps: [
+                        "Bricht sofort ab, wenn ein verdeckter Blindflug aktiv ist (Verhindert Schummeln).",
+                        "Wechselt die aktive Spielfeld-Kategorie automatisch zu der Kategorie der gefundenen Karte.",
+                        "Sucht die Karte heraus und setzt sie als aktives Auktions-Objekt fest."
+                    ],
+                    ui: "Befüllt die Auktionsbox mit den Kartendaten und leert das Suchfeld.",
+                    data: "Schreibt in 'activeMatrixAuctionItem'."
+                },
+                {
+                    name: "document.addEventListener('keydown')",
+                    laie: "Der globale Tastatur-Spion. Er lauscht im Hintergrund auf Tastendrücke und ermöglicht es dem Spielleiter, das gesamte Spiel blitzschnell über Tastaturkurzbürzel (Hotkeys) zu steuern.",
+                    steps: [
+                        "Prüft, ob der Benutzer gerade in einem Textfeld tippt. Wenn ja, werden die Hotkeys blockiert.",
+                        "Taste 'Escape': Schließt sofort alle geöffneten Fenster, Modals oder bricht Auktionen ab.",
+                        "Taste 'Leertaste': Zieht sofort eine neue Karte (entspricht Klick auf Ziehen).",
+                        "Taste 'Enter': Bestätigt Modals oder schließt den Kauf ab (Kaufen-Button).",
+                        "Tasten '1' bis '7': Wählt blitzschnell den entsprechenden Spieler im Auktions-Dropdown aus.",
+                        "Tasten 'Pfeil-Oben / Pfeil-Unten': Erhöht oder verringert das aktuelle Gebot um den konfigurierten Schrittwert (z.B. +/- 5.000).",
+                        "Tasten 'M', 'A', 'U', 'S': Schaltet blitzschnell zwischen den vier Hauptansichten um."
+                    ],
+                    ui: "Löst indirekt fast alle Render- und Klickprozesse des Spiels über Tastendruck aus.",
+                    data: "Reiner Event-Listener, delegiert Steuerung an die jeweiligen Logikfunktionen."
+                }
+            ],
+            HELPER: [
+                {
+                    name: "$(id)",
+                    laie: "Ein genialer, kleiner Programmierer-Shorthand. Statt jedes Mal den langen Befehl 'document.getElementById' eintippen zu müssen, reicht dieses winzige Dollarzeichen aus, um ein Element vom Bildschirm zu greifen.",
+                    steps: [
+                        "Nimmt den Namen einer ID entgegen.",
+                        "Sucht das exakte Element auf der Webseite und gibt es an die aufrufende Funktion zurück."
+                    ],
+                    data: "Reine System-Abkürzung."
+                },
+                {
+                    name: "getTagsHtml(itemObject)",
+                    laie: "Ein automatischer Badge-Generator. Er liest die unsichtbaren Hashtags/Kategorien einer Karte aus und verwandelt sie in kleine, hübsch formatierte orangefarbene Design-Suchmarken (Badges) unter dem Kartentext.",
+                    steps: [
+                        "Prüft, ob die Karte überhaupt über Hashtags verfügt.",
+                        "Erstellt eine HTML-Schleife und verpackt jeden Tag in eine eigene kleine Design-Box mit einem '#' davor.",
+                        "Gibt den fertigen HTML-Textblock an die aufrufende Render-Funktion zurück."
+                    ],
+                    ui: "Erzeugt optische Tags wie '#Ausschuss', '#Kaffee' oder '#Bürochaos' mit feinen Rahmenklassen ('border-orange-500/30').",
+                    data: "Liest das 'tags'-Array aus dem übergebenen Kartenobjekt."
+                }
+            ]
+        };
+
+        // RUNTIME STATE FOR THE AUDIT SUITE
+        let currentGroup = "";
+        let currentIndex = 0;
+
+        // INITIALIZE COUNTERS ON START
+        window.onload = function() {
+            for (let group in AUDIT_REGISTRY) {
+                const countEl = document.getElementById(`count-${group}`);
+                if (countEl) countEl.innerText = AUDIT_REGISTRY[group].length;
+            }
+        };
+
+        // GROUP SELECTION LOGIC
+        window.selectGroup = function(groupName) {
+            currentGroup = groupName;
+            currentIndex = 0;
+
+            // Update Button Highlights
+            document.querySelectorAll('.group-btn').forEach(btn => {
+                btn.className = "group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800";
+            });
+
+            const activeBtn = document.getElementById(`btn-${groupName}`);
+            let themeColor = "border-purple-500 text-purple-400 bg-purple-950/10";
+            if (groupName === "DATA_MANAGEMENT") themeColor = "border-blue-500 text-blue-400 bg-blue-950/10";
+            if (groupName === "GAME_LOGIK") themeColor = "border-emerald-500 text-emerald-400 bg-emerald-950/10";
+            if (groupName === "EVENT_HANDLING") themeColor = "border-yellow-500 text-yellow-400 bg-yellow-950/10";
+            if (groupName === "HELPER") themeColor = "border-sky-500 text-sky-400 bg-sky-950/10";
+
+            if (activeBtn) activeBtn.className = `group-btn w-full flex justify-between items-center p-4 rounded-xl font-black border text-left transition duration-200 scale-[1.02] shadow-lg ${themeColor}`;
+
+            // Toggle Panel Views
+            document.getElementById('placeholder-view').classList.add('hidden');
+            document.getElementById('interactive-view').classList.remove('hidden');
+
+            renderActiveFunction();
+        };
+
+        // STEP NAVIGATION
+        window.nextFunction = function() {
+            if (!currentGroup) return;
+            if (currentIndex < AUDIT_REGISTRY[currentGroup].length - 1) {
+                currentIndex++;
+                renderActiveFunction();
+            } else {
+                // Loop to start
+                currentIndex = 0;
+                renderActiveFunction();
+            }
+        };
+
+        window.prevFunction = function() {
+            if (!currentGroup) return;
+            if (currentIndex > 0) {
+                currentIndex--;
+                renderActiveFunction();
+            } else {
+                // Loop to end
+                currentIndex = AUDIT_REGISTRY[currentGroup].length - 1;
+                renderActiveFunction();
+            }
+        };
+
+        // RENDER LOGIC FOR THE ACTIVE FUNCTION STEP
+        function renderActiveFunction() {
+            const func = AUDIT_REGISTRY[currentGroup][currentIndex];
+            
+            // Render Badge Styles
+            const badge = document.getElementById('active-group-badge');
+            badge.innerText = currentGroup;
+            if (currentGroup === "UI_RENDERING") badge.className = "text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider bg-purple-900/40 text-purple-400 border border-purple-800/40";
+            if (currentGroup === "DATA_MANAGEMENT") badge.className = "text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider bg-blue-900/40 text-blue-400 border border-blue-800/40";
+            if (currentGroup === "GAME_LOGIK") badge.className = "text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider bg-emerald-900/40 text-emerald-400 border border-emerald-800/40";
+            if (currentGroup === "EVENT_HANDLING") badge.className = "text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider bg-yellow-900/40 text-yellow-400 border border-yellow-800/40";
+            if (currentGroup === "HELPER") badge.className = "text-[10px] font-black uppercase px-2 py-1 rounded-md tracking-wider bg-sky-900/40 text-sky-400 border border-sky-800/40";
+
+            // Set Title & Counter
+            document.getElementById('active-function-title').innerText = func.name;
+            document.getElementById('function-index-counter').innerText = `${currentIndex + 1} / ${AUDIT_REGISTRY[currentGroup].length}`;
+
+            // Set Descriptions
+            document.getElementById('desc-laie').innerText = func.laie;
+            document.getElementById('desc-ui').innerText = func.ui;
+            document.getElementById('desc-data').innerText = func.data;
+
+            // Build Steps Ordered List
+            const stepsContainer = document.getElementById('desc-steps');
+            stepsContainer.innerHTML = "";
+            func.steps.forEach(step => {
+                const li = document.createElement('li');
+                li.className = "border-b border-stone-800/40 pb-2 last:border-none last:pb-0";
+                li.innerHTML = step;
+                stepsContainer.appendChild(li);
+            });
+        }
+
+        // KEYBOARD EVENT HANDLING FOR INTERACTIVE AUDIT SUITE
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('interactive-view').classList.contains('hidden')) return;
+            if (e.key === "ArrowRight") { e.preventDefault(); nextFunction(); }
+            if (e.key === "ArrowLeft") { e.preventDefault(); prevFunction(); }
+        });
+function handleAuditSearch(query) {
+    const resContainer = document.getElementById('audit-search-results');
+    
+    // Suche erst ab 2 Zeichen starten
+    if (!query || query.trim().length < 2) {
+        resContainer.classList.add('hidden');
+        return;
+    }
+
+    const lowerQuery = query.toLowerCase();
+    let matches = [];
+
+    // Gesamtes Registry durchsuchen
+    for (let group in AUDIT_REGISTRY) {
+        AUDIT_REGISTRY[group].forEach((func, index) => {
+            if (func.name.toLowerCase().includes(lowerQuery)) {
+                matches.push({ group: group, index: index, name: func.name });
+            }
+        });
+    }
+
+    // Keine Treffer
+    if (matches.length === 0) {
+        resContainer.innerHTML = '<li class="p-3 text-xs text-stone-500 italic text-center">Keine Funktion gefunden</li>';
+        resContainer.classList.remove('hidden');
+        return;
+    }
+
+    // Treffer rendern
+    resContainer.innerHTML = '';
+    matches.forEach(match => {
+        resContainer.innerHTML += `
+            <li onclick="loadFunctionDirectly('${match.group}', ${match.index})" class="p-3 border-b border-stone-700/50 hover:bg-stone-700 cursor-pointer transition flex items-center justify-between group">
+                <span class="text-sm font-mono text-stone-300 group-hover:text-orange-400 transition">${match.name}</span>
+                <span class="text-[9px] font-black uppercase text-stone-500 bg-stone-900 px-2 py-0.5 rounded border border-stone-800">${match.group}</span>
+            </li>`;
+    });
+    
+    resContainer.classList.remove('hidden');
+}
+
+// DIREKT-LADEN AUS DER SUCHE
+window.loadFunctionDirectly = function(group, index) {
+    // Dropdown schließen und Suchfeld leeren
+    document.getElementById('audit-search-results').classList.add('hidden');
+    document.getElementById('audit-search').value = '';
+
+    // State updaten
+    currentGroup = group;
+    currentIndex = index;
+
+    // Buttons visuell zurücksetzen
+    document.querySelectorAll('.group-btn').forEach(btn => {
+        btn.className = "group-btn w-full flex justify-between items-center p-4 rounded-xl font-bold border text-left transition duration-200 bg-stone-900 border-stone-800 text-stone-400 hover:bg-stone-800";
+    });
+
+    // Aktiven Button highlighten
+    const activeBtn = document.getElementById(`btn-${group}`);
+    let themeColor = "border-purple-500 text-purple-400 bg-purple-950/10";
+    if (group === "DATA_MANAGEMENT") themeColor = "border-blue-500 text-blue-400 bg-blue-950/10";
+    if (group === "GAME_LOGIK") themeColor = "border-emerald-500 text-emerald-400 bg-emerald-950/10";
+    if (group === "EVENT_HANDLING") themeColor = "border-yellow-500 text-yellow-400 bg-yellow-950/10";
+    if (group === "HELPER") themeColor = "border-sky-500 text-sky-400 bg-sky-950/10";
+
+    if (activeBtn) activeBtn.className = `group-btn w-full flex justify-between items-center p-4 rounded-xl font-black border text-left transition duration-200 scale-[1.02] shadow-lg ${themeColor}`;
+
+    // Ansichten umschalten (falls das Placeholder-View noch aktiv ist)
+    document.getElementById('placeholder-view').classList.add('hidden');
+    document.getElementById('interactive-view').classList.remove('hidden');
+
+    // Funktion rendern
+    renderActiveFunction();
+};
+
+// Klick außerhalb des Suchfelds schließt das Dropdown
+document.addEventListener('click', function(e) {
+    const searchInput = document.getElementById('audit-search');
+    const searchResults = document.getElementById('audit-search-results');
+    if (searchInput && searchResults && !searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+        searchResults.classList.add('hidden');
+    }
+});
+    </script>
+</body>
+</html>

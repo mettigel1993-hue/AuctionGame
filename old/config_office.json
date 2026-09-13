@@ -1,0 +1,86 @@
+{
+  "themeId": "office",
+  "windowTitle": "👔 Survive the Office – Kampf im Großraumbüro",
+  "gameTitle": "Survive the Office",
+  "themeIcon": "☕",
+  "colors": {
+    "primary": "blue-500",
+    "gradientStart": "blue-600",
+    "gradientEnd": "cyan-500"
+  },
+  "currency": {
+    "name": "Abteilungsbudget",
+    "symbol": "€",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Mitarbeiter",
+    "playerSingular": "Mitarbeiter",
+    "drawButtonText": "🎫 Nächstes Jira-Ticket ziehen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Schreibtisch",
+    "adminTab2": "Ablage P (Katalog)",
+    "adminTab3": "Zugewiesen",
+    "adminTab4": "Geschreddert",
+    "eventTitle": "Corporate News",
+    "jokers": {
+      "block": {"icon": "🛑", "label": "Meeting", "color": "red"},
+      "bonus": {"icon": "💰", "label": "Überstunden", "color": "green"},
+      "autoBuy": {"icon": "🎯", "label": "Chefsache", "color": "purple"},
+      "gamble": {"icon": "🎓", "label": "Delegieren", "color": "orange"},
+      "skip": {"icon": "🗑️", "label": "Ablage P", "color": "cyan"}
+    }
+  },
+  "databaseFile": "office_db_export.json",
+  "categories": {
+    "BOSS": { "icon": "👔", "name": "Vorgesetzter", "desc": "Direkte Aufgaben und Launen aus der Teppichetage." },
+    "TRIGGER": { "icon": "🤬", "name": "Trigger", "desc": "Nervige Angewohnheiten und Buzzwords der Kollegen." },
+    "SABOTAGE": { "icon": "✂️", "name": "Sabotage", "desc": "Bewusstes Torpedieren der Arbeit anderer." },
+    "RULES": { "icon": "📜", "name": "Regeln", "desc": "Sinnlose Bürokratie und starre Prozesse." },
+    "EXCUSES": { "icon": "🤷", "name": "Ausreden", "desc": "Kreative Gründe, warum Dinge nicht erledigt wurden." },
+    "RUMORS": { "icon": "🤫", "name": "Gerüchte", "desc": "Flurfunk und ungefilterter Büro-Tratsch." },
+    "KITCHEN": { "icon": "☕", "name": "Küche", "desc": "Schmutziges Geschirr, geklautes Essen und Kaffeemangel." },
+    "BENEFITS": { "icon": "🎁", "name": "Benefits", "desc": "Obstkörbe, Tischkicker und andere Firmen-Goodies." },
+    "CHAOS": { "icon": "🌪️", "name": "Chaos", "desc": "Unvorhersehbare Eskalationen im Arbeitsalltag." }
+  },
+  "perks": {
+    "NONE": { "name": "🤷 Standard-Kollege", "desc": "Keine besonderen Fähigkeiten. Stempelt pünktlich ab." },
+    "perk1": { "name": "🎯 Der Inselbegabte", "desc": "Zwei Kernkompetenzen bringen +50% Leistung. Absolut resistent gegen plötzliche Strategiewechsel von oben." },
+    "perk2": { "name": "🐷 Der Budget-Geizhals", "desc": "Spart das Abteilungsbudget. Je 20.000 € Restbudget gibt's am Jahresende 5 Extra-Performance-Punkte." },
+    "perk3": { "name": "🔥 Der Feuerlöscher", "desc": "Liebt es, wenn es brennt. Miese Tickets (Stufe 🤡) bringen am Ende fette +50% Aufschlag." },
+    "perk4": { "name": "🚀 Der High-Performer", "desc": "Burnout-Gefahr: Startet mit -25% Budget, casht dafür aber bei Boni, Spesen & am Roulette +25% extra ab!" },
+    "perk5": { "name": "🤝 Der Vitamin-B-Schnorrer", "desc": "Nutzt sein Netzwerk: Zieht beim Delegieren 3 Optionen aus dem Backlog und wählt die Rosine." },
+    "perk6": { "name": "👑 Der Vorstands-Neffe", "desc": "Immunität gegen alle finanziellen Katastrophen. Beim Mitarbeitergespräch (Rad) gibt's pauschal +10%." },
+    "perk7": { "name": "🤫 Die Büro-Petze", "desc": "Verteilt 2x endlose Meetings an Kollegen und drückt Anrufe anderer blockierender Kollegen einfach weg (Immun)." },
+    "perk8": { "name": "⏱️ Der Workaholic", "desc": "Hat keine Zeit für Joker-Spielchen. Dafür ackert er hart und kriegt +10 Extra-Punkte pro abgeschlossenem Ticket." }
+  },
+  "events": [
+    { "id": 1, "title": "Fördergelder bewilligt!", "desc": "Das Sozialamt hat Mitleid. Ein Härtefallantrag für die Abteilung wurde ausnahmsweise blitzschnell bewilligt!", "action": "bonus_lowest", "value": 0.2 },
+    { "id": 2, "title": "Budgetkürzung durch Controlling!", "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Die Controller stehen mit Rotstift vor der Tür!", "action": "tax_highest", "value": 0.2 },
+    { "id": 3, "title": "Sammeln für den runden Geburtstag!", "desc": "Der Kollege wird 50! Es wird rücksichtslos mit dem Hut durch die Reihen gegangen.", "action": "robin_hood_tax", "value": 0.1 },
+    { "id": 4, "title": "Pflicht-Softwarelizenzen!", "desc": "Die IT hat auf ein neues Tool umgestellt. Jeder muss die völlig überteuerte Lizenz aus dem eigenen Topf zahlen.", "action": "tax_all", "value": 50000 },
+    { "id": 5, "title": "Erfolgreiches Quartal!", "desc": "Überraschung! Die Unternehmensziele wurden erreicht. Es gibt einen satten Bonus für das gesamte Team.", "action": "bonus_all", "value": 50000 },
+    { "id": 6, "title": "Prämie für Effizienz!", "desc": "Die Geschäftsführung belohnt alle, die ihre Joker (Ressourcen) gespart haben.", "action": "bonus_for_unused_jokers", "value": 50000 },
+    { "id": 7, "title": "Einstellungsstopp!", "desc": "Der Vorstand friert alle Neueinstellungen ein. Der Dienstweg darf auf keinen Fall mehr übersprungen werden.", "action": "disable_joker", "value": "autoBuy" },
+    { "id": 8, "title": "SAP-Ausfall!", "desc": "Ein verheerender Software-Absturz. Tickets sind temporär unleserlich und das absolute Chaos regiert.", "action": "blind_draws", "value": 2 },
+    { "id": 9, "title": "Wasserschaden in der Decke!", "desc": "Das Rohr über dem Drucker ist geplatzt. Teure Hardware ist ruiniert und jeder muss sich am Ersatz beteiligen.", "action": "tax_all", "value": 25000 },
+    { "id": 10, "title": "Rabattaktion beim Lieferanten!", "desc": "Ein aufmerksamer Kollege hat bemerkt, dass wir Mengenrabatt bekommen hätten. Das Geld kommt zurück!", "action": "refund_last_purchase", "value": 0.5 },
+    { "id": 11, "title": "Betriebsrat greift ein!", "desc": "Die Gewerkschaft beschwert sich über zu viele Sinnlos-Meetings. Ab sofort sind Blockaden verboten!", "action": "disable_joker", "value": "block" },
+    { "id": 12, "title": "Spesenkonto gesperrt!", "desc": "Das Management hat das Budget für Überstunden und Spesen komplett gestrichen. Es gibt nichts mehr zurück.", "action": "disable_joker", "value": "bonus" },
+    { "id": 13, "title": "Prozesse eingefroren!", "desc": "Alle Werkstudenten haben Urlaub oder Klausurenphase. Niemand kann mehr Aufgaben abwälzen!", "action": "disable_joker", "value": "gamble" },
+    { "id": 14, "title": "Teams-Server down!", "desc": "Niemand kann chatten oder Meetings abhalten. Der gesamte Konzern atmet für 30 Minuten kollektiv durch.", "action": "nothing", "value": 0 },
+    { "id": 15, "title": "Legendäre Weihnachtsfeier!", "desc": "Ein absolutes Wunder! Bei Glühwein auf Firmenkosten begraben alle das Kriegsbeil. Das Teamgefüge ist repariert!", "action": "restore_jokers", "value": 1 },
+    { "id": 16, "title": "CEO-Wechsel!", "desc": "Die gesamte Firmenstrategie ändert sich radikal. Alles bisher Erreichte steht plötzlich auf dem Prüfstand!", "action": "destroy_random_category", "value": 0 }
+  ],
+  "punishCardTemplate": {
+    "name": "Obstkorb-Reste",
+    "desc": "Budgetkürzungen! Du bekommst keinen Bonus, sondern nur die braune, weiche Banane, die seit drei Wochen traurig neben dem Kopierer liegt.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "🍌",
+    "dbCategory": "LOSER",
+    "tags": ["Ausschuss"]
+  }
+}

@@ -1,0 +1,277 @@
+{
+  "themeId": "hausbau",
+  "windowTitle": "🏗️ Abenteuer Eigenheim – Die Dauerbaustelle",
+  "gameTitle": "Abenteuer Eigenheim",
+  "themeIcon": "🏡",
+  "colors": {
+    "primary": "amber-600",
+    "gradientStart": "orange-600",
+    "gradientEnd": "yellow-600"
+  },
+  "currency": {
+    "name": "Maurerbrausen",
+    "symbol": "🍺",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Bauherren",
+    "playerSingular": "Bauherr",
+    "drawButtonText": "📦 Baumaterial anfordern",
+    "punishButtonText": "📋 Mängelliste übergeben",
+    "adminTab1": "🗺️ Bebauungsplan",
+    "adminTab2": "🪵 Materiallager",
+    "adminTab3": "🏗️ Verbautes Material",
+    "adminTab4": "🔥 Altlasten-Deponie",
+    "eventTitle": "Schrecksekunde am Bau",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Baustopp",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Fördergeld",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Schlüsselfertig",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🎲",
+        "label": "Nachbarschaftshilfe",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "🕳️",
+        "label": "Einbetonieren",
+        "color": "gray"
+      }
+    },
+    "bankruptLine": "Baustopp. Die Bank hat Nein gesagt."
+  },
+  "databaseFile": "db/hausbau_db_export.json",
+  "categories": {
+    "HAUSTYP": {
+      "icon": "🏡",
+      "name": "Haustyp",
+      "desc": "Vom quadratischen Schuhkarton-Kubus bis zum asbestverseuchten Schnäppchen aus den wilden 70ern."
+    },
+    "BEHOERDENWAHNSINN": {
+      "icon": "📑",
+      "name": "Behördenwahnsinn",
+      "desc": "Das bürokratische Bermuda-Dreieck, in dem Wohnträume sterben, weil eine Unterschrift mit schwarzer Tinte geleistet wurde."
+    },
+    "HANDWERKERTYP": {
+      "icon": "🧑‍🔧",
+      "name": "Handwerkertyp",
+      "desc": "Meister ihres Fachs, die kurz 'nur mal eben Kippen holen' gehen und dann drei Wochen spurlos verschwinden."
+    },
+    "EIGENLEISTUNG": {
+      "icon": "🛠️",
+      "name": "Eigenleistung",
+      "desc": "Wenn der Schwager sagt: 'Das kann ich billiger!' – Pflasterarbeiten des Grauens."
+    },
+    "BAUPFUSCH": {
+      "icon": "⚠️",
+      "name": "Baupfusch",
+      "desc": "Die magische Welt des PU-Schaums, wo tragende Wände durch Rigips-Reste und ganz viel Hoffnung ersetzt werden."
+    },
+    "IT_HOELLE": {
+      "icon": "🌐",
+      "name": "IT-Hölle",
+      "desc": "Wenn dich dein Smart Home im tiefsten Winter aussperrt und die Heizung nur noch auf Alexa-Befehle reagiert."
+    },
+    "GARTEN": {
+      "icon": "🌱",
+      "name": "Garten",
+      "desc": "Wo eigentlich ein englischer Rasen geplant war, nun aber die rücksichtslose Thuja-Hecke des Nachbarn alles beschattet."
+    },
+    "KELLER": {
+      "icon": "🕳️",
+      "name": "Keller",
+      "desc": "Das finanzielle Grab deines Budgets. Ein feuchter Traum für Schimmelpilze, ein Albtraum für deine gelagerten Möbel."
+    },
+    "FINANZIERUNG": {
+      "icon": "💳",
+      "name": "Finanzierung",
+      "desc": "Der nackte Horror beim Bankberater, während du deine Seele und dein Erstgeborenes für 0,5% weniger Zinsen verkaufst."
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Der ewige Mieter",
+      "desc": "Zahlt lieber pünktlich seine Miete, statt sich mit der Statik einer Garage auseinanderzusetzen. Schont die Nerven."
+    },
+    "perk1": {
+      "name": "🧱 Der Beton-Flüsterer",
+      "desc": "Hat den Rohbau im Griff. Zwei Kategorien bringen +50% Punkte am Ende und sind immun gegen Abriss-Events."
+    },
+    "perk2": {
+      "name": "🐷 Der Centfuchser-Architekt",
+      "desc": "Streicht heimlich den Balkon aus dem Bauplan, um das Budget zu retten. Jeder gerettete Cent bringt am Ende Punkte."
+    },
+    "perk3": {
+      "name": "🍼 Der Bauschaum-Künstler",
+      "desc": "Was nicht passt, wird passend gesprüht. Sämtliche Pfusch-Karten (Schrott-Tier) geben am Ende +50% Punkte."
+    },
+    "perk4": {
+      "name": "🎰 Der Dispo-Dauerzocker",
+      "desc": "Lebt gefährlich am Rande der Privatinsolvenz, greift dafür aber bei jeder staatlichen Förderung im Lategame doppelt ab."
+    },
+    "perk5": {
+      "name": "📞 Der MyHammer-Dauergast",
+      "desc": "Hat für jedes Problem einen billigen Subunternehmer parat. Darf beim Tauschen aus 3 Optionen wählen."
+    },
+    "perk6": {
+      "name": "🛡️ Das reiche Erben-Kind",
+      "desc": "Bauverzörung? Egal, Papa überweist nach. Absolut immun gegen finanzielle Strafen und kriegt Bonus am Schicksalsrad."
+    },
+    "perk7": {
+      "name": "⚖️ Der Paragraphen-Reiter",
+      "desc": "Hat die Landesbauordnung als Bettlektüre. Startet mit zwei Baustopps und lacht über gegnerische Anzeigen."
+    },
+    "perk8": {
+      "name": "🔨 Der Akkord-Maurer",
+      "desc": "Frühstückt drei Mettbrötchen und zieht die Wände komplett jokerlos hoch – dafür zählt am Ende jede einzelne Karte extra."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "KfW-Förderung überraschend bewilligt!",
+      "desc": "Ein plötzlicher Geldregen vom Staat rettet den ärmsten Bauherren vor der Privatinsolvenz.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Zoll-Razzia auf der Baustelle!",
+      "desc": "Wer auffällig schnell vorankommt, zieht Blicke auf sich. Der reichste Bauherr muss Strafe zahlen!",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Richtfest-Umlage!",
+      "desc": "Die Zimmerleute haben Durst. Es wird rücksichtslos der Hut herumgereicht – einer profitiert.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Preisschock beim Baustahl!",
+      "desc": "Die Weltmarktpreise explodieren. Jeder Bauherr muss bluten und eine Pauschale nachschießen.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Unerwarteter Fund beim Erdaushub!",
+      "desc": "Keine Weltkriegsbombe, sondern eine Kiste alter Münzen! Der Bauleiter schüttet einen Bonus an alle aus.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Lob vom Sicherheitsinspektor!",
+      "desc": "Wer seine Joker (Sicherheitsreserven) brav aufgespart hat, bekommt eine Prämie der Berufsgenossenschaft.",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Bauträger insolvent!",
+      "desc": "Der Generalunternehmer hat sich nach Mallorca abgesetzt. 'Schlüsselfertig'-Aktionen sind vorerst gesperrt.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Stromausfall im Verteilerkasten!",
+      "desc": "Nichts geht mehr auf der Baustelle. Die nächsten LKW-Lieferungen müssen komplett im Dunkeln blind entladen werden.",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Kran-Miete versehentlich verlängert!",
+      "desc": "Das tonnenschwere Monstrum stand ungenutzt herum. Die Extrakosten werden auf alle aufgeteilt.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Baumarkt-Tiefpreisgarantie!",
+      "desc": "Nachträglicher Kassenbon-Check! Ein Bauherr bekommt 50% der letzten Investition zurückerstattet.",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Gewerkschaftsstreit im Bauhauptgewerbe!",
+      "desc": "Die Arbeiter legen die Kellen nieder. Niemand kann mehr einen Baustopp gegen andere verhängen.",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Zinseszinsschock der Hausbank!",
+      "desc": "Die Verträge wurden neu verhandelt. Es gibt ab sofort keinerlei finanzielle Zuschüsse mehr zurück.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Nachbarschaftshilfe eskaliert!",
+      "desc": "Der Gartenzaun steht 2 cm zu weit links. Tauschen und gegenseitiges Aushelfen ist heute unmöglich!",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Kollektive Mittagspause!",
+      "desc": "Die Handwerker sitzen glücklich beim Mettbrötchen. Absolute Ruhe auf der Baustelle. Keine Vorkommnisse.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Das Richtfest verbindet!",
+      "desc": "Bei Bier und Bratwurst vertragen sich Bauherren und Handwerker wieder. Alle verbrauchten Joker werden regeneriert!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Wasserschaden im Rohbau!",
+      "desc": "Ein Rohr ist geplatzt! Eine komplett zufällige Kategorie wird unter Wasser gesetzt und ist absolut wertlos.",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Leben im Bauwagen",
+    "desc": "Das Baugeld ist weg, das Haus hat kein Dach. Du haust dir die nächste Dose Liebstöckel-Eintopf auf dem Campingkocher warm und hoffst auf besseres Wetter.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "🚐",
+    "dbCategory": "LOSER",
+    "tags": [
+      "Bauschutt"
+    ]
+  },
+  "theme": {
+    "description": "Warnwesten-Orange & Betonmischer-Grau – der staubige Look einer Großbaustelle",
+    "font": "Oswald",
+    "mood": "hektisch, laut, nach Estrich und billigem Filterkaffee riechend",
+    "primaryColor": "#d97706",
+    "accentColor": "#eab308",
+    "bgBase": "#111411",
+    "bgCard": "#1c1f1c"
+  }
+}

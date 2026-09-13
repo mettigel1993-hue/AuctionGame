@@ -1,0 +1,287 @@
+{
+  "themeId": "bahn",
+  "windowTitle": "🚆 Sehr geehrte Fahrgäste – Wir bitten um Verständnis",
+  "gameTitle": "Sehr geehrte Fahrgäste",
+  "themeIcon": "🚆",
+  "colors": {
+    "primary": "red-600",
+    "gradientStart": "red-600",
+    "gradientEnd": "amber-500"
+  },
+  "currency": {
+    "name": "Reisekasse",
+    "symbol": "🎫",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Fahrgäste",
+    "playerSingular": "Fahrgast",
+    "drawButtonText": "📢 Nächste Durchsage",
+    "punishButtonText": "Schwarzfahrer bestrafen",
+    "adminTab1": "Bahnsteig",
+    "adminTab2": "Stellwerk",
+    "adminTab3": "Gebucht",
+    "adminTab4": "Ausgefallen",
+    "eventTitle": "Lautsprecher-Durchsage",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Kontrolle",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Entschädigung",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Reservierung",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🔀",
+        "label": "Umbuchung",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "🗑️",
+        "label": "Stornierung",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Zug abgefahren. Ohne dich."
+  },
+  "databaseFile": "db/bahn_db.json",
+  "categories": {
+    "ZUG": {
+      "icon": "🚄",
+      "name": "Der Zug",
+      "desc": "Womit fährst du heute?"
+    },
+    "VERSPAETUNG": {
+      "icon": "⏱️",
+      "name": "Die Verspätung",
+      "desc": "Wie pünktlich ist es heute wirklich?"
+    },
+    "SITZPLATZ": {
+      "icon": "💺",
+      "name": "Der Sitzplatz",
+      "desc": "Wo verbringst du die nächsten Stunden?"
+    },
+    "MITREISENDE": {
+      "icon": "🧍",
+      "name": "Die Mitreisenden",
+      "desc": "Wer sitzt direkt neben dir?"
+    },
+    "BISTRO": {
+      "icon": "☕",
+      "name": "Das Bordbistro",
+      "desc": "Was gibt es an Bord zu essen?"
+    },
+    "PERSONAL": {
+      "icon": "🎩",
+      "name": "Das Zugpersonal",
+      "desc": "Wer kontrolliert deinen Fahrschein?"
+    },
+    "DURCHSAGE": {
+      "icon": "📢",
+      "name": "Die Durchsage",
+      "desc": "Was verkündet der Lautsprecher?"
+    },
+    "STRECKE": {
+      "icon": "🛤️",
+      "name": "Die Strecke",
+      "desc": "Was blockiert heute die Gleise?"
+    },
+    "GEBUEHR": {
+      "icon": "🧾",
+      "name": "Der Aufpreis",
+      "desc": "Welche Gebühr wurde still eingeführt?"
+    },
+    "ZWISCHENFALL": {
+      "icon": "💥",
+      "name": "Der Zwischenfall",
+      "desc": "Was eskaliert zwischen Abfahrt und Ankunft?"
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Gelegenheitsfahrer",
+      "desc": "Fährt zweimal im Jahr und hofft auf das Beste. Keine Spezialfähigkeiten."
+    },
+    "perk1": {
+      "name": "🎯 Der Vielfahrer",
+      "desc": "Kennt zwei Kern-Kategorien in- und auswendig (+50% Punkte am Ende). Immun gegen Streichungen in diesen Bereichen."
+    },
+    "perk2": {
+      "name": "🐷 Der Sparpreis-Jäger",
+      "desc": "Bucht nur mit Sparpreis-Finder. Für je 20.000 🎫 Restbudget gibt's am Ende 5 Extra-Punkte."
+    },
+    "perk3": {
+      "name": "🔥 Der Chaos-Pendler",
+      "desc": "Fährt täglich und hat längst aufgehört zu hoffen. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+    },
+    "perk4": {
+      "name": "🚀 Der Risiko-Umsteiger",
+      "desc": "Startet mit -25% Budget, plant 3 Minuten Umsteigezeit und kassiert bei Events, Roulette und jedem Zwischenfall fette +25% ab!"
+    },
+    "perk5": {
+      "name": "🤝 Der Stammgast am Schalter",
+      "desc": "Kennt jeden im Reisezentrum beim Vornamen. Beim Umbuchen gibt's 3 Optionen zur Auswahl."
+    },
+    "perk6": {
+      "name": "👑 Die 1.-Klasse-Dauerkarte",
+      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Roulette gibt's pauschal +10% obendrauf."
+    },
+    "perk7": {
+      "name": "🤫 Der Kontrolleur-Flüsterer",
+      "desc": "Verteilt 2x Kontrolle an Mitspieler und ist selbst komplett immun gegen fremde Kontrollen!"
+    },
+    "perk8": {
+      "name": "⏱️ Der Pünktlichkeitsfanatiker",
+      "desc": "Verzichtet komplett auf Joker, führt aber seit 1998 eine Excel-Tabelle! Bringt fette +10 Extra-Punkte pro ergatterter Karte."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Entschädigung ausgezahlt!",
+      "desc": "Die Verspätung lag über 60 Minuten. Wer am wenigsten in der Reisekasse hat, bekommt am meisten zurück.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Erhöhtes Beförderungsentgelt!",
+      "desc": "Der Kontrolleur greift sich ausgerechnet den, der am dicksten aufgetragen hat.",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Sammelbestellung im Großraumwagen!",
+      "desc": "Alle legen für die Bistro-Runde zusammen. Wer viel hat, gibt viel – der Ärmste im Abteil profitiert.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Streik bei der GDL!",
+      "desc": "Notfahrplan. Jeder muss teuer umbuchen, niemand kommt ungeschoren davon.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Kulanz der Reisezentrale!",
+      "desc": "Ein historischer Moment: Die Bahn zeigt sich großzügig. Alle bekommen etwas zurück.",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Prämie für Geduld!",
+      "desc": "Wer seine Sonderrechte nicht genutzt hat, wird für vorbildliches Stillhalten belohnt.",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Reservierungssystem ausgefallen!",
+      "desc": "Der Server im Reisezentrum ist abgeraucht. Niemand kann mehr einen Platz reservieren.",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Anzeigetafel defekt!",
+      "desc": "Kein Gleis, keine Uhrzeit, keine Information. Die nächsten Objekte werden VERDECKT gezogen.",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Nachlösegebühr im Zug!",
+      "desc": "Wer erst im Zug löst, zahlt kräftig drauf. Und heute löst jeder erst im Zug.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Fahrgastrechte-Formular bewilligt!",
+      "desc": "Nach elf Wochen Bearbeitungszeit kommt tatsächlich Geld zurück. Die letzte Buchung wird erstattet.",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Kontrolleure im Ausstand!",
+      "desc": "Heute prüft niemand die Fahrscheine. Keine Kontrollen mehr möglich!",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Entschädigungstopf ist leer!",
+      "desc": "Das Budget für Fahrgastrechte wurde vollständig aufgebraucht. Kein Geld mehr zurück. Für niemanden.",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Umbuchungsfrist abgelaufen!",
+      "desc": "Der Sparpreis ist zuggebunden. Gebucht ist gebucht! Kein Umbuchen mehr möglich.",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Ruhe im Ruheabteil!",
+      "desc": "Tatsächlich einmal Stille. Niemand telefoniert, niemand hört Musik ohne Kopfhörer. Ein kurzes, seltenes Wunder.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Großer Fahrplanwechsel!",
+      "desc": "Alles auf Anfang. Neue Nummern, neue Gleise, neue Hoffnung – alle Joker wiederhergestellt!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Dieser Zug endet hier vorzeitig!",
+      "desc": "Bitte alle aussteigen. Eine komplette Kategorie wird gestrichen und bringt ab sofort 0 Punkte!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Ohne Fahrschein erwischt",
+    "desc": "Erhöhtes Beförderungsentgelt: 60 €. Der Kontrolleur notiert in aller Ruhe deine Personalien, während der komplette Großraumwagen zuschaut und niemand auch nur so tut, als würde er wegsehen.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "🚫",
+    "dbCategory": "LOSER",
+    "tags": []
+  },
+  "theme": {
+    "description": "Graphit & Verkehrsrot – ein nächtlicher Bahnsteig kurz vor der Durchsage",
+    "font": "Fira Sans Condensed",
+    "mood": "kühl, technisch, resigniert – Signalfarben auf nassem Beton",
+    "primaryColor": "#ec0016",
+    "accentColor": "#f5a623",
+    "bgBase": "#0c0d0f",
+    "bgCard": "#15171a"
+  },
+  "auctionAnimation": {
+    "flyingEmoji": "🎫",
+    "priceEmoji": "🚆",
+    "dealConfirmTitle": "🎫 FAHRKARTE GELÖST!",
+    "dealRescuedTitle": "🚉 GERADE NOCH ERWISCHT!",
+    "dealBlindTitle": "🙈 BLIND GEBUCHT!"
+  }
+}

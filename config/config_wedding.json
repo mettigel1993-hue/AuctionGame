@@ -1,0 +1,287 @@
+{
+  "themeId": "wedding",
+  "windowTitle": "💒 Die Horror-Hochzeit – Bis der Tod euch scheidet",
+  "gameTitle": "Die Horror-Hochzeit",
+  "themeIcon": "💒",
+  "colors": {
+    "primary": "rose-600",
+    "gradientStart": "rose-600",
+    "gradientEnd": "amber-400"
+  },
+  "currency": {
+    "name": "Hochzeitsbudget",
+    "symbol": "💸",
+    "startAmount": 1000000,
+    "step": 5000
+  },
+  "terminology": {
+    "playerPlural": "Trauzeugen",
+    "playerSingular": "Trauzeuge",
+    "drawButtonText": "💌 Einladung öffnen",
+    "punishButtonText": "Loser bestrafen",
+    "adminTab1": "Festsaal",
+    "adminTab2": "Hochzeitsplaner",
+    "adminTab3": "Reserviert",
+    "adminTab4": "Storniert",
+    "eventTitle": "Hochzeits-Gerüchte",
+    "jokers": {
+      "block": {
+        "icon": "🛑",
+        "label": "Redeverbot",
+        "color": "red"
+      },
+      "bonus": {
+        "icon": "💰",
+        "label": "Kuvert",
+        "color": "green"
+      },
+      "autoBuy": {
+        "icon": "🎯",
+        "label": "Vitamin B",
+        "color": "purple"
+      },
+      "gamble": {
+        "icon": "🔀",
+        "label": "Umtauschen",
+        "color": "orange"
+      },
+      "skip": {
+        "icon": "🗑️",
+        "label": "Stornieren",
+        "color": "cyan"
+      }
+    },
+    "bankruptLine": "Kein Geld für die Torte. Die Gäste tuscheln."
+  },
+  "databaseFile": "db/wedding_db_export.json",
+  "categories": {
+    "LOCATION": {
+      "icon": "💒",
+      "name": "Location",
+      "desc": "Wo wird der Horror zelebriert?"
+    },
+    "GUEST": {
+      "icon": "🥴",
+      "name": "Überraschungs-Gast",
+      "desc": "Wer taucht uneingeladen auf?"
+    },
+    "REDE": {
+      "icon": "🎙️",
+      "name": "Hochzeitsansprache",
+      "desc": "Wer greift zum Mikrofon?"
+    },
+    "DJ": {
+      "icon": "🎧",
+      "name": "Der DJ",
+      "desc": "Wer legt heute die Platten auf?"
+    },
+    "MENU": {
+      "icon": "🍽️",
+      "name": "Hochzeitsmenü",
+      "desc": "Was kommt auf den Hochzeitstisch?"
+    },
+    "SPIEL": {
+      "icon": "🎯",
+      "name": "Hochzeitsspiel",
+      "desc": "Was müssen die Gäste über sich ergehen lassen?"
+    },
+    "GESCHENK": {
+      "icon": "🎁",
+      "name": "Geschenk",
+      "desc": "Was liegt auf dem Gabentisch?"
+    },
+    "FOTO": {
+      "icon": "📸",
+      "name": "Fotograf",
+      "desc": "Wer hält den Horror für die Ewigkeit fest?"
+    },
+    "FALLE": {
+      "icon": "🪤",
+      "name": "Kostenfalle",
+      "desc": "Welche versteckten Kosten explodieren?"
+    },
+    "EKLAT": {
+      "icon": "💥",
+      "name": "Hochzeitseklat",
+      "desc": "Welche Bombe platzt bei der Feier?"
+    }
+  },
+  "perks": {
+    "NONE": {
+      "name": "🤷 Standard-Trauzeuge",
+      "desc": "Hält brav das Ringkissen und weint zur richtigen Zeit. Keine Spezialfähigkeiten."
+    },
+    "perk1": {
+      "name": "🎯 Der Wedding-Planner",
+      "desc": "Hat zwei Kern-Kategorien im Griff (+50% Punkte am Ende). Immun gegen Stornierungen in diesen Bereichen."
+    },
+    "perk2": {
+      "name": "🐷 Der Geizhals-Gatte",
+      "desc": "Spart das Hochzeitsbudget wie ein Irrer. Für je 20.000 💸 Restbudget gibt's am Ende 5 Extra-Punkte."
+    },
+    "perk3": {
+      "name": "🔥 Der Chaos-Liebhaber",
+      "desc": "Liebt es, wenn die Hochzeit eskaliert. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+    },
+    "perk4": {
+      "name": "🚀 Die Drama-Queen",
+      "desc": "Startet mit -25% Budget, casht dafür bei Events, Roulette und jedem Skandal fette +25% ab!"
+    },
+    "perk5": {
+      "name": "🤝 Die Brautjungfer mit Connections",
+      "desc": "Kennt jeden Floristen, jeden DJ und jeden Caterer. Beim Umtauschen gibt's 3 Optionen zur Auswahl."
+    },
+    "perk6": {
+      "name": "👑 Das Lieblingskind der Schwiegereltern",
+      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Hochzeitsroulette gibt's pauschal +10% obendrauf."
+    },
+    "perk7": {
+      "name": "🤫 Die Klatschtante",
+      "desc": "Verteilt 2x Redeverbot an Mitspieler und ist selbst komplett immun gegen fremde Redeverbote!"
+    },
+    "perk8": {
+      "name": "⏱️ Die Bridezilla",
+      "desc": "Verzichtet komplett auf Joker, kontrolliert aber jedes Detail! Bringt fette +10 Extra-Punkte pro ergatterter Karte."
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Großzügiges Kuvert von Oma!",
+      "desc": "Die Großmutter des Brautpaars drückt dem ärmsten Trauzeugen heimlich einen dicken Umschlag in die Hand.",
+      "action": "bonus_lowest",
+      "value": 0.2
+    },
+    {
+      "id": 2,
+      "title": "Schwiegervater dreht durch!",
+      "desc": "Der Schwiegervater hat die Bar-Rechnung gesehen und kürzt das Budget des Größenwahnsinns!",
+      "action": "tax_highest",
+      "value": 0.2
+    },
+    {
+      "id": 3,
+      "title": "Sammlung für das Brautpaar!",
+      "desc": "Die Gäste drücken zusammen. Wer viel hat, gibt viel – und der Ärmste profitiert.",
+      "action": "robin_hood_tax",
+      "value": 0.1
+    },
+    {
+      "id": 4,
+      "title": "Die Corkage-Fee eskaliert!",
+      "desc": "Die Location verlangt nachträglich absurde Gebühren für mitgebrachten Wein. Jeder zahlt.",
+      "action": "tax_all",
+      "value": 50000
+    },
+    {
+      "id": 5,
+      "title": "Hochzeitsversicherung zahlt!",
+      "desc": "Ein seltener Glücksfall: Die Versicherung übernimmt unerwartete Kosten. Jeder bekommt Geld zurück!",
+      "action": "bonus_all",
+      "value": 50000
+    },
+    {
+      "id": 6,
+      "title": "Belohnung für Zurückhaltung!",
+      "desc": "Der Hochzeitsplaner belohnt alle, die nicht ständig Sonderwünsche hatten. Wer Joker gespart hat, kassiert.",
+      "action": "bonus_for_unused_jokers",
+      "value": 50000
+    },
+    {
+      "id": 7,
+      "title": "Hochzeits-Embargo!",
+      "desc": "Der Blumenladen, der Caterer und der DJ haben sich abgesprochen. Niemand kann mehr spontan einkaufen!",
+      "action": "disable_joker",
+      "value": "autoBuy"
+    },
+    {
+      "id": 8,
+      "title": "Stromausfall im Festsaal!",
+      "desc": "Absolute Dunkelheit! Beim Kerzenschein wird blind gebucht. Romantisch? Katastrophal!",
+      "action": "blind_draws",
+      "value": 2
+    },
+    {
+      "id": 9,
+      "title": "Der Caterer verdoppelt die Rechnung!",
+      "desc": "Angeblich waren mehr Gäste da als geplant. Jeder muss nachzahlen.",
+      "action": "tax_all",
+      "value": 25000
+    },
+    {
+      "id": 10,
+      "title": "Stornierung mit Rückerstattung!",
+      "desc": "Ein Dienstleister hat zu spät abgesagt. Das Geld kommt zurück!",
+      "action": "refund_last_purchase",
+      "value": 0.5
+    },
+    {
+      "id": 11,
+      "title": "Streit unter den Trauzeugen!",
+      "desc": "Die Trauzeugen haben sich zerstritten und reden nicht mehr miteinander. Keine Redeverbote mehr möglich!",
+      "action": "disable_joker",
+      "value": "block"
+    },
+    {
+      "id": 12,
+      "title": "Die Geschenke-Kasse ist leer!",
+      "desc": "Das Brautpaar hat alles für die Afterparty verprasst. Kein Cashback mehr für niemanden!",
+      "action": "disable_joker",
+      "value": "bonus"
+    },
+    {
+      "id": 13,
+      "title": "Umtauschrecht erloschen!",
+      "desc": "Die 14-Tage-Frist ist abgelaufen. Gebucht ist gebucht! Kein Umtauschen mehr möglich.",
+      "action": "disable_joker",
+      "value": "gamble"
+    },
+    {
+      "id": 14,
+      "title": "Ruhige Stunde beim Sektempfang!",
+      "desc": "Alle nippen friedlich am Sekt. Keine Dramen, keine Skandale. Ein kurzes, seltenes Wunder.",
+      "action": "nothing",
+      "value": 0
+    },
+    {
+      "id": 15,
+      "title": "Das Brautpaar verzeiht allen!",
+      "desc": "Die Hochzeitsrede rührt alle zu Tränen. Alte Fehden werden begraben, alle Joker wiederhergestellt!",
+      "action": "restore_jokers",
+      "value": 1
+    },
+    {
+      "id": 16,
+      "title": "Braut ändert das komplette Konzept!",
+      "desc": "Die Braut hat um 2 Uhr nachts Pinterest entdeckt. ALLES muss anders! Eine Kategorie wird komplett gestrichen!",
+      "action": "destroy_random_category",
+      "value": 0
+    }
+  ],
+  "punishCardTemplate": {
+    "name": "Totaler Reinfall",
+    "desc": "Absolut nichts hat geklappt. Kein Plan, kein Budget, keine Ahnung. Die Gäste tuscheln, die Schwiegermutter nickt wissend und alle sind sich einig: Das war der traurigste Moment der gesamten Hochzeit.",
+    "cost": 0,
+    "score": -5,
+    "tier": "schlecht",
+    "icon": "💀",
+    "dbCategory": "LOSER",
+    "tags": []
+  },
+  "theme": {
+    "description": "Elfenbein & Champagner-Gold mit Blush – helle, elegante Hochzeitseinladung",
+    "font": "Great Vibes / Cormorant Garamond",
+    "mood": "hell und romantisch, kalligrafische Schrift und florale Ornamente auf Elfenbein",
+    "primaryColor": "#c39a3f",
+    "accentColor": "#d99aa6",
+    "bgBase": "#f7f2e8",
+    "bgCard": "#fdfaf3"
+  },
+  "auctionAnimation": {
+    "flyingEmoji": "💐",
+    "priceEmoji": "💍",
+    "dealConfirmTitle": "💍 JA, ICH WILL!",
+    "dealRescuedTitle": "💐 LAST-MINUTE DEAL!",
+    "dealBlindTitle": "🙈 BRAUTSTRAUSS GEFANGEN!"
+  }
+}

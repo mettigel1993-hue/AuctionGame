@@ -1,0 +1,2470 @@
+{
+  "db": {
+    "HAUSTYP": [
+      {
+        "id": "haus_1",
+        "name": "🦄 Stadtvilla Elite",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Zwei Vollgeschosse purer Neid der Nachbarschaft. Perfekt für den Schottergarten.",
+        "icon": "🏰",
+        "unicorn": true
+      },
+      {
+        "id": "haus_2",
+        "name": "Passivhaus Deluxe",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Heizen durch reines Atmen und Furzen. Spart Energie, kostet deine Würde.",
+        "icon": "🏡"
+      },
+      {
+        "id": "haus_3",
+        "name": "Bauhaus-Kubus",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Sieht aus wie ein grauer Schuhkarton, gilt aber als architektonisches Meisterwerk.",
+        "icon": "🟩"
+      },
+      {
+        "id": "haus_4",
+        "name": "🦄 Architekten-Traum",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Individuell geplant. Keine Wand steht im rechten Winkel, aber es hat ein Atrium.",
+        "icon": "📐",
+        "unicorn": true
+      },
+      {
+        "id": "haus_5",
+        "name": "Schwedenhaus-Idylle",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Pippi-Langstrumpf-Vibes in Schwedenrot. Zieht magisch Termiten und Instagram-Mütter an.",
+        "icon": "🇸🇪"
+      },
+      {
+        "id": "haus_6",
+        "name": "Massivhaus-Festung",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Hält einem nuklearen Erstschlag und den Schwiegereltern stand. Stein auf Stein.",
+        "icon": "🧱"
+      },
+      {
+        "id": "haus_7",
+        "name": "Penthouse-Aufsatz",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Du blickst auf den Pöbel herab. Günstig erworben durch fiese Überbauung.",
+        "icon": "🏙️"
+      },
+      {
+        "id": "haus_8",
+        "name": "Modulhaus Premium",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "In 48 Stunden per Kran zusammengesteckt. Hoffentlich hält der Klick-Mechanismus.",
+        "icon": "📦"
+      },
+      {
+        "id": "haus_9",
+        "name": "Bungalow Barrierefrei",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Keine Treppen. Perfekt, um mit 30 schon wie ein 80-Jähriger zu planen.",
+        "icon": "🦽"
+      },
+      {
+        "id": "haus_10",
+        "name": "Kaffeemühlenhaus",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Quadratisch, praktisch, nostalgisch. Wertanlage mit eingebautem Erbe-Charme.",
+        "icon": "☕"
+      },
+      {
+        "id": "haus_11",
+        "name": "Siedlungshaus 1950",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Solide Substanz, verlangt aber nach drastischer Kernsanierung und Asbestsanierung.",
+        "icon": "🏠"
+      },
+      {
+        "id": "haus_12",
+        "name": "Fertighaus von der Stange",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Modell 'Musterstadt'. Dein Haus sieht exakt so aus wie das von 40.000 anderen Almans.",
+        "icon": "🏗️"
+      },
+      {
+        "id": "haus_13",
+        "name": "Doppelhaushälfte (DHH)",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Du hörst das Niesen deines Nachbarn, teilst dir aber die Dachrinnen-Kosten.",
+        "icon": "🏘️"
+      },
+      {
+        "id": "haus_14",
+        "name": "Reihenmittelhaus",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Eingequetscht zwischen Blockwarten. Spart Heizkosten durch beidseitige Körperwärme.",
+        "icon": "🏢"
+      },
+      {
+        "id": "haus_15",
+        "name": "Ausbauhaus Muskelkraft",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Außen hui, innen nur nackter Beton. Hoffentlich hast du handwerklich begabte Freunde.",
+        "icon": "💪"
+      },
+      {
+        "id": "haus_16",
+        "name": "Holzrahmen-Bausatz",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Ein riesiges IKEA-Paket für Erwachsene. Wenn eine Schraube fehlt, wackelt die Küche.",
+        "icon": "🪵"
+      },
+      {
+        "id": "haus_17",
+        "name": "Sanierter Altbau",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Wunderschöner Stuck an der Decke, dafür aber Zugluft durch die historischen Fenster.",
+        "icon": "🏛️"
+      },
+      {
+        "id": "haus_18",
+        "name": "Container-Chic",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Drei Frachtcontainer übereinander. Postmodern für Hipster, wertlos für Banken.",
+        "icon": "🦺"
+      },
+      {
+        "id": "haus_19",
+        "name": "Blockbohlenhaus",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Riecht dauerhaft nach Wald. Extrem rustikal, zieht aber fette Holzbohrer-Käfer an.",
+        "icon": "🌲"
+      },
+      {
+        "id": "haus_20",
+        "name": "Typenhaus DDR-Charme",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Modell 'Standard'. Unzerstörbarer Beton, ästhetisch aber auf dem Niveau einer Garage.",
+        "icon": "🧱"
+      },
+      {
+        "id": "haus_21",
+        "name": "Höllennachbar-DHH",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Die andere Hälfte gehört einem Blockflöten-Lehrer mit Hang zum Nacktbaden.",
+        "icon": "🤬"
+      },
+      {
+        "id": "haus_22",
+        "name": "Die Schrottimmobilie",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Wände optional, Dach inexistent. Der Makler nennt es ein 'Objekt für Bastler'.",
+        "icon": "🏚️"
+      },
+      {
+        "id": "haus_23",
+        "name": "Plattenbau-Bungalow",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Grau, trist und deprimierend. Jedes Mal, wenn du heimkommst, weinst du ein bisschen.",
+        "icon": "🏢"
+      },
+      {
+        "id": "haus_24",
+        "name": "Asbest-Palast",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Günstig im Einkauf, die Entsorgung kostet dich allerdings deine Niere und dein Leben.",
+        "icon": "☣️"
+      },
+      {
+        "id": "haus_25",
+        "name": "Feuchte Bruchbude",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Im Erdgeschoss wachsen bereits Champignons. Ideales Biotop, mieses Wohnhaus.",
+        "icon": "🌊"
+      },
+      {
+        "id": "haus_26",
+        "name": "Tiny-House Schuhkarton",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "3 Quadratmeter Minimalismus. Wenn du dich umdrehst, wirfst du die Küche um.",
+        "icon": "📦"
+      },
+      {
+        "id": "haus_27",
+        "name": "Jurte im Gegenwind",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Aus Öko-Filz. Der erste Herbststurm verteilt dein Wohnzimmer über drei Bundesländer.",
+        "icon": "⛺"
+      },
+      {
+        "id": "haus_28",
+        "name": "Denkmalschutz-Albtraum",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Du darfst nicht mal die Haustür ölen ohne schriftliche Erlaubnis des Amts.",
+        "icon": "📜"
+      },
+      {
+        "id": "haus_29",
+        "name": "Wellblech-Villa",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Bei Regen verstehst du dein eigenes Wort nicht mehr. Extremes Shanty-Town-Feeling.",
+        "icon": "🛖"
+      },
+      {
+        "id": "haus_30",
+        "name": "Das Kartenhaus",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Hält nur, solange niemand im Raum atmet oder heftig an die Wand klopft.",
+        "icon": "🃏"
+      }
+    ],
+    "BEHOERDENWAHNSINN": [
+      {
+        "id": "amt_1",
+        "name": "🦄 Mettbrötchen-Bestechung",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Zwei halbe Mett mit Zwiebeln und der Bauantrag rutscht ganz nach oben auf den Stapel.",
+        "icon": "🧅",
+        "unicorn": true
+      },
+      {
+        "id": "amt_2",
+        "name": "Der blinde Sachbearbeiter",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Er stempelt einfach alles ab, weil er seine Brille im Pausenraum vergessen hat.",
+        "icon": "👓"
+      },
+      {
+        "id": "amt_3",
+        "name": "Urlaubsvertretung-Gott",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Der Aushilfs-Pragmatiker fackelt nicht lange. Genehmigung erteilt in Rekordzeit.",
+        "icon": "⚡"
+      },
+      {
+        "id": "amt_4",
+        "name": "🦄 Digitaler Bauantrag (Beta)",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Es funktioniert! Kein Fax nötig! Die Digitalisierung hat den Landkreis erreicht.",
+        "icon": "💻",
+        "unicorn": true
+      },
+      {
+        "id": "amt_5",
+        "name": "Akteneinsicht Instant",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Du bekommst die Dokumente sofort, ohne 6 Monate in der Warteschleife zu hängen.",
+        "icon": "📂"
+      },
+      {
+        "id": "amt_6",
+        "name": "Vitamin B beim Amtsleiter",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Dein Verwandter spielt mit dem Chef Golf. Plötzlich ist die Schwarzbau-Garage legal.",
+        "icon": "⛳"
+      },
+      {
+        "id": "amt_7",
+        "name": "Bebauungsplan-Wunder",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Die Gemeinde ändert den Plan. Du darfst jetzt doch 3 Stockwerke höher bauen.",
+        "icon": "📜"
+      },
+      {
+        "id": "amt_8",
+        "name": "Denkmalschutz-Anerkennung",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Das Amt zahlt dir Fördergelder, weil deine morsche Hütte als 'historisch wertvoll' gilt.",
+        "icon": "💶"
+      },
+      {
+        "id": "amt_9",
+        "name": "Netter Beamter am Freitag",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Um 11:55 Uhr will er nur noch ins Wochenende. Unterschrift drauf, fertig.",
+        "icon": "🎉"
+      },
+      {
+        "id": "amt_10",
+        "name": "Eilverfahren Genehmigt",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Gegen eine winzige Gebühr überspringst du 400 wartende Antragssteller.",
+        "icon": "🚀"
+      },
+      {
+        "id": "amt_11",
+        "name": "Das fehlende Formular A38",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Gefunden im dritten Stock, Zimmer 4, beim Sachbearbeiter. Kostet dich zwei Wochen.",
+        "icon": "📄"
+      },
+      {
+        "id": "amt_12",
+        "name": "Heute-nur-bis-11-Dienst",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Du stehst um 11:01 Uhr vor verschlossener Tür. Betriebsversammlung wegen der Kaffeemaschine.",
+        "icon": "🔒"
+      },
+      {
+        "id": "amt_13",
+        "name": "Akte im Keller verschollen",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Der einzige Azubi, der den Keller kennt, ist im Urlaub. Suche läuft.",
+        "icon": "🗄️"
+      },
+      {
+        "id": "amt_14",
+        "name": "Sinnlose Brandschutzauflage",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Du musst eine Feuerschutztür vor deinem Kleiderschrank einbauen. Sicher ist sicher.",
+        "icon": "🔥"
+      },
+      {
+        "id": "amt_15",
+        "name": "Stellplatzverordnung",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Du musst 3 Parkplätze für Fahrräder nachweisen, obwohl du im Wald wohnst.",
+        "icon": "🚲"
+      },
+      {
+        "id": "amt_16",
+        "name": "Baumschutzausschuss tagt",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Die Fällung des morschen Piss-Baums wird drei Monate lang politisch diskutiert.",
+        "icon": "🌳"
+      },
+      {
+        "id": "amt_17",
+        "name": "Nachbar erhebt Einspruch",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Der Nachbar fühlt sich durch die Reflexion deiner Dachziegel emotional bedroht.",
+        "icon": "🧓"
+      },
+      {
+        "id": "amt_18",
+        "name": "Unterschrift-Trifall",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "In dreifacher Ausfertigung, aber bitte mit blauem Kugelschreiber. Schwarz gilt nicht.",
+        "icon": "🖊️"
+      },
+      {
+        "id": "amt_19",
+        "name": "Zuständigkeits-Ping-Pong",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Amt A verweist auf Amt B, Amt B verweist auf Amt A. Beide hassen dich.",
+        "icon": "🏓"
+      },
+      {
+        "id": "amt_20",
+        "name": "Gebühr für den Bescheid",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Ein Brief, der dir mitteilt, dass der nächste Brief 40 Euro kosten wird.",
+        "icon": "✉️"
+      },
+      {
+        "id": "amt_21",
+        "name": "Feldhamster-Baustopp",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Ein seltener Hamster hat auf deinem Grundstück gehustet. Baustopp für 2 Jahre.",
+        "icon": "🐹"
+      },
+      {
+        "id": "amt_22",
+        "name": "Schuppen unter Denkmalschutz",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Dein baufälliger Holzschuppen darf nicht abgerissen werden. Eine historische Person ist da mal vorbeigegangen.",
+        "icon": "🏚️"
+      },
+      {
+        "id": "amt_23",
+        "name": "Vermessungsfehler vom Amt",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Dein Haus steht laut Katasteramt 50cm auf der Bundesstraße. Reiß mal ab jetzt.",
+        "icon": "🛣️"
+      },
+      {
+        "id": "amt_24",
+        "name": "Vollstreckung wegen 2 Cent",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Rundungsfehler bei der Grunderwerbsteuer. Das SEK stürmt dein Zelt.",
+        "icon": "🚨"
+      },
+      {
+        "id": "amt_25",
+        "name": "Bauamt verliert die Statik",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Die gesamten Berechnungen sind in den Kaffee-Kollaps der Behörde geraten. Bitte neu rechnen.",
+        "icon": "☕"
+      },
+      {
+        "id": "amt_26",
+        "name": "Nutzungsuntersagung",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Haus fertig, Umzugswagen steht da. Amt sagt: 'Einzug verboten, Abgaspfeife fehlt.'",
+        "icon": "🚫"
+      },
+      {
+        "id": "amt_27",
+        "name": "Archäologischer Fund",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Du findest eine alte Tonscherbe. Jetzt graben hier 5 Jahre lang Studenten nach Römern.",
+        "icon": "🏺"
+      },
+      {
+        "id": "amt_28",
+        "name": "Zwangsstrafen-Androhung",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Weil deine Hausnummer 3 Millimeter zu weit links hängt. Du Krimineller.",
+        "icon": "🔢"
+      },
+      {
+        "id": "amt_29",
+        "name": "Der cholerische Amtsleiter",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Er hasst Bauherren aus Prinzip. Dein Antrag wird rituell vor seinen Augen geschreddert.",
+        "icon": "🤬"
+      },
+      {
+        "id": "amt_30",
+        "name": "Die ewige Genehmigungsschleife",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Ein bürokratisches Schwarzes Loch. Dein Enkel wird eventuell die Freigabe erleben.",
+        "icon": "🌀"
+      }
+    ],
+    "HANDWERKERTYP": [
+      {
+        "id": "hand_1",
+        "name": "🦄 Meister der alten Schule",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Trinkt 4 Kaffee, flucht zweimal auf Polnisch und fliest das Bad absolut perfekt.",
+        "icon": "🪚",
+        "unicorn": true
+      },
+      {
+        "id": "hand_2",
+        "name": "Der Pünktliche (Mythos)",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Steht um 06:58 Uhr vor der Tür. Die Legende besagt, er existiert wirklich.",
+        "icon": "⏰"
+      },
+      {
+        "id": "hand_3",
+        "name": "Saubermacher-Fliesenleger",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Hinterlässt die Baustelle sauberer, als sie vor dem Bau jemals war.",
+        "icon": "🧹"
+      },
+      {
+        "id": "hand_4",
+        "name": "🦄 Alles-dabei-Elektriker",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Hat jede Wago-Klemme und jede Sicherung im Auto. Keine Baumarkt-Fahrten nötig.",
+        "icon": "⚡",
+        "unicorn": true
+      },
+      {
+        "id": "hand_5",
+        "name": "Polier mit Röntgenblick",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Sieht aus 50 Metern Entfernung, dass die Wand um 1 Millimeter schief ist.",
+        "icon": "👁️"
+      },
+      {
+        "id": "hand_6",
+        "name": "Kaffee-Dankbarer Klempner",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Arbeitet doppelt so schnell, sobald eine Tasse Kaffee bereitsteht.",
+        "icon": "☕"
+      },
+      {
+        "id": "hand_7",
+        "name": "Turbo-Trockenbauer",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Zieht Wände schneller hoch, als du 'Raumaufteilung' sagen kannst.",
+        "icon": "🧱"
+      },
+      {
+        "id": "hand_8",
+        "name": "Laser-Präzise Zimmermann",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Der Dachstuhl passt saugend auf den Ringanker. Millimeterarbeit.",
+        "icon": "📐"
+      },
+      {
+        "id": "hand_9",
+        "name": "Der Kein-Problem-Maurer",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Egal wie komplex der Grundriss ist: 'Das machen wir passend, Chef.'",
+        "icon": "🧱"
+      },
+      {
+        "id": "hand_10",
+        "name": "Der Insta-Handwerker",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Macht ein Reel für TikTok und arbeitet deshalb so sauber wie ein Chirurg.",
+        "icon": "📱"
+      },
+      {
+        "id": "hand_11",
+        "name": "Muss-sich-setzen-Pfuscher",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Die schiefe Wand? 'Das zieht sich noch gerade, das muss sich erst setzen.'",
+        "icon": "🤷"
+      },
+      {
+        "id": "hand_12",
+        "name": "Dauer-Raucher-Maler",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Tapeziert im Nebel. Die Raufaser riecht danach drei Jahre nach Zigaretten.",
+        "icon": "🚬"
+      },
+      {
+        "id": "hand_13",
+        "name": "Chef-kommt-gleich-Azubi",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Steht hilflos im Rohbau und starrt das Kabel an. Kann nix ohne Meister.",
+        "icon": "👶"
+      },
+      {
+        "id": "hand_14",
+        "name": "Radio-Dauerdudler",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Baustellenradio auf Anschlag. Den ganzen Tag läuft Dudel-Radio am Limit.",
+        "icon": "📻"
+      },
+      {
+        "id": "hand_15",
+        "name": "Der Werkzeug-Borger",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Bringt nix mit. 'Haste mal ne Bohrmaschine? Und einen Hammer? Und Schrauben?'",
+        "icon": "🔨"
+      },
+      {
+        "id": "hand_16",
+        "name": "Joa-passt-schon-Allrounder",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Nimmt es mit der Wasserwaage nicht so genau. Schiefe ist Individualität.",
+        "icon": "📐"
+      },
+      {
+        "id": "hand_17",
+        "name": "Fliesenschneider-Symphoniker",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Schneidet Fliesen bevorzugt um 12:30 Uhr direkt unter dem Fenster des Nachbarn.",
+        "icon": "⚡"
+      },
+      {
+        "id": "hand_18",
+        "name": "Bier-durstige Dachdecker",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Ab 10 Uhr klirren die Flaschen auf dem Dach. Richtfest-Stimmung jeden Tag.",
+        "icon": "🍺"
+      },
+      {
+        "id": "hand_19",
+        "name": "Morgen-ganz-sicher-Typ",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Verspricht seit drei Wochen, das Klo anzuschließen. Morgen kommt er bestimmt.",
+        "icon": "📆"
+      },
+      {
+        "id": "hand_20",
+        "name": "Der Material-Verschwender",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Verschnitt von 80%. Du musst drei Container Bauschutt extra bezahlen.",
+        "icon": "🗑️"
+      },
+      {
+        "id": "hand_21",
+        "name": "Wer-hat-das-denn-gemacht-Nörgler",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Schimpft zwei Stunden über das Gewerk davor, um von eigenen Fehlern abzulenken.",
+        "icon": "🗣️"
+      },
+      {
+        "id": "hand_22",
+        "name": "Der Phantom-Sanitär",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Trinkt einen Kaffee, sagt 'Bin kurz Material holen' und wird nie wieder gesehen.",
+        "icon": "👻"
+      },
+      {
+        "id": "hand_23",
+        "name": "Zwei-Linke-Hände-Monteur",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Schafft es, beim Aufbau der Duschkabine drei Scheiben zu zertrümmern.",
+        "icon": "💥"
+      },
+      {
+        "id": "hand_24",
+        "name": "Der Werkzeug-Vergesser",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Fährt für jeden einzelnen Dübel zurück in die 40 Kilometer entfernte Werkstatt.",
+        "icon": "🚗"
+      },
+      {
+        "id": "hand_25",
+        "name": "Der Abrechnungs-Künstler",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Schreibt 5 Stunden 'Anfahrt' und 4 Stunden 'Werkzeugsortierung' auf die Rechnung.",
+        "icon": "📊"
+      },
+      {
+        "id": "hand_26",
+        "name": "Passt-wackelt-Schreiner",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Deine Haustür schließt nur, wenn man gleichzeitig dagegen tritt und betet.",
+        "icon": "🚪"
+      },
+      {
+        "id": "hand_27",
+        "name": "Spachtel-Verweigerer",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Klatscht den Putz so uneben an die Wand, dass es als Kletterwand durchgeht.",
+        "icon": "🧗"
+      },
+      {
+        "id": "hand_28",
+        "name": "Feierabend-um-13-Uhr-Typ",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Um 12:45 Uhr packt er zusammen. 'Der Estrich muss atmen, Chef.'",
+        "icon": "🕛"
+      },
+      {
+        "id": "hand_29",
+        "name": "Der Azubi-Solist",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Erster Tag der Ausbildung. Der Chef lässt ihn die Fußbodenheizung tackern. Viel Glück.",
+        "icon": "🥶"
+      },
+      {
+        "id": "hand_30",
+        "name": "Cholerische Subunternehmer",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Brüllt seine Arbeiter an, wirft Werkzeug durch den Rohbau und trifft fast dein Auto.",
+        "icon": "🤬"
+      }
+    ],
+    "EIGENLEISTUNG": [
+      {
+        "id": "eigen_1",
+        "name": "🦄 Hobby-Maurer aus der Familie",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Gelangweilt im Ruhestand mauert er die Garage an einem Wochenende für lau.",
+        "icon": "👴",
+        "unicorn": true
+      },
+      {
+        "id": "eigen_2",
+        "name": "YouTube-Tutorial-Erleuchtung",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Ein 5-Minuten-Video im Internet macht dich zum Fliesenleger-Gott.",
+        "icon": "📺"
+      },
+      {
+        "id": "eigen_3",
+        "name": "Baumarkt-Rabattkarte 20%",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Du hast das System gedribbelt. Spargott des Landkreises.",
+        "icon": "💳"
+      },
+      {
+        "id": "eigen_4",
+        "name": "🦄 Werkzeug-Eskalation",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Du kaufst die Profi-Akkuflex für 800 Euro, um ein einziges Rohr zu schneiden. Geil.",
+        "icon": "⚙️",
+        "unicorn": true
+      },
+      {
+        "id": "eigen_5",
+        "name": "Die fleißigen Kumpels",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "6 Freunde schleppen 40 Tonnen Rigipsplatten. Bezahlung: Drei Kisten Bier.",
+        "icon": "👬"
+      },
+      {
+        "id": "eigen_6",
+        "name": "Perfekte Silikonfuge",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Gezogen wie von Geisterhand. Ein optisches Kunstwerk im Badezimmer.",
+        "icon": "🧼"
+      },
+      {
+        "id": "eigen_7",
+        "name": "Rigips im Akkord",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Du schraubst die Platten blind fest. Der Akkuschrauber glüht, die Decke hält.",
+        "icon": "🔩"
+      },
+      {
+        "id": "eigen_8",
+        "name": "Streich-Party mit Freibier",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "12 betrunkene Freunde streichen das Haus an einem Abend. Überraschend clean.",
+        "icon": "🎨"
+      },
+      {
+        "id": "eigen_9",
+        "name": "Laminat-König",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Klick-Laminat ohne Verschnitt verlegt. Die Endgegner-Ecke an der Heizung bezwungen.",
+        "icon": "🪵"
+      },
+      {
+        "id": "eigen_10",
+        "name": "Der geliehene Transporter",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Vom Kumpel für umme. Passt alles rein, inklusive der 4-Meter-Dachbalken.",
+        "icon": "🚚"
+      },
+      {
+        "id": "eigen_11",
+        "name": "Schiefe Tapete mit Charakter",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Das Muster verschiebt sich um 5cm pro Meter. Du nennst es 'Abstrakte Kunst'.",
+        "icon": "🌀"
+      },
+      {
+        "id": "eigen_12",
+        "name": "Muskelkater des Todes",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Nach 12 Stunden Estrichmischen spürst du deine Beine nicht mehr.",
+        "icon": "😫"
+      },
+      {
+        "id": "eigen_13",
+        "name": "Kasten Bier pro Quadratmeter",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Die Effizienz sinkt proportional zum Füllstand der Flaschen. Wand leicht schräg.",
+        "icon": "🍻"
+      },
+      {
+        "id": "eigen_14",
+        "name": "Selfmade-Splitter",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Ein 4cm Holzsplitter bohrt sich unter den Fingernagel. Erste Hilfe mit der Zange.",
+        "icon": "🪵"
+      },
+      {
+        "id": "eigen_15",
+        "name": "Falsche Farbe angemischt",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Sollte 'Anthrazit' werden, sieht jetzt aber aus wie ein verwaschenes Schweinchenrosa.",
+        "icon": "🐷"
+      },
+      {
+        "id": "eigen_16",
+        "name": "Rigips-Wand hält fast",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Wenn man den Fernseher aufhängt, knackt das Holz. Besser nicht anhusten.",
+        "icon": "📺"
+      },
+      {
+        "id": "eigen_17",
+        "name": "Verschmierte Silikonfuge",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Mit dem Daumen glattgezogen. Jetzt klebt das Zeug an den Fliesen, den Haaren und der Katze.",
+        "icon": "🐈"
+      },
+      {
+        "id": "eigen_18",
+        "name": "Bohrhammer leihen",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Du musst den grantigen Nachbarn fragen. Kostet dich ein langes Gespräch über den Krieg.",
+        "icon": "🗣️"
+      },
+      {
+        "id": "eigen_19",
+        "name": "Fluchtpunkt leicht verfehlt",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Die ersten Fliesen liegen gerade, am Ende läufst du eine Kurve ins Klo.",
+        "icon": "↩️"
+      },
+      {
+        "id": "eigen_20",
+        "name": "Knarzendes Laminat",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Trittschalldämmung vergessen. Jeder Schritt klingt wie eine morsche Piratenbarke.",
+        "icon": "🏴‍☠️"
+      },
+      {
+        "id": "eigen_21",
+        "name": "Finger im Tacker",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Dampfsperrfolie befestigt und versehentlich den eigenen Daumen an die Pfette getackert.",
+        "icon": "🏥"
+      },
+      {
+        "id": "eigen_22",
+        "name": "Tragende Wand eingerissen",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Du wolltest 'offenes Wohnen'. Jetzt biegt sich die Decke wie eine Banane durch.",
+        "icon": "🍌"
+      },
+      {
+        "id": "eigen_23",
+        "name": "Stromschlag beim Lampenbau",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Sicherung nicht rausgemacht, weil 'ich mach das kurz barfuß'. Neue Frisur inklusive.",
+        "icon": "⚡"
+      },
+      {
+        "id": "eigen_24",
+        "name": "Wasserrohr angebohrt",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Du wolltest nur einen Spiegel aufhängen. Willkommen im privaten Hallenbad.",
+        "icon": "🌊"
+      },
+      {
+        "id": "eigen_25",
+        "name": "Fliesen-Kollaps",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Falschen Kleber genutzt. Nachts fallen 40 Quadratmeter Feinsteinzeug krachend von der Wand.",
+        "icon": "💥"
+      },
+      {
+        "id": "eigen_26",
+        "name": "Bandscheibe im Baumarkt",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Beim Heben des 40kg Zementsacks macht es 'Knacks'. Baustopp für 6 Wochen.",
+        "icon": "🩻"
+      },
+      {
+        "id": "eigen_27",
+        "name": "Ehekrise wegen Tapete",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Der Streit über Raufaser oder Vliestapete endet im emotionalen atomaren Erstschlag.",
+        "icon": "💔"
+      },
+      {
+        "id": "eigen_28",
+        "name": "Decke kommt runter",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Rigipsplatten mit Spax statt Rigipsschrauben befestigt. Schwerkraft gewinnt.",
+        "icon": "🏚️"
+      },
+      {
+        "id": "eigen_29",
+        "name": "Falsche Dübel gewählt",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Küchenschrank mit Hohlraumdübeln in Betonwand gejagt. Totalschaden inklusive Geschirr.",
+        "icon": "🍽️"
+      },
+      {
+        "id": "eigen_30",
+        "name": "Profi-Werkzeug geschrottet",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Die geliehene 2000-Euro-Fräse im Schlamm versenkt. Keine Versicherung zahlt das.",
+        "icon": "🚜"
+      }
+    ],
+    "BAUPFUSCH": [
+      {
+        "id": "pfusch_1",
+        "name": "🦄 Pfusch rechtzeitig entdeckt",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Du siehst das fehlende Dichtungsband, bevor der Estrich kommt. Glückspilz.",
+        "icon": "🍀",
+        "unicorn": true
+      },
+      {
+        "id": "pfusch_2",
+        "name": "Der fiese Gutachter",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Er nimmt die Baufirma so hart auseinander, dass sie freiwillig den Keller neu bauen.",
+        "icon": "🧐"
+      },
+      {
+        "id": "pfusch_3",
+        "name": "Kostenlose Mängelbehebung",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Der Handwerker heult, bringt drei Trupps mit und fixt den Fehler an einem Tag.",
+        "icon": "🛠️"
+      },
+      {
+        "id": "pfusch_4",
+        "name": "🦄 Pfusch mit Statik-Vorteil",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Aus Versehen doppelt so viele Stahlträger eingebaut. Das Haus hält ewig.",
+        "icon": "🏗️",
+        "unicorn": true
+      },
+      {
+        "id": "pfusch_5",
+        "name": "Einbehalt von 20%",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Wegen einer schiefen Fußleiste behältst du ordentlich Geld ein. Die Bank freut sich.",
+        "icon": "💶"
+      },
+      {
+        "id": "pfusch_6",
+        "name": "Freiwillige Haftung",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Der Bauleiter gibt den Fehler schriftlich zu. Ein juristisches Einhorn.",
+        "icon": "🦄"
+      },
+      {
+        "id": "pfusch_7",
+        "name": "Versteckter Mangel ist chic",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Die Wand wurde rau verputzt, weil der Lehrling besoffen war. Sieht aus wie Loft-Style.",
+        "icon": "🧱"
+      },
+      {
+        "id": "pfusch_8",
+        "name": "Hersteller-Kulanz",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Fenster verkratzt geliefert. Hersteller schickt neue Dreifachverglasung plus Bonus.",
+        "icon": "🪟"
+      },
+      {
+        "id": "pfusch_9",
+        "name": "Rechtsschutz schlägt zu",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Dein Anwalt schickt eine Unterlassungserklärung mit 40 Seiten. Baufirma kuscht.",
+        "icon": "🧑‍⚖️"
+      },
+      {
+        "id": "pfusch_10",
+        "name": "Pfuscher flieht aus Land",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Bevor er dein Dach ruinieren kann, setzt er sich ab. Geld gerettet.",
+        "icon": "✈️"
+      },
+      {
+        "id": "pfusch_11",
+        "name": "Steckdose hinter Heizung",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Perfekt platziert für Geräte, die flach wie Papier sind. Nutzwert: Null.",
+        "icon": "🔌"
+      },
+      {
+        "id": "pfusch_12",
+        "name": "Lichtschalter öffnet Tür",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Falsch verkabelt. Wenn du das Flurlicht anmachst, springt die Haustür auf.",
+        "icon": "💡"
+      },
+      {
+        "id": "pfusch_13",
+        "name": "Schiefe Fliesen im Gästeklo",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Wer hier pinkelt, bekommt durch die Neigung der Fugen akuten Schwindel.",
+        "icon": "🤢"
+      },
+      {
+        "id": "pfusch_14",
+        "name": "Spezial-Fensteröffnung",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Geht nur auf, wenn man vorher die Dunstabzugshaube abbaut. Geniale Planung.",
+        "icon": "🪟"
+      },
+      {
+        "id": "pfusch_15",
+        "name": "Estrich mit Wellengang",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Das Verlegen von Möbeln erfordert nun keilförmige Unterlagen von 4cm.",
+        "icon": "🌊"
+      },
+      {
+        "id": "pfusch_16",
+        "name": "Tür schleift auf Parkett",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Jedes Öffnen hinterlässt eine wunderschöne kreisförmige Gravur im Echtholz.",
+        "icon": "🚪"
+      },
+      {
+        "id": "pfusch_17",
+        "name": "Silikon rettet das Design",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Spalt von 3cm einfach mit weißer Dichtmasse aufgefüllt. Fällt fast nicht auf.",
+        "icon": "🧪"
+      },
+      {
+        "id": "pfusch_18",
+        "name": "Bad-Gefälle zur Tür",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Das Duschwasser läuft nicht zum Abfluss, sondern direkt in den Flur.",
+        "icon": "🌊"
+      },
+      {
+        "id": "pfusch_19",
+        "name": "Sommer-Heizung",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Rohre vertauscht. Die Heizung ballert nur, wenn draußen 30 Grad sind.",
+        "icon": "🥵"
+      },
+      {
+        "id": "pfusch_20",
+        "name": "Treppe des Grauens",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Die mittlere Stufe ist 3cm höher als der Rest. Stolpergarantie für jeden Gast.",
+        "icon": "🪜"
+      },
+      {
+        "id": "pfusch_21",
+        "name": "Warmwasser-Toilette",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Die Spülung läuft mit heißem Wasser. Sauna-Feeling beim Kacken.",
+        "icon": "🚽"
+      },
+      {
+        "id": "pfusch_22",
+        "name": "Schimmel-Paradies",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Dampfsperre falsch herum eingebaut. Hinter der Wand entsteht ein neues Ökosystem.",
+        "icon": "🍄"
+      },
+      {
+        "id": "pfusch_23",
+        "name": "Dach undicht bei Regen",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Der Zimmermann hat die Pfannen nur lose aufgelegt. Drinnen regnet es härter als draußen.",
+        "icon": "🌧️"
+      },
+      {
+        "id": "pfusch_24",
+        "name": "Fundament-Riss",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Die Bodenplatte bricht in zwei Hälften. Das Haus driftet langsam auseinander.",
+        "icon": "⚡"
+      },
+      {
+        "id": "pfusch_25",
+        "name": "Tragende Säule vergessen",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Liegt noch auf dem Lkw. Die Decke im Wohnzimmer kommt dir schüchtern entgegen.",
+        "icon": "🏚️"
+      },
+      {
+        "id": "pfusch_26",
+        "name": "Strom auf Wasserleitung",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Beim Händewaschen kribbelt es lebensgefährlich. Elektriker war wohl blind.",
+        "icon": "⚡"
+      },
+      {
+        "id": "pfusch_27",
+        "name": "Balkon ohne Tür",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Wunderschöner Balkon, aber man kommt nur durch das Fenster im Abstellraum hin.",
+        "icon": "🧱"
+      },
+      {
+        "id": "pfusch_28",
+        "name": "Fenster verkehrt herum",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Die Griffe sind außen. Jeder Einbrecher bedankt sich herzlich für den Service.",
+        "icon": "🪟"
+      },
+      {
+        "id": "pfusch_29",
+        "name": "Rohrbruch unter Estrich",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Die Fußbodenheizung wurde angebohrt und einbetoniert. Druckabfall des Todes.",
+        "icon": "🌊"
+      },
+      {
+        "id": "pfusch_30",
+        "name": "Zwergen-Deckenhöhe",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Wohnzimmerdecke auf 1,90m betoniert. Wer über 1,80m ist, muss im Knien leben.",
+        "icon": "🧎"
+      }
+    ],
+    "IT_HOELLE": [
+      {
+        "id": "it_1",
+        "name": "🦄 Glasfaser bis ins Klo",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "10 Gigabit Download. Das Smartphone glüht vor Freude.",
+        "icon": "🌐",
+        "unicorn": true
+      },
+      {
+        "id": "it_2",
+        "name": "Smart Home versteht dich",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Kein Fehlschalten. Ein Flüstern genügt und die Kaffeemaschine läuft an.",
+        "icon": "🤖"
+      },
+      {
+        "id": "it_3",
+        "name": "Serverschrank Premium",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Symmetrisch verkabelt, farblich sortiert. Ein Traum für jeden IT-Nerd.",
+        "icon": "🗄️"
+      },
+      {
+        "id": "it_4",
+        "name": "🦄 Garten-WLAN 100%",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Voller Empfang bis hinter den Komposthaufen. Rasenmäher streamt in 4K.",
+        "icon": "📶",
+        "unicorn": true
+      },
+      {
+        "id": "it_5",
+        "name": "KNX-System ohne Bug",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Die Programmierung hält. Keine wild flackernden Lichter um Mitternacht.",
+        "icon": "📟"
+      },
+      {
+        "id": "it_6",
+        "name": "USV-Lebensretter",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Stromausfall im Dorf, aber deine Server laufen weiter, als wäre nix gewesen.",
+        "icon": "🔋"
+      },
+      {
+        "id": "it_7",
+        "name": "Cat-7 in jedem Raum",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Doppeldosen selbst in der Speisekammer. Du bist gerüstet für das Jahr 2050.",
+        "icon": "🔌"
+      },
+      {
+        "id": "it_8",
+        "name": "Autarkes Smart-Home",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Keine Cloud nötig. Deine Daten bleiben im Keller, der Kühlschrank spioniert nicht.",
+        "icon": "🛡️"
+      },
+      {
+        "id": "it_9",
+        "name": "Beschriftetes Patchpanel",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Jedes Kabel hat eine Nummer. Du weißt sofort, welcher Port das Kinderzimmer versorgt.",
+        "icon": "🏷️"
+      },
+      {
+        "id": "it_10",
+        "name": "Smarte Lichter-Symphonie",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Kino-Modus dimmt das Licht automatisch, sobald der TV startet. Kinofeeling pur.",
+        "icon": "🎬"
+      },
+      {
+        "id": "it_11",
+        "name": "Kein WLAN auf dem Klo",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Die dicken Betonwände blockieren das Signal. Du musst Zeitschriften lesen.",
+        "icon": "📰"
+      },
+      {
+        "id": "it_12",
+        "name": "Smart-Home-Geisterstunde",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Einmal pro Woche geht um 3 Uhr nachts das Licht an. Geist oder Bug?",
+        "icon": "👻"
+      },
+      {
+        "id": "it_13",
+        "name": "4-Stunden-Update",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Die Wärmepumpe zieht ein Firmware-Update. Haus bleibt so lange kalt.",
+        "icon": "⏳"
+      },
+      {
+        "id": "it_14",
+        "name": "Drucker verweigert Magenta",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Du willst einen Schwarz-Weiß-Bauplan drucken. Drucker sagt nein, weil Gelb fehlt.",
+        "icon": "🖨️"
+      },
+      {
+        "id": "it_15",
+        "name": "Sprachassistent lauscht mit",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Nach einer Diskussion über Geld schaltet das System Werbung für Kredite.",
+        "icon": "👂"
+      },
+      {
+        "id": "it_16",
+        "name": "Zufalls-Bluetooth",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Deine Soundbar koppelt sich unregelmäßig mit dem Handy des Nachbarn. Heavy Metal um 5 Uhr.",
+        "icon": "🔊"
+      },
+      {
+        "id": "it_17",
+        "name": "Falsches Router-Passwort",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Der Zettel mit dem 64-stelligen Key ist im Altpapier gelandet. Reset-Party.",
+        "icon": "📝"
+      },
+      {
+        "id": "it_18",
+        "name": "Kabel-Dschungel unterm Tisch",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Sieht aus wie eine Schlangengrube. Wenn du mit dem Fuß wackelst, stürzt das Internet ab.",
+        "icon": "🐍"
+      },
+      {
+        "id": "it_19",
+        "name": "Saugroboter frisst Vorhang",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Roboter verheddert sich im Plissee und reißt die Schiene aus der Decke.",
+        "icon": "🧹"
+      },
+      {
+        "id": "it_20",
+        "name": "Smart-Lock Akku leer",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Schloss piept kläglich. Du stehst draußen im Regen, weil der Saft weg ist.",
+        "icon": "🔋"
+      },
+      {
+        "id": "it_21",
+        "name": "Smarte Toilette gehackt",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Ein Botnetz steuert dein Bidet. Dauerfeuer bei 4 Grad Wassertemperatur.",
+        "icon": "🚽"
+      },
+      {
+        "id": "it_22",
+        "name": "Ransomware auf Heizung",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Lösegeld zahlen, sonst bleibt die Bude im Winter auf sibirischen -10 Grad.",
+        "icon": "☠️"
+      },
+      {
+        "id": "it_23",
+        "name": "Totalausfall ohne Netz",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Internet weg. Da alles über Cloud läuft, kannst du weder Licht anmachen noch die Haustür öffnen.",
+        "icon": "☁️"
+      },
+      {
+        "id": "it_24",
+        "name": "Roboter verteilt Kot",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Der Hund hatte einen Unfall. Der Saugroboter verteilt es gleichmäßig auf 120 qm Parkett.",
+        "icon": "💩"
+      },
+      {
+        "id": "it_25",
+        "name": "Smart-Home sperrt dich aus",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Wegen eines Fehlers hält das Haus dich für einen Einbrecher und riegelt ab.",
+        "icon": "🚨"
+      },
+      {
+        "id": "it_26",
+        "name": "Kabel im Leerrohr verschmolzen",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Zu viele Kabel ohne Abstand eingezogen. Hitze lässt Isolierung schmelzen. Kurzschluss-Dauerparty.",
+        "icon": "🔥"
+      },
+      {
+        "id": "it_27",
+        "name": "WLAN-Krieg mit Nachbarn",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Nachbar flutet alle Kanäle mit einem illegalen Störsender. Latenz von 9000ms.",
+        "icon": "📡"
+      },
+      {
+        "id": "it_28",
+        "name": "Cloud-Anbieter pleite",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Der Server wird abgeschaltet. Deine teure Installation ist jetzt Elektromüll.",
+        "icon": "📉"
+      },
+      {
+        "id": "it_29",
+        "name": "FI-Schalter fliegt bei Ping",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Kriechstrom im LAN-Kabel. Jedes Mal, wenn du online gehst, geht das Haus aus.",
+        "icon": "🔌"
+      },
+      {
+        "id": "it_30",
+        "name": "System-Kaufrausch",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Der Papagei ruft Bestellbefehle. Das System ordert 500 Paletten Premium-Klopapier.",
+        "icon": "🦜"
+      }
+    ],
+    "GARTEN": [
+      {
+        "id": "gar_1",
+        "name": "🦄 Stadion-Rollrasen",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Grün wie im Stadion. Die Nachbarn weinen leise am Zaun.",
+        "icon": "🌱",
+        "unicorn": true
+      },
+      {
+        "id": "gar_2",
+        "name": "Mähroboter unfallfrei",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Er mäht zentimetergenau und hat noch keinen einzigen Igel oder Gartenschlauch geköpft.",
+        "icon": "🤖"
+      },
+      {
+        "id": "gar_3",
+        "name": "Unkrautfreier Englischer Rasen",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Kein einziger Löwenzahn wagt es, hier zu sprießen. Gift sei Dank.",
+        "icon": "⛳"
+      },
+      {
+        "id": "gar_4",
+        "name": "🦄 Südausrichtung-Luxusterrasse",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "14 Stunden Sonne am Tag. Feinsteinzeug-Platten, die sich nicht aufheizen.",
+        "icon": "☀️",
+        "unicorn": true
+      },
+      {
+        "id": "gar_5",
+        "name": "Grillstation Deluxe",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "6 Brenner, Außenküche, integrierter Kühlschrank. Du bist der Fleischgott.",
+        "icon": "🥩"
+      },
+      {
+        "id": "gar_6",
+        "name": "Betonierter Sichtschutz",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "2 Meter hoch, absolut blickdicht. Keine Chance für neugierige Blockwarte.",
+        "icon": "🧱"
+      },
+      {
+        "id": "gar_7",
+        "name": "Blühende Oase",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Bienenfreundlich, pflegeleicht und sieht aus wie aus einem Katalog für Millionäre.",
+        "icon": "🌸"
+      },
+      {
+        "id": "gar_8",
+        "name": "Eigener Tiefbrunnen",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Grundwasser kostenlos anzapfen. Während das Dorf vertrocknet, spritzt dein Sprenger.",
+        "icon": "🚰"
+      },
+      {
+        "id": "gar_9",
+        "name": "Perfekter Schattenbaum",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Eine alte Eiche, die genau dort Schatten wirft, wo die Liege steht. Natur-Sieg.",
+        "icon": "🌳"
+      },
+      {
+        "id": "gar_10",
+        "name": "Designer-Gartenhaus",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Flachdach, bodentiefe Fenster. Sieht besser aus als die Mietwohnung deines Bruders.",
+        "icon": "🏠"
+      },
+      {
+        "id": "gar_11",
+        "name": "Löwenzahn-Invasion",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Gelbe Plage überall. Du erzählst den Gästen, das sei Absicht wegen Bio-Diversität.",
+        "icon": "🌼"
+      },
+      {
+        "id": "gar_12",
+        "name": "Maulwurf-Hügelpark",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Der kleine Kerl baut eine Hügellandschaft. Unter Naturschutz, du darfst ihn nicht mal schief angucken.",
+        "icon": "🪵"
+      },
+      {
+        "id": "gar_13",
+        "name": "Schiefer Nachbarzaun",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Der Maschendrahtzaun biegt sich rüber. Sieht billig aus, hält aber die Hunde ab.",
+        "icon": "🚧"
+      },
+      {
+        "id": "gar_14",
+        "name": "Thuja-Hecke stirbt",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Wird von innen braun. Sieht aus wie eine Reihe vertrockneter Christbäume.",
+        "icon": "🌲"
+      },
+      {
+        "id": "gar_15",
+        "name": "Aufblasbarer Pool verliert Luft",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Jeden Abend musst du nachpumpen, sonst sacken die 4 Tonnen Wasser ins Beet.",
+        "icon": "🌊"
+      },
+      {
+        "id": "gar_16",
+        "name": "Fugen-Dschungel",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Aus den Pflasterfugen wächst Gras. Der Gasbrenner wird dein bester Freund.",
+        "icon": "🔥"
+      },
+      {
+        "id": "gar_17",
+        "name": "Räucher-Grill",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Dein Holzkohlegrill zieht direkt ins Schlafzimmer des Nachbarn. Krieg droht.",
+        "icon": "💨"
+      },
+      {
+        "id": "gar_18",
+        "name": "Moos statt Rasen",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Schön weich barfuß zu laufen, optisch aber eher Sumpfgebiet als Vorstadttraum.",
+        "icon": "🟢"
+      },
+      {
+        "id": "gar_19",
+        "name": "Kirschlorbeer-Wucherung",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Wächst 2 Meter pro Woche. Du verbringst dein Leben nur noch mit der Heckenschere.",
+        "icon": "✂️"
+      },
+      {
+        "id": "gar_20",
+        "name": "Wackel-Sonnenschirm",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Beim kleinsten Windhauch hebt der 4-Meter-Schirm ab wie eine Rakete.",
+        "icon": "⛱️"
+      },
+      {
+        "id": "gar_21",
+        "name": "Der Steingarten des Grauens",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Grauer Schotter. Keine Pflanze lebt hier. Du wirst rituell beschimpft.",
+        "icon": "🪨"
+      },
+      {
+        "id": "gar_22",
+        "name": "Trampolin-Flug",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Herbststurm weht das XL-Trampolin durch das Wintergartenglas des Nachbarn.",
+        "icon": "🌪️"
+      },
+      {
+        "id": "gar_23",
+        "name": "Riesenbärenklau-Invasion",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Hochgiftiges Unkraut übernimmt das Grundstück. Betreten nur im ABC-Schutzanzug.",
+        "icon": "☣️"
+      },
+      {
+        "id": "gar_24",
+        "name": "Bambus sprengt Fundament",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Rhizomsperre vergessen. Der Bambus bricht durch die Terrassenplatten und das Wohnzimmer.",
+        "icon": "🎋"
+      },
+      {
+        "id": "gar_25",
+        "name": "Dauerschatten vom Nachbarbaum",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Eine 30 Meter hohe Tanne an der Grenze sorgt für ewige Finsternis im Garten.",
+        "icon": "🌲"
+      },
+      {
+        "id": "gar_26",
+        "name": "Die Schlammwüste",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Keine Drainage. Nach jedem Regen verwandelt sich dein Grundstück in Wacken.",
+        "icon": "🐖"
+      },
+      {
+        "id": "gar_27",
+        "name": "Mähroboter-Amoklauf",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Fährt durch das Blumenbeet, schreddert die Rosen für 500 Euro und ertrinkt im Teich.",
+        "icon": "🌹"
+      },
+      {
+        "id": "gar_28",
+        "name": "Pool-Kollaps flutet Keller",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Stahlwandpool reißt. 20.000 Liter Wasser schießen direkt durchs Kellerfenster.",
+        "icon": "🌊"
+      },
+      {
+        "id": "gar_29",
+        "name": "Hornissennest im Schuppen",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Riesiges Nest am Dach. Der Schuppen gehört jetzt den Insekten, du darfst nicht rein.",
+        "icon": "🐝"
+      },
+      {
+        "id": "gar_30",
+        "name": "Erdrutsch am Hang",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Hanglage falsch abgesichert. Nach Starkregen rutscht deine Rasenfläche ab.",
+        "icon": "⛰️"
+      }
+    ],
+    "KELLER": [
+      {
+        "id": "kel_1",
+        "name": "🦄 Weiße Wanne absolut dicht",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Wasserfester Beton hält selbst dem Amazonas stand. Trocken wie eine Wüste.",
+        "icon": "🛡️",
+        "unicorn": true
+      },
+      {
+        "id": "kel_2",
+        "name": "Heimkino-Paradies",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "4K-Beamer, Dolby Atmos, Ledersessel. Du verlässt das Untergeschoss nie wieder.",
+        "icon": "🎬"
+      },
+      {
+        "id": "kel_3",
+        "name": "Partykeller mit Zapfanlage",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Rustikale Theke, kühles Blondes direkt vom Fass. Schützenverein-Vibes zu Hause.",
+        "icon": "🍺"
+      },
+      {
+        "id": "kel_4",
+        "name": "🦄 Klimatisierter Weinkeller",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Konstante 12 Grad für edle Tropfen. Perfekt zum Angeben vor Chef und Gästen.",
+        "icon": "🍷",
+        "unicorn": true
+      },
+      {
+        "id": "kel_5",
+        "name": "Trockener Hobbyraum",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Kein Muff, Fußbodenheizung liegt. Ideal für Hobbies oder Gaming.",
+        "icon": "🚂"
+      },
+      {
+        "id": "kel_6",
+        "name": "Profi-Werkstatt",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Lochwand für Werkzeug, massive Werkbank. Jeder Heimwerker wäre stolz.",
+        "icon": "🪚"
+      },
+      {
+        "id": "kel_7",
+        "name": "Großlager für den Notfall",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Platz ohne Ende. Die nächste Pandemie oder Apokalypse kann gerne kommen.",
+        "icon": "🧻"
+      },
+      {
+        "id": "kel_8",
+        "name": "Fitnessstudio im Keller",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Power-Rack, Hanteln, Spiegelwand. Keine Ausreden mehr wegen Anfahrt zum Gym.",
+        "icon": "🏋️"
+      },
+      {
+        "id": "kel_9",
+        "name": "Spinnenfreie Zone",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Ultraschall-Abwehr sorgt dafür, dass keine einzige Achtbeinige Kreatur einzieht.",
+        "icon": "🚫"
+      },
+      {
+        "id": "kel_10",
+        "name": "Flüsterleise Hebeanlage",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Pumpt Fäkalien nach oben, ohne dass das ganze Haus denkt, ein Panzer startet.",
+        "icon": "🚽"
+      },
+      {
+        "id": "kel_11",
+        "name": "Muffiger Kellergeruch",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Riecht nach nasser Pappe und alter Oma. Wäschetrocknen hier unmöglich.",
+        "icon": "🧦"
+      },
+      {
+        "id": "kel_12",
+        "name": "Die Riesen-Winkelspinne",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Sie wohnt hinterm Stromkasten. Hat die Größe eines Tellers und einen eigenen Mietvertrag.",
+        "icon": "🕷️"
+      },
+      {
+        "id": "kel_13",
+        "name": "Umzugskartons von 2012",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Ungeöffnete Kisten voller Kabel, CDs und Altlasten. Werden rituell ignoriert.",
+        "icon": "📦"
+      },
+      {
+        "id": "kel_14",
+        "name": "Wandern der Waschmaschine",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Beim Schleudern wandert das Gerät 2 Meter durch den Raum und blockiert die Tür.",
+        "icon": "🧺"
+      },
+      {
+        "id": "kel_15",
+        "name": "Kaltes Nutzkeller-Flair",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Nackter Beton, eine Glühbirne an der Schnur. Erinnert stark an ein Verlies.",
+        "icon": "💡"
+      },
+      {
+        "id": "kel_16",
+        "name": "Flackerlicht des Grauens",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Die Leuchtstoffröhre braucht 30 Sekunden und summt wie ein Bienenschwarm.",
+        "icon": "🪰"
+      },
+      {
+        "id": "kel_17",
+        "name": "Feuchte Ecke hinterm Regal",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Salpeter blüht wunderschön weiß an der Wand. Du stellst einfach ein Regal davor.",
+        "icon": "🧱"
+      },
+      {
+        "id": "kel_18",
+        "name": "Kellerfenster klemmt",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Steht immer einen Spalt offen. Einladungskarte für jede Maus im Umkreis.",
+        "icon": "🐭"
+      },
+      {
+        "id": "kel_19",
+        "name": "Rostendes Werkzeug",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Die Luftfeuchtigkeit liegt bei 80%. Dein teurer Ratschenkasten bekommt braune Punkte.",
+        "icon": "🔧"
+      },
+      {
+        "id": "kel_20",
+        "name": "Grundwasser an Kante",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Der Pegel steht exakt 1mm unter der Kellerfenster-Kante. Nervenkitzel pur bei Regen.",
+        "icon": "🌊"
+      },
+      {
+        "id": "kel_21",
+        "name": "Keller unter Wasser",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Gummistiefel-Pflicht. Deine komplette Steuererklärung schwimmt im Sumpf.",
+        "icon": "🌊"
+      },
+      {
+        "id": "kel_22",
+        "name": "Schimmel-Zuchtstation",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Wände komplett schwarz. Der Gutachter weigert sich, den Raum ohne Atemmaske zu betreten.",
+        "icon": "🍄"
+      },
+      {
+        "id": "kel_23",
+        "name": "Grundwasser sprengt Platte",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Druck von unten zu hoch. Die Bodenplatte bekommt Risse und spuckt Fontänen.",
+        "icon": "💥"
+      },
+      {
+        "id": "kel_24",
+        "name": "Hebeanlage explodiert",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Der Albtraum aller Bauherren. Der gesamte Inhalt der Toiletten verteilt sich an den Wänden.",
+        "icon": "💩"
+      },
+      {
+        "id": "kel_25",
+        "name": "Horrorfilm-Atmosphäre",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Niedrige Decken, Schimmelgeruch. Niemand traut sich nachts mehr nach unten.",
+        "icon": "🧟"
+      },
+      {
+        "id": "kel_26",
+        "name": "Einsturz durch Erdbewegung",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "Die Außenwand drückt nach innen. Der Hang will dein Wohnzimmer im Keller begrüßen.",
+        "icon": "⛰️"
+      },
+      {
+        "id": "kel_27",
+        "name": "Kopfstoß-Garantie",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Ein fetter Abwasser-Unterzug liegt auf 1,75m Höhe. Platzwunde bei jedem Gang zum Zähler.",
+        "icon": "🤕"
+      },
+      {
+        "id": "kel_28",
+        "name": "Radon-Gas-Alarm",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Radioaktives Gas sickert aus dem Boden. Du musst dauerlüften. Winter wird kalt.",
+        "icon": "☢️"
+      },
+      {
+        "id": "kel_29",
+        "name": "Kanalisation drückt rückwärts",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Rückstauklappe gespart. Das städtische Abwasser besucht dich bei Starkregen.",
+        "icon": "🌊"
+      },
+      {
+        "id": "kel_30",
+        "name": "Mutierte Kartoffeln",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Ein vergessener Sack im finsteren Eck hat Tentakel gebildet und jagt jetzt Ratten.",
+        "icon": "🥔"
+      }
+    ],
+    "FINANZIERUNG": [
+      {
+        "id": "fin_1",
+        "name": "🦄 Zinssatz 0.9% gesichert",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 98,
+        "desc": "Geld fast geschenkt von der Bank. Du lachst über die Inflation.",
+        "icon": "📉",
+        "unicorn": true
+      },
+      {
+        "id": "fin_2",
+        "name": "Erbschaft vom Onkel",
+        "tier": "gut",
+        "cost": 380000,
+        "score": 92,
+        "desc": "Plötzlich 200.000 Euro extra auf dem Konto. Danke, lieber Onkel!",
+        "icon": "💰"
+      },
+      {
+        "id": "fin_3",
+        "name": "Förderung maximal",
+        "tier": "gut",
+        "cost": 310000,
+        "score": 88,
+        "desc": "Der Staat schenkt dir Geld, weil du eine ultra-effiziente Luftpumpe hast.",
+        "icon": "🦅"
+      },
+      {
+        "id": "fin_4",
+        "name": "🦄 Kostenlose Sondertilgung",
+        "tier": "gut",
+        "cost": 115000,
+        "score": 99,
+        "desc": "Du darfst unbegrenzt einzahlen. Kredit halbiert nach Bonuszahlung.",
+        "icon": "💸",
+        "unicorn": true
+      },
+      {
+        "id": "fin_5",
+        "name": "Bankberater ist dein Kumpel",
+        "tier": "gut",
+        "cost": 240000,
+        "score": 85,
+        "desc": "Er drückt beim Schufa-Score beide Augen zu und winkt den Kredit durch.",
+        "icon": "🤝"
+      },
+      {
+        "id": "fin_6",
+        "name": "Voll im Budget",
+        "tier": "gut",
+        "cost": 290000,
+        "score": 91,
+        "desc": "Haus fertig und es sind noch 30.000 Euro für den Whirlpool übrig. Ein Wunder.",
+        "icon": "🛁"
+      },
+      {
+        "id": "fin_7",
+        "name": "Kreditzusage in 24 Stunden",
+        "tier": "gut",
+        "cost": 410000,
+        "score": 94,
+        "desc": "Kein langes Zittern. Die Bank schießt das Geld sofort raus. Baustart!",
+        "icon": "🚀"
+      },
+      {
+        "id": "fin_8",
+        "name": "Wertsteigerung vor Einzug",
+        "tier": "gut",
+        "cost": 210000,
+        "score": 83,
+        "desc": "Grundstückspreise explodieren. Deine Hütte ist unfertig schon deutlich mehr wert.",
+        "icon": "📈"
+      },
+      {
+        "id": "fin_9",
+        "name": "Keine Bereitstellungszinsen",
+        "tier": "gut",
+        "cost": 260000,
+        "score": 87,
+        "desc": "Das Geld liegt 24 Monate kostenlos rum. Behörden-Warten kostet dich nix.",
+        "icon": "🛡️"
+      },
+      {
+        "id": "fin_10",
+        "name": "Restschuld durch Lotto gerettet",
+        "tier": "gut",
+        "cost": 270000,
+        "score": 89,
+        "desc": "Drei Richtige mit Zusatzzahl decken exakt die Kosten für die Garage.",
+        "icon": "🎰"
+      },
+      {
+        "id": "fin_11",
+        "name": "Nachfinanzierung nötig",
+        "tier": "mittel",
+        "cost": 150000,
+        "score": 72,
+        "desc": "Die Fliesen waren teurer. Du musst nochmal 20k aufnehmen zu schlechteren Zinsen.",
+        "icon": "📉"
+      },
+      {
+        "id": "fin_12",
+        "name": "Knappe Monatsrate",
+        "tier": "mittel",
+        "cost": 120000,
+        "score": 65,
+        "desc": "Keine Urlaube mehr für 30 Jahre. Nudeln ist dein neues Lieblingsgericht.",
+        "icon": "🍝"
+      },
+      {
+        "id": "fin_13",
+        "name": "Bank fordert 500 Nachweise",
+        "tier": "mittel",
+        "cost": 140000,
+        "score": 68,
+        "desc": "Du musst extreme Nachweise einreichen für eine minimale Geld-Freigabe.",
+        "icon": "📄"
+      },
+      {
+        "id": "fin_14",
+        "name": "Variable Zinsen steigen",
+        "tier": "mittel",
+        "cost": 110000,
+        "score": 58,
+        "desc": "Zinsbindung verpasst. Die Rate steigt monatlich um den Wert eines Streaming-Abos.",
+        "icon": "📈"
+      },
+      {
+        "id": "fin_15",
+        "name": "Bausparer deckt nur Haustür",
+        "tier": "mittel",
+        "cost": 95000,
+        "score": 61,
+        "desc": "Seit 10 Jahren eingezahlt. Zuteilung reicht exakt für die Drückergarnitur.",
+        "icon": "🚪"
+      },
+      {
+        "id": "fin_16",
+        "name": "Bearbeitungsgebühr des Grauens",
+        "tier": "mittel",
+        "cost": 85000,
+        "score": 54,
+        "desc": "Die Bank verlangt 3000 Euro rein für das Ausdrucken des Vertrags.",
+        "icon": "🖨️"
+      },
+      {
+        "id": "fin_17",
+        "name": "Eigenkapital aufgebraucht",
+        "tier": "mittel",
+        "cost": 170000,
+        "score": 76,
+        "desc": "Das Ersparte ist weg, bevor die erste Wand steht. Ab jetzt lebt nur noch der Kredit.",
+        "icon": "👛"
+      },
+      {
+        "id": "fin_18",
+        "name": "Dauerglühender Dispo",
+        "tier": "mittel",
+        "cost": 75000,
+        "score": 63,
+        "desc": "Dein Girokonto ist dauerhaft im tiefen roten Bereich. Zinsen von 14% kicken.",
+        "icon": "🟥"
+      },
+      {
+        "id": "fin_19",
+        "name": "Schufa-Score sinkt leicht",
+        "tier": "mittel",
+        "cost": 105000,
+        "score": 59,
+        "desc": "Weil du drei Kreditangebote verglichen hast, hält die Auskunftei dich für pleite.",
+        "icon": "📊"
+      },
+      {
+        "id": "fin_20",
+        "name": "Gutachter-Kosten unterschätzt",
+        "tier": "mittel",
+        "cost": 90000,
+        "score": 51,
+        "desc": "Der Bank-Prüfer will 1500 Euro, um zu bestätigen, dass das Haus Steine hat.",
+        "icon": "🧐"
+      },
+      {
+        "id": "fin_21",
+        "name": "Zwangsversteigerung droht",
+        "tier": "schlecht",
+        "cost": 19000,
+        "score": 22,
+        "desc": "Die Bank schickt den roten Punkt. Das Schild 'Zu verkaufen' wird aufgestellt.",
+        "icon": "🔨"
+      },
+      {
+        "id": "fin_22",
+        "name": "Privatinsolvenz",
+        "tier": "schlecht",
+        "cost": 4000,
+        "score": 5,
+        "desc": "Nix geht mehr. Der Insolvenzverwalter bestimmt jetzt, ob du dir ein Eis kaufen darfst.",
+        "icon": "📉"
+      },
+      {
+        "id": "fin_23",
+        "name": "Kredithai als Partner",
+        "tier": "schlecht",
+        "cost": 8000,
+        "score": 14,
+        "desc": "Keine Bank wollte dich. Jetzt zahlst du extrem hohe Zinsen an ominöse Gestalten.",
+        "icon": "🦈"
+      },
+      {
+        "id": "fin_24",
+        "name": "Zinsbindungs-Ende bei Höchstsatz",
+        "tier": "schlecht",
+        "cost": 3000,
+        "score": 2,
+        "desc": "Nach 10 Jahren läuft der Vertrag aus. Der Zins springt hoch. Rate verdreifacht.",
+        "icon": "📈"
+      },
+      {
+        "id": "fin_25",
+        "name": "Bank dreht Geldhahn zu",
+        "tier": "schlecht",
+        "cost": 5000,
+        "score": 9,
+        "desc": "Weil der Baufortschritt hinkt, friert die Bank die Auszahlung ein. Rohbau ohne Dach.",
+        "icon": "🥶"
+      },
+      {
+        "id": "fin_26",
+        "name": "Bauträger geht pleite",
+        "tier": "schlecht",
+        "cost": 12000,
+        "score": 31,
+        "desc": "300.000 Euro überwiesen, Baufirma insolvent, Chef abgetaucht. Haus hat keine Fenster.",
+        "icon": "✈️"
+      },
+      {
+        "id": "fin_27",
+        "name": "Schweizer-Franken-Risiko",
+        "tier": "schlecht",
+        "cost": 6000,
+        "score": 18,
+        "desc": "Kredit in Fremdwährung geholt wegen 'Spar-Tipp'. Kurs bricht ein, Schulden verdoppelt.",
+        "icon": "🇨🇭"
+      },
+      {
+        "id": "fin_28",
+        "name": "Kostenexplosion um 200%",
+        "tier": "schlecht",
+        "cost": 15000,
+        "score": 7,
+        "desc": "Materialpreise verdoppelt. Die Million ist weg, aber das Haus hat kein Badezimmer.",
+        "icon": "💥"
+      },
+      {
+        "id": "fin_29",
+        "name": "Baustrom gepfändet",
+        "tier": "schlecht",
+        "cost": 4500,
+        "score": 12,
+        "desc": "Rechnung vom Versorger ignoriert. Der Zähler wird gesperrt, Kran steht still.",
+        "icon": "🔌"
+      },
+      {
+        "id": "fin_30",
+        "name": "Betrügerischer Finanzvermittler",
+        "tier": "schlecht",
+        "cost": 2000,
+        "score": 1,
+        "desc": "Der Vermittler verspricht 0.1% Zinsen, nimmt viel Gebühr und verabschiedet sich ins Ausland.",
+        "icon": "🇦🇪"
+      }
+    ]
+  }
+}
