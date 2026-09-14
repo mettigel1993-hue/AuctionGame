@@ -17,9 +17,19 @@ const GameSettings = {
         blindWinCostFraction: { value: 0.5, min: 0.1, max: 1.0, step: 0.1, label: "Kostenanteil bei Blindflug-Sieg" }
     },
 
+    // 2b. Joker-Startausstattung pro Spieler (Keys = Joker-Typen aus der Theme-Config)
+    jokers: {
+        block: { value: 1, min: 0, max: 5, step: 1, label: "Block-Joker" },
+        bonus: { value: 1, min: 0, max: 5, step: 1, label: "Schutz-Joker" },
+        autoBuy: { value: 1, min: 0, max: 5, step: 1, label: "Blindkauf-Joker" },
+        gamble: { value: 1, min: 0, max: 5, step: 1, label: "Tausch-Joker" },
+        skip: { value: 1, min: 0, max: 5, step: 1, label: "Spül-Joker" }
+    },
+
     // 3. Glücksrad (Roulette)
     roulette: {
         highRollerChance: { value: 0.20, min: 0.0, max: 1.0, step: 0.05, label: "Eskalations-Wahrscheinlichkeit" },
+        everyNCategories: { value: 3, min: 1, max: 5, step: 1, label: "Glücksrad nach jeder n-ten Kategorie" },
         spinDurationMs: { value: 4000, min: 1000, max: 9000, step: 250, label: "Drehdauer pro Spieler (ms)" }
     },
 
@@ -58,3 +68,27 @@ const GameSettings = {
 // Damit du im Code nicht immer "GameSettings.economy.startingBudget.value" schreiben musst,
 // nutzen wir diese kleine Abkürzung:
 const getConf = (category, key) => GameSettings[category][key].value;
+
+// =====================================================================
+// SPEICHERN: übernommene Einstellungen überleben ein Neuladen (für alle Themes).
+// Gespeichert werden nur Werte, die vom Standard abweichen.
+// =====================================================================
+const SETTINGS_DEFAULTS = JSON.parse(JSON.stringify(GameSettings)); // snapshot before saved values are loaded
+const SETTINGS_STORAGE_KEY = 'gameSettings';
+
+function saveSettings() {
+    const changed = {};
+    for (const cat in GameSettings) for (const key in GameSettings[cat]) {
+        if (GameSettings[cat][key].value !== SETTINGS_DEFAULTS[cat][key].value) (changed[cat] ||= {})[key] = GameSettings[cat][key].value;
+    }
+    try { localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(changed)); } catch (e) {}
+}
+
+(function loadSavedSettings() {
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}'); } catch (e) {}
+    for (const cat in saved) for (const key in saved[cat]) {
+        const conf = GameSettings[cat]?.[key], v = Number(saved[cat][key]);
+        if (conf && Number.isFinite(v)) conf.value = Math.min(conf.max, Math.max(conf.min, v)); // ignores stale or broken entries
+    }
+})();

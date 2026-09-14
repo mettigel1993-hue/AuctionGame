@@ -3,6 +3,7 @@
   "windowTitle": "🍌 Bananenrepublik – Gründe deine eigene Diktatur",
   "gameTitle": "Bananenrepublik",
   "themeIcon": "🎖️",
+  "pointsSound": "brassFanfare",
   "colors": {
     "primary": "amber-500",
     "gradientStart": "amber-500",
@@ -148,112 +149,112 @@
     {
       "id": 1,
       "title": "Entwicklungshilfe aus dem Ausland!",
-      "desc": "Ein wohlmeinender Geberstaat überweist Millionen für Schulen und Brunnen. Das Geld landet zielsicher beim ärmsten Regime.",
+      "desc": "Ein Geberstaat überweist Millionen für Schulen und Brunnen. Das Geld landet zielsicher beim ärmsten Regime: {gewinner} kassiert {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Internationale Sanktionen!",
-      "desc": "Wer am meisten Prunk zeigt, fällt am schnellsten auf. Die Auslandskonten des Reichsten werden eingefroren.",
+      "desc": "Zu viel Prunk fällt auf! Internationale Sanktionen frieren {betrag} auf den Auslandskonten von {verlierer} ein.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Zwangsanleihe für den Fünfjahresplan!",
-      "desc": "Das Volk zeichnet freiwillig Staatsanleihen. Wer viel hat, gibt viel ab – der Ärmste profitiert.",
+      "desc": "Zwangsanleihe für den Fünfjahresplan! Je {anteil} der Staatskasse zeichnen „freiwillig“: {verlierer}. Der Erlös von {betrag} fließt an {gewinner}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Militärparade zum Jahrestag!",
-      "desc": "Panzer, Konfetti, Kampfjets und 4.000 marschierende Kinder. Prunk kostet – jeder zahlt.",
+      "desc": "Panzer, Konfetti und 4.000 marschierende Kinder. Die Parade kostet je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Die Notenpresse läuft heiß!",
-      "desc": "Frisches Geld für alle! Die Inflation ist ein Problem für die nächste Generation.",
+      "desc": "Die Notenpresse läuft heiß! Frisches Geld, je {betrag} für {alle}. Die Inflation ist ein Problem für später.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Orden für vorbildliche Linientreue!",
-      "desc": "Wer seine Sonderrechte nicht missbraucht hat, wird vom Zentralkomitee fürstlich belohnt.",
+      "desc": "Orden für Linientreue: {betrag} pro nicht missbrauchtem Sonderrecht. Ausgezeichnet: {gewinner}. Übergangen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Handelsembargo verhängt!",
-      "desc": "Die Grenzen sind dicht, die Häfen leer. Niemand kann mehr etwas beschlagnahmen oder erzwingen!",
+      "desc": "Handelsembargo! Die Häfen sind leer, nichts lässt sich mehr erzwingen. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Landesweiter Stromausfall!",
-      "desc": "Das einzige Kraftwerk ist ausgefallen. Die nächsten Dekrete werden bei Kerzenschein blind unterschrieben.",
+      "desc": "Das einzige Kraftwerk ist ausgefallen. Die nächsten {anzahl} Dekrete werden blind unterschrieben. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Das Palastdach muss neu vergoldet werden!",
-      "desc": "Der Regen hat das Blattgold abgewaschen. Eine Frage der nationalen Würde – jeder zahlt mit.",
+      "desc": "Der Regen hat das Blattgold vom Palastdach gewaschen. Nationale Würde kostet je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Verstaatlichung für ungültig erklärt!",
-      "desc": "Das Verfassungsgericht (dein Schwager) kassiert den letzten Deal. Die Hälfte kommt zurück in die Kasse.",
+      "desc": "Das Verfassungsgericht (dein Schwager) kassiert den Deal „{karte}“. {gewinner} bekommt {betrag} zurück in die Kasse.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Amnestie auf Druck der Weltöffentlichkeit!",
-      "desc": "Die Kameras der Welt sind im Land. Vorerst kann niemand mehr unter Hausarrest gestellt werden.",
+      "desc": "Die Kameras der Weltöffentlichkeit sind im Land. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Die Staatskasse ist geplündert!",
-      "desc": "Der Finanzminister ist mit dem Koffer verschwunden. Keine Entwicklungshilfe mehr für niemanden!",
+      "desc": "Der Finanzminister ist mit dem Koffer verschwunden. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Die Generäle halten still!",
-      "desc": "Alle Kasernen wurden umstellt und die Panzerschlüssel eingezogen. Kein Putsch mehr möglich.",
+      "desc": "Die Kasernen sind umstellt, die Panzerschlüssel eingezogen. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Tag der nationalen Besinnung.",
-      "desc": "Absolute Ruhe im Land. Keine Razzien, keine Demos, keine Zwischenfälle. Verdächtig friedlich.",
+      "desc": "Tag der nationalen Besinnung. {alle} verhalten sich verdächtig friedlich. Keine Zwischenfälle.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Große Kabinettsumbildung!",
-      "desc": "Alle Ämter werden neu verteilt, alle Verfehlungen vergessen. Sämtliche Joker sind wiederhergestellt!",
+      "desc": "Große Kabinettsumbildung, alle Verfehlungen vergessen! Joker wiederhergestellt für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Revolution auf dem Hauptplatz!",
-      "desc": "Die Menge stürmt ein ganzes Ministerium und reißt die Denkmäler nieder. Eine komplette Kategorie ist wertlos!",
+      "desc": "Revolution! Die Menge stürmt das Ministerium für „{kategorie}“ – die Kategorie ist wertlos. Gestürzt: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

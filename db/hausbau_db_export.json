@@ -3,7 +3,7 @@
     "HAUSTYP": [
       {
         "id": "haus_1",
-        "name": "🦄 Stadtvilla Elite",
+        "name": "Stadtvilla Elite",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -31,7 +31,7 @@
       },
       {
         "id": "haus_4",
-        "name": "🦄 Architekten-Traum",
+        "name": "Architekten-Traum",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -277,7 +277,7 @@
     "BEHOERDENWAHNSINN": [
       {
         "id": "amt_1",
-        "name": "🦄 Mettbrötchen-Bestechung",
+        "name": "Mettbrötchen-Bestechung",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -305,7 +305,7 @@
       },
       {
         "id": "amt_4",
-        "name": "🦄 Digitaler Bauantrag (Beta)",
+        "name": "Digitaler Bauantrag (Beta)",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -551,7 +551,7 @@
     "HANDWERKERTYP": [
       {
         "id": "hand_1",
-        "name": "🦄 Meister der alten Schule",
+        "name": "Meister der alten Schule",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -579,7 +579,7 @@
       },
       {
         "id": "hand_4",
-        "name": "🦄 Alles-dabei-Elektriker",
+        "name": "Alles-dabei-Elektriker",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -825,7 +825,7 @@
     "EIGENLEISTUNG": [
       {
         "id": "eigen_1",
-        "name": "🦄 Hobby-Maurer aus der Familie",
+        "name": "Hobby-Maurer aus der Familie",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -853,7 +853,7 @@
       },
       {
         "id": "eigen_4",
-        "name": "🦄 Werkzeug-Eskalation",
+        "name": "Werkzeug-Eskalation",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1099,7 +1099,7 @@
     "BAUPFUSCH": [
       {
         "id": "pfusch_1",
-        "name": "🦄 Pfusch rechtzeitig entdeckt",
+        "name": "Pfusch rechtzeitig entdeckt",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1127,7 +1127,7 @@
       },
       {
         "id": "pfusch_4",
-        "name": "🦄 Pfusch mit Statik-Vorteil",
+        "name": "Pfusch mit Statik-Vorteil",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1373,7 +1373,7 @@
     "IT_HOELLE": [
       {
         "id": "it_1",
-        "name": "🦄 Glasfaser bis ins Klo",
+        "name": "Glasfaser bis ins Klo",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1401,7 +1401,7 @@
       },
       {
         "id": "it_4",
-        "name": "🦄 Garten-WLAN 100%",
+        "name": "Garten-WLAN 100%",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1647,7 +1647,7 @@
     "GARTEN": [
       {
         "id": "gar_1",
-        "name": "🦄 Stadion-Rollrasen",
+        "name": "Stadion-Rollrasen",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1675,7 +1675,7 @@
       },
       {
         "id": "gar_4",
-        "name": "🦄 Südausrichtung-Luxusterrasse",
+        "name": "Südausrichtung-Luxusterrasse",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1921,7 +1921,7 @@
     "KELLER": [
       {
         "id": "kel_1",
-        "name": "🦄 Weiße Wanne absolut dicht",
+        "name": "Weiße Wanne absolut dicht",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1949,7 +1949,7 @@
       },
       {
         "id": "kel_4",
-        "name": "🦄 Klimatisierter Weinkeller",
+        "name": "Klimatisierter Weinkeller",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -2195,7 +2195,7 @@
     "FINANZIERUNG": [
       {
         "id": "fin_1",
-        "name": "🦄 Zinssatz 0.9% gesichert",
+        "name": "Zinssatz 0.9% gesichert",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -2223,7 +2223,7 @@
       },
       {
         "id": "fin_4",
-        "name": "🦄 Kostenlose Sondertilgung",
+        "name": "Kostenlose Sondertilgung",
         "tier": "gut",
         "cost": 115000,
         "score": 99,

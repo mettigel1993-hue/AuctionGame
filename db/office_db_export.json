@@ -47,7 +47,7 @@
       },
       {
         "id": "item_5",
-        "name": "🦄 Der 'Lass-uns-duzen' Typ",
+        "name": "Der 'Lass-uns-duzen' Typ",
         "tier": "gut",
         "cost": 110000,
         "score": 98,
@@ -59,7 +59,7 @@
       },
       {
         "id": "item_6",
-        "name": "🦄 Der Golfspieler",
+        "name": "Der Golfspieler",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -227,7 +227,7 @@
     "TRIGGER": [
       {
         "id": "item_21",
-        "name": "🦄 Der Atmer",
+        "name": "Der Atmer",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -239,7 +239,7 @@
       },
       {
         "id": "item_22",
-        "name": "🦄 Der Stifte-Kauer",
+        "name": "Der Stifte-Kauer",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -451,7 +451,7 @@
     "SABOTAGE": [
       {
         "id": "item_41",
-        "name": "🦄 Hauptsicherung rausdrehen",
+        "name": "Hauptsicherung rausdrehen",
         "tier": "gut",
         "cost": 80000,
         "score": 98,
@@ -496,7 +496,7 @@
       },
       {
         "id": "item_45",
-        "name": "🦄 Tastatur-Layout auf Dvorak ändern",
+        "name": "Tastatur-Layout auf Dvorak ändern",
         "tier": "gut",
         "cost": 80000,
         "score": 99,
@@ -675,7 +675,7 @@
     "RULES": [
       {
         "id": "item_61",
-        "name": "🦄 Verbot von Zimmerpflanzen",
+        "name": "Verbot von Zimmerpflanzen",
         "tier": "gut",
         "cost": 100000,
         "score": 98,
@@ -709,7 +709,7 @@
       },
       {
         "id": "item_64",
-        "name": "🦄 Keine privaten Pakete",
+        "name": "Keine privaten Pakete",
         "tier": "gut",
         "cost": 100000,
         "score": 99,
@@ -932,7 +932,7 @@
       },
       {
         "id": "item_84",
-        "name": "🦄 Warte auf Freigabe vom CEO",
+        "name": "Warte auf Freigabe vom CEO",
         "tier": "gut",
         "cost": 80000,
         "score": 98,
@@ -944,7 +944,7 @@
       },
       {
         "id": "item_85",
-        "name": "🦄 Die Agentur hat das verbockt",
+        "name": "Die Agentur hat das verbockt",
         "tier": "gut",
         "cost": 80000,
         "score": 99,
@@ -1134,7 +1134,7 @@
       },
       {
         "id": "item_102",
-        "name": "🦄 Massive Kündigungswelle kommt",
+        "name": "Massive Kündigungswelle kommt",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1190,7 +1190,7 @@
       },
       {
         "id": "item_107",
-        "name": "🦄 Steuerfahndung war da",
+        "name": "Steuerfahndung war da",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1369,7 +1369,7 @@
       },
       {
         "id": "item_123",
-        "name": "🦄 Trauriger Rest vom Kuchen",
+        "name": "Trauriger Rest vom Kuchen",
         "tier": "gut",
         "cost": 80000,
         "score": 98,
@@ -1403,7 +1403,7 @@
       },
       {
         "id": "item_126",
-        "name": "🦄 Das tropfende Waschbecken",
+        "name": "Das tropfende Waschbecken",
         "tier": "gut",
         "cost": 80000,
         "score": 99,
@@ -1571,7 +1571,7 @@
     "BENEFITS": [
       {
         "id": "item_141",
-        "name": "🦄 Der Porsche-Firmenwagen",
+        "name": "Der Porsche-Firmenwagen",
         "tier": "gut",
         "cost": 70000,
         "score": 99,
@@ -1594,7 +1594,7 @@
       },
       {
         "id": "item_143",
-        "name": "🦄 13. und 14. Monatsgehalt",
+        "name": "13. und 14. Monatsgehalt",
         "tier": "gut",
         "cost": 70000,
         "score": 98,
@@ -1795,7 +1795,7 @@
     "CHAOS": [
       {
         "id": "item_161",
-        "name": "🦄 Ransomware Hacker-Angriff",
+        "name": "Ransomware Hacker-Angriff",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -1862,7 +1862,7 @@
       },
       {
         "id": "item_167",
-        "name": "🦄 Bürogebäude wird verkauft",
+        "name": "Bürogebäude wird verkauft",
         "tier": "gut",
         "cost": 110000,
         "score": 98,

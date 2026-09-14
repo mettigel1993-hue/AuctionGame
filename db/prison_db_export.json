@@ -3,7 +3,7 @@
     "CRIME": [
       {
         "id": "crime_1",
-        "name": "🦄 Der Jahrhundert-Bankraub",
+        "name": "Der Jahrhundert-Bankraub",
         "tier": "gut",
         "cost": 150000,
         "score": 99,
@@ -15,7 +15,7 @@
       },
       {
         "id": "crime_4",
-        "name": "🦄 Casino-System gehackt",
+        "name": "Casino-System gehackt",
         "tier": "gut",
         "cost": 150000,
         "score": 98,
@@ -194,7 +194,7 @@
     "MATE": [
       {
         "id": "mate_2",
-        "name": "🦄 Der Tunnelgräber",
+        "name": "Der Tunnelgräber",
         "tier": "gut",
         "cost": 135000,
         "score": 99,
@@ -206,7 +206,7 @@
       },
       {
         "id": "mate_3",
-        "name": "🦄 Der Chefkoch",
+        "name": "Der Chefkoch",
         "tier": "gut",
         "cost": 135000,
         "score": 98,
@@ -462,7 +462,7 @@
     "GUARD": [
       {
         "id": "guard_1",
-        "name": "🦄 Der Bestechliche",
+        "name": "Der Bestechliche",
         "tier": "gut",
         "cost": 180000,
         "score": 99,
@@ -474,7 +474,7 @@
       },
       {
         "id": "guard_2",
-        "name": "🦄 Der Blinde",
+        "name": "Der Blinde",
         "tier": "gut",
         "cost": 180000,
         "score": 98,
@@ -741,7 +741,7 @@
     "VISIT": [
       {
         "id": "visit_1",
-        "name": "🦄 Der Mafia-Pate",
+        "name": "Der Mafia-Pate",
         "tier": "gut",
         "cost": 150000,
         "score": 99,
@@ -753,7 +753,7 @@
       },
       {
         "id": "visit_3",
-        "name": "🦄 Der Helikopter-Pilot",
+        "name": "Der Helikopter-Pilot",
         "tier": "gut",
         "cost": 150000,
         "score": 98,
@@ -998,7 +998,7 @@
     "PLAN": [
       {
         "id": "plan_1",
-        "name": "🦄 Das System crashen",
+        "name": "Das System crashen",
         "tier": "gut",
         "cost": 155000,
         "score": 99,
@@ -1010,7 +1010,7 @@
       },
       {
         "id": "plan_2",
-        "name": "🦄 Heli-Rettung",
+        "name": "Heli-Rettung",
         "tier": "gut",
         "cost": 155000,
         "score": 98,
@@ -1277,7 +1277,7 @@
     "WEAPON": [
       {
         "id": "weapon_2",
-        "name": "🦄 Elektroschocker (Eigenbau)",
+        "name": "Elektroschocker (Eigenbau)",
         "tier": "gut",
         "cost": 160000,
         "score": 99,
@@ -1289,7 +1289,7 @@
       },
       {
         "id": "weapon_5",
-        "name": "🦄 Eisenrohr",
+        "name": "Eisenrohr",
         "tier": "gut",
         "cost": 160000,
         "score": 98,
@@ -1523,7 +1523,7 @@
     "LOOT": [
       {
         "id": "loot_1",
-        "name": "🦄 Generalschlüssel",
+        "name": "Generalschlüssel",
         "tier": "gut",
         "cost": 165000,
         "score": 99,
@@ -1535,7 +1535,7 @@
       },
       {
         "id": "loot_2",
-        "name": "🦄 Die Personalakte des Direktors",
+        "name": "Die Personalakte des Direktors",
         "tier": "gut",
         "cost": 165000,
         "score": 98,

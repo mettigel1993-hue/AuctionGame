@@ -3,7 +3,7 @@
     "MAP": [
       {
         "id": "wz_1",
-        "name": "🦄 Verdansk (2020, das Original)",
+        "name": "Verdansk (2020, das Original)",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -160,7 +160,7 @@
     "DROP": [
       {
         "id": "wz_15",
-        "name": "🦄 Downtown-Dach, Chopper steht bereit",
+        "name": "Downtown-Dach, Chopper steht bereit",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -317,7 +317,7 @@
     "LOADOUT": [
       {
         "id": "wz_29",
-        "name": "🦄 DMR 14 (Cold War, Season 1 2020)",
+        "name": "DMR 14 (Cold War, Season 1 2020)",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -474,7 +474,7 @@
     "SQUAD": [
       {
         "id": "wz_43",
-        "name": "🦄 Ex-Pro mit 4.000 Stunden, der ruhig callt",
+        "name": "Ex-Pro mit 4.000 Stunden, der ruhig callt",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -631,7 +631,7 @@
     "POTM": [
       {
         "id": "wz_57",
-        "name": "🦄 Cross-Map-Headshot im freien Fall",
+        "name": "Cross-Map-Headshot im freien Fall",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -788,7 +788,7 @@
     "GULAG": [
       {
         "id": "wz_71",
-        "name": "🦄 1v1 gewonnen gegen die bessere Waffe",
+        "name": "1v1 gewonnen gegen die bessere Waffe",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -945,7 +945,7 @@
     "FINALE": [
       {
         "id": "wz_85",
-        "name": "🦄 1v4 gewonnen nach komplettem Rebuy des Teams",
+        "name": "1v4 gewonnen nach komplettem Rebuy des Teams",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1102,7 +1102,7 @@
     "HARDWARE": [
       {
         "id": "wz_99",
-        "name": "🦄 Highend-PC, 240 Hz, Controller mit Paddles",
+        "name": "Highend-PC, 240 Hz, Controller mit Paddles",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1259,7 +1259,7 @@
     "PING": [
       {
         "id": "wz_113",
-        "name": "🦄 Glasfaser, LAN-Kabel, 8 ms zum Server",
+        "name": "Glasfaser, LAN-Kabel, 8 ms zum Server",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1416,7 +1416,7 @@
     "SKIN": [
       {
         "id": "wz_127",
-        "name": "🦄 Der komplett schwarze Pay-to-Win-Skin",
+        "name": "Der komplett schwarze Pay-to-Win-Skin",
         "tier": "gut",
         "cost": 145000,
         "score": 99,

@@ -3,7 +3,7 @@
     "FLOTTE": [
       {
         "id": "flotte_1",
-        "name": "🦄 Fabrikneuer A350",
+        "name": "Fabrikneuer A350",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -13,7 +13,7 @@
       },
       {
         "id": "flotte_2",
-        "name": "🦄 Privatjet-Flotte",
+        "name": "Privatjet-Flotte",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -133,7 +133,7 @@
     "COCKPIT": [
       {
         "id": "cockpit_1",
-        "name": "🦄 Ex-Astronaut",
+        "name": "Ex-Astronaut",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -253,7 +253,7 @@
     "KABINE": [
       {
         "id": "kabine_1",
-        "name": "🦄 Sterne-Hotelfachkräfte",
+        "name": "Sterne-Hotelfachkräfte",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -364,7 +364,7 @@
     "SITZE": [
       {
         "id": "sitze_1",
-        "name": "🦄 Massage-Liegesessel",
+        "name": "Massage-Liegesessel",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -374,7 +374,7 @@
       },
       {
         "id": "sitze_2",
-        "name": "🦄 Private Schlafkapsel",
+        "name": "Private Schlafkapsel",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -503,7 +503,7 @@
     "CATERING": [
       {
         "id": "catering_1",
-        "name": "🦄 Michelin-Sterne-Menü",
+        "name": "Michelin-Sterne-Menü",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -513,7 +513,7 @@
       },
       {
         "id": "catering_2",
-        "name": "🦄 All-You-Can-Eat Buffet",
+        "name": "All-You-Can-Eat Buffet",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -633,7 +633,7 @@
     "GEPAECK": [
       {
         "id": "gepaeck_1",
-        "name": "🦄 Beamen statt Tragen",
+        "name": "Beamen statt Tragen",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -744,7 +744,7 @@
     "BOARDING": [
       {
         "id": "boarding_1",
-        "name": "🦄 Roter Teppich & Champagner",
+        "name": "Roter Teppich & Champagner",
         "tier": "gut",
         "cost": 100000,
         "score": 99,
@@ -754,7 +754,7 @@
       },
       {
         "id": "boarding_2",
-        "name": "🦄 Beamen in den Sitz",
+        "name": "Beamen in den Sitz",
         "tier": "gut",
         "cost": 100000,
         "score": 98,
@@ -883,7 +883,7 @@
     "ENTERTAINMENT": [
       {
         "id": "entertainment_1",
-        "name": "🦄 Hologramm-Kino am Platz",
+        "name": "Hologramm-Kino am Platz",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -1039,7 +1039,7 @@
     "GEBUEHREN": [
       {
         "id": "gebuehren_1",
-        "name": "🦄 Fair-Pricing Garantie",
+        "name": "Fair-Pricing Garantie",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1204,7 +1204,7 @@
     "WARTUNG": [
       {
         "id": "wartung_1",
-        "name": "🦄 Tägliche Generalüberholung",
+        "name": "Tägliche Generalüberholung",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -1214,7 +1214,7 @@
       },
       {
         "id": "wartung_2",
-        "name": "🦄 Formel-1 Boxencrew",
+        "name": "Formel-1 Boxencrew",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -1352,7 +1352,7 @@
     "KUNDENSERVICE": [
       {
         "id": "kundenservice_1",
-        "name": "🦄 Persönlicher Butler-Service",
+        "name": "Persönlicher Butler-Service",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -1362,7 +1362,7 @@
       },
       {
         "id": "kundenservice_2",
-        "name": "🦄 Erstattung ohne Fragen",
+        "name": "Erstattung ohne Fragen",
         "tier": "gut",
         "cost": 110000,
         "score": 98,
@@ -1500,7 +1500,7 @@
     "MARKETING": [
       {
         "id": "marketing_1",
-        "name": "🦄 Beliebteste Airline der Welt",
+        "name": "Beliebteste Airline der Welt",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -1638,7 +1638,7 @@
     "ROUTEN": [
       {
         "id": "routen_1",
-        "name": "🦄 Direktflug ins Zentrum",
+        "name": "Direktflug ins Zentrum",
         "tier": "gut",
         "cost": 110000,
         "score": 99,
@@ -1749,7 +1749,7 @@
     "SANITAER": [
       {
         "id": "sanitaer_1",
-        "name": "🦄 Spa-Wellness Bad",
+        "name": "Spa-Wellness Bad",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -1869,7 +1869,7 @@
     "NOTFALL": [
       {
         "id": "notfall_1",
-        "name": "🦄 Sicherheits-Kokon",
+        "name": "Sicherheits-Kokon",
         "tier": "gut",
         "cost": 110000,
         "score": 99,

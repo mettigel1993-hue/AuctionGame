@@ -3,6 +3,7 @@
   "windowTitle": "💒 Die Horror-Hochzeit – Bis der Tod euch scheidet",
   "gameTitle": "Die Horror-Hochzeit",
   "themeIcon": "💒",
+  "pointsSound": "glasses",
   "colors": {
     "primary": "rose-600",
     "gradientStart": "rose-600",
@@ -148,112 +149,112 @@
     {
       "id": 1,
       "title": "Großzügiges Kuvert von Oma!",
-      "desc": "Die Großmutter des Brautpaars drückt dem ärmsten Trauzeugen heimlich einen dicken Umschlag in die Hand.",
+      "desc": "Die Großmutter des Brautpaars drückt {gewinner} heimlich ein dickes Kuvert in die Hand: {betrag}!",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Schwiegervater dreht durch!",
-      "desc": "Der Schwiegervater hat die Bar-Rechnung gesehen und kürzt das Budget des Größenwahnsinns!",
+      "desc": "Der Schwiegervater hat die Bar-Rechnung gesehen! Dem Größenwahn von {verlierer} werden {betrag} gestrichen.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Sammlung für das Brautpaar!",
-      "desc": "Die Gäste drücken zusammen. Wer viel hat, gibt viel – und der Ärmste profitiert.",
+      "desc": "Sammlung für das Brautpaar! Je {anteil} geben: {verlierer}. Die Kollekte von {betrag} landet – rein zufällig – bei {gewinner}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Die Corkage-Fee eskaliert!",
-      "desc": "Die Location verlangt nachträglich absurde Gebühren für mitgebrachten Wein. Jeder zahlt.",
+      "desc": "Die Location verlangt nachträglich Corkage-Fee für den mitgebrachten Wein: je {betrag} von {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Hochzeitsversicherung zahlt!",
-      "desc": "Ein seltener Glücksfall: Die Versicherung übernimmt unerwartete Kosten. Jeder bekommt Geld zurück!",
+      "desc": "Die Hochzeitsversicherung zahlt! Je {betrag} zurück für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Belohnung für Zurückhaltung!",
-      "desc": "Der Hochzeitsplaner belohnt alle, die nicht ständig Sonderwünsche hatten. Wer Joker gespart hat, kassiert.",
+      "desc": "Der Hochzeitsplaner belohnt Bescheidenheit: {betrag} pro gespartem Sonderwunsch. Belohnt: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Hochzeits-Embargo!",
-      "desc": "Der Blumenladen, der Caterer und der DJ haben sich abgesprochen. Niemand kann mehr spontan einkaufen!",
+      "desc": "Blumenladen, Caterer und DJ haben sich abgesprochen. {joker}-Joker gesperrt bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Stromausfall im Festsaal!",
-      "desc": "Absolute Dunkelheit! Beim Kerzenschein wird blind gebucht. Romantisch? Katastrophal!",
+      "desc": "Stromausfall im Festsaal! Die nächsten {anzahl} Buchungen erfolgen bei Kerzenschein blind. Im Dunkeln: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Der Caterer verdoppelt die Rechnung!",
-      "desc": "Angeblich waren mehr Gäste da als geplant. Jeder muss nachzahlen.",
+      "desc": "Angeblich waren mehr Gäste da als geplant. Der Caterer will je {betrag} nachgezahlt von {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Stornierung mit Rückerstattung!",
-      "desc": "Ein Dienstleister hat zu spät abgesagt. Das Geld kommt zurück!",
+      "desc": "Ein Dienstleister hat zu spät abgesagt: {gewinner} bekommt für „{karte}“ {betrag} zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Streit unter den Trauzeugen!",
-      "desc": "Die Trauzeugen haben sich zerstritten und reden nicht mehr miteinander. Keine Redeverbote mehr möglich!",
+      "desc": "Die Trauzeugen reden nicht mehr miteinander. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Die Geschenke-Kasse ist leer!",
-      "desc": "Das Brautpaar hat alles für die Afterparty verprasst. Kein Cashback mehr für niemanden!",
+      "desc": "Das Brautpaar hat die Geschenke-Kasse für die Afterparty verprasst. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Umtauschrecht erloschen!",
-      "desc": "Die 14-Tage-Frist ist abgelaufen. Gebucht ist gebucht! Kein Umtauschen mehr möglich.",
+      "desc": "Die 14-Tage-Frist ist abgelaufen, gebucht ist gebucht. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Ruhige Stunde beim Sektempfang!",
-      "desc": "Alle nippen friedlich am Sekt. Keine Dramen, keine Skandale. Ein kurzes, seltenes Wunder.",
+      "desc": "Ruhige Stunde beim Sektempfang: {alle} nippen friedlich. Keine Dramen, keine Skandale.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Das Brautpaar verzeiht allen!",
-      "desc": "Die Hochzeitsrede rührt alle zu Tränen. Alte Fehden werden begraben, alle Joker wiederhergestellt!",
+      "desc": "Die Rede rührt alle zu Tränen, alte Fehden sind begraben! Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Braut ändert das komplette Konzept!",
-      "desc": "Die Braut hat um 2 Uhr nachts Pinterest entdeckt. ALLES muss anders! Eine Kategorie wird komplett gestrichen!",
+      "desc": "Die Braut hat um 2 Uhr nachts Pinterest entdeckt: „{kategorie}“ fliegt komplett raus. Umsonst geplant haben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

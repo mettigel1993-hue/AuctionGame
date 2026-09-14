@@ -3,7 +3,7 @@
     "TITEL": [
       {
         "id": "dik_1",
-        "name": "🦄 Ewiger Sonnengleicher Vater der Nation",
+        "name": "Ewiger Sonnengleicher Vater der Nation",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -160,7 +160,7 @@
     "FLAGGE": [
       {
         "id": "dik_15",
-        "name": "🦄 Goldener Adler auf Blutrot, Hymne von 300 Kindern",
+        "name": "Goldener Adler auf Blutrot, Hymne von 300 Kindern",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -317,7 +317,7 @@
     "PALAST": [
       {
         "id": "dik_29",
-        "name": "🦄 Marmorpalast mit 400 Zimmern und Privatzoo",
+        "name": "Marmorpalast mit 400 Zimmern und Privatzoo",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -474,7 +474,7 @@
     "POLIZEI": [
       {
         "id": "dik_43",
-        "name": "🦄 Elite-Garde mit Sonnenbrille bei Nacht",
+        "name": "Elite-Garde mit Sonnenbrille bei Nacht",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -631,7 +631,7 @@
     "PROPAGANDA": [
       {
         "id": "dik_57",
-        "name": "🦄 Staatsfernsehen mit 24 Stunden Lobgesang",
+        "name": "Staatsfernsehen mit 24 Stunden Lobgesang",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -788,7 +788,7 @@
     "UNIFORM": [
       {
         "id": "dik_71",
-        "name": "🦄 Weiße Galauniform mit 47 Orden",
+        "name": "Weiße Galauniform mit 47 Orden",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -945,7 +945,7 @@
     "EXPORT": [
       {
         "id": "dik_85",
-        "name": "🦄 Seltene Erden unter dem Fußballplatz",
+        "name": "Seltene Erden unter dem Fußballplatz",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1102,7 +1102,7 @@
     "FEIND": [
       {
         "id": "dik_99",
-        "name": "🦄 Eine Großmacht, sehr weit weg",
+        "name": "Eine Großmacht, sehr weit weg",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1259,7 +1259,7 @@
     "WAHL": [
       {
         "id": "dik_113",
-        "name": "🦄 Nur ein Kandidat auf dem Wahlzettel: du",
+        "name": "Nur ein Kandidat auf dem Wahlzettel: du",
         "tier": "gut",
         "cost": 145000,
         "score": 99,
@@ -1416,7 +1416,7 @@
     "EXIL": [
       {
         "id": "dik_127",
-        "name": "🦄 Privatjet mit vollgetanktem Zweitjet",
+        "name": "Privatjet mit vollgetanktem Zweitjet",
         "tier": "gut",
         "cost": 145000,
         "score": 99,

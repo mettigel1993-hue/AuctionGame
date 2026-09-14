@@ -3,6 +3,7 @@
   "windowTitle": "✈️ Budget Airline Simulator",
   "gameTitle": "Low-Budget Airline",
   "themeIcon": "✈️",
+  "pointsSound": "cabinChime",
   "databaseFile": "db/airline_db.json",
   "colors": {
     "primary": "sky-500",
@@ -173,112 +174,112 @@
     {
       "id": 1,
       "title": "Vergessener Koffer gefunden!",
-      "desc": "Ein Koffer voller Bargeld wird herrenlos am Gate gefunden. Die Airline mit dem wenigsten Budget greift ihn ab.",
+      "desc": "Am Gate 13 steht ein herrenloser Koffer voller Bargeld. {gewinner} ist als Erster da, fragt nicht lange und kassiert {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Prüfung der Luftfahrtbehörde!",
-      "desc": "Wegen extremer Lärmbelästigung muss die momentan reichste Airline ein heftiges Bußgeld zahlen.",
+      "desc": "Extreme Lärmbelästigung über dem Wohngebiet! Die Luftfahrtbehörde nimmt sich die reichste Airline vor: {verlierer} zahlt {betrag} Bußgeld.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Gewerkschafts-Streik!",
-      "desc": "Das Bodenpersonal streikt und verlangt Geld von allen. Die kleinste Airline übernimmt die Streikbrecher und profitiert!",
+      "desc": "Das Bodenpersonal streikt und hält überall die Hand auf. Je {anteil} vom Budget zahlen: {verlierer}. {gewinner} stellt die Streikbrecher und kassiert {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Erhöhte Kerosin-Steuer!",
-      "desc": "Die Regierung schlägt zu. Jede Airline muss pauschal Steuern nachzahlen. Autsch!",
+      "desc": "Die Regierung erhöht die Kerosin-Steuer. Pauschal {betrag} nachzahlen müssen: {alle}. Autsch!",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Staatliche Subventionen!",
-      "desc": "Der Staat fördert den Luftverkehr. Jeder bekommt eine ordentliche Finanzspritze auf das Budget.",
+      "desc": "Der Staat fördert den Luftverkehr: Je {betrag} Finanzspritze für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Sicherheits-Zertifikat bestanden!",
-      "desc": "Airlines, die bisher fair gespielt haben (unbenutzte Joker), erhalten vom TÜV eine dicke Prämie.",
+      "desc": "Der TÜV prüft die Flotten: {betrag} pro unbenutztem Joker. Prämie für: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Zoll-Kontrolle am Gate!",
-      "desc": "Der Zoll überwacht die Terminals. Priority Boarding (Bestechungen) sind vorübergehend komplett gesperrt.",
+      "desc": "Der Zoll überwacht die Terminals, Priority Boarding ist gesperrt. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Radarausfall im Tower!",
-      "desc": "Der Bildschirm ist schwarz! Die nächsten zwei Auktionen finden völlig im Blindflug (verdeckt) statt.",
+      "desc": "Der Radarschirm ist schwarz! Die nächsten {anzahl} Auktionen laufen im Blindflug. Ohne Sicht fliegen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Luftraum-Sperrung!",
-      "desc": "Ein Vulkan ist ausgebrochen. Die massiven Verspätungen am Gate kosten jeden Mogul harte Strafgelder.",
+      "desc": "Ein Vulkan ist ausgebrochen, der Luftraum ist dicht. Verspätungs-Strafgeld je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Versicherungsbetrug!",
-      "desc": "Die letzte Anschaffung geht 'zufällig' kaputt. Die Versicherung zahlt dem Käufer sofort 50% der Kosten zurück!",
+      "desc": "„{karte}“ geht ‚zufällig‘ kaputt. Die Versicherung überweist {gewinner} sofort {betrag} zurück!",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Anti-Monopol-Behörde greift ein!",
-      "desc": "Airlines dürfen sich nicht mehr sabotieren. Flugverbote (Block-Joker) werden ersatzlos gestrichen.",
+      "desc": "Die Anti-Monopol-Behörde greift durch: Keine Flugverbote mehr. {joker}-Joker gestrichen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Rettungsschirme gestrichen!",
-      "desc": "Der Staat hat kein Geld mehr für marode Airlines. Der Cashback-Joker (Schutz) fällt ab sofort aus.",
+      "desc": "Kein Geld mehr für marode Airlines, der Rettungsschirm ist zu. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Verschärfte Gepäckkontrollen!",
-      "desc": "Kofferklau und Schmuggel-Aktionen sind durch das neue Sicherheitspersonal völlig unmöglich geworden.",
+      "desc": "Neues Sicherheitspersonal, Kofferklau ist vorbei. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Ruhiger Reiseflug.",
-      "desc": "Keine Turbulenzen. Die Anschnallzeichen sind erloschen. Ein völlig friedlicher Moment über den Wolken.",
+      "desc": "Keine Turbulenzen, die Anschnallzeichen sind erloschen. {alle} genießen einen friedlichen Moment über den Wolken.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Kaffee-Wunder im Tower!",
-      "desc": "Das Personal ist frisch motiviert und die Piloten sind hellwach! Alle verbrauchten Joker werden sofort regeneriert.",
+      "desc": "Frischer Kaffee im Tower, die Piloten sind hellwach! Joker regeneriert für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Rückruf-Aktion vom Hersteller!",
-      "desc": "Katastrophe! Ein kritisches Bauteil muss weltweit stillgelegt werden. Eine komplette Kategorie verliert all ihre Punkte!",
+      "desc": "Ein kritisches Bauteil muss weltweit stillgelegt werden: „{kategorie}“ ist wertlos. Am Boden bleiben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

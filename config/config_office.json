@@ -3,6 +3,7 @@
   "windowTitle": "👔 Survive the Office – Kampf im Großraumbüro",
   "gameTitle": "Survive the Office",
   "themeIcon": "☕",
+  "pointsSound": "mail",
   "colors": {
     "primary": "blue-500",
     "gradientStart": "blue-600",
@@ -143,112 +144,112 @@
     {
       "id": 1,
       "title": "Fördergelder bewilligt!",
-      "desc": "Das Sozialamt hat Mitleid. Ein Härtefallantrag für die Abteilung wurde ausnahmsweise blitzschnell bewilligt!",
+      "desc": "Das Sozialamt hat Mitleid: Der Härtefallantrag von {gewinner} wird blitzschnell bewilligt – {betrag} Fördergeld!",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Budgetkürzung durch Controlling!",
-      "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Die Controller stehen mit Rotstift vor der Tür!",
+      "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Das Controlling streicht {verlierer} mit dem Rotstift {betrag}.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Sammeln für den runden Geburtstag!",
-      "desc": "Der Kollege wird 50! Es wird rücksichtslos mit dem Hut durch die Reihen gegangen.",
+      "desc": "{gewinner} wird 50! Mit dem Hut durch die Reihen – je {anteil} vom Budget geben: {verlierer}. Im Hut landen {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Pflicht-Softwarelizenzen!",
-      "desc": "Die IT hat auf ein neues Tool umgestellt. Jeder muss die völlig überteuerte Lizenz aus dem eigenen Topf zahlen.",
+      "desc": "Die IT hat ein neues Tool eingeführt. Die völlig überteuerte Lizenz kostet je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Erfolgreiches Quartal!",
-      "desc": "Überraschung! Die Unternehmensziele wurden erreicht. Es gibt einen satten Bonus für das gesamte Team.",
+      "desc": "Die Quartalsziele wurden erreicht! Je {betrag} Bonus für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Prämie für Effizienz!",
-      "desc": "Die Geschäftsführung belohnt alle, die ihre Joker (Ressourcen) gespart haben.",
+      "desc": "Die Geschäftsführung belohnt Effizienz: {betrag} pro gespartem Joker. Prämie für: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Einstellungsstopp!",
-      "desc": "Der Vorstand friert alle Neueinstellungen ein. Der Dienstweg darf auf keinen Fall mehr übersprungen werden.",
+      "desc": "Der Vorstand friert alle Neueinstellungen ein, der Dienstweg gilt wieder. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "SAP-Ausfall!",
-      "desc": "Ein verheerender Software-Absturz. Tickets sind temporär unleserlich und das absolute Chaos regiert.",
+      "desc": "SAP-Absturz! Die nächsten {anzahl} Tickets sind unleserlich und werden verdeckt gezogen. Chaos bei: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Wasserschaden in der Decke!",
-      "desc": "Das Rohr über dem Drucker ist geplatzt. Teure Hardware ist ruiniert und jeder muss sich am Ersatz beteiligen.",
+      "desc": "Das Rohr über dem Drucker ist geplatzt. Am Ersatz beteiligen sich mit je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Rabattaktion beim Lieferanten!",
-      "desc": "Ein aufmerksamer Kollege hat bemerkt, dass wir Mengenrabatt bekommen hätten. Das Geld kommt zurück!",
+      "desc": "Mengenrabatt übersehen! {gewinner} bekommt für „{karte}“ {betrag} vom Lieferanten zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Betriebsrat greift ein!",
-      "desc": "Die Gewerkschaft beschwert sich über zu viele Sinnlos-Meetings. Ab sofort sind Blockaden verboten!",
+      "desc": "Der Betriebsrat beschwert sich über Sinnlos-Meetings. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Spesenkonto gesperrt!",
-      "desc": "Das Management hat das Budget für Überstunden und Spesen komplett gestrichen. Es gibt nichts mehr zurück.",
+      "desc": "Spesenkonto gesperrt, Überstunden werden nicht mehr bezahlt. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Prozesse eingefroren!",
-      "desc": "Alle Werkstudenten haben Urlaub oder Klausurenphase. Niemand kann mehr Aufgaben abwälzen!",
+      "desc": "Alle Werkstudenten sind in der Klausurenphase – nichts lässt sich mehr abwälzen. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Teams-Server down!",
-      "desc": "Niemand kann chatten oder Meetings abhalten. Der gesamte Konzern atmet für 30 Minuten kollektiv durch.",
+      "desc": "Teams ist down! {alle} atmen 30 Minuten kollektiv durch.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Legendäre Weihnachtsfeier!",
-      "desc": "Ein absolutes Wunder! Bei Glühwein auf Firmenkosten begraben alle das Kriegsbeil. Das Teamgefüge ist repariert!",
+      "desc": "Glühwein auf Firmenkosten! Das Kriegsbeil ist begraben – Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "CEO-Wechsel!",
-      "desc": "Die gesamte Firmenstrategie ändert sich radikal. Alles bisher Erreichte steht plötzlich auf dem Prüfstand!",
+      "desc": "CEO-Wechsel! „{kategorie}“ passt nicht mehr zur neuen Strategie und ist wertlos. Umsonst geackert haben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

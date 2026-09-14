@@ -3,6 +3,7 @@
   "windowTitle": "🕹️ Core Memories – Das Retro-Quartett",
   "gameTitle": "Core Memories",
   "themeIcon": "💾",
+  "pointsSound": "coin8bit",
   "colors": {
     "primary": "fuchsia-600",
     "gradientStart": "fuchsia-600",
@@ -138,112 +139,112 @@
     {
       "id": 1,
       "title": "Weihnachtsgeld von Oma!",
-      "desc": "Oma drückt dir beim Abschied heimlich einen Schein in die Hand.",
+      "desc": "Oma drückt {gewinner} beim Abschied heimlich einen Schein in die Hand: {betrag}!",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Gameboy ins Klo gefallen!",
-      "desc": "Eine absolute Tragödie. Dein Erspartes geht für einen neuen drauf.",
+      "desc": "Absolute Tragödie: Der Gameboy von {verlierer} ist ins Klo gefallen. Ein neuer kostet {betrag} vom Ersparten.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Sammeln für den Super Nintendo!",
-      "desc": "Ihr legt alle zusammen, um euch das geilste Spiel der Welt zu kaufen.",
+      "desc": "{gewinner} wünscht sich den Super Nintendo! Alle legen zusammen – je {anteil} geben: {verlierer}. Zusammen kommen {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Jamba Abo-Falle!",
-      "desc": "Du wolltest nur den Klingelton. Jetzt ziehen sie dir jede Woche Geld ab.",
+      "desc": "Jamba-Abo-Falle! Für den Klingelton werden je {betrag} abgebucht bei: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Ein gutes Zeugnis!",
-      "desc": "Nur Einsen und Zweien! Die Eltern sind stolz und das Sparschwein füllt sich.",
+      "desc": "Nur Einsen und Zweien! Je {betrag} ins Sparschwein für: {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Die Zahnfee war da!",
-      "desc": "Wer Spezialfähigkeiten aufspart, wird belohnt. Ein Geldstück unterm Kissen!",
+      "desc": "Die Zahnfee war da: {betrag} pro aufgesparter Spezialfähigkeit. Geld unterm Kissen: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Verbot für Quengler!",
-      "desc": "Im Supermarkt weinen zieht nicht mehr. Das wird verboten.",
+      "desc": "Quengeln im Supermarkt zieht nicht mehr. {joker}-Joker verboten für: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Stromausfall beim Sandmännchen!",
-      "desc": "Plötzlich ist alles dunkel. Man sieht nicht, was als nächstes passiert. Es wird blind gekauft!",
+      "desc": "Stromausfall beim Sandmännchen! Die nächsten {anzahl} Karten werden blind gekauft. Im Dunkeln sitzen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Fensterscheibe eingeschossen!",
-      "desc": "Mit dem Ball direkt in Nachbars Fenster. Das Taschengeld ist weg.",
+      "desc": "Der Ball fliegt direkt in Nachbars Fenster. Je {betrag} Taschengeld weg bei: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Pfandflaschen-Goldgrube!",
-      "desc": "Ein unfassbarer Gewinn!",
+      "desc": "Pfandflaschen-Goldgrube! {gewinner} bekommt für „{karte}“ {betrag} zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Die große Versöhnung!",
-      "desc": "Alle vertragen sich wieder im Sandkasten. Niemand bekommt mehr Hausarrest.",
+      "desc": "Alle vertragen sich wieder im Sandkasten. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Spardose ist leer!",
-      "desc": "Es gibt kein Cashback mehr für niemanden.",
+      "desc": "Die Spardose ist leer. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Tauschbörse geschlossen!",
-      "desc": "Alle Karten auf dem Schulhof wurden konfisziert.",
+      "desc": "Alle Tauschkarten auf dem Schulhof wurden konfisziert! {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Ferienbeginn!",
-      "desc": "Schulfrei! Keine negativen Effekte, einfach nur Vibes.",
+      "desc": "Ferienbeginn! {alle} haben schulfrei. Keine negativen Effekte, einfach nur Vibes.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Ein neuer Buntstiftkasten!",
-      "desc": "Die Motivation ist riesig, alles ist wieder möglich! Joker wieder da.",
+      "desc": "Ein neuer Buntstiftkasten – alles ist wieder möglich! Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Ein neuer Trend kommt auf!",
-      "desc": "Alles, was ihr davor gesammelt habt, ist peinlich!",
+      "desc": "Ein neuer Trend! „{kategorie}“ ist ab sofort peinlich und wertlos. Blamiert sind: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

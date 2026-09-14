@@ -3,6 +3,7 @@
   "windowTitle": "🚔 Ausbruch aus Wehlheiden",
   "gameTitle": "Ausbruch aus Wehlheiden",
   "themeIcon": "🚨",
+  "pointsSound": "keysAndGate",
   "colors": {
     "primary": "orange-500",
     "gradientStart": "orange-600",
@@ -133,112 +134,112 @@
     {
       "id": 1,
       "title": "Care-Paket vom Roten Kreuz!",
-      "desc": "Ein anonymes Care-Paket wurde abgegeben. Der ärmste Schlucker im Block freut sich.",
+      "desc": "Ein anonymes Care-Paket vom Roten Kreuz! Der ärmste Schlucker im Block, {gewinner}, freut sich über {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Unerwartete Zellen-Razzia!",
-      "desc": "Die Schließer durchsuchen die Zellen der Reichsten. Wer protzt, verliert!",
+      "desc": "Zellen-Razzia! Die Schließer finden das Versteck von {verlierer} und konfiszieren {betrag}.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Soli-Beitrag für den Schließer!",
-      "desc": "Der Wärter hat Geburtstag. Die Gangs treiben für ihn Zigaretten ein – einer profitiert.",
+      "desc": "Der Wärter hat Geburtstag, die Gangs treiben ein: je {anteil} von {verlierer}. Die Übergabe erledigt {gewinner} – und behält {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Zigaretten-Steuer der Gangs!",
-      "desc": "Die Syndikate erheben eine pauschale Steuer auf alle Insassen. Keiner kommt drumherum.",
+      "desc": "Die Syndikate erheben Zigaretten-Steuer: je {betrag} von {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Fehlkalkulation in der Kantine!",
-      "desc": "Überraschung! Es gibt extra Portionen, die auf dem Schwarzmarkt für viel Geld weggehen.",
+      "desc": "Fehlkalkulation in der Kantine! Extra-Portionen bringen auf dem Schwarzmarkt je {betrag} für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Belohnung für gutes Betragen!",
-      "desc": "Der Direktor belohnt alle, die nicht auffällig geworden sind (Joker gespart haben).",
+      "desc": "Belohnung für gutes Betragen: {betrag} pro gespartem Joker. Belohnt: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Besuchersperre!",
-      "desc": "Sämtliche Kontakte nach draußen sind gekappt. Es können keine Deals mehr erzwungen werden.",
+      "desc": "Besuchersperre, alle Kontakte nach draußen sind gekappt. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Stromausfall im Trakt!",
-      "desc": "Absolutes Chaos im Zellenblock. Die nächsten Schmuggel-Aktionen laufen komplett im Dunkeln ab.",
+      "desc": "Stromausfall im Trakt! Die nächsten {anzahl} Schmuggel-Aktionen laufen im Dunkeln. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Hof-Schlägerei!",
-      "desc": "Großes Chaos auf dem Hof. Die Wachen konfiszieren zur Strafe Zigaretten von jedem.",
+      "desc": "Schlägerei auf dem Hof! Die Wachen konfiszieren je {betrag} von {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Mengenrabatt beim Schieber!",
-      "desc": "Der letzte Käufer hat einen guten Deal ausgehandelt. Die halbe Zahlung kommt zurück!",
+      "desc": "Guter Deal beim Schieber: {gewinner} bekommt für „{karte}“ {betrag} zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Strengere Hofgang-Regeln!",
-      "desc": "Die Wärter passen genauer auf. Niemand kann mehr Mitinsassen in die Isolationshaft tricksen.",
+      "desc": "Strengere Hofgang-Regeln, niemand trickst mehr jemanden in die Isolationshaft. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Schutzgeld-Razzia!",
-      "desc": "Die Wärter haben die Verstecke für das Schutzgeld gefunden. Nichts gibt's mehr zurück.",
+      "desc": "Die Verstecke für das Schutzgeld sind aufgeflogen. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Hofgang komplett gestrichen!",
-      "desc": "Aufgrund von Unruhen bleiben alle in den Zellen. Tauschen und Schmuggeln unmöglich!",
+      "desc": "Hofgang gestrichen, alle bleiben in den Zellen. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Gefängnischor-Auftritt!",
-      "desc": "Alle lauschen friedlich dem Gesang. Absolute Ruhe. Keine besonderen Vorkommnisse.",
+      "desc": "Der Gefängnischor singt. {alle} lauschen friedlich. Keine besonderen Vorkommnisse.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Allgemeine Amnestie!",
-      "desc": "Feiertag! Die Insassen vergeben einander, die Wärter drücken ein Auge zu. Ein Wunder!",
+      "desc": "Allgemeine Amnestie! Die Wärter drücken ein Auge zu – Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Neuer Gefängnisdirektor!",
-      "desc": "Die Leitung wechselt. Alle Privilegien eines bestimmten Bereichs werden radikal gestrichen!",
+      "desc": "Neuer Direktor! Alle Privilegien im Bereich „{kategorie}“ werden gestrichen. Verloren haben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

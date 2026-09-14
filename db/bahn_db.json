@@ -3,7 +3,7 @@
     "ZUG": [
       {
         "id": "zug_1",
-        "name": "🦄 ICE 3neo, frisch aus der Werkstatt",
+        "name": "ICE 3neo, frisch aus der Werkstatt",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -15,7 +15,7 @@
       },
       {
         "id": "zug_2",
-        "name": "🦄 Nightjet-Schlafwagen, eigenes Abteil",
+        "name": "Nightjet-Schlafwagen, eigenes Abteil",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -216,7 +216,7 @@
     "VERSPAETUNG": [
       {
         "id": "versp_1",
-        "name": "🦄 Pünktlich auf die Minute",
+        "name": "Pünktlich auf die Minute",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -228,7 +228,7 @@
       },
       {
         "id": "versp_2",
-        "name": "🦄 Zwei Minuten zu früh",
+        "name": "Zwei Minuten zu früh",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -429,7 +429,7 @@
     "SITZPLATZ": [
       {
         "id": "sitz_1",
-        "name": "🦄 Reserviertes Einzelabteil, 1. Klasse",
+        "name": "Reserviertes Einzelabteil, 1. Klasse",
         "tier": "gut",
         "cost": 115000,
         "score": 99,
@@ -441,7 +441,7 @@
       },
       {
         "id": "sitz_2",
-        "name": "🦄 Fensterplatz mit Tisch und Steckdose",
+        "name": "Fensterplatz mit Tisch und Steckdose",
         "tier": "gut",
         "cost": 115000,
         "score": 98,
@@ -642,7 +642,7 @@
     "MITREISENDE": [
       {
         "id": "mitr_1",
-        "name": "🦄 Der Sitznachbar, der gar nicht existiert",
+        "name": "Der Sitznachbar, der gar nicht existiert",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -654,7 +654,7 @@
       },
       {
         "id": "mitr_2",
-        "name": "🦄 Die nette Oma mit selbstgebackenen Keksen",
+        "name": "Die nette Oma mit selbstgebackenen Keksen",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -855,7 +855,7 @@
     "BISTRO": [
       {
         "id": "bist_1",
-        "name": "🦄 Bordbistro voll bestückt, alles verfügbar",
+        "name": "Bordbistro voll bestückt, alles verfügbar",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -867,7 +867,7 @@
       },
       {
         "id": "bist_2",
-        "name": "🦄 Frischer Kaffee, am Platz serviert",
+        "name": "Frischer Kaffee, am Platz serviert",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -1068,7 +1068,7 @@
     "PERSONAL": [
       {
         "id": "pers_1",
-        "name": "🦄 Zugbegleiter mit Humor und Überblick",
+        "name": "Zugbegleiter mit Humor und Überblick",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1080,7 +1080,7 @@
       },
       {
         "id": "pers_2",
-        "name": "🦄 Schaffner drückt bei falschem Ticket ein Auge zu",
+        "name": "Schaffner drückt bei falschem Ticket ein Auge zu",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -1281,7 +1281,7 @@
     "DURCHSAGE": [
       {
         "id": "durch_1",
-        "name": "🦄 Pünktliche Ankunft, Gleis wie geplant",
+        "name": "Pünktliche Ankunft, Gleis wie geplant",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1293,7 +1293,7 @@
       },
       {
         "id": "durch_2",
-        "name": "🦄 Klare Ansage mit allen Anschlüssen",
+        "name": "Klare Ansage mit allen Anschlüssen",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -1494,7 +1494,7 @@
     "STRECKE": [
       {
         "id": "strk_1",
-        "name": "🦄 Freie Fahrt auf der Schnellfahrstrecke",
+        "name": "Freie Fahrt auf der Schnellfahrstrecke",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1506,7 +1506,7 @@
       },
       {
         "id": "strk_2",
-        "name": "🦄 Neu ausgebaute Strecke, alles fertig",
+        "name": "Neu ausgebaute Strecke, alles fertig",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -1707,7 +1707,7 @@
     "GEBUEHR": [
       {
         "id": "geb_1",
-        "name": "🦄 Sparpreis inklusive Sitzplatz und City-Ticket",
+        "name": "Sparpreis inklusive Sitzplatz und City-Ticket",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1719,7 +1719,7 @@
       },
       {
         "id": "geb_2",
-        "name": "🦄 Kostenlose Umbuchung ohne Nachfragen",
+        "name": "Kostenlose Umbuchung ohne Nachfragen",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -1920,7 +1920,7 @@
     "ZWISCHENFALL": [
       {
         "id": "zwi_1",
-        "name": "🦄 Die komplette Fahrt verläuft ereignislos",
+        "name": "Die komplette Fahrt verläuft ereignislos",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1932,7 +1932,7 @@
       },
       {
         "id": "zwi_2",
-        "name": "🦄 Spontaner Applaus bei pünktlicher Ankunft",
+        "name": "Spontaner Applaus bei pünktlicher Ankunft",
         "tier": "gut",
         "cost": 120000,
         "score": 98,

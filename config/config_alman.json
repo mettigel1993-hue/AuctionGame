@@ -3,6 +3,7 @@
   "windowTitle": "🌻 Alman Eskalation – Kampf am Gartenzaun",
   "gameTitle": "Alman Eskalation",
   "themeIcon": "🌻",
+  "pointsSound": "stamp",
   "colors": {
     "primary": "green-500",
     "gradientStart": "green-500",
@@ -138,112 +139,112 @@
     {
       "id": 1,
       "title": "Staatliche Prozesskostenhilfe",
-      "desc": "Das Sozialamt hat Mitleid mit der desolaten juristischen Lage. Ein Härtefallantrag wurde ausnahmsweise blitzschnell bewilligt!",
+      "desc": "Das Sozialamt hat Mitleid mit der desolaten juristischen Lage von {gewinner}. Der Härtefallantrag wird blitzschnell bewilligt: {betrag} Prozesskostenhilfe!",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Sonderprüfung des Finanzamts",
-      "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Die Steuerfahndung steht mit durchgeladenen Aktenordnern vor der Tür!",
+      "desc": "Wer so offensiv mit Geld um sich wirft, zieht Blicke auf sich. Die Steuerfahndung klingelt bei {verlierer} und nimmt {betrag} mit.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Tombola für den guten Zweck",
-      "desc": "Das Straßenfest zwingt zur Solidarität. Es werden Lose gekauft und der Erlös geht komplett an den Verlierer der Straße.",
+      "desc": "Tombola beim Straßenfest! Lose kaufen müssen je {anteil} vom Budget: {verlierer}. Der Erlös von {betrag} geht an den Verlierer der Straße: {gewinner}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Anliegergebühr für Glasfaser",
-      "desc": "Die Straße wird aufgerissen, um schnelles Internet in die Vorstadt zu bringen. Die Gemeinde reicht die Rechnung direkt an alle Anlieger weiter.",
+      "desc": "Die Straße wird für Glasfaser aufgerissen. Die Gemeinde reicht die Rechnung weiter: {betrag} Anliegergebühr für {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Unerwartete Steuerrückerstattung",
-      "desc": "Ein seltener Fehler beim Finanzamt zu euren Gunsten! Die Lohnsteuer-Jahresausgleiche waren fehlerhaft, das Geld ist da.",
+      "desc": "Ein seltener Fehler beim Finanzamt zu euren Gunsten! Je {betrag} Steuerrückerstattung für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Prämie für Zurückhaltung",
-      "desc": "Die Schiedsstelle belohnt alle Bürger, die nicht wegen jeder Kleinigkeit sofort eskalieren. Friedliches Miteinander zahlt sich aus!",
+      "desc": "Die Schiedsstelle belohnt Zurückhaltung: {betrag} pro nicht eingesetztem Joker. Belohnt: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Betriebsausflug des Amtsgerichts",
-      "desc": "Die Beamten machen einen dreiwöchigen Betriebsausflug in den Harz. Wer zu lange gewartet hat, hat Pech gehabt.",
+      "desc": "Das Amtsgericht macht drei Wochen Betriebsausflug in den Harz. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Fataler SAP-Fehler",
-      "desc": "Ein verheerender Software-Absturz im Rathaus! Akten sind temporär unauffindbar und das absolute Chaos regiert.",
+      "desc": "SAP-Absturz im Rathaus! Die nächsten {anzahl} Akten sind unauffindbar und werden verdeckt gezogen. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Ornithologen-Invasion",
-      "desc": "Ein entflogener Ara sitzt auf eurem Zaun. Ein wilder Mob aus Vogelbeobachtern trampelt rücksichtslos eure englischen Rasen platt.",
+      "desc": "Ein entflogener Ara sitzt auf dem Zaun, Vogelbeobachter trampeln die Rasen platt. Nachsaat kostet je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Baumarkt-Preisgarantie",
-      "desc": "Nachträglicher Kassenzettel-Check! Ein aufmerksamer Sheriff hat bemerkt, dass der Baumarkt im Nachbardorf deutlich billiger war.",
+      "desc": "Kassenzettel-Check! {gewinner} hat bemerkt, dass „{karte}“ im Nachbardorf billiger war. Die Preisgarantie erstattet {betrag}.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Streik beim Ordnungsamt",
-      "desc": "Die Beamten legen heute die Arbeit nieder. Niemand nimmt mehr Beschwerden oder Ruhestörungen an!",
+      "desc": "Streik beim Ordnungsamt, niemand nimmt Ruhestörungen an. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Insolvenz der Versicherung",
-      "desc": "Eure Sammel-Rechtsschutzversicherung ist pleite gegangen. Es gibt von nun an keinen einzigen Cent mehr vom Gericht zurück.",
+      "desc": "Die Sammel-Rechtsschutzversicherung ist pleite. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Der Filialleiter streikt",
-      "desc": "Der örtliche Händler hat die Rückgaberichtlinien massiv verschärft. Gekauft ist gekauft!",
+      "desc": "Der Filialleiter hat die Rückgaberegeln verschärft: Gekauft ist gekauft! {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Löschung der WhatsApp-Gruppe",
-      "desc": "Der Admin hat die Gruppe nach einem eskalierten Streit gelöscht. Keine Kommunikation mehr möglich.",
+      "desc": "Der Admin hat die WhatsApp-Gruppe gelöscht. {alle} schweigen sich über den Zaun an – ausnahmsweise passiert nichts.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Versöhnungsfest",
-      "desc": "Ein absolutes Wunder! Bei Bier und Bratwurst begraben alle das Kriegsbeil. Eine Amnestie für alle!",
+      "desc": "Bei Bier und Bratwurst wird das Kriegsbeil begraben. Amnestie! Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Bürokratischer Formfehler",
-      "desc": "Ein Stempel wurde vergessen! Alle Beweise und Klagen einer voll eskalierten Kategorie sind plötzlich absolut wertlos.",
+      "desc": "Ein Stempel fehlt! Alle Beweise der Kategorie „{kategorie}“ sind wertlos. Das trifft: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

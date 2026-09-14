@@ -3,6 +3,7 @@
   "windowTitle": "🪂 Warzone Legenden – Bau dir den perfekten Drop",
   "gameTitle": "Warzone Legenden",
   "themeIcon": "🪂",
+  "pointsSound": "shots",
   "colors": {
     "primary": "lime-400",
     "gradientStart": "lime-400",
@@ -148,112 +149,112 @@
     {
       "id": 1,
       "title": "Fetter Loot aus der Bunker-Kiste!",
-      "desc": "Ein rotes Loot-Crate direkt vor der Nase des Squads mit dem kleinsten Konto. Manchmal ist das Spiel doch fair.",
+      "desc": "Ein rotes Loot-Crate direkt vor der Nase des Squads mit dem kleinsten Konto: {gewinner} looted {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Der Squad-Leader wird gewipet!",
-      "desc": "Wer am dicksten auffährt, wird zuerst gethirdpartyt. Der Reiche verliert einen ordentlichen Batzen Cash.",
+      "desc": "Wer am dicksten auffährt, wird zuerst gethirdpartyt: {verlierer} wird gewipet und verliert {betrag}.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Cash-Drop über der Zone!",
-      "desc": "Die Kiste platzt in der Luft und das Geld verteilt sich. Wer viel hat, gibt ab – der Ärmste sammelt auf.",
+      "desc": "Die Cash-Kiste platzt in der Luft! Je {anteil} verlieren: {verlierer}. {gewinner} sammelt {betrag} auf.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Alle holen ihr Loadout!",
-      "desc": "Die Kaufstationen sind überfüllt, die Preise absurd. Jeder Operator zahlt für seine Klasse.",
+      "desc": "Die Kaufstationen sind überfüllt, die Preise absurd. Jedes Loadout kostet {betrag}: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Supply-Run-Contract abgeschlossen!",
-      "desc": "Der ganze Server profitiert von den Rabatten. Für alle gibt's Cash zurück auf die Hand.",
+      "desc": "Supply-Run-Contract abgeschlossen! Je {betrag} Cash zurück für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Most-Wanted-Kopfgeld ausgezahlt!",
-      "desc": "Wer seine Joker nicht verheizt hat, kassiert die dicke Prämie. Geduld zahlt sich aus.",
+      "desc": "Most-Wanted-Kopfgeld: {betrag} pro nicht verheiztem Joker. Kassieren: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Alle Kaufstationen zerstört!",
-      "desc": "Ein Airstrike hat sämtliche Buy-Stations plattgemacht. Niemand kann mehr etwas erzwingen!",
+      "desc": "Ein Airstrike hat alle Buy-Stations plattgemacht. {joker}-Joker zerstört bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "EMP-Angriff – HUD ausgefallen!",
-      "desc": "Kein Minimap, kein Interface, kein Plan. Die nächsten Drops werden komplett blind gezogen.",
+      "desc": "EMP-Angriff, HUD ausgefallen! Die nächsten {anzahl} Drops werden blind gezogen. Ohne Minimap: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Das ganze Team muss rebuyt werden!",
-      "desc": "Drei Mann liegen im Dreck, die Rebuy-Station läuft heiß. Jeder zahlt kräftig drauf.",
+      "desc": "Das ganze Team liegt im Dreck, die Rebuy-Station läuft heiß. Rebuy je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Kaufstations-Bug – Cash zurück!",
-      "desc": "Der letzte Kauf wurde nie registriert. Die Hälfte landet wieder auf dem Konto.",
+      "desc": "Kaufstations-Bug! „{karte}“ wurde nie registriert: {gewinner} bekommt {betrag} zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Alle Jammer offline!",
-      "desc": "Ein Patch hat die Störsender gefixt. Niemand kann mehr einen Mitspieler ausschalten.",
+      "desc": "Ein Patch hat die Störsender gefixt. {joker}-Joker offline bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Contracts aus der Rotation genommen!",
-      "desc": "Raven hat die Verträge über Nacht entfernt. Kein Cashback mehr für niemanden!",
+      "desc": "Raven hat die Contracts über Nacht entfernt. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Loadout-Drops gestrichen!",
-      "desc": "Die roten Rauchsäulen bleiben aus. Niemand kann mehr Karten umtauschen.",
+      "desc": "Die roten Rauchsäulen bleiben aus. {joker}-Joker gestrichen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Verdächtig ruhige Zone.",
-      "desc": "Kein Schuss, kein Fahrzeug, kein Ping. Entweder sind alle tot oder alle campen.",
+      "desc": "Kein Schuss, kein Fahrzeug, kein Ping. {alle} campen verdächtig ruhig.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Neues Match, neues Glück!",
-      "desc": "Die Lobby wird neu gefüllt und alle starten frisch. Sämtliche Joker sind wiederhergestellt!",
+      "desc": "Neues Match, neues Glück! Joker wiederhergestellt für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Das Gas frisst eine ganze Zone!",
-      "desc": "Ein kompletter Kartenabschnitt verschwindet im grünen Nebel. Eine Kategorie ist damit wertlos!",
+      "desc": "Das Gas frisst die Zone „{kategorie}“! Die Kategorie ist wertlos. Im Gas stehen: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

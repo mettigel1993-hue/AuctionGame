@@ -3,6 +3,7 @@
   "windowTitle": "🚆 Sehr geehrte Fahrgäste – Wir bitten um Verständnis",
   "gameTitle": "Sehr geehrte Fahrgäste",
   "themeIcon": "🚆",
+  "pointsSound": "chime",
   "colors": {
     "primary": "red-600",
     "gradientStart": "red-600",
@@ -148,112 +149,112 @@
     {
       "id": 1,
       "title": "Entschädigung ausgezahlt!",
-      "desc": "Die Verspätung lag über 60 Minuten. Wer am wenigsten in der Reisekasse hat, bekommt am meisten zurück.",
+      "desc": "Über 60 Minuten Verspätung! {gewinner} hat die leerste Reisekasse und bekommt die volle Entschädigung von {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Erhöhtes Beförderungsentgelt!",
-      "desc": "Der Kontrolleur greift sich ausgerechnet den, der am dicksten aufgetragen hat.",
+      "desc": "Der Kontrolleur greift sich ausgerechnet den, der am dicksten aufträgt: {verlierer} zahlt {betrag} erhöhtes Beförderungsentgelt.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Sammelbestellung im Großraumwagen!",
-      "desc": "Alle legen für die Bistro-Runde zusammen. Wer viel hat, gibt viel – der Ärmste im Abteil profitiert.",
+      "desc": "Sammelbestellung fürs Bistro! Je {anteil} der Reisekasse legen dazu: {verlierer}. Die ganze Runde für {betrag} geht an {gewinner}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Streik bei der GDL!",
-      "desc": "Notfahrplan. Jeder muss teuer umbuchen, niemand kommt ungeschoren davon.",
+      "desc": "Streik bei der GDL, Notfahrplan! Teures Umbuchen kostet je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Kulanz der Reisezentrale!",
-      "desc": "Ein historischer Moment: Die Bahn zeigt sich großzügig. Alle bekommen etwas zurück.",
+      "desc": "Historischer Moment: Die Reisezentrale zeigt Kulanz. Je {betrag} zurück für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Prämie für Geduld!",
-      "desc": "Wer seine Sonderrechte nicht genutzt hat, wird für vorbildliches Stillhalten belohnt.",
+      "desc": "Prämie für Geduld: {betrag} pro nicht genutztem Sonderrecht. Belohnt: {gewinner}. Leer aus gehen: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Reservierungssystem ausgefallen!",
-      "desc": "Der Server im Reisezentrum ist abgeraucht. Niemand kann mehr einen Platz reservieren.",
+      "desc": "Der Reservierungsserver im Reisezentrum ist abgeraucht. {joker}-Joker ungültig bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Anzeigetafel defekt!",
-      "desc": "Kein Gleis, keine Uhrzeit, keine Information. Die nächsten Objekte werden VERDECKT gezogen.",
+      "desc": "Anzeigetafel defekt – kein Gleis, keine Uhrzeit. Die nächsten {anzahl} Objekte werden verdeckt gezogen. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Nachlösegebühr im Zug!",
-      "desc": "Wer erst im Zug löst, zahlt kräftig drauf. Und heute löst jeder erst im Zug.",
+      "desc": "Heute löst jeder erst im Zug. Nachlösegebühr je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Fahrgastrechte-Formular bewilligt!",
-      "desc": "Nach elf Wochen Bearbeitungszeit kommt tatsächlich Geld zurück. Die letzte Buchung wird erstattet.",
+      "desc": "Nach elf Wochen Bearbeitungszeit: {gewinner} bekommt für „{karte}“ tatsächlich {betrag} erstattet.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Kontrolleure im Ausstand!",
-      "desc": "Heute prüft niemand die Fahrscheine. Keine Kontrollen mehr möglich!",
+      "desc": "Die Kontrolleure sind im Ausstand. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Entschädigungstopf ist leer!",
-      "desc": "Das Budget für Fahrgastrechte wurde vollständig aufgebraucht. Kein Geld mehr zurück. Für niemanden.",
+      "desc": "Der Entschädigungstopf ist leer. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Umbuchungsfrist abgelaufen!",
-      "desc": "Der Sparpreis ist zuggebunden. Gebucht ist gebucht! Kein Umbuchen mehr möglich.",
+      "desc": "Der Sparpreis ist zuggebunden – gebucht ist gebucht! {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Ruhe im Ruheabteil!",
-      "desc": "Tatsächlich einmal Stille. Niemand telefoniert, niemand hört Musik ohne Kopfhörer. Ein kurzes, seltenes Wunder.",
+      "desc": "Ruhe im Ruheabteil! {alle} sitzen still, niemand telefoniert. Ein kurzes, seltenes Wunder.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Großer Fahrplanwechsel!",
-      "desc": "Alles auf Anfang. Neue Nummern, neue Gleise, neue Hoffnung – alle Joker wiederhergestellt!",
+      "desc": "Großer Fahrplanwechsel – alles auf Anfang! Joker wiederhergestellt für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Dieser Zug endet hier vorzeitig!",
-      "desc": "Bitte alle aussteigen. Eine komplette Kategorie wird gestrichen und bringt ab sofort 0 Punkte!",
+      "desc": "Dieser Zug endet hier! „{kategorie}“ wird gestrichen und bringt 0 Punkte. Aussteigen müssen: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

@@ -36,7 +36,7 @@
       },
       {
         "id": "item_4",
-        "name": "🦄 Die militante Rentner-Gang",
+        "name": "Die militante Rentner-Gang",
         "tier": "gut",
         "cost": 100000,
         "score": 98,
@@ -92,7 +92,7 @@
       },
       {
         "id": "item_9",
-        "name": "🦄 Die perfektionistische Vorzeige-Familie",
+        "name": "Die perfektionistische Vorzeige-Familie",
         "tier": "gut",
         "cost": 100000,
         "score": 99,
@@ -535,7 +535,7 @@
       },
       {
         "id": "item_53",
-        "name": "🦄 Dauer-Kameraüberwachung",
+        "name": "Dauer-Kameraüberwachung",
         "tier": "gut",
         "cost": 140000,
         "score": 99,
@@ -547,7 +547,7 @@
       },
       {
         "id": "item_54",
-        "name": "🦄 Verweigerung der Räumpflicht",
+        "name": "Verweigerung der Räumpflicht",
         "tier": "gut",
         "cost": 140000,
         "score": 98,
@@ -968,7 +968,7 @@
       },
       {
         "id": "item_94",
-        "name": "🦄 Bewegungsmelder-Strahler (50.000 Lumen)",
+        "name": "Bewegungsmelder-Strahler (50.000 Lumen)",
         "tier": "gut",
         "cost": 95000,
         "score": 98,
@@ -1046,7 +1046,7 @@
       },
       {
         "id": "item_101",
-        "name": "🦄 Polizeiliches Absperrband",
+        "name": "Polizeiliches Absperrband",
         "tier": "gut",
         "cost": 95000,
         "score": 99,
@@ -1478,7 +1478,7 @@
       },
       {
         "id": "item_140",
-        "name": "🦄 Profi-Kettensäge",
+        "name": "Profi-Kettensäge",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -1567,7 +1567,7 @@
       },
       {
         "id": "item_148",
-        "name": "🦄 Chemie-Unkrautvernichter (Verboten)",
+        "name": "Chemie-Unkrautvernichter (Verboten)",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -1988,7 +1988,7 @@
       },
       {
         "id": "item_186",
-        "name": "🦄 Das Auto 1cm vor seine Einfahrt stellen",
+        "name": "Das Auto 1cm vor seine Einfahrt stellen",
         "tier": "gut",
         "cost": 95000,
         "score": 99,
@@ -2132,7 +2132,7 @@
       },
       {
         "id": "item_199",
-        "name": "🦄 Die Ex-Frau zum Kaffee einladen",
+        "name": "Die Ex-Frau zum Kaffee einladen",
         "tier": "gut",
         "cost": 95000,
         "score": 98,
@@ -2443,7 +2443,7 @@
     "BUREAUCRACY": [
       {
         "id": "item_227",
-        "name": "🦄 Räumungsklage",
+        "name": "Räumungsklage",
         "tier": "gut",
         "cost": 85000,
         "score": 99,
@@ -2466,7 +2466,7 @@
       },
       {
         "id": "item_229",
-        "name": "🦄 Ordnungsamt-Razzia",
+        "name": "Ordnungsamt-Razzia",
         "tier": "gut",
         "cost": 85000,
         "score": 98,
@@ -3052,7 +3052,7 @@
       },
       {
         "id": "item_282",
-        "name": "🦄 Farbbombe auf den weißen Putz",
+        "name": "Farbbombe auf den weißen Putz",
         "tier": "gut",
         "cost": 85000,
         "score": 99,
@@ -3086,7 +3086,7 @@
       },
       {
         "id": "item_285",
-        "name": "🦄 Drohnen-Angriff auf den Schornstein",
+        "name": "Drohnen-Angriff auf den Schornstein",
         "tier": "gut",
         "cost": 85000,
         "score": 98,
@@ -3452,7 +3452,7 @@
       },
       {
         "id": "item_318",
-        "name": "🦄 Insolvenz-Verschleppung",
+        "name": "Insolvenz-Verschleppung",
         "tier": "gut",
         "cost": 125000,
         "score": 98,
@@ -3486,7 +3486,7 @@
       },
       {
         "id": "item_321",
-        "name": "🦄 Affäre mit der Bürgermeisterin",
+        "name": "Affäre mit der Bürgermeisterin",
         "tier": "gut",
         "cost": 125000,
         "score": 99,

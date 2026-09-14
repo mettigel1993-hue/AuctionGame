@@ -3,6 +3,7 @@
   "windowTitle": "🎮 Die Noob-Lobby – Ranked Nightmare",
   "gameTitle": "Die Noob-Lobby",
   "themeIcon": "🎮",
+  "pointsSound": "levelUp",
   "colors": {
     "primary": "amber-500",
     "gradientStart": "amber-500",
@@ -148,112 +149,112 @@
     {
       "id": 1,
       "title": "Care-Package für den Underdog!",
-      "desc": "Der Server wirft dem ärmsten Rekruten einen fetten Loot-Drop zu.",
+      "desc": "Care-Package für den Underdog! Der Server wirft {gewinner} einen Loot-Drop über {betrag} zu.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "VAC-Ban für den Reichsten!",
-      "desc": "Anti-Cheat schlägt zu! Der Rekrut mit den meisten Credits verliert einen Teil.",
+      "desc": "Anti-Cheat schlägt zu! {verlierer} hat die meisten Credits und verliert {betrag}.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Robin-Hood-Hack!",
-      "desc": "Ein Hacker verteilt Credits um – von reich zu arm.",
+      "desc": "Robin-Hood-Hack! Je {anteil} abgezogen bei: {verlierer}. {gewinner} sammelt {betrag} ein.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Server-Wartungsgebühr!",
-      "desc": "Valve kassiert unerwartet Serverkosten. Jeder zahlt.",
+      "desc": "Valve kassiert unerwartet Serverkosten: je {betrag} von {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Double-XP-Weekend!",
-      "desc": "Bonus-Event! Alle bekommen Extra-Credits geschenkt.",
+      "desc": "Double-XP-Weekend! Je {betrag} Extra-Credits für {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Achievement Unlocked: Joker-Sparer!",
-      "desc": "Wer seine Joker gespart hat, bekommt eine Belohnung.",
+      "desc": "Achievement unlocked: Joker-Sparer! {betrag} pro gespartem Joker für: {gewinner}. Kein Achievement: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Auto-Buy wurde deaktiviert!",
-      "desc": "Server-Patch: Auto-Buy funktioniert nicht mehr diese Runde.",
+      "desc": "Server-Patch: Auto-Buy funktioniert diese Runde nicht mehr. {joker}-Joker deaktiviert bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Smoke-Spam! Null Sicht!",
-      "desc": "Jemand hat alle Smokes gleichzeitig geworfen. Blind-Draws für alle!",
+      "desc": "Alle Smokes gleichzeitig geworfen! Die nächsten {anzahl} Draws sind blind. Null Sicht für: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Lootbox-Steuer!",
-      "desc": "Die EU hat zugeschlagen: Extra-Abgabe auf alle Käufe.",
+      "desc": "Die EU hat zugeschlagen: Lootbox-Steuer je {betrag} für {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Refund-Exploit entdeckt!",
-      "desc": "Steam erstattet den letzten Kauf zur Hälfte zurück.",
+      "desc": "Refund-Exploit entdeckt! Steam erstattet {gewinner} {anteil} von „{karte}“: {betrag}.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Votekick-System offline!",
-      "desc": "Der Server hat Votekick deaktiviert. Keine Kicks mehr möglich.",
+      "desc": "Votekick-System offline. {joker}-Joker deaktiviert bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Loot-Drop-Server down!",
-      "desc": "Item-Server ausgefallen. Keine Bonus-Drops mehr.",
+      "desc": "Loot-Drop-Server down. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Reroll-Cooldown aktiv!",
-      "desc": "Zu viele Rerolls. 24h Cooldown. Kein Umtauschen mehr.",
+      "desc": "Reroll-Cooldown: 24 Stunden. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Timeout-Pause.",
-      "desc": "Jemand hat Timeout gerufen. Kurze Verschnaufpause. Nichts passiert.",
+      "desc": "Timeout! {alle} verschnaufen kurz. Nichts passiert.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Server-Rollback!",
-      "desc": "Ein Crash hat den Server zurückgesetzt. Alle Joker wiederhergestellt!",
+      "desc": "Server-Rollback nach Crash! Joker wiederhergestellt für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Map-Rotation! Eine Kategorie wird entfernt!",
-      "desc": "Der Server rotiert die Map-Rotation. Eine Kategorie fliegt komplett raus!",
+      "desc": "Map-Rotation! „{kategorie}“ fliegt komplett raus. Umsonst gegrindet haben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

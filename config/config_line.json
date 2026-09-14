@@ -3,6 +3,7 @@
   "windowTitle": "🏭 Survive the Line – Kampf am Fließband",
   "gameTitle": "Survive the Line",
   "themeIcon": "🏭",
+  "pointsSound": "impactWrench",
   "colors": {
     "primary": "orange-500",
     "gradientStart": "orange-500",
@@ -143,112 +144,112 @@
     {
       "id": 1,
       "title": "Zuschüsse vom Staat!",
-      "desc": "Das Werk wird auf 'Green-Tech' umgerüstet. Der Staat zahlt massive Subventionen für die Abteilung!",
+      "desc": "Das Werk wird auf Green-Tech umgerüstet. Die Subventionen gehen an die klammste Linie: {gewinner} bekommt {betrag}.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Gewinnwarnung des Vorstands!",
-      "desc": "Die Absatzzahlen in China brechen ein. Das Controlling streicht allen Bereichen brutal das Budget!",
+      "desc": "Gewinnwarnung aus China! Das Controlling streicht dem fettesten Budget {betrag}: {verlierer}.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Sammeln für den Vorarbeiter!",
-      "desc": "Der Meister feiert 40-jähriges Jubiläum am Band. Es wird rücksichtslos mit dem Hut durch die Reihen gegangen.",
+      "desc": "{gewinner} feiert 40 Jahre am Band! Mit dem Hut durch die Reihen – je {anteil} geben: {verlierer}. Im Hut landen {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Werkzeug-Schwund!",
-      "desc": "Aus dem Magazin fehlen Kistenweise 10mm-Nüsse und Akkuschrauber. Jeder muss für den Schaden aufkommen.",
+      "desc": "Aus dem Magazin fehlen kistenweise 10er-Nüsse und Akkuschrauber. Den Schaden zahlen je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Produktions-Rekord gebrochen!",
-      "desc": "Der Tages-Takt wurde übertroffen! Der Werksleiter schüttet spontan eine Prämie für alle Bänder aus.",
+      "desc": "Tages-Takt übertroffen! Der Werksleiter schüttet je {betrag} Prämie aus an: {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Prämie für Materialschoner!",
-      "desc": "Die Linie belohnt alle, die ihre Joker (Ressourcen) gespart haben. Lean Production zahlt sich aus!",
+      "desc": "Lean Production zahlt sich aus: {betrag} pro gespartem Joker. Prämie für: {gewinner}. Nichts für: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Beschaffungs-Sperre!",
-      "desc": "Der Einkauf verbietet alle Direktbestellungen am Controlling vorbei. Der Dienstweg muss eingehalten werden.",
+      "desc": "Beschaffungs-Sperre, keine Direktbestellungen am Controlling vorbei. {joker}-Joker gesperrt bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "SAP-System Totalausfall!",
-      "desc": "Der Zentralrechner in Wolfsburg/München ist down. Stücklisten sind unleserlich, das absolute Chaos regiert.",
+      "desc": "SAP-Totalausfall, die Stücklisten sind unleserlich! Die nächsten {anzahl} Teile werden verdeckt gezogen. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Gabelstapler-Unfall!",
-      "desc": "Ein Stapler ist in das Hochregallager gefahren. Massive Sachbeschädigung und alle Budgets werden zur Reparatur angezapft.",
+      "desc": "Ein Gabelstapler ist ins Hochregal gefahren. Die Reparatur zapft je {betrag} an: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Mengenrabatt vom Zulieferer!",
-      "desc": "Der Tier-1-Supplier hat zu viel produziert und storniert 50% eurer letzten Rechnung. Das Geld fließt zurück!",
+      "desc": "Der Tier-1-Supplier storniert {anteil} der Rechnung für „{karte}“: {gewinner} bekommt {betrag} zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Betriebsrat greift ein!",
-      "desc": "Die Gewerkschaft verbietet jegliche Überstunden und erzwungene Nacharbeit. Das Band muss pünktlich stehen!",
+      "desc": "Der Betriebsrat verbietet Überstunden und erzwungene Nacharbeit. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Nachtschicht-Zuschläge gestrichen!",
-      "desc": "Das Management hat das Budget für Wochenend- und Sonderschichten gestrichen. Es gibt nichts mehr extra.",
+      "desc": "Keine Zuschläge mehr für Nacht- und Wochenendschichten. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Zulieferer insolvent!",
-      "desc": "Der externe Dienstleister ist pleite. Niemand kann mehr Produktionsschritte outsourcen!",
+      "desc": "Der externe Dienstleister ist pleite, nichts lässt sich mehr outsourcen. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Maschinenwartung!",
-      "desc": "Das Haupt-Förderband wird 30 Minuten gewartet. Die gesamte Halle atmet bei einem kollektiven Kaffee durch.",
+      "desc": "Das Förderband wird gewartet. {alle} atmen bei einem kollektiven Kaffee durch.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Die legendäre Betriebsfeier!",
-      "desc": "Freibier in Halle 4! Meister, Azubis und Management liegen sich in den Armen. Alle Streitigkeiten sind vergessen!",
+      "desc": "Freibier in Halle 4! Alle Streitigkeiten sind vergessen – Joker zurück für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Neues Fahrzeugmodell!",
-      "desc": "Das Facelift-Modell wird vorgezogen. Die gesamte Linie muss sofort umgebaut werden, alte Teile sind wertlos!",
+      "desc": "Das Facelift wird vorgezogen: „{kategorie}“ ist ab sofort Altteil und wertlos. Umrüsten müssen: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }

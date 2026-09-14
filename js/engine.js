@@ -21,6 +21,12 @@ let playerJokerOrder = [];
 let jokerPhaseState = { blockUsed: false, autoBuyUsed: false };
 let wheelSpinResults = [];
 
+// Joker controls use one icon set instead of the config emoji, so they look the same on every OS.
+// Tailwind's orange is retinted to the theme primary, so an "orange" joker renders yellow to keep its own colour.
+const JOKER_ICONS = { block: 'fa-ban', autoBuy: 'fa-handshake-angle', bonus: 'fa-shield-halved', gamble: 'fa-shuffle', skip: 'fa-trash-can' };
+const jokerIcon = key => `<i class="fa-solid ${JOKER_ICONS[key] || 'fa-star'}" aria-hidden="true"></i>`;
+const jokerColor = c => c === 'orange' ? 'yellow' : c;
+
 // =====================================================================
 // BOOTLOADER
 // =====================================================================
@@ -37,7 +43,7 @@ window.onload = async function() {
         applyConfigToUI();
         renderCategoryButtons();
         const dbLoaded = await buildDatabase();
-        initGame(getConf('economy','defaultPlayerCount'), Config.currency.startAmount);
+        initGame(getConf('economy','defaultPlayerCount'), getConf('economy','startingBudget'));
         if (!dbLoaded) {
             switchView('admin');
             showModal("System leer!", `Das Inventar ist leer.<br><br>Bitte lade die <strong>${Config.databaseFile}</strong> hoch.`);
@@ -66,32 +72,34 @@ function applyConfigToUI() {
     if ($('tab-admin')) $('tab-admin').innerText = Config.terminology.adminTab2;
     if ($('tab-used')) $('tab-used').innerText = Config.terminology.adminTab3;
     if ($('tab-shredded')) $('tab-shredded').innerHTML = `<i class="fa-solid fa-toilet mr-1"></i> ${Config.terminology.adminTab4}`;
-    if ($('input-start-budget')) $('input-start-budget').value = Config.currency.startAmount;
+    if ($('input-start-budget')) $('input-start-budget').value = getConf('economy','startingBudget');
 
     const jLegend = $('joker-legend');
     if (jLegend && Config.terminology.jokers) {
         const colorMap = { block: 'red', bonus: 'green', autoBuy: 'purple', gamble: 'orange', skip: 'cyan' };
+        // Numbers come from the settings; applySettings() re-runs this function so the legend follows them
         const descMap = {
             block: `Mitspieler für eine Runde sperren.`,
-            bonus: `${Config.currency.symbol}-Cashback beim nächsten Kauf.`,
-            autoBuy: `Blind-Kauf (erzwingen) für 1,5x Preis.`,
+            bonus: `${Math.round(getConf('mechanics','bonusCashbackFraction') * 100)} % Cashback beim nächsten Kauf.`,
+            autoBuy: `Blind-Kauf (erzwingen) für ${getConf('mechanics','autoBuyMultiplier').toLocaleString('de-DE')}x Preis.`,
             gamble: `Alte Karte gegen neue umtauschen.`,
             skip: `Gezogene Karte sofort vernichten.`
         };
 let html = '<div class="flex flex-col gap-1.5 w-full">';
         for (let key in Config.terminology.jokers) {
             const j = Config.terminology.jokers[key];
-            const c = j.color || colorMap[key] || 'stone';
+            const c = jokerColor(j.color || colorMap[key] || 'stone');
             html += `
-            <div class="flex items-center gap-3 w-full bg-black/20 p-2 rounded-lg border border-stone-800 hover:border-stone-600 transition-colors">
+            <button type="button" onclick="playShowcase('joker:${key}')" title="Vorschau: So wirkt der Joker" class="group flex items-center gap-3 w-full text-left bg-black/20 p-2 rounded-lg border border-stone-800 hover:border-stone-600 transition-colors">
                 <div class="flex items-center justify-center w-7 h-7 rounded bg-${c}-950/40 text-${c}-400 border border-${c}-900/50 shrink-0 text-sm">
-                    ${j.icon}
+                    ${jokerIcon(key)}
                 </div>
-                <div class="flex flex-col">
-                    <span class="text-${c}-400 font-black text-[10px] uppercase tracking-wider leading-none mb-1">${j.label}</span>
-                    <span class="text-stone-400 text-[10px] leading-none">${descMap[key] || ''}</span>
+                <div class="flex flex-col flex-grow">
+                    <span class="text-${c}-400 font-black text-xs uppercase tracking-wider leading-none mb-1">${j.label}</span>
+                    <span class="text-stone-400 text-xs leading-none">${descMap[key] || ''}</span>
                 </div>
-            </div>`;
+                <i class="fa-solid fa-play text-stone-600 group-hover:text-white text-xs shrink-0 transition-colors" aria-hidden="true"></i>
+            </button>`;
         }
         html += '</div>';
         jLegend.innerHTML = html;    }
@@ -121,7 +129,7 @@ function initGame(count, budget) {
         managers.push({
             id: i, name: `${Config.terminology.playerSingular} ${i}`, budget: startingBudget,
             perk: 'NONE', protegeCats: [],
-            jokers: { block: 1, bonus: 1, autoBuy: 1, gamble: 1, skip: 1 },
+            jokers: { block: getConf('jokers','block'), bonus: getConf('jokers','bonus'), autoBuy: getConf('jokers','autoBuy'), gamble: getConf('jokers','gamble'), skip: getConf('jokers','skip') },
             cashbackActive: false, team: tm
         });
     }
@@ -164,7 +172,7 @@ function promptRestart(count) {
 function setPlayerCount(n) {
     n = Math.max(1, Math.min(8, parseInt(n, 10) || countManagers));
     const sync = v => {
-        GameSettings.economy.defaultPlayerCount.value = v;
+        GameSettings.economy.defaultPlayerCount.value = v; saveSettings();
         const slider = document.querySelector(`input[oninput*="'defaultPlayerCount'"]`); if (slider) slider.value = v;
         const shown = $('sval-economy-defaultPlayerCount'); if (shown) shown.textContent = v;
         const pick = $('perk-player-count'); if (pick) pick.value = v;
@@ -193,7 +201,7 @@ function renderManagerCountButtons() {
     if (!container) return;
     
     // Dropdown-Menü im exakt gleichen Styling wie das Budget-Feld daneben
-    let selectHtml = `<select onchange="promptRestart(parseInt(this.value))" class="bg-[#1c1917] border border-stone-600 text-white text-[11px] rounded p-1 w-14 outline-none text-center font-bold focus:border-orange-500 cursor-pointer transition-colors">`;
+    let selectHtml = `<select onchange="promptRestart(parseInt(this.value))" class="bg-stone-900 border border-stone-600 text-white text-xs rounded p-1 w-14 outline-none text-center font-bold focus:border-orange-500 cursor-pointer transition-colors">`;
     
     // Schleife für 1 bis 8 Spieler
     for (let i = 1; i <= 8; i++) {
@@ -218,7 +226,7 @@ function addLog(msg, type = "info") {
     let colorCls = type === "buy" ? "text-green-400" : type === "alert" ? "text-red-400" : type === "event" ? "text-yellow-400" : "text-stone-400";
     let iconHtml = type === "buy" ? '<i class="fa-solid fa-handshake"></i>' : type === "alert" ? '<i class="fa-solid fa-triangle-exclamation"></i>' : type === "event" ? '<i class="fa-solid fa-bolt"></i>' : '<i class="fa-solid fa-circle-info"></i>';
     const li = document.createElement('li'); li.className = `${colorCls} border-b border-stone-700/50 pb-1 mb-1`;
-    li.innerHTML = `<span class="text-stone-600 text-[8px] mr-1">[${time}]</span> ${iconHtml} ${msg}`;
+    li.innerHTML = `<span class="text-stone-600 text-xs mr-1">[${time}]</span> ${iconHtml} ${msg}`;
     list.prepend(li);
 }
 
@@ -278,8 +286,8 @@ function getDynamicDescHtml(item, useAdminDesc = false) {
     let sizeClass = "text-[16px] leading-snug"; // Standard für kurzen Text
     
     // Prüfen, wie lang der Text ist und CSS-Klasse anpassen
-    if (len > 150) sizeClass = "text-[10px] leading-tight";      // Extrem lang
-    else if (len > 100) sizeClass = "text-[11px] leading-tight"; // Sehr lang
+    if (len > 150) sizeClass = "text-xs leading-tight";      // Extrem lang
+    else if (len > 100) sizeClass = "text-xs leading-tight"; // Sehr lang
     else if (len > 60) sizeClass = "text-sm leading-snug";       // Mittellang
     
     return `<div class="${sizeClass} transition-all">${text}</div>`;
@@ -301,7 +309,7 @@ function switchView(view) {
 
 function switchAdminTab(tab) {
     let catCls = "px-4 py-2 rounded-lg text-xs font-bold bg-stone-700 text-white shadow-md transition-all-custom";
-    let evCls = "px-4 py-2 rounded-lg text-xs font-bold bg-[#1c1917] text-stone-400 hover:text-white border border-stone-700 transition-all-custom";
+    let evCls = "px-4 py-2 rounded-lg text-xs font-bold bg-stone-900 text-stone-400 hover:text-white border border-stone-700 transition-all-custom";
     if ($('admin-subtab-catalog')) $('admin-subtab-catalog').className = tab === 'catalog' ? catCls : evCls;
     if ($('admin-subtab-events')) $('admin-subtab-events').className = tab === 'events' ? catCls : evCls;
     if ($('admin-catalog-view')) $('admin-catalog-view').classList.toggle('hidden', tab !== 'catalog');
@@ -359,7 +367,7 @@ async function buildDatabase() {
     const savedShredded = localStorage.getItem(shreddedKey); if (savedShredded) shreddedDatabase = JSON.parse(savedShredded);
     const savedUsed = localStorage.getItem(usedKey); if (savedUsed) usedDatabase = JSON.parse(savedUsed);
     const savedDB = localStorage.getItem(dbKey);
-    if (savedDB) { itemDatabase = JSON.parse(savedDB); updateGlobalIdCounter(); return true; }
+    if (savedDB) { itemDatabase = unpackDatabase({ itemDatabase: JSON.parse(savedDB), used: usedDatabase, shredded: shreddedDatabase }).itemDatabase; updateGlobalIdCounter(); return true; }
 
     try {
     const response = await fetch(Config.databaseFile);
@@ -454,6 +462,9 @@ function restoreFromShredder(id) {
 function unpackDatabase(data) {
     // dbCategory is derived from the object key (compact decks like airline omit it)
     if (data.db) for (let cat in data.db) data.db[cat].forEach(item => { item.dbCategory = cat; });
+    // Unicorns are marked by their holo frame, not by text: drop the old "🦄 " name prefix from saved or imported decks
+    const decks = Object.values(data.db || data.itemDatabase || data).filter(Array.isArray);
+    [...decks.flat(), ...(data.used || []), ...(data.shredded || [])].forEach(item => { if (typeof item?.name === 'string') item.name = item.name.replace(/^🦄\s*/u, ''); });
     return data;
 }
 // =====================================================================
@@ -477,23 +488,44 @@ function filterAdminCategory(cat, btn) {
     renderAdminPool();
 }
 
+// Points a card is worth for this player, perks included
+function cardPoints(m, card, cat) {
+    let s = card?.score || 0;
+    if (m.perk === 'perk1' && m.protegeCats?.includes(cat)) s = Math.floor(s * getConf('perks','perk1_protegeMultiplier'));
+    if (m.perk === 'perk3' && card?.tier === 'schlecht') s = Math.floor(s * getConf('perks','perk3_badTierMultiplier'));
+    if (m.perk === 'perk8') s += getConf('perks','perk8_flatScoreBonus');
+    return s;
+}
+const managerPoints = m => Object.keys(m.team).reduce((sum, cat) => sum + (m.team[cat] ? cardPoints(m, m.team[cat], cat) : 0), 0);
+
+// Active category column glows, finished ones are dimmed with a check mark (header + every row)
+function markCategoryColumns() {
+    activeCategories.forEach((key, i) => {
+        const active = key === activeMatrixAuctionCategory, done = completedCategoryNames.includes(key.toLowerCase());
+        document.querySelectorAll(`#matrix-header-row th:nth-child(${i + 2}), #matrix-body td:nth-child(${i + 2})`).forEach(cell => {
+            cell.classList.toggle('is-active-col', active);
+            cell.classList.toggle('is-done-col', done && !active);
+        });
+    });
+}
+
 function renderMatrix() {
     const thead = $('matrix-header-row'); const tbody = $('matrix-body');
     if (!thead || !tbody) return;
 
-    let hHtml = `<th class="py-3 px-4 w-[15%] bg-[#292524] shadow-sm">${Config.terminology.playerSingular}</th>`;
+    let hHtml = `<th class="py-3 px-4 w-[15%] bg-stone-800 shadow-sm">${Config.terminology.playerSingular}</th>`;
     const colorSet = ['text-red-400', 'text-orange-400', 'text-purple-400', 'text-rose-400', 'text-yellow-400', 'text-green-400', 'text-cyan-400'];
 activeCategories.forEach((cat, idx) => {
         let cData = Config.categories[cat];
         let isActive = (cat === activeMatrixAuctionCategory);
         
         let btnClass = isActive 
-            ? "matrix-cat-btn w-full h-full bg-[#1c1917] text-orange-400 text-[10px] font-black py-2 border-b-2 border-orange-500 transition-colors" 
-            : "matrix-cat-btn w-full h-full bg-transparent hover:bg-[#292524] text-stone-400 text-[10px] font-bold py-2 border-b-2 border-transparent transition-colors";
+            ? "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors" 
+            : "matrix-cat-btn w-full h-full bg-transparent hover:bg-stone-800 text-stone-400 text-xs font-bold py-2 border-b-2 border-transparent transition-colors";
         
         // Hinweis: p-0 im <th> sorgt dafür, dass der Button 100% der Zelle ausfüllt
-        hHtml += `<th title="${cData.desc}" class="p-0 text-center border-l border-stone-700/50 w-[10%] bg-[#292524] shadow-sm align-middle h-full">
-                    <button onclick="selectMatrixAuctionCategory('${cat}', this)" class="${btnClass}"><span class="block text-base leading-none">${cData.icon}</span><span class="block text-[8px] leading-tight mt-1">${cData.name}</span></button>
+        hHtml += `<th title="${cData.desc}" class="p-0 text-center border-l border-stone-700/50 w-[10%] bg-stone-800 shadow-sm align-middle h-full">
+                    <button onclick="selectMatrixAuctionCategory('${cat}', this)" class="${btnClass}"><span class="block text-base leading-none">${cData.icon}</span><span class="block text-xs leading-tight mt-1">${cData.name}</span></button>
                   </th>`;
     });
 
@@ -507,39 +539,30 @@ const fnMap = { block: 'useBlockJoker', bonus: 'useBonusJoker', autoBuy: 'useAut
 for (let jKey in Config.terminology.jokers) {
     if (m.jokers[jKey] > 0) { 
         let jData = Config.terminology.jokers[jKey];
-        let countLabel = m.jokers[jKey] > 1 ? `<span class="absolute -top-1.5 -right-1.5 bg-black text-white text-[7px] px-1 rounded-full border border-stone-600">${m.jokers[jKey]}</span>` : '';
-        let c = jData.color || 'stone';
+        let countLabel = m.jokers[jKey] > 1 ? `<span class="absolute -top-1.5 -right-1.5 bg-black text-white text-xs px-1 rounded-full border border-stone-600">${m.jokers[jKey]}</span>` : '';
+        let c = jokerColor(jData.color || 'stone');
         // RAND ENTFERNT: 'border border-stone-700 hover:border-${c}-500' wurde hier gelöscht
         const roundLocked = (jKey === 'block' && jokerPhaseState.blockUsed) || (jKey === 'autoBuy' && jokerPhaseState.autoBuyUsed);
-        let cls = `relative w-6 h-6 flex justify-center items-center rounded bg-transparent text-stone-500 hover:text-${c}-400 hover:bg-[#292524] transition-all${roundLocked ? ' opacity-30 cursor-not-allowed' : ''}`;
-        jokersHtml += `<button onclick="${fnMap[jKey]}(${m.id})" title="${jData.label}${roundLocked ? ' – diese Runde schon gespielt' : ''}" class="${cls}">${jData.icon}${countLabel}</button>`;
+        let cls = `relative w-7 h-7 flex justify-center items-center rounded bg-black/20 border border-stone-700 text-${c}-400 hover:border-${c}-400 transition-all${roundLocked ? ' opacity-30 cursor-not-allowed' : ''}`;
+        jokersHtml += `<button onclick="${fnMap[jKey]}(${m.id})" title="${jData.label}${roundLocked ? ' – diese Runde schon gespielt' : ''}" class="${cls}" aria-label="${jData.label}">${jokerIcon(jKey)}${countLabel}</button>`;
     }
 }
 jokersHtml += `</div>`;  
 
         let slots = activeCategories.map(k => renderSlotCell(m.id, k.toLowerCase(), m.team[k.toLowerCase()])).join('');
-        let blkOverlay = isBlk ? `<div class="blocked-badge text-[10px] font-black text-white bg-red-600 inline-block px-1.5 py-0.5 rounded mb-1 shadow-md">🔒 GESPERRT</div>` : '';
-        let cbBadge = m.cashbackActive ? `<div class="shield-badge text-[9px] text-yellow-400 font-bold bg-yellow-950/40 px-1.5 py-0.5 rounded border border-yellow-600 mt-1 inline-block" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</div>` : '';
-        let perkBadge = m.perk !== 'NONE' ? `<div class="text-[9px] font-bold text-indigo-400 bg-indigo-950/30 px-1 py-0.5 
+        let blkOverlay = isBlk ? `<div class="blocked-badge text-xs font-black text-white bg-red-600 inline-block px-1.5 py-0.5 rounded mb-1 shadow-md">🔒 GESPERRT</div>` : '';
+        let cbBadge = m.cashbackActive ? `<div class="shield-badge text-xs text-yellow-400 font-bold bg-yellow-950/40 px-1.5 py-0.5 rounded border border-yellow-600 mt-1 inline-block" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</div>` : '';
+        let perkBadge = m.perk !== 'NONE' ? `<div class="text-xs font-bold text-indigo-400 bg-indigo-950/30 px-1 py-0.5 
 " title="${Config.perks[m.perk]?.desc || ''}">${Config.perks[m.perk]?.name || m.perk}</div>` : '';
 
-        let bp = 0;
-        for (let cat in m.team) {
-            if (m.team[cat]) {
-                let s = m.team[cat].score || 0;
-                if (m.perk === 'perk1' && m.protegeCats && m.protegeCats.includes(cat)) s = Math.floor(s * getConf('perks','perk1_protegeMultiplier'));
-                if (m.perk === 'perk3' && m.team[cat].tier === 'schlecht') s = Math.floor(s * getConf('perks','perk3_badTierMultiplier'));
-                if (m.perk === 'perk8') s += getConf('perks','perk8_flatScoreBonus');
-                bp += s;
-            }
-        }
+        let bp = managerPoints(m);
         let isLow = m.budget < (startingBudget * 0.15);
         let textColor = isLow ? 'text-red-500' : 'text-orange-400';
         let barColor = isLow ? 'bg-red-500' : 'bg-orange-500';
         let p = Math.max(0, Math.min(100, (m.budget / startingBudget) * 100));
 
 tbody.innerHTML += `
-            <tr class="${isBlk ? 'row-blocked bg-red-950/40 border-l-4 border-red-500 grayscale transition opacity-80' : 'hover:bg-[#1c1917]/30 transition'}${m.cashbackActive ? ' row-shielded' : ''}">
+            <tr class="${isBlk ? 'row-blocked bg-red-950/40 border-l-4 border-red-500 grayscale transition opacity-80' : 'hover:bg-stone-900/30 transition'}${m.cashbackActive ? ' row-shielded' : ''}">
                 <td class="py-4 px-3 border-r border-stone-700/80 align-top">
     <div class="flex flex-col gap-1 w-full">
         ${blkOverlay}
@@ -548,13 +571,13 @@ tbody.innerHTML += `
             <input type="text" value="${m.name}" onchange="renameManager(${m.id}, this.value)" class="bg-transparent text-sm font-black text-white focus:outline-none w-full">
             
             <span class="text-xs font-black text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded whitespace-nowrap cursor-help shadow-sm" title="Punkte">
-                <i class="fa-solid fa-star text-[9px] mr-0.5"></i>${bp}
+                <i class="fa-solid fa-star text-xs mr-0.5"></i><span id="points-num-${m.id}">${bp}</span>
             </span>
         </div>
         ${perkBadge}${cbBadge}${jokersHtml}
         
         <div class="relative mt-1.5 w-full bg-black/20 px-1.5 py-1 rounded border border-stone-700/30 flex items-center gap-2">
-            <span id="budget-display-${m.id}" class="text-[10px] font-black ${textColor}${isLow ? ' budget-low' : ''} transition-colors whitespace-nowrap">
+            <span id="budget-display-${m.id}" class="text-xs font-black ${textColor}${isLow ? ' budget-low' : ''} transition-colors whitespace-nowrap">
                 ${m.budget.toLocaleString()} ${Config.currency.symbol}
             </span>
             <div class="flex-1 bg-amber-800 rounded-full h-1.5 overflow-hidden border border-stone-700">
@@ -567,18 +590,21 @@ tbody.innerHTML += `
                 ${slots}
             </tr>`;
 });
+    markCategoryColumns();
 }
 function renderSlotCell(mId, k, pObj) {
     let m = managers.find(x => x.id === mId);
     let isProtege = (m && m.protegeCats && m.protegeCats.includes(k));
    let specialBorderClass = isProtege
-    ? 'bg-yellow-950/20 shadow-[inset_0_0_0_2px_rgba(234,179,8,0.55),_0_0_14px_rgba(234,179,8,0.2)]'
+    ? 'shadow-[inset_0_0_0_2px_rgba(234,179,8,0.55),inset_0_0_14px_rgba(234,179,8,0.25)]' // no bg class: a translucent fill would let the metal frame show through
     : '--';
   if (!pObj) {
     const emptyHighlight = isProtege ? 'bg-yellow-950/20 shadow-[inset_0_0_0_2px_rgba(234,179,8,0.3)] rounded-lg' : '';
     return `<td class="py-2 px-1 text-center border-l border-stone-700/40"><div class="h-[80px] ${emptyHighlight}"></div></td>`;
 }
-    let bb = pObj.tier === 'gut' ? 'border-b-yellow-400' : pObj.tier === 'schlecht' ? 'border-b-rose-500' : 'border-b-orange-500';
+    // Metal frame per tier (bronze / silver / gold / holo); pips repeat the tier for colour-blind players
+    const tierCls = pObj.unicorn ? 'tier-unicorn' : `tier-${pObj.tier}`;
+    const pips = '<i></i>'.repeat(pObj.unicorn ? 1 : pObj.tier === 'gut' ? 3 : pObj.tier === 'mittel' ? 2 : 1);
     let displayScore = pObj.score || 0; let isBoosted = false;
     if (m) {
         if (m.perk === 'perk1' && isProtege) { displayScore = Math.floor(displayScore * getConf('perks','perk1_protegeMultiplier')); isBoosted = true; }
@@ -586,9 +612,9 @@ function renderSlotCell(mId, k, pObj) {
         if (m.perk === 'perk8') { displayScore += getConf('perks','perk8_flatScoreBonus'); isBoosted = true; }
     }
 
-    let scoreHtml = isBoosted ? `<i class="fa-solid fa-arrow-trend-up text-[6px] text-yellow-400"></i> <span class="text-yellow-400 font-black animate-pulse">${displayScore}</span>` : `<i class="fa-solid fa-star text-[6px] text-lime-400"></i> ${displayScore}`;
+    let scoreHtml = isBoosted ? `<i class="fa-solid fa-arrow-trend-up text-xs text-yellow-400"></i> <span class="text-yellow-400 font-black animate-pulse">${displayScore}</span>` : `<i class="fa-solid fa-star text-xs text-lime-400"></i> ${displayScore}`;
 
-    return `<td class="py-2 px-0.5 text-center border-l border-stone-700/40 relative group/cell"><div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card relative cursor-pointer bg-black/60 hover:bg-red-950/30 hover:border-red-900 rounded-lg p-1 transition flex flex-col items-center justify-center h-[115px] border-b-[4px] ${bb} ${specialBorderClass}"><div class="absolute top-0 right-0 bg-orange-900/80 text-white text-[8px] font-bold px-1 py-0.5 rounded-bl shadow z-10">${scoreHtml}</div><span class="text-2xl mb-1 group-hover/card:hidden">${pObj.icon}</span><span class="text-2xl mb-1 hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="text-[9px] font-bold text-white leading-tight w-full px-0.5 line-clamp-2 group-hover/card:text-red-400">${pObj.name}</span></div><div class="absolute top-[90px] left-1/2 transform -translate-x-1/2 w-56 bg-stone-800 border-2 border-stone-600 text-stone-200 p-3 rounded-xl shadow-2xl opacity-0 invisible group-hover/cell:opacity-100 group-hover/cell:visible transition-all duration-200 z-[100] pointer-events-none flex flex-col items-start text-left"><div class="font-black text-white text-sm mb-1 leading-tight">${pObj.name}</div><div class="text-[11px] italic leading-snug text-stone-400 mb-2">${pObj.desc}</div><div class="mt-auto text-amber-400 font-bold text-xs w-full text-right">${pObj.cost.toLocaleString()} ${Config.currency.symbol}</div></div></td>`;
+    return `<td class="py-2 px-0.5 text-center border-l border-stone-700/40 relative group/cell"><div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card slot-frame ${tierCls} relative cursor-pointer h-[115px]"><div class="slot-score">${scoreHtml}</div><div class="slot-face ${specialBorderClass} group-hover/card:bg-red-950"><span class="text-2xl mb-1 group-hover/card:hidden">${pObj.icon}</span><span class="text-2xl mb-1 hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="text-xs font-bold text-white leading-tight w-full px-0.5 line-clamp-2 group-hover/card:text-red-400">${pObj.name}</span></div><div class="slot-pips" aria-hidden="true">${pips}</div></div><div class="absolute top-[90px] left-1/2 transform -translate-x-1/2 w-56 bg-stone-800 border-2 border-stone-600 text-stone-200 p-3 rounded-xl shadow-2xl opacity-0 invisible group-hover/cell:opacity-100 group-hover/cell:visible transition-all duration-200 z-[100] pointer-events-none flex flex-col items-start text-left"><div class="font-black text-white text-sm mb-1 leading-tight">${pObj.name}</div><div class="text-xs italic leading-snug text-stone-400 mb-2">${pObj.desc}</div><div class="mt-auto text-amber-400 font-bold text-xs w-full text-right">${pObj.cost.toLocaleString()} ${Config.currency.symbol}</div></div></td>`;
 }
 
 function renderAdminPool() {
@@ -597,10 +623,10 @@ function renderAdminPool() {
     if (cont && hide) {
         if (shouldHide) {
             cont.classList.add('hidden'); hide.classList.remove('hidden');
-            const m = $('manual-catalog-toggle'); if (m) { m.innerText = "Einblenden"; m.className = "flex-1 w-full bg-orange-600 hover:bg-orange-500 text-white text-[10px] font-bold py-1 px-1.5 rounded transition shadow-md border border-orange-500"; }
+            const m = $('manual-catalog-toggle'); if (m) { m.innerText = "Einblenden"; m.className = "flex-1 w-full bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold py-1 px-1.5 rounded transition shadow-md border border-orange-500"; }
         } else {
             cont.classList.remove('hidden'); hide.classList.add('hidden');
-            const m = $('manual-catalog-toggle'); if (m) { m.innerText = "Verbergen"; m.className = "flex-1 w-full bg-[#292524] hover:bg-stone-700 text-stone-300 text-[10px] font-bold py-1 px-1.5 rounded transition border border-stone-600"; }
+            const m = $('manual-catalog-toggle'); if (m) { m.innerText = "Verbergen"; m.className = "flex-1 w-full bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-bold py-1 px-1.5 rounded transition border border-stone-600"; }
         }
     }
     const q = $('admin-search-input') ? $('admin-search-input').value.toLowerCase() : '';
@@ -611,19 +637,19 @@ function renderAdminPool() {
     ['pool-gut', 'pool-mittel', 'pool-schlecht'].forEach(id => { if ($(id)) $(id).innerHTML = ''; });
     list.forEach(item => {
         let isSel = itemsToShred.includes(item.id);
-        let cls = isShredderMode ? (isSel ? 'border-2 border-red-500 bg-red-950/40 scale-[0.98]' : 'border border-stone-700 bg-[#292524] opacity-70') : (selectedAuctionItem?.id === item.id ? 'border-2 border-orange-400 bg-orange-950/20' : 'border border-stone-700 bg-[#292524] hover:border-stone-500');
+        let cls = isShredderMode ? (isSel ? 'border-2 border-red-500 bg-red-950/40 scale-[0.98]' : 'border border-stone-700 bg-stone-800 opacity-70') : (selectedAuctionItem?.id === item.id ? 'border-2 border-orange-400 bg-orange-950/20' : 'border border-stone-700 bg-stone-800 hover:border-stone-500');
         let bb = item.tier === 'gut' ? 'border-b-yellow-400' : item.tier === 'schlecht' ? 'border-b-rose-500' : 'border-b-orange-500';
         let ca = isShredderMode ? `toggleShredderSelection('${item.id}')` : `selectAuctionItem('${item.id}')`;
         let overlay = (isShredderMode && isSel) ? `<div class="absolute inset-0 bg-red-900/20 flex items-center justify-center rounded-lg pointer-events-none"><i class="fa-solid fa-toilet text-3xl text-red-500 opacity-60 animate-pulse"></i></div>` : '';
         let div = item.tier === 'gut' ? 'pool-gut' : item.tier === 'mittel' ? 'pool-mittel' : 'pool-schlecht';
-        if ($(div)) $(div).innerHTML += `<div onclick="${ca}" class="p-2 rounded-lg cursor-pointer transition-all-custom flex flex-col justify-between min-h-[50px] ${cls} border-b-[3px] ${bb} overflow-hidden relative">${overlay}<div class="relative z-10"><div class="flex justify-between items-center gap-1.5 mb-1"><div class="flex items-center gap-1.5 min-w-0"><span class="text-sm flex-shrink-0">${item.icon}</span><h4 class="font-bold text-white text-[11px] truncate leading-none" title="${item.name}">${item.name}</h4></div><div class="flex items-center gap-1 flex-shrink-0"><span class="text-[8px] bg-stone-900 text-stone-300 px-1 py-0.5 rounded font-bold">${item.cost >= 1000 ? item.cost / 1000 + 'k' : item.cost}</span><div class="text-[8px] text-lime-400 font-bold px-1 py-0.5 rounded bg-green-950/20 border border-green-900/30"><i class="fa-solid fa-star text-[6px]"></i> ${item.score}</div><button onclick="openEditModal(event, '${item.id}', '${adminCategory}')" class="text-stone-400 hover:text-white transition bg-stone-800 rounded px-1.5 py-0.5 border border-stone-600 shadow z-[50]" title="Bearbeiten"><i class="fa-solid fa-pen text-[7px]"></i></button></div></div><p class="text-[9px] text-stone-400 italic leading-tight line-clamp-1">${item.adminDesc || item.desc}</p></div></div>`;
+        if ($(div)) $(div).innerHTML += `<div onclick="${ca}" class="p-2 rounded-lg cursor-pointer transition-all-custom flex flex-col justify-between min-h-[50px] ${cls} border-b-[3px] ${bb} overflow-hidden relative">${overlay}<div class="relative z-10"><div class="flex justify-between items-center gap-1.5 mb-1"><div class="flex items-center gap-1.5 min-w-0"><span class="text-sm flex-shrink-0">${item.icon}</span><h4 class="font-bold text-white text-xs truncate leading-none" title="${item.name}">${item.name}</h4></div><div class="flex items-center gap-1 flex-shrink-0"><span class="text-xs bg-stone-900 text-stone-300 px-1 py-0.5 rounded font-bold">${item.cost >= 1000 ? item.cost / 1000 + 'k' : item.cost}</span><div class="text-xs text-lime-400 font-bold px-1 py-0.5 rounded bg-green-950/20 border border-green-900/30"><i class="fa-solid fa-star text-xs"></i> ${item.score}</div><button onclick="openEditModal(event, '${item.id}', '${adminCategory}')" class="text-stone-400 hover:text-white transition bg-stone-800 rounded px-1.5 py-0.5 border border-stone-600 shadow z-[50]" title="Bearbeiten"><i class="fa-solid fa-pen text-xs"></i></button></div></div><p class="text-xs text-stone-400 italic leading-tight line-clamp-1">${item.adminDesc || item.desc}</p></div></div>`;
     });
 }
 
 function renderEventsPool() {
     const container = $('events-container'); if (!container) return; container.innerHTML = '';
     if (Config.events) Config.events.forEach(ev => {
-        container.innerHTML += `<div class="bg-stone-800 border border-stone-700 rounded-lg p-4 shadow flex flex-col gap-2 relative overflow-hidden group"><div class="absolute inset-0 bg-yellow-500/5 opacity-0 group-hover:opacity-100 transition"></div><h4 class="text-sm font-black text-yellow-400 leading-tight">${ev.title}</h4><p class="text-xs text-stone-300 italic">${ev.desc}</p></div>`;
+        container.innerHTML += `<div class="bg-stone-800 border border-stone-700 rounded-lg p-4 shadow flex flex-col gap-2 relative overflow-hidden group"><div class="absolute inset-0 bg-yellow-500/5 opacity-0 group-hover:opacity-100 transition"></div><h4 class="text-sm font-black text-yellow-400 leading-tight">${eventPreviewText(ev.title)}</h4><p class="text-xs text-stone-300 italic">${eventPreviewText(ev.desc)}</p></div>`;
     });
 }
 
@@ -633,7 +659,7 @@ function renderUsedPool() {
     usedDatabase.forEach(item => {
         let owner = item.owner || "Unbekannt";
         let bb = item.tier === 'gut' ? 'border-b-yellow-400' : item.tier === 'schlecht' ? 'border-b-rose-500' : 'border-b-orange-500';
-        c.innerHTML += `<div class="p-3 rounded-lg border border-stone-700 bg-[#292524] flex flex-col justify-between min-h-[60px] border-b-[4px] ${bb}"><div><div class="flex justify-between items-start mb-2"><span class="text-xl">${item.icon}</span><div class="text-[8px] text-amber-400 font-bold bg-amber-950/40 px-1 py-0.5 rounded border border-green-900/50"><i class="fa-solid fa-star text-[7px] text-green-500"></i> ${item.score} Pkt.</div></div><h4 class="font-bold text-white text-xs truncate" title="${item.name}">${item.name}</h4><div class="text-[10px] text-stone-400 mt-1">Gesichert von: <strong class="text-orange-400">${owner}</strong></div></div><button onclick="returnToPool('${item.id}')" class="mt-3 w-full bg-[#1c1917] hover:bg-red-900/40 text-stone-400 hover:text-white text-[10px] font-bold py-1.5 rounded transition border border-stone-600 hover:border-red-900"><i class="fa-solid fa-rotate-left mr-1"></i> Entfernen</button></div>`;
+        c.innerHTML += `<div class="p-3 rounded-lg border border-stone-700 bg-stone-800 flex flex-col justify-between min-h-[60px] border-b-[4px] ${bb}"><div><div class="flex justify-between items-start mb-2"><span class="text-xl">${item.icon}</span><div class="text-xs text-amber-400 font-bold bg-amber-950/40 px-1 py-0.5 rounded border border-green-900/50"><i class="fa-solid fa-star text-xs text-green-500"></i> ${item.score} Pkt.</div></div><h4 class="font-bold text-white text-xs truncate" title="${item.name}">${item.name}</h4><div class="text-xs text-stone-400 mt-1">Gesichert von: <strong class="text-orange-400">${owner}</strong></div></div><button onclick="returnToPool('${item.id}')" class="mt-3 w-full bg-stone-900 hover:bg-red-900/40 text-stone-400 hover:text-white text-xs font-bold py-1.5 rounded transition border border-stone-600 hover:border-red-900"><i class="fa-solid fa-rotate-left mr-1"></i> Entfernen</button></div>`;
     });
 }
 
@@ -642,7 +668,7 @@ function renderShreddedPool() {
     if (shreddedDatabase.length === 0) { c.innerHTML = '<div class="col-span-full text-stone-500 text-sm italic py-6 text-center">Klo ist leer.</div>'; return; }
     shreddedDatabase.forEach(item => {
         let bb = item.tier === 'gut' ? 'border-b-yellow-400' : item.tier === 'schlecht' ? 'border-b-rose-500' : 'border-b-orange-500';
-        c.innerHTML += `<div class="p-3 rounded-lg border border-red-900/30 bg-[#292524] flex flex-col justify-between min-h-[60px] border-b-[4px] ${bb} opacity-70 hover:opacity-100 transition"><div><span class="text-xl grayscale">${item.icon}</span><h4 class="font-bold text-stone-300 text-xs truncate line-through mt-1" title="${item.name}">${item.name}</h4></div><button onclick="restoreFromShredder('${item.id}')" class="mt-3 w-full bg-stone-800 text-stone-300 hover:text-white text-[10px] font-bold py-1.5 rounded transition border border-stone-600">Zurückholen</button></div>`;
+        c.innerHTML += `<div class="p-3 rounded-lg border border-red-900/30 bg-stone-800 flex flex-col justify-between min-h-[60px] border-b-[4px] ${bb} opacity-70 hover:opacity-100 transition"><div><span class="text-xl grayscale">${item.icon}</span><h4 class="font-bold text-stone-300 text-xs truncate line-through mt-1" title="${item.name}">${item.name}</h4></div><button onclick="restoreFromShredder('${item.id}')" class="mt-3 w-full bg-stone-800 text-stone-300 hover:text-white text-xs font-bold py-1.5 rounded transition border border-stone-600">Zurückholen</button></div>`;
     });
 }
 
@@ -695,8 +721,8 @@ function showPerksModal() {
         let opts = Object.keys(Config.perks).map(key => `<option value="${key}" ${assigned === key ? 'selected' : ''}>${Config.perks[key].name}</option>`).join('');
         phtml += `<div class="mb-4 bg-stone-800 p-3 rounded-lg border border-stone-600">
             <input type="text" id="perk-name-${m.id}" value="${m.name}" placeholder="Name eingeben..." class="w-full bg-transparent text-sm font-black text-orange-400 mb-1.5 border-b border-stone-600 focus:border-orange-500 outline-none pb-1 transition-colors">
-            <select id="perk-select-${m.id}" onchange="updatePerkDesc(${m.id})" class="w-full bg-[#1c1917] border border-stone-500 text-white rounded p-2 text-xs outline-none font-bold shadow-inner">${opts}</select>
-            <p class="text-[10px] text-stone-300 mt-2 italic leading-snug" id="perk-desc-${m.id}">${Config.perks[assigned].desc}</p>
+            <select id="perk-select-${m.id}" onchange="updatePerkDesc(${m.id})" class="w-full bg-stone-900 border border-stone-500 text-white rounded p-2 text-xs outline-none font-bold shadow-inner">${opts}</select>
+            <p class="text-xs text-stone-300 mt-2 italic leading-snug" id="perk-desc-${m.id}">${Config.perks[assigned].desc}</p>
         </div>`;
     });
     $('perk-setup-list').innerHTML = phtml;
@@ -746,12 +772,211 @@ function openPerkCatalog() {
     Object.keys(Config.perks).forEach(key => {
         if (key === 'NONE') return;
         let p = Config.perks[key];
-        container.innerHTML += `<div class="bg-stone-800 border border-orange-500/30 p-4 rounded-xl shadow-inner"><div class="text-lg font-black text-orange-400 mb-2">${p.name}</div><div class="text-xs text-stone-300 leading-relaxed">${p.desc}</div></div>`;
+        container.innerHTML += `<div class="bg-stone-800 border border-orange-500/30 p-4 rounded-xl shadow-inner flex flex-col"><div class="text-lg font-black text-orange-400 mb-2">${p.name}</div><div class="text-xs text-stone-300 leading-relaxed flex-grow">${p.desc}</div><button onclick="playShowcase('${key}')" class="mt-3 self-start bg-stone-900 hover:bg-orange-600 text-stone-300 hover:text-white text-xs font-bold py-1.5 px-3 rounded-lg border border-stone-600 hover:border-orange-500 transition"><i class="fa-solid fa-play mr-1" aria-hidden="true"></i> So wirkt's</button></div>`;
     });
     if ($('perk-catalog-modal')) $('perk-catalog-modal').classList.remove('hidden');
 }
 
 function closePerkCatalog() { if ($('perk-catalog-modal')) $('perk-catalog-modal').classList.add('hidden'); }
+
+// SHOWCASE ("So wirkt's"): a few beats on sample cards showing what a perk or joker does.
+// key = 'perk1'..'perk8' (perk catalog) or 'joker:block' etc. (joker overview in the dock).
+// Numbers come from the settings, cards from the loaded deck. Click / Space / Enter / Esc closes it.
+function playShowcase(key) {
+    const jl = k => Config.terminology?.jokers?.[k]?.label || k;
+    const jokerKey = key.startsWith('joker:') ? key.slice(6) : null;
+    const p = jokerKey ? { name: `<span class="text-${jokerColor(Config.terminology?.jokers?.[jokerKey]?.color || 'stone')}-400">${jokerIcon(jokerKey)}</span> ${jl(jokerKey)}` } : Config.perks?.[key];
+    if (!p) return;
+    const sym = Config.currency.symbol, fmt = n => `${Math.round(n).toLocaleString()} ${sym}`;
+    const pct = f => `${Math.round(Math.abs(f - 1) * 100)} %`;
+    const [pA, pB] = [0, 1].map(i => managers[i]?.name || `${Config.terminology.playerSingular} ${i + 1}`);
+    const perk = k => getConf('perks', k);
+    const deck = Object.values(itemDatabase).flat();
+    const sample = (tier, skip = 0) => deck.filter(c => c.tier === tier && !c.unicorn)[skip]
+        || { icon: '🂠', name: 'Beispielkarte', tier, score: { gut: 90, mittel: 60, schlecht: 20 }[tier] };
+    const card = (c, id, cls = '') => `<div class="pk-card slot-frame tier-${c.tier} ${cls}" id="pk-${id}"><div class="slot-score">★ <b>${c.score}</b></div><div class="slot-face"><span class="pk-icon">${c.icon}</span><span class="pk-name">${c.name}</span></div></div>`;
+    const eventValue = (action, fallback) => Number(Config.events?.find(e => e.action === action)?.value) || fallback;
+    const start = startingBudget;
+
+    let stage = '', beats = [];
+    const q = id => s.el.querySelector('#pk-' + id);
+    const score = id => q(id)?.querySelector('.slot-score b');
+    const bump = el => restartClass(el, 'pk-bump');
+    // counts the number inside el; `from`/`to` are numbers, the text keeps prefix/suffix
+    const count = (el, from, to, { prefix = '', suffix = '' } = {}) => {
+        if (!el) return; const t0 = performance.now();
+        const tick = now => {
+            const t = Math.min(1, (now - t0) / 700);
+            el.textContent = `${prefix}${Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3))).toLocaleString()}${suffix}`;
+            if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    };
+    const stamp = (el, text, red = false) => { el?.classList.toggle('is-countered', !red); el?.insertAdjacentHTML('beforeend', `<div class="fx-stamp">${text}</div>`); sfx.hit(); };
+    const unstamp = el => el?.querySelector('.fx-stamp')?.remove();
+    const float = (id, text, cls) => { const el = q(id); if (el) { el.textContent = text; el.className = `pk-float show ${cls}`; } };
+
+    switch (key) {
+        case 'perk1': { // Kern-Kategorien: more points, immune to the category strike
+            const a = sample('gut'), b = sample('mittel'), m = perk('perk1_protegeMultiplier');
+            stage = `<div class="pk-row">${card(a, 'a')}${card(b, 'b')}</div>`;
+            beats = [
+                [300, 'Zwei Kern-Kategorien werden zufällig zugeteilt', () => { q('b').classList.add('pk-core'); sfx.chime(); }],
+                [1900, `In Kern-Kategorien: +${pct(m)} Punkte`, () => { count(score('b'), b.score, Math.floor(b.score * m)); bump(q('b')); sfx.points(); }],
+                [3700, 'Kategorie gestrichen? In Kern-Kategorien bleiben die Punkte', () => { count(score('a'), a.score, 0); q('a').classList.add('pk-dead'); stamp(q('b'), '🛡️ IMMUN'); }]
+            ];
+            break;
+        }
+        case 'perk2': { // leftover budget -> points at the end
+            const div = perk('perk2_interestDivisor'), mult = perk('perk2_interestMultiplier'), rest = div * 12, pts = 12 * mult;
+            stage = `<div class="pk-row"><div class="pk-chip" id="pk-budget">${fmt(rest)}</div><span class="pk-arrow">➜</span><div class="pk-chip is-points" id="pk-pts">0 ⭐</div></div>`;
+            beats = [
+                [300, 'Spielende: Es ist noch Budget übrig', () => bump(q('budget'))],
+                [1700, `Je ${fmt(div)} Restbudget = ${mult} Punkte`, () => { count(q('budget'), rest, 0, { suffix: ` ${sym}` }); count(q('pts'), 0, pts, { suffix: ' ⭐' }); sfx.coins(); }],
+                [3000, `+${pts} Punkte in der Endwertung`, () => { bump(q('pts')); sfx.points(); }]
+            ];
+            break;
+        }
+        case 'perk3': { // bad-tier cards score more
+            const g = sample('gut'), c = sample('schlecht'), m = perk('perk3_badTierMultiplier');
+            stage = `<div class="pk-row">${card(g, 'g')}${card(c, 'c')}</div>`;
+            beats = [
+                [300, 'Gute Karten zählen ganz normal', () => bump(q('g'))],
+                [1800, `Karten der schlechtesten Stufe: +${pct(m)} Punkte`, () => { count(score('c'), c.score, Math.floor(c.score * m)); bump(q('c')); q('c').classList.add('pk-core'); sfx.points(); }]
+            ];
+            break;
+        }
+        case 'perk4': { // less starting budget, more income
+            const low = Math.floor(start * perk('perk4_budgetMultiplier')), m = perk('perk4_incomeMultiplier');
+            const gain = eventValue('bonus_all', 50000), boosted = Math.floor(gain * m);
+            stage = `<div class="pk-col"><div class="pk-chip" id="pk-budget">${fmt(start)}</div><div class="pk-float" id="pk-gain"></div></div>`;
+            beats = [
+                [300, `Startet mit ${pct(perk('perk4_budgetMultiplier'))} weniger Budget`, () => { count(q('budget'), start, low, { suffix: ` ${sym}` }); q('budget').classList.add('is-minus'); sfx.wahwah(); }],
+                [2200, 'Event: Bonus für alle …', () => { q('gain').textContent = `+${fmt(gain)}`; q('gain').classList.add('is-plus', 'show'); sfx.whoosh(); }],
+                [3300, `… und er kassiert +${pct(m)} mehr (Events, Glücksrad, Cashback)`, () => {
+                    count(q('gain'), gain, boosted, { prefix: '+', suffix: ` ${sym}` }); count(q('budget'), low, low + boosted, { suffix: ` ${sym}` });
+                    q('budget').classList.replace('is-minus', 'is-plus'); bump(q('gain')); sfx.coins();
+                }]
+            ];
+            break;
+        }
+        case 'perk5': { // swap joker: choose from several cards
+            const n = perk('perk5_gambleChoices'), tiers = ['schlecht', 'mittel', 'gut', 'mittel', 'schlecht'];
+            const list = Array.from({ length: n }, (_, i) => sample(tiers[i], i));
+            const best = list.reduce((b, c, i) => c.score > list[b].score ? i : b, 0);
+            stage = `<div class="pk-row">${list.map((c, i) => card(c, 'o' + i, i ? 'pk-hidden' : '')).join('')}</div>`;
+            beats = [
+                [300, `Normaler ${jl('gamble')}: eine zufällige Karte`, () => { bump(q('o0')); sfx.flip(); }],
+                [1900, `Mit Perk: ${n} Karten zur Auswahl`, () => { list.forEach((c, i) => i && s.at(i * 180, () => { q('o' + i).classList.remove('pk-hidden'); sfx.flip(); })); }],
+                [3600, 'Die beste wird genommen', () => { list.forEach((c, i) => q('o' + i).classList.add(i === best ? 'pk-core' : 'pk-dead')); bump(q('o' + best)); sfx.chaching(); }]
+            ];
+            break;
+        }
+        case 'perk6': { // immune to money penalties, bonus on the wheel
+            const tax = eventValue('tax_all', 50000), wheel = 40000, m = perk('perk6_wheelBonusMultiplier'), boosted = Math.floor(wheel * m);
+            stage = `<div class="pk-col" id="pk-stage"><div class="pk-chip" id="pk-budget">${fmt(start)}</div><div class="pk-float" id="pk-hit"></div></div>`;
+            beats = [
+                [300, 'Event: Strafzahlung für alle …', () => { q('hit').textContent = `−${fmt(tax)}`; q('hit').classList.add('is-minus', 'show'); sfx.whoosh(); }],
+                [1500, '… prallt an ihm ab', () => { q('hit').classList.add('pk-dead'); stamp(q('stage'), '🛡️ ABGEWEHRT'); }],
+                [3300, `Glücksrad: +${pct(m)} obendrauf`, () => {
+                    q('stage').querySelector('.fx-stamp')?.remove();
+                    q('hit').className = 'pk-float is-plus show'; count(q('hit'), wheel, boosted, { prefix: '+', suffix: ` ${sym}` });
+                    count(q('budget'), start, start + boosted, { suffix: ` ${sym}` }); q('budget').classList.add('is-plus'); sfx.coins();
+                }]
+            ];
+            break;
+        }
+        case 'perk7': { // more block jokers, immune to blocks
+            const n = perk('perk7_startingBlocks');
+            stage = `<div class="pk-col" id="pk-stage"><div class="pk-chip text-red-400" id="pk-jokers">${jokerIcon('block')} ${jl('block')} ×<b id="pk-n">1</b></div><div class="pk-player" id="pk-player">${p.name}</div></div>`;
+            beats = [
+                [300, `Startet mit ${n}× ${jl('block')}`, () => { count(q('n'), 1, n); bump(q('jokers')); sfx.chime(); }],
+                [1900, `Ein Mitspieler spielt ${jl('block')} gegen ihn …`, () => { q('player').classList.add('pk-target'); sfx.chains(); }],
+                [3000, '… wirkungslos. Der Joker des Angreifers ist trotzdem weg', () => stamp(q('stage'), '🛡️ ABGEWEHRT')]
+            ];
+            break;
+        }
+        case 'perk8': { // no jokers, flat points per card
+            const bonus = perk('perk8_flatScoreBonus'), list = [sample('gut'), sample('mittel'), sample('schlecht')];
+            stage = `<div class="pk-col"><div class="pk-chip" id="pk-jk">${Object.keys(JOKER_ICONS).map(jokerIcon).join(' ')}</div><div class="pk-row">${list.map((c, i) => card(c, 'c' + i)).join('')}</div></div>`;
+            beats = [
+                [300, 'Verzichtet komplett auf Joker', () => { q('jk').classList.add('pk-dead'); sfx.wahwah(); }],
+                [1900, `Dafür +${bonus} Punkte auf jede Karte`, () => list.forEach((c, i) => s.at(i * 350, () => { count(score('c' + i), c.score, c.score + bonus); bump(q('c' + i)); sfx.points(); }))]
+            ];
+            break;
+        }
+        case 'joker:block': { // target can't buy or play jokers until the next purchase
+            const label = jl('block');
+            stage = `<div class="pk-row"><div class="pk-player" id="pk-a">${pA}</div><span class="pk-arrow">${jokerIcon('block')}</span><div class="pk-slot" id="pk-bwrap"><div class="pk-player" id="pk-b">${pB}</div></div></div>`;
+            beats = [
+                [300, `${pA} spielt ${label} gegen ${pB}`, () => { bump(q('a')); sfx.whoosh(); }],
+                [1300, `${pB} ist gesperrt …`, () => { q('b').classList.add('pk-target'); stamp(q('bwrap'), '🔒 GESPERRT', true); sfx.chains(); }],
+                [2900, '… darf diese Runde nichts kaufen und keine Joker spielen', () => q('b').classList.add('pk-dead')],
+                [4500, 'Nach dem nächsten Kauf ist die Sperre weg. Nur einmal pro Runde spielbar', () => { unstamp(q('bwrap')); q('b').classList.remove('pk-dead', 'pk-target'); sfx.chime(); }]
+            ];
+            break;
+        }
+        case 'joker:bonus': { // cashback on the next purchase
+            const c = sample('mittel'), frac = getConf('mechanics', 'bonusCashbackFraction'), back = Math.floor(c.cost * frac), after = start - c.cost;
+            stage = `<div class="pk-row"><div class="pk-col"><div class="pk-player" id="pk-a">${pA}</div><div class="pk-chip" id="pk-budget">${fmt(start)}</div><div class="pk-float" id="pk-gain"></div></div>${card(c, 'c', 'pk-hidden')}</div>`;
+            beats = [
+                [300, `${pA} aktiviert ${jl('bonus')}`, () => { q('a').classList.add('pk-core'); sfx.chaching(); }],
+                [1600, `Nächster Kauf: ${fmt(c.cost)}`, () => { q('c').classList.remove('pk-hidden'); count(q('budget'), start, after, { suffix: ` ${sym}` }); q('budget').classList.add('is-minus'); sfx.gavel(0.6); }],
+                [3000, `${Math.round(frac * 100)} % davon kommen zurück`, () => { float('gain', `+${fmt(back)}`, 'is-plus'); count(q('budget'), after, after + back, { suffix: ` ${sym}` }); q('budget').classList.replace('is-minus', 'is-plus'); sfx.coins(); }],
+                [4500, 'Kauft ein anderer zuerst, verfällt der Schutz', () => q('a').classList.remove('pk-core')]
+            ];
+            break;
+        }
+        case 'joker:autoBuy': { // random card from the category at a markup, penalty card if unaffordable
+            const c = sample('gut', 1), factor = getConf('mechanics', 'autoBuyMultiplier'), price = Math.floor(c.cost * factor), tpl = Config.punishCardTemplate || {};
+            stage = `<div class="pk-col">${card(c, 'c', 'pk-back')}<div class="pk-chip" id="pk-price">${fmt(c.cost)}</div><div class="pk-float" id="pk-note"></div></div>`;
+            beats = [
+                [300, `${pA} greift blind eine Karte aus der Kategorie`, () => { bump(q('c')); sfx.whoosh(); }],
+                [1600, 'Aufgedeckt, egal wie gut sie ist', () => { q('c').classList.remove('pk-back'); sfx.flip(); }],
+                [2800, `Kaufpreis × ${factor.toLocaleString('de-DE')}`, () => { count(q('price'), c.cost, price, { suffix: ` ${sym}` }); q('price').classList.add('is-minus'); sfx.coins(); }],
+                [4300, 'Reicht das Budget nicht, gibt es stattdessen die Strafkarte', () => { float('note', `${tpl.icon || '💩'} ${tpl.name || 'Strafkarte'}`, 'is-minus'); sfx.wahwah(); }]
+            ];
+            break;
+        }
+        case 'joker:gamble': { // own card back to the catalogue, random card of the same category in
+            const old = sample('schlecht', 1), neu = sample('gut', 2);
+            stage = `<div class="pk-row">${card(old, 'old')}<span class="pk-arrow">⇄</span>${card(neu, 'new', 'pk-hidden')}</div>`;
+            beats = [
+                [300, `${pA} gibt eine gekaufte Karte ab`, () => { bump(q('old')); sfx.whoosh(); }],
+                [1600, 'Sie geht zurück in den Katalog …', () => { q('old').classList.add('pk-dead'); sfx.flip(); }],
+                [2700, '… und kostenlos kommt eine zufällige Karte derselben Kategorie', () => { q('new').classList.remove('pk-hidden'); bump(q('new')); sfx.chaching(); }],
+                [4200, 'Glückssache: Die neue kann auch schlechter sein', () => {}]
+            ];
+            break;
+        }
+        case 'joker:skip': { // flush the card on the table, a replacement is revealed
+            const c = sample('schlecht', 2), r = sample('mittel', 2);
+            stage = `<div class="pk-slot" id="pk-cwrap">${card(c, 'c')}${card(r, 'r', 'pk-hidden pk-stack')}</div>`;
+            beats = [
+                [300, 'Diese Karte liegt gerade zur Versteigerung auf dem Tisch', () => bump(q('c'))],
+                [1500, `${pA} spielt ${jl('skip')}: weg damit`, () => { q('c').classList.add('pk-flushed'); stamp(q('cwrap'), '🗑️ WEG', true); sfx.whoosh(); }],
+                [3000, 'Sofort wird eine Ersatzkarte aufgedeckt', () => { unstamp(q('cwrap')); q('r').classList.remove('pk-hidden'); bump(q('r')); sfx.flip(); }],
+                [4300, 'Die gespülte Karte ist für dieses Spiel raus. Gesperrte Spieler können nicht spülen', () => {}]
+            ];
+            break;
+        }
+        default: return;
+    }
+
+    $('joker-hover-popup')?.classList.add('hidden');
+    const s = mountScene('perk-showcase', `
+        <div class="pk-box">
+            <div class="pk-kicker">${jokerKey ? 'So wirkt der Joker' : "So wirkt's"} im Spiel</div>
+            <div class="pk-title">${p.name}</div>
+            <div class="pk-stage">${stage}</div>
+            <div class="pk-caption" aria-live="polite"></div>
+        </div>
+        <div class="auction-skip">Klick, Leertaste oder Enter zum Schließen</div>`);
+    s.el.setAttribute('role', 'dialog');
+    s.el.setAttribute('aria-label', `Vorschau: ${s.el.querySelector('.pk-title').textContent.trim()}`);
+    const caption = s.el.querySelector('.pk-caption');
+    beats.forEach(([ms, text, fn]) => s.at(ms, () => { caption.textContent = text; restartClass(caption, 'is-new'); fn(); }));
+}
 
 // =====================================================================
 // KATEGORIEN MODAL
@@ -777,12 +1002,13 @@ function selectMatrixAuctionCategory(cat, btn) {
     activeMatrixAuctionCategory = cat;
     
     // Alle Buttons auf "Inaktiv" setzen
-    document.querySelectorAll('.matrix-cat-btn').forEach(b => b.className = "matrix-cat-btn w-full h-full bg-transparent hover:bg-[#292524] text-stone-400 text-[10px] font-bold py-2 border-b-2 border-transparent transition-colors");
+    document.querySelectorAll('.matrix-cat-btn').forEach(b => b.className = "matrix-cat-btn w-full h-full bg-transparent hover:bg-stone-800 text-stone-400 text-xs font-bold py-2 border-b-2 border-transparent transition-colors");
     
     if (!btn) document.querySelectorAll('.matrix-cat-btn').forEach(b => { if (b.getAttribute('onclick')?.includes(`'${cat}'`)) btn = b; });
     
     // Den geklickten Button auf "Aktiv" setzen
-    if (btn) btn.className = "matrix-cat-btn w-full h-full bg-[#1c1917] text-orange-400 text-[10px] font-black py-2 border-b-2 border-orange-500 transition-colors";
+    if (btn) btn.className = "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors";
+    markCategoryColumns();
     
     if (blindDrawsLeft === 0 && $('matrix-active-bid-target')) {
         activeMatrixAuctionItem = null;
@@ -808,7 +1034,7 @@ function saveCategories() {
 
 function addBid(amount) {
     let input = $('matrix-auction-price');
-    if (input) input.value = (parseInt(input.value) || 0) + amount;
+    if (input) input.value = Math.max(0, (parseInt(input.value) || 0) + amount);
 }
 
 function drawMatrixRandomPlayer() {
@@ -854,7 +1080,7 @@ function drawMatrixRandomPlayer() {
         $('matrix-active-bid-desc').innerHTML = getDynamicDescHtml(item);
     }
     if ($('matrix-auction-price')) $('matrix-auction-price').value = item.cost;
-    playDrawAnimation(item, () => { if (typeof openCardExpand === 'function') openCardExpand(); });
+    playDrawAnimation(item);
 }
 
 function updateBuyerDropdown() {
@@ -894,8 +1120,8 @@ function executeMatrixAuction() {
     
     let cbText = processPurchase(m, price, activeMatrixAuctionItem, activeMatrixAuctionItem.type);
     let sapMsg = ""; if (blindDrawsLeft > 0) { blindDrawsLeft--; sapMsg = "<br><br>Die verdeckte Ware wurde enthüllt!"; }
-    playAuctionAnimation(price, activeMatrixAuctionItem, m);
-    showModal((Config.auctionAnimation?.dealConfirmTitle) || "🚨 DEAL PERFEKT!", `<strong>${activeMatrixAuctionItem.name}</strong> geht für <strong>${price.toLocaleString()} ${Config.currency.symbol}</strong> an <strong>${m.name}</strong>!${cardQuoteHtml(activeMatrixAuctionItem)}${sapMsg}${cbText}`);
+    // No deal popup: the hammer scene already shows card, price and buyer. Follow-ups start when it ends.
+    playAuctionAnimation(price, activeMatrixAuctionItem, m, { note: sapMsg + cbText });
     resetMatrixActiveBid();
 }
 
@@ -928,8 +1154,7 @@ function executeAuction() {
     const cat = selectedAuctionItem.type.toLowerCase();
     if (m.team[cat]) return showModal("Voll!", "Kategorie-Slot ist bereits besetzt.");
     let cbText = processPurchase(m, price, selectedAuctionItem, selectedAuctionItem.type);
-    playAuctionAnimation(price, selectedAuctionItem, m);
-    showModal((Config.auctionAnimation?.dealConfirmTitle) || "🚨 DEAL PERFEKT!", `<strong>${selectedAuctionItem.name}</strong> geht für <strong>${price.toLocaleString()} ${Config.currency.symbol}</strong> an <strong>${m.name}</strong>!${cardQuoteHtml(selectedAuctionItem)}${cbText}`);
+    playAuctionAnimation(price, selectedAuctionItem, m, { note: cbText });
     selectedAuctionItem = null; manualCatalogHide = true; boolForceShowCatalog = false;
     if ($('active-bid-target')) $('active-bid-target').innerText = "Nichts ausgewählt";
     if ($('active-bid-start-price')) $('active-bid-start-price').innerText = "Mindestpreis: -";
@@ -1019,7 +1244,8 @@ function givePenaltyCard(m, catKey, dropAnimation = false) {
 }
 
 // =====================================================================
-// LETZTE KARTE: last open slot gets the next hand card automatically.
+// LETZTE KARTE: one open slot left, the next hand card goes to that player.
+// With a flush joker (and not blocked) the player may flush it first, as often as jokers last.
 // Can't afford it -> "Spotlight of Shame", then the penalty card.
 // =====================================================================
 let pendingLastCardCat = null;
@@ -1045,18 +1271,119 @@ function resolveLastCard() {
         showModal("💨 KEINE KARTE MEHR", `Für <strong>${m.name}</strong> ist keine Karte mehr übrig – es gibt die Strafkarte.`);
         return givePenaltyCard(m, key);
     }
-    if (m.budget >= item.cost) {
+    const canPay = m.budget >= item.cost;
+    const canFlush = m.jokers.skip > 0 && m.id !== blockedPlayerId; // blocked players can't play jokers
+    if (!canFlush && !canPay) return lastCardBroke(m, item, key);
+
+    playLastCardScene(m, item, { canFlush, canPay }, choice => {
+        if (choice === 'flush') return flushLastCard(m, item, key);
+        if (!canPay) return lastCardBroke(m, item, key);
         activeCategoryDeck.shift();
         const cbText = processPurchase(m, item.cost, item, key);
-        playAuctionAnimation(item.cost, item, m, { lastCard: true });
-        showModal("🎯 LETZTE KARTE", `Niemand bietet mehr mit: <strong>${m.name}</strong> bekommt automatisch <strong>${item.name}</strong> zum Mindestpreis von <strong>${item.cost.toLocaleString()} ${Config.currency.symbol}</strong>.${cardQuoteHtml(item)}${cbText}`);
-        return resetMatrixActiveBid();
-    }
+        resetMatrixActiveBid();
+        flyCardToSlot(item, m, item.cost);
+        if (cbText) showModal("💰 BONUS", cbText.replace(/^(<br>)+/, '')); // waits until the card has landed
+    });
+}
+
+function lastCardBroke(m, item, key) {
     addLog(`Pleite: ${m.name} kann ${item.name} (${item.cost.toLocaleString()}) nicht bezahlen.`, "alert");
     playSpotlightOfShame(m, item, () => {
         givePenaltyCard(m, key, true);
         setTimeout(runNextQueuedStep, 900); // no popup on this path, so continue once the card has dropped in
     });
+}
+
+// Flushes the last card and deals a random replacement from the category catalogue (the hand only
+// holds one card per player, so it is empty by now); once the flush scene ends it gets the same decision.
+function flushLastCard(m, item, key) {
+    m.jokers.skip--;
+    activeCategoryDeck = activeCategoryDeck.filter(c => c.id !== item.id);
+    const cat = item.dbCategory || key, idx = itemDatabase[cat]?.findIndex(x => x.id === item.id);
+    if (idx !== undefined && idx !== -1) { shreddedDatabase.push(itemDatabase[cat].splice(idx, 1)[0]); saveDatabases(); }
+    const pool = (itemDatabase[key] || []).filter(x => !activeCategoryDeck.some(c => c.id === x.id));
+    if (pool.length) activeCategoryDeck.unshift(pool[Math.floor(Math.random() * pool.length)]);
+    addLog(`Gespült: ${m.name} spült die letzte Karte "${item.name}".`, "alert");
+    renderMatrix();
+    pendingLastCardCat = key;
+    playFlushScene(item);
+}
+
+// Pips for every player (the one open slot pulses), then the card is dealt face-up.
+// With a flush joker: "flush" / "take" buttons. Without: one "Karte zuteilen" button.
+// Either way the scene stays until the host chooses, so the card text can be read.
+function playLastCardScene(m, item, { canFlush, canPay }, onChoice) {
+    const sym = Config.currency.symbol, cat = Config.categories[activeMatrixAuctionCategory];
+    const skipLabel = Config.terminology?.jokers?.skip?.label || 'Wegspülen';
+    const blockedNote = m.id === blockedPlayerId && m.jokers.skip > 0 ? ' · <i class="fa-solid fa-lock"></i> gesperrt, kein Joker' : '';
+    const pips = managers.map((x, i) => `<i class="${x === m ? 'is-open' : ''}" style="--i:${i}"></i>`).join('');
+    const takeLabel = !canFlush ? `Karte zuteilen · ${item.cost.toLocaleString()} ${sym}`
+        : canPay ? `Annehmen · ${item.cost.toLocaleString()} ${sym}` : 'Annehmen · Budget reicht nicht';
+    const actions = (canFlush ? `<button class="last-btn is-flush" data-choice="flush">${jokerIcon('skip')} ${skipLabel} <small>noch ${m.jokers.skip}</small></button>` : '')
+        + `<button class="last-btn is-take" data-choice="take">${takeLabel}</button>`;
+
+    const el = document.createElement('div');
+    el.className = 'fx-scene last-scene';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', 'Letzte Karte');
+    el.innerHTML = `
+        <div class="last-stage">
+            <div class="last-kicker">Letzte Karte</div>
+            <div class="last-pips" aria-hidden="true">${pips}</div>
+            <div class="last-who">${cat?.icon || ''} ${cat?.name || ''}: nur noch <strong>${m.name}</strong> ist offen${blockedNote}</div>
+            <div class="draw-card"><div class="draw-flipper">
+                <div class="draw-face draw-back"><span>${cat?.icon || '🂠'}</span></div>
+                <div class="draw-face draw-front">
+                    <div class="draw-icon">${item.icon || cat?.icon || ''}</div>
+                    <div class="draw-name">${item.name}</div>
+                    <div class="draw-desc">${item.desc || ''}</div>
+                    <div class="draw-price${canPay ? '' : ' is-short'}">${item.cost.toLocaleString()} ${sym}</div>
+                </div>
+            </div></div>
+            <div class="last-actions">${actions}</div>
+        </div>`;
+    document.body.appendChild(el);
+
+    const buttons = [...el.querySelectorAll('[data-choice]')];
+    const timers = [];
+    let revealed = false, ready = false, done = false;
+    const at = (ms, fn) => timers.push(setTimeout(fn, reducedMotion() ? Math.min(ms, 400) : ms));
+    const finish = choice => {
+        if (done) return; done = true;
+        timers.forEach(clearTimeout);
+        document.removeEventListener('keydown', onKey, true);
+        onChoice(choice); // mounts the follow-up scene first, so no popup slips in between
+        el.classList.add('is-leaving');
+        setTimeout(() => { el.remove(); sceneEnded(); }, 250);
+    };
+    // Card face-up now; the buttons only appear 1.5 s later (not shortened for reduced motion),
+    // so a double Enter can't hand the card over before its text was read.
+    const reveal = () => {
+        if (revealed) return; revealed = true;
+        timers.forEach(clearTimeout);
+        el.classList.add('is-dealt', 'is-flipped');
+        timers.push(setTimeout(() => { ready = true; el.classList.add('is-ready'); buttons[buttons.length - 1].focus(); }, 1500));
+    };
+    // Keys never reach the board. Space/Enter/Esc skip the intro; once the buttons are up,
+    // Space/Enter press the focused button (Tab / arrows switch between the two).
+    const onKey = e => {
+        e.preventDefault(); e.stopImmediatePropagation();
+        const go = e.key === ' ' || e.key === 'Enter' || e.key === 'Escape';
+        if (!ready) return go && reveal();
+        if (e.key === 'Tab' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            buttons[(buttons.indexOf(document.activeElement) + 1) % buttons.length].focus();
+        } else if ((e.key === ' ' || e.key === 'Enter') && buttons.includes(document.activeElement)) {
+            finish(document.activeElement.dataset.choice);
+        }
+    };
+    document.addEventListener('keydown', onKey, true);
+    buttons.forEach(b => b.addEventListener('click', () => ready && finish(b.dataset.choice)));
+    el.addEventListener('click', e => { if (!e.target.closest('[data-choice]')) reveal(); });
+
+    requestAnimationFrame(() => el.classList.add('show'));
+    sfx.whoosh();
+    at(900, () => el.classList.add('is-dealt'));
+    at(1400, () => { sfx.flip(); reveal(); });
 }
 
 function playSpotlightOfShame(m, item, done) {
@@ -1142,6 +1469,22 @@ function toggleSound() {
     syncSoundButton();
 }
 document.addEventListener('DOMContentLoaded', syncSoundButton);
+// One enveloped oscillator: quick attack, exponential decay; freqEnd glides the pitch. `at` = delay in seconds.
+function tone(ctx, { type = 'sine', freq, freqEnd, at = 0, dur = 0.3, vol = 0.3, attack = 0.005 }) {
+    const t = ctx.currentTime + at, o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.setValueAtTime(freq, t);
+    if (freqEnd) o.frequency.exponentialRampToValueAtTime(freqEnd, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + attack); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + dur + 0.02);
+}
+// A decaying noise burst through one filter: cracks, thumps, hiss
+function burst(ctx, { at = 0, dur = 0.1, type = 'bandpass', freq = 1000, q = 1, vol = 0.5, decay = 3 }) {
+    const t = ctx.currentTime + at, buf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * dur), ctx.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, decay);
+    const src = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+    src.buffer = buf; fl.type = type; fl.frequency.value = freq; fl.Q.value = q; g.gain.value = vol;
+    src.connect(fl).connect(g).connect(ctx.destination); src.start(t);
+}
 function audioCtx() {
     if (isSoundMuted()) return null;
     try {
@@ -1280,16 +1623,6 @@ const sfx = {
     whoosh() { sfx.noise(0.35, 'bandpass', 500, 2600, 0.35); },
     flip() { sfx.noise(0.09, 'highpass', 2500, 6000, 0.35); },
     chains() { sfx.noise(0.3, 'bandpass', 4200, 1800, 0.3); setTimeout(() => sfx.noise(0.2, 'bandpass', 3600, 2000, 0.22), 120); },
-    flush() { // roaring water dropping in pitch, then gurgles
-        sfx.noise(1.5, 'lowpass', 2400, 180, 0.6);
-        const ctx = audioCtx(); if (!ctx) return;
-        for (let k = 0; k < 7; k++) {
-            const t = ctx.currentTime + 0.7 + k * 0.13 + Math.random() * 0.05, o = ctx.createOscillator(), g = ctx.createGain();
-            o.type = 'sine'; o.frequency.setValueAtTime(180 + Math.random() * 160, t); o.frequency.exponentialRampToValueAtTime(600 + Math.random() * 300, t + 0.07);
-            g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.25, t + 0.01); g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
-            o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + 0.1);
-        }
-    },
     heartbeat() { // lub-dub
         const ctx = audioCtx(); if (!ctx) return;
         [[0, 1], [0.16, 0.7]].forEach(([start, vol]) => {
@@ -1306,6 +1639,84 @@ const sfx = {
             o.type = 'sine'; o.frequency.value = freq;
             g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.3, t + 0.01); g.gain.exponentialRampToValueAtTime(0.001, t + 1.1);
             o.connect(g).connect(ctx.destination); o.start(t); o.stop(t + 1.15);
+        });
+    },
+
+    // --- Theme sounds for gained points: the config names one via "pointsSound" (falls back to the gong) ---
+    points() { (sfx[Config.pointsSound] || sfx.chime)(); },
+    cabinChime() { // airline: "ding-dong" of the seatbelt sign, bell partials
+        const ctx = audioCtx(); if (!ctx) return;
+        [[1174.7, 0], [880, 0.45]].forEach(([freq, at]) => {
+            tone(ctx, { freq, at, dur: 1.2, vol: 0.28 });
+            tone(ctx, { freq: freq * 2.76, at, dur: 0.5, vol: 0.05 });
+        });
+    },
+    stamp() { // office stamp on paper: "klack-KLACK"
+        const ctx = audioCtx(); if (!ctx) return;
+        [[0, 0.5], [0.22, 1]].forEach(([at, p]) => {
+            burst(ctx, { at, dur: 0.08, type: 'lowpass', freq: 900, vol: 0.8 * p });
+            tone(ctx, { type: 'sine', freq: 130, freqEnd: 55, at, dur: 0.16, vol: 0.8 * p });
+        });
+    },
+    brassFanfare() { // regime: "tä-tä-tätää" on detuned saw brass
+        const ctx = audioCtx(); if (!ctx) return;
+        [[392, 0, 0.12], [392, 0.16, 0.12], [523.25, 0.32, 0.12], [659.25, 0.48, 0.75]].forEach(([freq, at, dur]) => {
+            const t = ctx.currentTime + at, lp = ctx.createBiquadFilter(), g = ctx.createGain();
+            lp.type = 'lowpass'; lp.Q.value = 2; lp.frequency.setValueAtTime(600, t); lp.frequency.linearRampToValueAtTime(2600, t + 0.05);
+            g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.16, t + 0.02); g.gain.setValueAtTime(0.16, t + dur - 0.05); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+            [0, 7].forEach(cents => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = freq; o.detune.value = cents; o.connect(lp); o.start(t); o.stop(t + dur + 0.02); });
+            lp.connect(g).connect(ctx.destination);
+        });
+    },
+    hammer() { // building site: three hits on a nail, the last one hardest
+        const ctx = audioCtx(); if (!ctx) return;
+        [[0, 0.6], [0.28, 0.75], [0.56, 1]].forEach(([at, p]) => {
+            burst(ctx, { at, dur: 0.05, type: 'highpass', freq: 2500, vol: 0.6 * p, decay: 4 });
+            tone(ctx, { type: 'triangle', freq: 1850, freqEnd: 1500, at, dur: 0.1 + 0.25 * p, vol: 0.18 * p }); // nail ring
+            tone(ctx, { type: 'sine', freq: 190, freqEnd: 70, at, dur: 0.12, vol: 0.55 * p });                   // wood thud
+        });
+    },
+    impactWrench() { // assembly line: pneumatic "brrrt" and the air hiss after it
+        const ctx = audioCtx(); if (!ctx) return;
+        for (let k = 0; k < 14; k++) burst(ctx, { at: k * 0.025, dur: 0.02, freq: 1500, q: 2, vol: 0.4, decay: 2 });
+        tone(ctx, { type: 'square', freq: 95, at: 0, dur: 0.36, vol: 0.06, attack: 0.02 });
+        burst(ctx, { at: 0.38, dur: 0.32, type: 'highpass', freq: 3200, vol: 0.28, decay: 1 });
+    },
+    coin8bit() { // childhood: 8-bit coin "pling-plinnng"
+        const ctx = audioCtx(); if (!ctx) return;
+        tone(ctx, { type: 'square', freq: 987.8, dur: 0.08, vol: 0.12 });
+        tone(ctx, { type: 'square', freq: 1318.5, at: 0.08, dur: 0.4, vol: 0.12 });
+    },
+    levelUp() { // noob lobby: hitmarker tick, then a chiptune arpeggio
+        const ctx = audioCtx(); if (!ctx) return;
+        burst(ctx, { dur: 0.03, type: 'highpass', freq: 4000, vol: 0.5 });
+        [523.25, 659.25, 783.99, 1046.5].forEach((freq, k) => tone(ctx, { type: 'square', freq, at: 0.08 + k * 0.07, dur: k === 3 ? 0.3 : 0.07, vol: 0.1 }));
+    },
+    mail() { // office: new-message "plink-plink"
+        const ctx = audioCtx(); if (!ctx) return;
+        tone(ctx, { freq: 1568, dur: 0.25, vol: 0.25 });
+        tone(ctx, { freq: 2093, at: 0.09, dur: 0.35, vol: 0.22 });
+        tone(ctx, { type: 'triangle', freq: 4186, at: 0.09, dur: 0.12, vol: 0.04 });
+    },
+    shots() { // warzone: three-round burst, then two casings on the ground
+        const ctx = audioCtx(); if (!ctx) return;
+        [0, 0.12, 0.24].forEach(at => {
+            burst(ctx, { at, dur: 0.14, type: 'lowpass', freq: 1800, vol: 1, decay: 5 });
+            tone(ctx, { type: 'sine', freq: 120, freqEnd: 40, at, dur: 0.12, vol: 0.7 });
+        });
+        [0.45, 0.53].forEach(at => tone(ctx, { type: 'triangle', freq: 5200 + Math.random() * 600, at, dur: 0.05, vol: 0.08 }));
+    },
+    glasses() { // wedding: two glasses clinking
+        const ctx = audioCtx(); if (!ctx) return;
+        [0, 0.18].forEach(at => [[2637, 0.14], [3951, 0.07], [5274, 0.04]].forEach(([freq, vol]) => tone(ctx, { freq: freq * (1 + at * 0.05), at, dur: 0.7, vol })));
+    },
+    keysAndGate() { // prison: rattling keys, then the cell door clangs shut with an echo
+        const ctx = audioCtx(); if (!ctx) return;
+        for (let k = 0; k < 6; k++) tone(ctx, { type: 'triangle', freq: 3000 + Math.random() * 2000, at: k * 0.05 + Math.random() * 0.02, dur: 0.06, vol: 0.08 });
+        [[0.4, 1], [0.7, 0.35]].forEach(([at, p]) => {
+            burst(ctx, { at, dur: 0.15, type: 'lowpass', freq: 600, vol: 0.7 * p });
+            tone(ctx, { type: 'triangle', freq: 420, freqEnd: 400, at, dur: 0.9, vol: 0.22 * p });
+            tone(ctx, { type: 'square', freq: 110, freqEnd: 98, at, dur: 0.6, vol: 0.08 * p });
         });
     }
 };
@@ -1343,7 +1754,7 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const k = Math.max(1500, getConf('ui', 'auctionHammerDuration')) / 5000; // timeline below is authored for 5 s
     const sym = Config.currency.symbol;
-    const stamp = opts.lastCard ? '🎯 LETZTE KARTE' : (Config.auctionAnimation?.dealConfirmTitle || '🔨 VERKAUFT!');
+    const stamp = Config.auctionAnimation?.dealConfirmTitle || '🔨 VERKAUFT!';
     const sparks = Array.from({ length: 18 }, (_, i) => `<i style="--a:${i * 20 + Math.round(Math.random() * 10)}deg; --d:${90 + Math.round(Math.random() * 70)}px"></i>`).join('');
 
     const overlay = document.createElement('div');
@@ -1361,6 +1772,7 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
             <div class="auction-result">
                 <div class="auction-price"><span class="auction-count">0</span> ${sym}</div>
                 <div class="auction-buyer">an <strong>${buyer.name}</strong></div>
+                ${opts.note ? `<div class="auction-note">${opts.note.replace(/^(<br>)+/, '')}</div>` : ''}
             </div>
             <div class="auction-stamp">${stamp}</div>
         </div>
@@ -1399,8 +1811,8 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
 
     const at = (ms, fn) => timers.push(setTimeout(fn, ms * k));
     requestAnimationFrame(() => overlay.classList.add('show'));
-    at(900,  () => strike(opts.lastCard ? 'Niemand bietet mit …' : 'Zum Ersten …', 0.55));
-    at(1700, () => strike(opts.lastCard ? 'Letzte Chance …' : 'Zum Zweiten …', 0.75));
+    at(900,  () => strike('Zum Ersten …', 0.55));
+    at(1700, () => strike('Zum Zweiten …', 0.75));
     at(2500, () => {
         strike('Zum Dritten!', 1);
         overlay.classList.add('is-sold');
@@ -1448,7 +1860,7 @@ function playDrawAnimation(item, onDone, hidden = blindDrawsLeft > 0) {
             <div class="draw-face draw-back"><span>${catIcon}</span></div>
             <div class="draw-face draw-front">${front}<div class="draw-price">${item.cost.toLocaleString()} ${Config.currency.symbol}</div></div>
         </div></div>
-        <div class="auction-skip">Klick, Leertaste oder Enter zum Überspringen</div>`, onDone);
+        <div class="auction-skip">Klick, Leertaste oder Enter zum Schließen</div>`, onDone);
     const card = s.el.querySelector('.draw-card'), from = $('btn-draw')?.getBoundingClientRect?.();
     if (card?.animate && from && !reducedMotion()) {
         const dx = from.left + from.width / 2 - innerWidth / 2, dy = from.top + from.height / 2 - innerHeight / 2;
@@ -1459,12 +1871,11 @@ function playDrawAnimation(item, onDone, hidden = blindDrawsLeft > 0) {
         ], { duration: 520, easing: 'cubic-bezier(.2,.9,.3,1.1)' });
         sfx.whoosh();
     }
-    s.at(600, () => { s.el.classList.add('is-flipped'); sfx.flip(); });
-    s.at(2300, s.finish);
+    s.at(600, () => { s.el.classList.add('is-flipped'); sfx.flip(); }); // no auto-close: stays until the host dismisses it
 }
 
 // Sale: the card flies from the stage into the buyer's slot, backed by its tier colour; the budget counts down meanwhile.
-function flyCardToSlot(item, m, price = 0) {
+function flyCardToSlot(item, m, price = 0, { pointsBefore } = {}) {
     if (typeof closeCardExpand === 'function') closeCardExpand();
     if (!item || !m || reducedMotion()) return;
     const el = document.createElement('div');
@@ -1479,6 +1890,8 @@ function flyCardToSlot(item, m, price = 0) {
         const slot = key && document.querySelector(`#matrix-body tr:nth-child(${managers.indexOf(m) + 1}) td:nth-child(${activeCategories.indexOf(key.toUpperCase()) + 2}) > div`);
         if (!slot || !el.animate) return end();
         const r = slot.getBoundingClientRect();
+        const from = pointsBefore ?? managerPoints(m) - cardPoints(m, m.team[key], key);
+        const num = $(`points-num-${m.id}`); if (num) num.textContent = from; // gain is added when the card lands
         Object.assign(el.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px', visibility: 'visible' });
         const s = Math.min(3, 230 / Math.max(1, r.width)), dx = innerWidth / 2 - (r.left + r.width / 2), dy = innerHeight / 2 - (r.top + r.height / 2);
         slot.style.visibility = 'hidden';
@@ -1491,9 +1904,40 @@ function flyCardToSlot(item, m, price = 0) {
             slot.style.visibility = '';
             slot.style.setProperty('--tier', el.style.getPropertyValue('--tier'));
             slot.classList.add('slot-land'); sfx.gavel(0.4);
-            end();
+            flyPoints(m, slot, from, end);
         };
     });
+}
+
+// "+N ⭐" rises from the landed card, arcs to the player's points chip and the chip counts up
+function flyPoints(m, slot, from, done) {
+    const num = $(`points-num-${m.id}`), to = managerPoints(m), gain = to - from;
+    if (!num || !gain) { if (num) num.textContent = to; return done(); }
+    const a = slot.getBoundingClientRect(), b = num.getBoundingClientRect();
+    const x0 = a.left + a.width / 2, y0 = a.top + 14, dx = b.left + b.width / 2 - x0, dy = b.top + b.height / 2 - y0;
+    const el = document.createElement('div');
+    el.className = 'points-fly';
+    el.textContent = `${gain > 0 ? '+' : ''}${gain} ⭐`;
+    Object.assign(el.style, { left: x0 + 'px', top: y0 + 'px' });
+    document.body.appendChild(el);
+    sfx.points();
+    el.animate([
+        { transform: 'translate(-50%, -50%) scale(.6)', opacity: 0 },
+        { transform: 'translate(-50%, -80%) scale(1.35)', opacity: 1, offset: .25 },
+        { transform: `translate(calc(-50% + ${dx * .55}px), calc(-50% + ${dy * .55 - 50}px)) scale(1.1)`, offset: .6 },
+        { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.7)`, opacity: .9 }
+    ], { duration: 950, easing: 'cubic-bezier(.45,0,.25,1)' }).onfinish = () => {
+        el.remove();
+        const chip = num.parentElement;
+        chip.classList.remove('points-bump'); void chip.offsetWidth; chip.classList.add('points-bump');
+        const t0 = performance.now();
+        const tick = now => {
+            const k = Math.min(1, Math.max(0, (now - t0) / 650));
+            num.textContent = Math.round(from + gain * (1 - Math.pow(1 - k, 3)));
+            if (k < 1) requestAnimationFrame(tick); else done();
+        };
+        requestAnimationFrame(tick); sfx.coins();
+    };
 }
 
 function countBudget(m, price) { // odometer from the old to the new budget
@@ -1516,12 +1960,19 @@ function playRowFx(m, cls, html, ms) {
     return s;
 }
 
-function playFlushScene(item, onDone) { // Stornierung
-    const s = mountScene('flush-scene', `
-        <div class="flush-bowl"><div class="flush-vortex"></div><div class="flush-card"><span>${item.icon || '🂠'}</span>${item.name}</div></div>
-        <div class="flush-label">🚽 WEGGESPÜLT</div>`, onDone);
-    sfx.flush();
-    s.at(1900, s.finish);
+// Stornierung: the card is pulled into a shredder, strips rain out underneath, STORNIERT is stamped on top
+function playFlushScene(item, onDone) {
+    const strips = Array.from({ length: 10 }, (_, i) => `<i style="--i:${i}; --r:${Math.round(Math.random() * 40 - 20)}deg; --x:${Math.round(Math.random() * 30 - 15)}px"></i>`).join('');
+    const s = mountScene('shred-scene', `
+        <div class="shred-machine">
+            <div class="shred-feed"><div class="shred-card"><span>${item.icon || '🂠'}</span><b>${item.name}</b></div></div>
+            <div class="shred-body"><div class="shred-slot"></div><div class="shred-led"></div><div class="shred-brand">Aktenvernichter</div></div>
+            <div class="shred-out">${strips}</div>
+            <div class="shred-stamp">🗑️ STORNIERT</div>
+        </div>`, onDone);
+    for (let t = 350; t < 1650; t += 75) s.at(t, sfx.tick); // motor rattle
+    s.at(1750, sfx.hit);
+    s.at(2700, s.finish);
 }
 
 function playSwapScene(m, oldCard, newCard) { // Umbuchung: old card out, new card in, then into the slot
@@ -1530,35 +1981,93 @@ function playSwapScene(m, oldCard, newCard) { // Umbuchung: old card out, new ca
     const s = mountScene('swap-scene', `
         <div class="swap-title">${m.name}: ${label}</div>
         <div class="swap-stage">${face(oldCard, 'is-old')}<div class="swap-arrow">🔄</div>${face(newCard, 'is-new')}</div>`,
-        () => flyCardToSlot(newCard, m));
+        () => {
+            const cat = Object.keys(m.team).find(k => m.team[k]?.id === newCard.id);
+            flyCardToSlot(newCard, m, 0, { pointsBefore: managerPoints(m) - cardPoints(m, newCard, cat) + cardPoints(m, oldCard, cat) });
+        });
     sfx.whoosh(); s.at(900, sfx.flip);
     s.at(2400, s.finish);
 }
 
-// Blind-Deal: guesses one by one, the real value, distance bars, spotlight on the closest guess.
-function playBlindReveal(drawn, guesses, winner, onDone) {
-    const sym = Config.currency.symbol;
+// Blind-Deal as a mystery box: the box shakes harder and bursts open, the card flips out, the real value
+// counts up and the discount drops onto it. Then the bids: distance bars, players who can't pay are struck
+// through, a tie on the winning place runs a light between those rows until it stops on the winner.
+// No auto-close: without a result popup this scene is where the outcome gets read.
+function playBlindReveal(drawn, guesses, { winner, broke, tied, price }, onDone) {
+    const sym = Config.currency.symbol, cat = Config.categories[activeMatrixAuctionCategory];
+    const off = Math.round((1 - getConf('mechanics','blindWinCostFraction')) * 100);
     const maxDiff = Math.max(1, ...guesses.map(g => Math.abs(g.guess - drawn.cost)));
     const rows = guesses.map(g => {
         const diff = Math.abs(g.guess - drawn.cost);
-        return `<div class="blind-row${g.mgr === winner ? ' is-winner' : ''}"><span class="blind-who">${g.mgr.name}</span><span class="blind-guess">${g.guess.toLocaleString()} ${sym}</span><span class="blind-track"><i style="--w:${Math.max(3, diff / maxDiff * 100)}%"></i></span><span class="blind-diff">± ${diff.toLocaleString()}</span></div>`;
+        return `<div class="blind-row${g.mgr === winner ? ' is-winner' : ''}"><span class="blind-who">${g.mgr.name}</span><span class="blind-guess">${g.guess.toLocaleString()} ${sym}</span><span class="blind-track"><i style="--w:${Math.max(3, diff / maxDiff * 100)}%"></i></span><span class="blind-diff">± ${diff.toLocaleString()}</span><span class="blind-note">💸 zu wenig Budget</span></div>`;
     }).join('');
     const s = mountScene('blind-scene', `
         <div class="blind-panel">
-            <div class="blind-head">🙈 Aufgedeckt</div>
-            <div class="blind-card"><span>${drawn.icon || '🂠'}</span><b>${drawn.name}</b><div class="blind-value">Wahrer Wert: <strong>??? ${sym}</strong></div></div>
-            <div class="blind-rows">${rows}</div>
+            <div class="blind-stage">
+                <div class="mbox" aria-hidden="true"><div class="mbox-burst"></div><div class="mbox-lid"></div><div class="mbox-body"><span>?</span></div></div>
+                <div class="draw-card"><div class="draw-flipper">
+                    <div class="draw-face draw-back"><span>${cat?.icon || '🂠'}</span></div>
+                    <div class="draw-face draw-front">
+                        <div class="draw-icon">${drawn.icon || cat?.icon || ''}</div>
+                        <div class="draw-name">${drawn.name}</div>
+                        <div class="draw-desc">${drawn.desc || ''}</div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="blind-info">
+                <div class="blind-head">🙈 Blindflug</div>
+                <div class="blind-value">Wahrer Wert <strong><span class="blind-count">0</span> ${sym}</strong></div>
+                <div class="blind-deal"><span class="blind-off">−${off} %</span> Zuschlag für <strong>${price.toLocaleString()} ${sym}</strong></div>
+                <div class="blind-rows">${rows}</div>
+                <div class="blind-none">Niemand kann zahlen</div>
+            </div>
         </div>
         <div class="auction-skip">Klick, Leertaste oder Enter zum Überspringen</div>`, onDone);
-    s.el.querySelectorAll('.blind-row').forEach((row, i) => s.at(500 + i * 600, () => { row.classList.add('is-in'); sfx.tick(); }));
-    const tReal = 700 + guesses.length * 600;
-    s.at(tReal, () => sfx.drumroll(900));
-    s.at(tReal + 950, () => {
-        const v = s.el.querySelector('.blind-value strong'); if (v) v.textContent = `${drawn.cost.toLocaleString()} ${sym}`;
-        s.el.classList.add('is-measured'); sfx.hit();
+    const rowEls = [...s.el.querySelectorAll('.blind-row')];
+    const rowOf = mgr => rowEls[guesses.findIndex(g => g.mgr === mgr)];
+    const stage = cls => s.el.classList.add(cls);
+
+    // the box: shaking, shaking harder, bursting open; the card rises out of it and flips
+    stage('is-shaking'); sfx.drumroll(2000);
+    s.at(1100, () => stage('is-shaking-hard'));
+    s.at(2100, () => { stage('is-open'); sfx.hit(); });
+    s.at(2700, () => { stage('is-flipped'); sfx.flip(); });
+    s.at(3300, () => { // real value counts up
+        stage('is-valued');
+        const el = s.el.querySelector('.blind-count'), t0 = performance.now();
+        const tick = now => {
+            const k = Math.min(1, Math.max(0, (now - t0) / 800));
+            if (el) el.textContent = Math.round(drawn.cost * (1 - Math.pow(1 - k, 3))).toLocaleString();
+            if (k < 1 && s.el.isConnected) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
     });
-    s.at(tReal + 2100, () => { s.el.classList.add('is-decided'); sfx.fanfare(); });
-    s.at(tReal + 4300, s.finish);
+    s.at(4300, () => { stage('is-discounted'); sfx.chaching(); });
+    rowEls.forEach((row, i) => s.at(4900 + i * 250, () => { row.classList.add('is-in'); sfx.tick(); }));
+    const tRows = 4900 + rowEls.length * 250;
+    s.at(tRows + 300, () => stage('is-measured'));
+
+    let t = tRows + 1400;
+    guesses.forEach(g => {
+        if (!broke.has(g.mgr)) return;
+        s.at(t, () => { rowOf(g.mgr).classList.add('is-broke'); sfx.tick(); });
+        t += 450;
+    });
+    if (tied.length > 1) { // ~3 laps, slowing down, last hop lands on the winner
+        const lot = tied.map(rowOf), hops = lot.length * 3 + tied.indexOf(winner);
+        for (let h = 0; h <= hops; h++) {
+            const row = lot[h % lot.length];
+            s.at(t, () => { lot.forEach(r => r.classList.remove('is-lot')); row.classList.add('is-lot'); sfx.tick(); });
+            t += 90 + h * h * 4;
+        }
+        t += 300;
+    }
+    s.at(t, () => {
+        rowEls.forEach(r => r.classList.remove('is-lot'));
+        s.el.classList.add('is-decided');
+        winner ? sfx.fanfare() : sfx.wahwah();
+        const hint = s.el.querySelector('.auction-skip'); if (hint) hint.textContent = 'Klick, Leertaste oder Enter zum Schließen';
+    });
 }
 
 function resetGlobalBlock() { if (blockedPlayerId !== null) { blockedPlayerId = null; renderMatrix(); } }
@@ -1668,17 +2177,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if ($('blind-confirm-btn')) $('blind-confirm-btn').addEventListener('click', function () {
         const cat = activeMatrixAuctionCategory, el = managers.filter(mgr => !mgr.team[cat.toLowerCase()] && mgr.id !== blockedPlayerId);
         let guesses = [];
-        for (let mgr of el) { const val = parseInt($(`blind-guess-${mgr.id}`)?.value); if (isNaN(val) || val < 0) return alert(`Wert für ${mgr.name} fehlt.`); guesses.push({ mgr: mgr, guess: val }); }
+        for (let mgr of el) {
+            const input = $(`blind-guess-${mgr.id}`), val = parseInt(input?.value);
+            if (isNaN(val) || val < 0) { // mark the row that still needs a bid
+                const row = input?.closest('.blind-form-row');
+                if (row) { row.classList.remove('is-missing'); void row.offsetWidth; row.classList.add('is-missing'); }
+                return input?.focus();
+            }
+            guesses.push({ mgr: mgr, guess: val });
+        }
         const list = itemDatabase[cat]; if (!list || list.length === 0) { if ($('blind-modal')) $('blind-modal').classList.add('hidden'); return showModal("Katalog leer!", "Nichts mehr da."); }
         const drawn = list[Math.floor(Math.random() * list.length)], hp = Math.floor(drawn.cost * getConf('mechanics','blindWinCostFraction'));
-        let winner = null, minDiff = Infinity;
-        guesses.forEach(g => { const diff = Math.abs(g.guess - drawn.cost); if (diff < minDiff) { minDiff = diff; winner = g.mgr; } });
+        // Players who can't pay drop out; the closest remaining guess wins. A tie on that place is
+        // settled by lot (the scene plays it as a running light). No one left -> no deal, card stays.
+        const dist = g => Math.abs(g.guess - drawn.cost);
+        const broke = new Set(guesses.filter(g => g.mgr.budget < hp).map(g => g.mgr));
+        const payers = guesses.filter(g => !broke.has(g.mgr));
+        const best = Math.min(...payers.map(dist));
+        const tied = payers.filter(g => dist(g) === best).map(g => g.mgr);
+        const winner = tied.length ? tied[Math.floor(Math.random() * tied.length)] : null;
+        const result = { winner, broke, tied, price: hp };
         if ($('blind-modal')) $('blind-modal').classList.add('hidden');
-        if (winner.budget < hp) { playBlindReveal(drawn, guesses, winner); return showModal("Deal gescheitert", `${winner.name} hat nicht genug Budget (${hp.toLocaleString()} ${Config.currency.symbol})!`); }
-        let cbText = processPurchase(winner, hp, drawn, cat);
-        addLog(`Blinder Deal: ${winner.name} gewinnt.`, "buy");
-        playBlindReveal(drawn, guesses, winner, () => flyCardToSlot(drawn, winner, hp));
-        showModal((Config.auctionAnimation?.dealBlindTitle) || "🙈 DEAL GEWONNEN!", `Es ging um <strong>${drawn.name}</strong> (Wert: <strong>${drawn.cost.toLocaleString()}</strong>).<br><br>🎉 <strong>${winner.name}</strong> war am dichtesten dran und sichert sich die Ware für die Hälfte: <strong>${hp.toLocaleString()}</strong>!${cardQuoteHtml(drawn)}${cbText}`);
+        if (!winner) {
+            addLog(`Blinder Deal geplatzt: niemand kann ${hp.toLocaleString()} ${Config.currency.symbol} zahlen.`, "alert");
+            return playBlindReveal(drawn, guesses, result);
+        }
+        const cbText = processPurchase(winner, hp, drawn, cat);
+        addLog(`Blinder Deal: ${winner.name} gewinnt${tied.length > 1 ? ' per Los' : ''}.`, "buy");
+        playBlindReveal(drawn, guesses, result, () => flyCardToSlot(drawn, winner, hp));
+        if (cbText) showModal("💰 BONUS", cbText.replace(/^(<br>)+/, '')); // waits until the scene is closed
         resetMatrixActiveBid();
     });
 });
@@ -1701,16 +2228,156 @@ function useAutoBuyJoker(id) {
     if (m.id === blockedPlayerId) return showModal("🚫 Blockiert!", "Du bist in Isolation!");
     const cat = activeMatrixAuctionCategory.toLowerCase(); if (m.team[cat]) return showModal("Voll!", "Platz bereits besetzt.");
     const list = itemDatabase[activeMatrixAuctionCategory]; if (!list || list.length === 0) return showModal("Katalog leer!", "Nichts mehr übrig.");
-    showConfirmModal(`Item erzwingen für 1,5x Preis (${Config.categories[activeMatrixAuctionCategory]?.name})?`, () => {
-        const item = list[Math.floor(Math.random() * list.length)]; const price = Math.floor(item.cost * getConf('mechanics','autoBuyMultiplier'));
-        if (m.budget < price) return showModal("Zu teuer!", `Kostet ${price.toLocaleString()} ${Config.currency.symbol}. Budget reicht nicht.`);
-        m.jokers.autoBuy--; jokerPhaseState.autoBuyUsed = true;
-        let cbText = processPurchase(m, price, item, activeMatrixAuctionCategory);
-        addLog(`Bestechung: ${m.name} holt Item für ${price.toLocaleString()}!`, "event");
-        flyCardToSlot(item, m, price);
-        showModal("🎯 ERZWUNGEN!", `<strong>${m.name}</strong> schnappt sich blind <strong>${item.name}</strong> für <strong>${price.toLocaleString()} ${Config.currency.symbol}</strong>!${cardQuoteHtml(item)}${cbText}`);
-        resetMatrixActiveBid();
+    const catKey = activeMatrixAuctionCategory, factor = getConf('mechanics','autoBuyMultiplier');
+    const item = list[Math.floor(Math.random() * list.length)], price = Math.floor(item.cost * factor);
+    playClawScene(m, item, price, factor, {
+        // The joker is spent once the claw drops; otherwise a broke player could re-roll until a cheap card comes up
+        onGrab: () => {
+            m.jokers.autoBuy--; jokerPhaseState.autoBuyUsed = true;
+            renderMatrix(); renderJokerPhaseModal();
+        },
+        onDone: () => {
+            if (m.budget < price) {
+                addLog(`Blindkauf geplatzt: ${m.name} kann ${item.name} (${price.toLocaleString()}) nicht bezahlen.`, "alert");
+                shreddedDatabase.push(list.splice(list.indexOf(item), 1)[0]); saveDatabases(); // flushed, not back into the catalogue
+                return givePenaltyCard(m, catKey, true);
+            }
+            const cbText = processPurchase(m, price, item, catKey);
+            addLog(`Bestechung: ${m.name} holt Item für ${price.toLocaleString()}!`, "event");
+            resetMatrixActiveBid();
+            flyCardToSlot(item, m, price);
+            if (cbText) showModal("💰 BONUS", cbText.replace(/^(<br>)+/, '')); // waits until the card has landed
+        }
     });
+}
+
+// GREIFAUTOMAT (Blindkauf joker). Start panel with the rules -> the claw slides over a heap of face-down
+// cards, grabs one, carries it wobbling to the chute and drops it -> the card flips, the price is worked
+// out and checked against the budget. Too expensive: the loser card slides out on top of it.
+// Nothing happens to the game until "Greifen" (onGrab) and the final button (onDone).
+function playClawScene(m, item, price, factor, { onGrab, onDone }) {
+    const sym = Config.currency.symbol, cat = Config.categories[activeMatrixAuctionCategory];
+    const label = Config.terminology?.jokers?.autoBuy?.label || 'Blindkauf';
+    const broke = m.budget < price, tpl = Config.punishCardTemplate || {};
+    const heap = Array.from({ length: 9 }, (_, i) => `<i style="--hx:${4 + (i % 5) * 14 + (i > 4 ? 7 : 0)}%; --hy:${i > 4 ? 30 : 4}px; --hr:${Math.round(Math.random() * 50 - 25)}deg">${cat?.icon || '🂠'}</i>`).join('');
+    const target = 1 + Math.floor(Math.random() * 3); // one of the front cards
+
+    const el = document.createElement('div');
+    el.className = 'fx-scene claw-scene';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', label);
+    el.innerHTML = `
+        <div class="claw-panel">
+            <div class="claw-stage">
+                <div class="claw-machine" aria-hidden="true">
+                    <div class="claw-top">Greifautomat</div>
+                    <div class="claw-glass"></div>
+                    <div class="claw-heap">${heap}</div>
+                    <div class="claw-chute"><span>▼</span></div>
+                    <div class="claw"><div class="claw-cable"></div><div class="claw-head"><b class="claw-prong is-l"></b><b class="claw-prong is-r"></b></div><div class="claw-grab">${cat?.icon || '🂠'}</div></div>
+                </div>
+                <div class="draw-card"><div class="draw-flipper">
+                    <div class="draw-face draw-back"><span>${cat?.icon || '🂠'}</span></div>
+                    <div class="draw-face draw-front">
+                        <div class="draw-icon">${item.icon || cat?.icon || ''}</div>
+                        <div class="draw-name">${item.name}</div>
+                        <div class="draw-desc">${item.desc || ''}</div>
+                    </div>
+                </div></div>
+                <div class="claw-loser draw-face">
+                    <div class="draw-icon">${tpl.icon || '💩'}</div>
+                    <div class="draw-name">${tpl.name || 'Loser-Karte'}</div>
+                    <div class="draw-desc">${tpl.desc || ''}</div>
+                </div>
+            </div>
+            <div class="claw-info">
+                <div class="claw-head-title">${jokerIcon('autoBuy')} ${label}</div>
+                <div class="claw-sub"><strong>${m.name}</strong> · ${cat?.icon || ''} ${cat?.name || ''}</div>
+                <div class="claw-rules">
+                    <span>🎲 Zufällige Karte</span><span>× ${factor.toLocaleString()} Preis</span><span>Budget ${m.budget.toLocaleString()} ${sym}</span>
+                </div>
+                <div class="claw-warn">Reicht das Budget nicht: Karte weg, Joker weg, Loser-Karte.</div>
+                <div class="claw-bill">
+                    <div><span>Kartenwert</span><b>${item.cost.toLocaleString()} ${sym}</b></div>
+                    <div><span>Blindkauf-Aufschlag</span><b>× ${factor.toLocaleString()}</b></div>
+                    <div class="is-total"><span>Preis</span><b>${price.toLocaleString()} ${sym}</b></div>
+                </div>
+                <div class="claw-verdict ${broke ? 'is-bad' : 'is-good'}">${broke
+                    ? `💸 ZU TEUER · es fehlen ${(price - m.budget).toLocaleString()} ${sym}`
+                    : `✅ GESICHERT · Budget danach ${(m.budget - price).toLocaleString()} ${sym}`}</div>
+                <div class="claw-actions">
+                    <button class="last-btn is-flush" data-act="cancel">Abbrechen</button>
+                    <button class="last-btn is-take" data-act="grab">🕹️ Greifen</button>
+                </div>
+                <div class="claw-actions is-final">
+                    <button class="last-btn is-take" data-act="done">${broke ? 'Loser-Karte annehmen' : 'Karte einsortieren'}</button>
+                </div>
+            </div>
+        </div>`;
+    document.body.appendChild(el);
+
+    const machine = el.querySelector('.claw-machine'), heapCards = el.querySelectorAll('.claw-heap i');
+    const timers = [];
+    let phase = 'start', done = false; // start -> grabbing -> revealed -> ready
+    const at = (ms, fn) => timers.push(setTimeout(fn, reducedMotion() ? Math.min(ms, 400) : ms));
+    const stage = cls => el.classList.add(cls);
+    const finish = act => {
+        if (done) return; done = true;
+        timers.forEach(clearTimeout);
+        document.removeEventListener('keydown', onKey, true);
+        if (act === 'done') onDone(); // mounts the card flight / drops the loser card before this scene leaves
+        el.classList.add('is-leaving');
+        setTimeout(() => { el.remove(); sceneEnded(); }, 250);
+    };
+    const focusLast = sel => { const b = el.querySelectorAll(sel + ' button'); b[b.length - 1]?.focus(); };
+    // Card flipped, bill and verdict shown; the final button follows 1.5 s later so the text gets read.
+    const reveal = () => {
+        if (phase === 'revealed' || phase === 'ready') return;
+        phase = 'revealed';
+        timers.forEach(clearTimeout);
+        stage('is-dropped'); stage('is-revealed'); stage('is-flipped'); stage('is-billed');
+        timers.push(setTimeout(() => { stage('is-verdict'); broke ? sfx.wahwah() : sfx.chaching(); }, reducedMotion() ? 0 : 500));
+        if (broke) timers.push(setTimeout(() => stage('is-loser'), reducedMotion() ? 0 : 1100));
+        timers.push(setTimeout(() => { phase = 'ready'; stage('is-ready'); focusLast('.claw-actions.is-final'); }, 1500 + (broke ? 1100 : 500)));
+    };
+    const grab = () => {
+        if (phase !== 'start') return;
+        phase = 'grabbing';
+        onGrab();
+        stage('is-running');
+        const box = machine.getBoundingClientRect(), card = heapCards[target].getBoundingClientRect();
+        const tx = card.left + card.width / 2 - box.left, ty = card.top - box.top - 52; // claw hangs 14px down, head + prongs ~38px
+        const set = (k, v) => machine.style.setProperty(k, v);
+        sfx.whoosh(); set('--cx', tx + 'px');
+        at(750, () => { set('--drop', Math.max(20, ty) + 'px'); sfx.tick(); });
+        at(1500, () => { stage('is-gripping'); heapCards[target].classList.add('is-taken'); stage('is-holding'); sfx.hit(); });
+        at(1800, () => set('--drop', '20px'));
+        at(2650, () => { set('--cx', '44px'); sfx.whoosh(); });
+        at(3450, () => { el.classList.remove('is-gripping'); stage('is-dropped'); sfx.flip(); });
+        at(4000, () => { stage('is-revealed'); });
+        at(4500, () => { stage('is-flipped'); sfx.flip(); });
+        at(5100, reveal);
+    };
+    // Keys never reach the board. Start: Enter grabs, Esc cancels. While running: Space/Enter/Esc skip to the result.
+    // Ready: Space/Enter press the button.
+    const onKey = e => {
+        e.preventDefault(); e.stopImmediatePropagation();
+        const go = e.key === ' ' || e.key === 'Enter';
+        if (phase === 'start') { if (e.key === 'Escape') finish('cancel'); else if (go) grab(); return; }
+        if (phase === 'grabbing') { if (go || e.key === 'Escape') reveal(); return; }
+        if (phase === 'ready' && go) finish('done');
+    };
+    document.addEventListener('keydown', onKey, true);
+    el.querySelectorAll('[data-act]').forEach(b => b.addEventListener('click', e => {
+        e.stopPropagation();
+        const act = b.dataset.act;
+        if (act === 'cancel' && phase === 'start') finish('cancel');
+        if (act === 'grab') grab();
+        if (act === 'done' && phase === 'ready') finish('done');
+    }));
+    el.addEventListener('click', () => { if (phase === 'grabbing') reveal(); });
+
+    requestAnimationFrame(() => { el.classList.add('show'); focusLast('.claw-actions:not(.is-final)'); });
 }
 
 function useGambleJoker(id) {
@@ -1779,7 +2446,7 @@ function useSkipJoker(id) {
 	    if ($('matrix-active-bid-desc')) $('matrix-active-bid-desc').innerHTML = getDynamicDescHtml(newItem);
             if ($('matrix-auction-price')) $('matrix-auction-price').value = newItem.cost;
 
-            playFlushScene(flushed, () => playDrawAnimation(newItem, () => { if (typeof openCardExpand === 'function') openCardExpand(); }, false));
+            playFlushScene(flushed, () => playDrawAnimation(newItem, null, false));
             showModal("🚽 WEGGESPÜLT", `Das Objekt wurde vernichtet! Als Ersatzkarte wurde <strong>${newItem.name}</strong> aufgedeckt.`);
         } else {
             resetMatrixActiveBid();
@@ -1805,16 +2472,16 @@ function renderJokerPhaseModal() {
 
     // Lade die Begriffe und Icons dynamisch aus der Config (mit Fallback, falls etwas fehlt)
     const t = Config.terminology?.jokers || {};
-    const icnBlock = t.block?.icon || '<i class="fa-solid fa-ban"></i>';
+    const icnBlock = jokerIcon('block');
     const lblBlock = t.block?.label || 'Block';
     
-    const icnAutoBuy = t.autoBuy?.icon || '<i class="fa-solid fa-handshake-angle"></i>';
+    const icnAutoBuy = jokerIcon('autoBuy');
     const lblAutoBuy = t.autoBuy?.label || 'Bestechen';
     
-    const icnBonus = t.bonus?.icon || '<i class="fa-solid fa-shield-halved"></i>';
+    const icnBonus = jokerIcon('bonus');
     const lblBonus = t.bonus?.label || 'Schutz';
     
-    const icnGamble = t.gamble?.icon || '<i class="fa-solid fa-shuffle"></i>';
+    const icnGamble = jokerIcon('gamble');
     const lblGamble = t.gamble?.label || 'Tausch';
 
     playerJokerOrder.forEach(mgrId => {
@@ -1834,7 +2501,7 @@ function renderJokerPhaseModal() {
         }
 
         let btnHtml = '';
-        const baseBtn = "flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-medium rounded transition-all duration-200 border";
+        const baseBtn = "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded transition-all duration-200 border";
         
         if (m.jokers.block > 0) {
             if (jokerPhaseState.blockUsed) {
@@ -1859,12 +2526,12 @@ function renderJokerPhaseModal() {
         }
 
         if (btnHtml === '') {
-            btnHtml = `<span class="text-[11px] text-stone-600 font-medium">Keine Optionen</span>`;
+            btnHtml = `<span class="text-xs text-stone-600 font-medium">Keine Optionen</span>`;
         }
 
         // Spieler-Zeile
         container.innerHTML += `
-            <div class="flex flex-col md:flex-row md:items-center justify-between p-3 mb-2 rounded border border-stone-700/50 bg-[#1c1917] hover:bg-stone-800/80 hover:border-stone-600 transition-colors">
+            <div class="flex flex-col md:flex-row md:items-center justify-between p-3 mb-2 rounded border border-stone-700/50 bg-stone-900 hover:bg-stone-800/80 hover:border-stone-600 transition-colors">
                 <span class="text-sm font-semibold text-stone-200 mb-2 md:mb-0">${m.name}</span>
                 <div class="flex flex-wrap gap-2">
                     ${btnHtml}
@@ -1890,7 +2557,7 @@ function closeJokerPhase() {
 // =====================================================================
 // EVENTS ACTION EXECUTION
 // =====================================================================
-function getBaseEventChance() { const el = $('input-event-chance'); return el ? parseFloat(el.value) : getConf('mechanics','baseEventChance'); }
+function getBaseEventChance() { return getConf('mechanics','baseEventChance'); }
 function updateEventChanceDisplays() {
     let val = Math.round(getBaseEventChance() * 100) + '%';
     if ($('event-chance-display')) $('event-chance-display').innerText = val;
@@ -1901,21 +2568,176 @@ function triggerEvent() {
     const av = Config.events.filter(e => !triggeredEventIds.includes(e.id));
     if (av.length === 0) return showModal("Das war's", "Alle Ereignisse wurden bereits ausgelöst!");
     const ev = av[Math.floor(Math.random() * av.length)]; triggeredEventIds.push(ev.id);
-    addLog(`Event: ${ev.title}`, "event");
-    const ticker = `<span>+++ ${Config.terminology.eventTitle} +++</span>`.repeat(4);
-    if ($('event-ticker')) $('event-ticker').innerHTML = ticker + ticker; // two copies -> seamless loop
-    if ($('event-modal-title')) $('event-modal-title').innerText = ev.title;
-    if ($('event-modal-desc')) $('event-modal-desc').innerHTML = ev.desc;
-    const before = managers.map(m => m.budget);
-    if ($('event-modal-result')) $('event-modal-result').innerHTML = executeEventLogic(ev);
-    // Who got / lost how much: diff of all budgets, so every event action is covered automatically
-    const sym = Config.currency.symbol;
-    if ($('event-modal-money')) $('event-modal-money').innerHTML = managers
-        .map((m, i) => ({ m, d: m.budget - before[i] })).filter(x => x.d !== 0)
-        .map((x, i) => `<div class="news-row" style="--i:${i}"><span class="text-white">${x.m.name}</span><span class="${x.d > 0 ? 'text-green-400' : 'text-red-500'}">${x.d > 0 ? '+' : '−'} ${Math.abs(x.d).toLocaleString()} ${sym}</span></div>`).join('');
-    if ($('event-modal')) $('event-modal').classList.remove('hidden');
-    sfx.chime();
+    const before = managers.map(m => m.budget), jokersBefore = managers.map(m => ({ ...m.jokers }));
+    destroyedCategory = null;
+    const result = executeEventLogic(ev);
+    const rows = eventImpactRows(ev, before, jokersBefore);
+    // The newspaper names the players: {platzhalter} in title and text are filled for this event
+    const ctx = eventTextContext(ev, before, jokersBefore);
+    const story = { ...ev, title: fillEventText(ev.title, ctx), desc: fillEventText(ev.desc, ctx) };
+    addLog(`Event: ${story.title.replace(/<[^>]+>/g, '')}`, "event");
     renderMatrix(); updateBuyerDropdown(); resetMatrixActiveBid();
+    playEventScene(story, result, rows, before);
+}
+
+let destroyedCategory = null; // set by destroy_random_category so the event text can name it
+
+// Values for the placeholders in event titles and texts (config "events"):
+// {gewinner} {verlierer} {alle}  -> player names ("A, B und C", "niemand" if empty)
+// {betrag} amount of the (single) winner/loser, or the flat/per-joker value
+// {anteil} value as percent · {anzahl} value as number · {joker} joker name · {kategorie} category · {karte} last purchase
+function eventTextContext(ev, before, jokersBefore) {
+    const sym = Config.currency.symbol, money = n => `${Math.abs(Math.round(n)).toLocaleString()} ${sym}`;
+    const names = list => {
+        const n = list.map(m => `<strong>${m.name}</strong>`);
+        return !n.length ? 'niemand' : n.length === 1 ? n[0] : `${n.slice(0, -1).join(', ')} und ${n[n.length - 1]}`;
+    };
+    const delta = m => m.budget - before[managers.indexOf(m)];
+    const minM = managers[before.indexOf(Math.min(...before))], maxM = managers[before.indexOf(Math.max(...before))]; // same picks as executeEventLogic
+    const jokersAt = (jokers) => Object.values(jokers).reduce((a, b) => a + b, 0);
+    let gewinner = [], verlierer = [], betrag = 0, karte = 'nichts', kategorie = 'keine';
+    switch (ev.action) {
+        case "bonus_lowest": gewinner = [minM]; betrag = delta(minM); break;
+        case "tax_highest": verlierer = [maxM]; betrag = delta(maxM); break;
+        case "robin_hood_tax": gewinner = [minM]; verlierer = managers.filter(m => m !== minM); betrag = delta(minM); break;
+        case "tax_all": case "bonus_all": betrag = ev.value; break;
+        case "bonus_for_unused_jokers":
+            gewinner = managers.filter((m, i) => jokersAt(jokersBefore[i]) > 0);
+            verlierer = managers.filter((m, i) => !jokersAt(jokersBefore[i])); betrag = ev.value; break;
+        case "disable_joker": verlierer = managers.filter((m, i) => jokersBefore[i][ev.value] > 0); break;
+        case "refund_last_purchase": {
+            const m = managers.find(x => x.id === lastPurchase.managerId);
+            if (m) { gewinner = [m]; betrag = delta(m); karte = lastPurchase.item?.name || karte; }
+            break;
+        }
+        case "restore_jokers": gewinner = managers.filter((m, i) => jokersAt(m.jokers) > jokersAt(jokersBefore[i])); break;
+        case "destroy_random_category":
+            if (destroyedCategory) {
+                verlierer = managers.filter(m => m.team[destroyedCategory] && !(m.perk === 'perk1' && m.protegeCats.includes(destroyedCategory)));
+                kategorie = Config.categories[destroyedCategory.toUpperCase()]?.name || destroyedCategory;
+            }
+            break;
+    }
+    return {
+        gewinner: names(gewinner), verlierer: names(verlierer), alle: names(managers), betrag: money(betrag), karte, kategorie,
+        anteil: `${Math.round((Number(ev.value) || 0) * 100)} %`, anzahl: ev.value,
+        joker: Config.terminology?.jokers?.[ev.value]?.label || ev.value
+    };
+}
+// Catalogue view: placeholders shown as highlighted role names
+const eventPreviewText = text => String(text || '').replace(/\{(\w+)\}/g, (all, key) => `<b class="not-italic text-yellow-300">[${key}]</b>`);
+const fillEventText = (text, ctx) => String(text || '').replace(/\{(\w+)\}/g, (all, key) => ctx[key] ?? all);
+
+// What the event did to each player: the calculation (from the event's formula and the budgets BEFORE it),
+// the actual change (budget diff, so perks that block or boost show as a note), budget and rank before/after,
+// and joker changes. Players the event didn't touch are left out.
+function eventImpactRows(ev, before, jokersBefore) {
+    const sym = Config.currency.symbol, money = n => `${Math.round(n).toLocaleString()} ${sym}`;
+    const pct = `${Math.round((ev.value || 0) * 100)} %`;
+    const minI = before.indexOf(Math.min(...before)), maxI = before.indexOf(Math.max(...before)); // same picks as executeEventLogic
+    const jokerSum = j => Object.values(j).reduce((a, b) => a + b, 0);
+    const formula = {};
+    switch (ev.action) {
+        case "bonus_lowest": formula[minI] = `Kleinstes Budget: ${money(before[minI])} × ${pct}`; break;
+        case "tax_highest": formula[maxI] = `Größtes Budget: ${money(before[maxI])} × ${pct}`; break;
+        case "robin_hood_tax": managers.forEach((m, i) => formula[i] = i === minI ? 'Kleinstes Budget: bekommt alle Abgaben' : `Abgabe: ${money(before[i])} × ${pct}`); break;
+        case "tax_all": managers.forEach((m, i) => formula[i] = `Pauschal −${money(ev.value)}`); break;
+        case "bonus_all": managers.forEach((m, i) => formula[i] = `Pauschal +${money(ev.value)}`); break;
+        case "bonus_for_unused_jokers": managers.forEach((m, i) => { const n = jokerSum(jokersBefore[i]); if (n) formula[i] = `${n} ungenutzte Joker × ${money(ev.value)}`; }); break;
+        case "refund_last_purchase": { const i = managers.findIndex(m => m.id === lastPurchase.managerId); if (i >= 0) formula[i] = `Letzter Kauf: ${money(lastPurchase.cost)} × ${pct}`; break; }
+    }
+    const rank = budgets => { const sorted = [...budgets].sort((a, b) => b - a); return budgets.map(b => sorted.indexOf(b) + 1); };
+    const rankBefore = rank(before), rankAfter = rank(managers.map(m => m.budget));
+    return managers.map((m, i) => {
+        const delta = m.budget - before[i];
+        const jokers = Object.keys(m.jokers).filter(k => m.jokers[k] !== jokersBefore[i][k])
+            .map(k => `${Config.terminology?.jokers?.[k]?.label || k} ${jokersBefore[i][k]} → <b>${m.jokers[k]}</b>`);
+        let note = '';
+        if (formula[i] && !delta && ev.action !== 'bonus_for_unused_jokers') note = `🛡️ immun (${Config.perks?.[m.perk]?.name || 'Perk'})`;
+        else if (delta > 0 && m.perk === 'perk4') note = `inkl. ${Config.perks?.perk4?.name || 'Perk'} × ${getConf('perks','perk4_incomeMultiplier').toLocaleString('de-DE')}`;
+        return { m, formula: formula[i], note, delta, before: before[i], after: m.budget, rankBefore: rankBefore[i], rankAfter: rankAfter[i], jokers };
+    }).filter(r => r.formula || r.delta || r.jokers.length);
+}
+
+// EVENT as three acts: a letter flutters in and opens -> the newspaper unfolds with the story ->
+// the "Gemeinschaftskarte" turns in beside it with the rule, the calculation per player and what it means.
+// A click / Space / Enter during the acts jumps to the end; once everything is shown the next one closes it.
+function playEventScene(ev, result, rows, before) {
+    const sym = Config.currency.symbol, money = n => `${Math.abs(Math.round(n)).toLocaleString()} ${sym}`;
+    const outlet = Config.terminology?.eventTitle || 'Eilmeldung';
+    const rowHtml = rows.map((r, i) => {
+        const rankMove = r.delta && r.rankBefore !== r.rankAfter
+            ? `<span class="${r.rankAfter < r.rankBefore ? 'is-up' : 'is-down'}">Platz ${r.rankBefore} → ${r.rankAfter} ${r.rankAfter < r.rankBefore ? '▲' : '▼'}</span>` : '';
+        return `
+        <div class="ev-row" style="--i:${i}">
+            <div class="ev-row-top"><b>${r.m.name}</b>${r.delta ? `<span class="ev-delta ${r.delta > 0 ? 'is-plus' : 'is-minus'}">${r.delta > 0 ? '+' : '−'} ${money(r.delta)}</span>` : ''}</div>
+            ${r.formula || r.note ? `<div class="ev-row-calc">${[r.formula, r.note].filter(Boolean).join(' · ')}</div>` : ''}
+            <div class="ev-row-mean">
+                ${r.delta || r.formula ? `<span>Budget ${money(r.before)} → <b>${money(r.after)}</b></span>` : ''}
+                ${rankMove}
+                ${r.jokers.map(j => `<span>${j}</span>`).join('')}
+            </div>
+        </div>`;
+    }).join('');
+
+    const el = document.createElement('div');
+    el.className = 'fx-scene event-scene';
+    el.setAttribute('role', 'dialog');
+    el.setAttribute('aria-label', `${outlet}: ${ev.title}`);
+    el.innerHTML = `
+        <div class="ev-stage">
+            <div class="ev-letter" aria-hidden="true">
+                <div class="ev-env">
+                    <div class="ev-flap"></div>
+                    <div class="ev-seal">${Config.themeIcon || '✉️'}</div>
+                    <div class="ev-stamp">${outlet}</div>
+                </div>
+            </div>
+            <article class="ev-paper">
+                <div class="ev-mast">${outlet}</div>
+                <div class="ev-dateline"><span>Sonderausgabe</span><span>${Config.gameTitle || ''}</span></div>
+                <h2 class="ev-headline">${ev.title}</h2>
+                <p class="ev-body${ev.desc.startsWith('<strong>') ? ' no-dropcap' : ''}">${ev.desc}</p>
+            </article>
+            <section class="ev-card">
+                <div class="ev-card-head">🎴 Gemeinschaftskarte</div>
+                <div class="ev-card-rule">${result}</div>
+                ${rowHtml ? `<div class="ev-rows">${rowHtml}</div>` : '<div class="ev-none">Keine Auswirkungen auf Budgets oder Joker.</div>'}
+            </section>
+        </div>
+        <div class="auction-skip">Klick, Leertaste oder Enter zum Überspringen</div>`;
+    document.body.appendChild(el);
+
+    const timers = [];
+    let done = false, complete = false;
+    const at = (ms, fn) => timers.push(setTimeout(fn, reducedMotion() ? Math.min(ms, 400) : ms));
+    const stage = cls => el.classList.add(cls);
+    const showAll = () => {
+        if (complete) return; complete = true;
+        timers.forEach(clearTimeout);
+        stage('is-post'); stage('is-opened'); stage('is-paper'); stage('is-card'); stage('is-complete');
+        const hint = el.querySelector('.auction-skip'); if (hint) hint.textContent = 'Klick, Leertaste oder Enter zum Schließen';
+    };
+    const finish = () => {
+        if (done) return; done = true;
+        timers.forEach(clearTimeout); document.removeEventListener('keydown', onKey, true);
+        rows.forEach(r => { if (r.delta) countBudget(r.m, -r.delta); }); // board budgets roll to the new values
+        el.classList.add('is-leaving');
+        setTimeout(() => { el.remove(); sceneEnded(); }, 250);
+    };
+    const next = () => complete ? finish() : showAll();
+    const onKey = e => {
+        e.preventDefault(); e.stopImmediatePropagation();
+        if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') next();
+    };
+    document.addEventListener('keydown', onKey, true);
+    el.addEventListener('click', next);
+
+    requestAnimationFrame(() => { stage('show'); stage('is-post'); sfx.whoosh(); });
+    at(1400, () => { stage('is-opened'); sfx.flip(); });
+    at(1900, () => { stage('is-paper'); sfx.whoosh(); });
+    at(3600, () => { stage('is-card'); sfx.chime(); });
+    at(4300 + rows.length * 250 + 600, showAll);
 }
 
 function executeEventLogic(evObj) {
@@ -1932,8 +2754,8 @@ function executeEventLogic(evObj) {
         case "disable_joker": managers.forEach(m => m.jokers[evObj.value] = 0); return `🚫 Alle '${Config.terminology.jokers[evObj.value]?.label || evObj.value}'-Joker verfallen sofort!`;
         case "blind_draws": blindDrawsLeft += evObj.value; return `❓ Die nächsten ${evObj.value} gezogenen Objekte sind VERDECKT.`;
         case "refund_last_purchase": if (lastPurchase.managerId !== null) { let m = managers.find(x => x.id === lastPurchase.managerId); if (m) { let refund = Math.floor(lastPurchase.cost * evObj.value); actual = applyBudgetChange(m, refund, "event"); return `🛒 ${m.name} erhält Erstattung (+${actual.toLocaleString()})!`; } } return "Aktion verfällt.";
-        case "restore_jokers": managers.forEach(m => { if (m.perk === 'perk8') return; m.jokers.block = (m.perk === 'perk7') ? 2 : 1; m.jokers.bonus = 1; m.jokers.autoBuy = 1; m.jokers.gamble = 1; m.jokers.skip = 1; }); return `🕊️ WUNDER! Die Jokerkarten wurden wiederhergestellt!`;
-        case "destroy_random_category": let validCats = []; for (let c of activeCategories) { let catLow = c.toLowerCase(); if (managers.every(m => m.team[catLow] !== null && m.team[catLow] !== undefined)) validCats.push(catLow); } if (validCats.length === 0) return "Glück gehabt. Noch nichts zu konfiszieren."; let chosenCat = validCats[Math.floor(Math.random() * validCats.length)]; managers.forEach(m => { if (m.perk === 'perk1' && m.protegeCats.includes(chosenCat)) return; if (m.team[chosenCat]) { m.team[chosenCat].score = 0; } }); return `💥 Razzia! Die Kategorie <strong>${Config.categories[chosenCat.toUpperCase()]?.name || chosenCat}</strong> wurde konfisziert. Items geben nun 0 Punkte!`;
+        case "restore_jokers": managers.forEach(m => { if (m.perk === 'perk8') return; m.jokers.block = (m.perk === 'perk7') ? getConf('perks','perk7_startingBlocks') : getConf('jokers','block'); ['bonus', 'autoBuy', 'gamble', 'skip'].forEach(k => m.jokers[k] = getConf('jokers', k)); }); return `🕊️ WUNDER! Die Jokerkarten wurden wiederhergestellt!`;
+        case "destroy_random_category": let validCats = []; for (let c of activeCategories) { let catLow = c.toLowerCase(); if (managers.every(m => m.team[catLow] !== null && m.team[catLow] !== undefined)) validCats.push(catLow); } if (validCats.length === 0) return "Glück gehabt. Noch nichts zu konfiszieren."; let chosenCat = validCats[Math.floor(Math.random() * validCats.length)]; destroyedCategory = chosenCat; managers.forEach(m => { if (m.perk === 'perk1' && m.protegeCats.includes(chosenCat)) return; if (m.team[chosenCat]) { m.team[chosenCat].score = 0; } }); return `💥 Razzia! Die Kategorie <strong>${Config.categories[chosenCat.toUpperCase()]?.name || chosenCat}</strong> wurde konfisziert. Items geben nun 0 Punkte!`;
         case "nothing": default: return `🙈 Friedlicher Moment. Keinerlei Auswirkungen.`;
     }
 }
@@ -1944,10 +2766,17 @@ function executeEventLogic(evObj) {
 function triggerBlindAuctionEvent() {
     const cat = activeMatrixAuctionCategory, el = managers.filter(mgr => !mgr.team[cat.toLowerCase()] && mgr.id !== blockedPlayerId);
     if (el.length === 0) return showModal("Alle beschäftigt!", "Keine freien Slots mehr.");
-    const c = $('blind-inputs'); if (!c) return; c.innerHTML = '';
-    el.forEach(mgr => { c.innerHTML += `<div class="flex items-center justify-between gap-3 bg-[#1c1917] p-2 rounded border border-stone-600"><span class="text-xs font-bold text-stone-300 w-1/2 text-left truncate">${mgr.name}</span><input type="number" id="blind-guess-${mgr.id}" placeholder="Tipp (${Config.currency.symbol})" class="w-1/2 bg-[#292524] border border-stone-500 text-white font-bold rounded p-1.5 text-xs outline-none focus:border-orange-500 text-center"></div>`; });
-    if ($('blind-cat-name')) $('blind-cat-name').innerText = Config.categories[cat]?.name || cat;
+    const c = $('blind-inputs'); if (!c) return;
+    const sym = Config.currency.symbol;
+    c.innerHTML = el.map(mgr => `
+        <label class="blind-form-row" for="blind-guess-${mgr.id}">
+            <span class="blind-form-name">${mgr.name}<small>Budget ${mgr.budget.toLocaleString()} ${sym}</small></span>
+            <span class="blind-form-field"><input type="number" min="0" step="1000" id="blind-guess-${mgr.id}" placeholder="Blindgebot"><em>${sym}</em></span>
+        </label>`).join('');
+    if ($('blind-cat-name')) $('blind-cat-name').innerText = `${Config.categories[cat]?.icon || ''} ${Config.categories[cat]?.name || cat}`;
+    if ($('blind-rule-off')) $('blind-rule-off').innerText = `🏷️ Gewinner zahlt ${Math.round(getConf('mechanics','blindWinCostFraction') * 100)} % des Werts`;
     blindInitiatorId = -1; if ($('blind-modal')) $('blind-modal').classList.remove('hidden');
+    c.querySelector('input')?.focus();
 }
 
 function startDutchAuction() {
@@ -1957,26 +2786,54 @@ function startDutchAuction() {
     if (list.length === 0) list = itemDatabase[cat] || [];
     if (list.length === 0) return showModal("Abgebrochen", "Nichts mehr verfügbar.");
     addLog(`🚨 ALARM! Preis sinkt rasant...`, "alert");
-    dutchItem = list[Math.floor(Math.random() * list.length)]; dutchPrice = startingBudget;
+    const bidders = managers.filter(m => m.id !== blockedPlayerId && !m.team[cat.toLowerCase()]);
+    // Starts at the richest bidder's whole budget: at the first tick nobody can pay, then it gets closer to everyone
+    dutchItem = list[Math.floor(Math.random() * list.length)];
+    dutchStart = dutchPrice = Math.max(0, ...bidders.map(m => m.budget)) || startingBudget;
     if ($('dutch-item-title')) $('dutch-item-title').innerHTML = `<span class="text-lg">${dutchItem.icon}</span> ${dutchItem.name} <span class="text-xs bg-yellow-600 text-black font-bold px-1 rounded ml-1">${dutchItem.tier === 'gut' ? 'Premium' : 'Standard'}</span>`;
     if ($('dutch-item-desc')) $('dutch-item-desc').innerText = dutchItem.desc;
-    const c = $('dutch-buttons-container'); if (c) c.innerHTML = '';
-    managers.forEach(m => { if (m.id !== blockedPlayerId && !m.team[cat.toLowerCase()] && c) c.innerHTML += `<button id="dutch-btn-${m.id}" onclick="resolveDutchAuction(${m.id})" class="bg-orange-600 hover:bg-orange-500 text-white font-black py-2 px-3 rounded-lg text-xs shadow-md transition uppercase tracking-wide">💥 ${m.name} greift zu!</button>`; });
-    if ($('dutch-modal')) $('dutch-modal').classList.remove('hidden');
-    showDutchPrice();
-    clearInterval(dutchInterval);
-    const drop = Math.floor(startingBudget * getConf('dutchAuction', 'priceDropFraction'));
-    dutchInterval = setInterval(() => { dutchPrice = Math.max(0, dutchPrice - drop); showDutchPrice(); }, getConf('dutchAuction', 'tickIntervalMs'));
-    clearTimeout(dutchBeatTimer); dutchHeartbeat();
+    if ($('dutch-alert')) $('dutch-alert').textContent = '';
+    const c = $('dutch-buttons-container');
+    if (c) c.innerHTML = bidders.map(m => `<button id="dutch-btn-${m.id}" onclick="resolveDutchAuction(${m.id})" disabled class="bg-orange-600 hover:bg-orange-500 text-white font-black py-2 px-3 rounded-lg text-xs shadow-md transition uppercase tracking-wide">💥 ${m.name} greift zu!</button>`).join('');
+    const modal = $('dutch-modal');
+    if (modal) { modal.classList.remove('hidden', 'is-sold'); modal.classList.add('is-intro'); }
+    showDutchPrice(false);
+    clearInterval(dutchInterval); clearTimeout(dutchBeatTimer); clearTimeout(dutchIntroTimer);
+    sfx.siren(1500);
+
+    // Alarm intro first (buttons locked), then the price starts to fall
+    dutchIntroTimer = setTimeout(() => {
+        if (!modal || modal.classList.contains('hidden')) return; // cancelled during the intro
+        modal.classList.remove('is-intro');
+        c?.querySelectorAll('button').forEach(b => b.disabled = false);
+        sfx.hit();
+        const drop = Math.max(1, Math.floor(dutchStart * getConf('dutchAuction', 'priceDropFraction')));
+        dutchInterval = setInterval(() => {
+            if (modal.classList.contains('hidden')) return clearInterval(dutchInterval);
+            dutchPrice = Math.max(0, dutchPrice - drop);
+            showDutchPrice();
+            if (dutchPrice === 0) clearInterval(dutchInterval);
+        }, getConf('dutchAuction', 'tickIntervalMs'));
+        dutchHeartbeat();
+    }, reducedMotion() ? 400 : 1800);
 }
 
-function showDutchPrice() { // rolls the new price in like a departure board; the red border pulses with the heartbeat
-    const el = $('dutch-price'); if (!el) return;
+// Rolls the new price in like a departure board. --heat (0 at the start price, 1 at zero) drives colour,
+// bar, red vignette and the jolt on every tick; the border pulses with the heartbeat.
+function showDutchPrice(tick = true) {
+    const el = $('dutch-price'), modal = $('dutch-modal'); if (!el) return;
+    const heat = dutchStart ? 1 - dutchPrice / dutchStart : 0;
     el.textContent = `${dutchPrice.toLocaleString()} ${Config.currency.symbol}`;
-    el.classList.remove('is-rolling'); void el.offsetWidth; el.classList.add('is-rolling');
-    $('dutch-modal')?.style.setProperty('--beat', `${dutchBeatMs() / 1000}s`);
+    restartClass(el, 'is-rolling');
+    modal?.style.setProperty('--beat', `${dutchBeatMs() / 1000}s`);
+    modal?.style.setProperty('--heat', heat.toFixed(3));
+    const alert = $('dutch-alert');
+    if (alert) alert.textContent = dutchPrice === 0 ? '💸 GRATIS – wer greift zu?' : heat >= 0.8 ? '⚠️ LETZTE CHANCE' : '';
+    modal?.classList.toggle('is-critical', heat >= 0.8);
+    if (tick) { restartClass(document.querySelector('.dutch-pricebox'), 'is-jolt'); sfx.tick(); }
 }
-const dutchBeatMs = () => Math.round(350 + 850 * dutchPrice / startingBudget); // faster as the price falls
+let dutchStart = 0, dutchIntroTimer = null;
+const dutchBeatMs = () => Math.round(350 + 850 * dutchPrice / (dutchStart || startingBudget)); // faster as the price falls
 let dutchBeatTimer = null;
 function dutchHeartbeat() { // stops by itself once the popup is gone
     if (!$('dutch-modal') || $('dutch-modal').classList.contains('hidden')) return;
@@ -1994,7 +2851,9 @@ function resolveDutchAuction(mgrId) {
     const price = dutchPrice, item = dutchItem;
     document.querySelectorAll('#dutch-buttons-container button').forEach(b => b.disabled = true);
     if (btn) btn.classList.add('is-grabbed');
-    sfx.hit();
+    $('dutch-modal')?.classList.add('is-sold');
+    if ($('dutch-alert')) $('dutch-alert').textContent = `🔨 ${m.name} schlägt zu!`;
+    sfx.gavel(1);
     let cbText = processPurchase(m, price, item, activeMatrixAuctionCategory);
     addLog(`Zuschlag: ${m.name} sichert sich Ware für ${price.toLocaleString()}!`, "buy");
     setTimeout(() => { // let the grab flash be seen
@@ -2248,6 +3107,7 @@ function closeWheelModal() {
     updateBuyerDropdown();
     wheelSpinResults.forEach(res => animateBudgetLeftToRight(res.managerId, res.amount));
     wheelSpinResults = [];
+    if (afterWheelClosed) { const next = afterWheelClosed; afterWheelClosed = null; setTimeout(next, 500); }
 }
 
 
@@ -2276,8 +3136,8 @@ function handleMatrixSearch(q) {
     if (!q || q.trim().length < 2) { resC.classList.add('hidden'); return; }
     const lq = q.toLowerCase(); let matches = [];
     for (let cat in itemDatabase) itemDatabase[cat].forEach(item => { if (item.name.toLowerCase().includes(lq) || item.desc.toLowerCase().includes(lq)) matches.push({ ...item, type: cat }); });
-    if (matches.length === 0) { resC.innerHTML = '<li class="p-2 text-[10px] text-stone-500 italic text-center">Nichts gefunden</li>'; resC.classList.remove('hidden'); return; }
-    resC.innerHTML = ''; matches.slice(0, 8).forEach(m => { resC.innerHTML += `<li onclick="selectManualMatrixCard('${m.id}', '${m.type}')" class="p-2 border-b border-stone-700/50 hover:bg-stone-700 cursor-pointer transition flex items-center gap-2"><span class="text-base">${m.icon}</span><div class="flex flex-col overflow-hidden"><span class="text-[10px] font-bold text-white truncate w-full">${m.name}</span><span class="text-[8px] text-yellow-400 font-bold">ab ${m.cost.toLocaleString()} ${Config.currency.symbol}</span></div></li>`; });
+    if (matches.length === 0) { resC.innerHTML = '<li class="p-2 text-xs text-stone-500 italic text-center">Nichts gefunden</li>'; resC.classList.remove('hidden'); return; }
+    resC.innerHTML = ''; matches.slice(0, 8).forEach(m => { resC.innerHTML += `<li onclick="selectManualMatrixCard('${m.id}', '${m.type}')" class="p-2 border-b border-stone-700/50 hover:bg-stone-700 cursor-pointer transition flex items-center gap-2"><span class="text-base">${m.icon}</span><div class="flex flex-col overflow-hidden"><span class="text-xs font-bold text-white truncate w-full">${m.name}</span><span class="text-xs text-yellow-400 font-bold">ab ${m.cost.toLocaleString()} ${Config.currency.symbol}</span></div></li>`; });
     resC.classList.remove('hidden');
 }
 
@@ -2352,8 +3212,10 @@ function checkCategoryCompletion(cat) {
 
 let pendingCategoryFinish = null;
 
-// Manual stop between categories: the host confirms, then the next category and the wheel start.
+// Category complete: 3 s look at the board -> wheel -> the highlight jumps to the next category
+// (wheel only on every n-th finished category, see settings "roulette.everyNCategories").
 // Not after the final category - the game is over and money no longer counts.
+let afterWheelClosed = null;
 function announceCategoryFinished() {
     const cat = pendingCategoryFinish; pendingCategoryFinish = null;
     if (!cat || isGameEnded) return;
@@ -2363,13 +3225,47 @@ function announceCategoryFinished() {
     const nextCat = activeCategories.slice(idx + 1).find(open) || activeCategories.find(open);
     const name = Config.categories[key]?.name || key;
     const nextName = nextCat ? (Config.categories[nextCat]?.name || nextCat) : '';
-    showModal("🏁 Kategorie abgeschlossen",
-        `<strong>${name}</strong> ist komplett vergeben.${nextCat ? `<br>Als Nächstes: <strong>${nextName}</strong>.` : ''}<br><br>🎡 Jetzt dreht jeder einmal am Glücksrad.`,
-        () => {
-            if (nextCat) { selectMatrixAuctionCategory(nextCat); addLog(`Wechsel zu ${nextName}.`, "info"); }
-            spinBonusWheelAll();
-        },
-        '🎡 Glücksrad starten');
+    addLog(`${name} ist komplett vergeben.`, "info");
+    // The wheel only comes after every n-th finished category (settings); otherwise jump straight to the next one
+    if (completedCategoryNames.length % getConf('roulette', 'everyNCategories') !== 0) {
+        if (nextCat) { playCategorySwitch(key, nextCat); addLog(`Wechsel zu ${nextName}.`, "info"); }
+        return;
+    }
+    playBoardPause(key, () => {
+        if (nextCat) afterWheelClosed = () => { playCategorySwitch(key, nextCat); addLog(`Wechsel zu ${nextName}.`, "info"); };
+        spinBonusWheelAll();
+    });
+}
+
+// 3 s on the board before the wheel: the finished column lights up card by card, a pill counts down.
+// Click / Space / Enter starts the wheel right away. Not shortened for reduced motion (it's a reading pause).
+function playBoardPause(key, done) {
+    const col = activeCategories.indexOf(key) + 2;
+    const s = mountScene('board-pause', `<div class="pause-pill">🎡 Glücksrad in <b>3</b></div>`, done);
+    document.querySelectorAll(`#matrix-body td:nth-child(${col}) > div`).forEach((cell, i) => s.at(200 + i * 220, () => {
+        cell.classList.remove('col-sweep'); void cell.offsetWidth; cell.classList.add('col-sweep');
+    }));
+    [2, 1].forEach((n, i) => s.at(1000 * (i + 1), () => { const b = s.el.querySelector('.pause-pill b'); if (b) b.textContent = n; sfx.tick(); }));
+    setTimeout(s.finish, 3000);
+}
+
+// Column jump: a glowing frame slides from the finished column to the next one, whose header announces itself
+function playCategorySwitch(fromKey, toKey) {
+    const th = key => document.querySelector(`#matrix-header-row th:nth-child(${activeCategories.indexOf(key) + 2})`);
+    const body = $('matrix-body')?.getBoundingClientRect(), a = th(fromKey)?.getBoundingClientRect(), b = th(toKey)?.getBoundingClientRect();
+    const cat = Config.categories[toKey];
+    let switched = false;
+    const switchNow = () => { if (!switched) { switched = true; selectMatrixAuctionCategory(toKey); } };
+    if (!body || !a || !b) return switchNow();
+    const s = mountScene('col-jump-scene', `<div class="col-jump"></div><div class="col-next"><small>Als Nächstes</small><b>${cat?.icon || ''} ${cat?.name || toKey}</b></div>`, switchNow);
+    const frame = s.el.querySelector('.col-jump'), next = s.el.querySelector('.col-next');
+    const box = r => ({ left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: body.bottom - r.top + 'px' });
+    Object.assign(frame.style, box(a));
+    Object.assign(next.style, { left: b.left + b.width / 2 + 'px', top: b.bottom + 14 + 'px' });
+    sfx.whoosh();
+    frame.animate([box(a), box(b)], { duration: 850, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' });
+    s.at(850, () => { switchNow(); next.classList.add('show'); sfx.chime(); });
+    s.at(2800, s.finish);
 }
 
 function forceShowCatalog() { boolForceShowCatalog = true; manualCatalogHide = false; renderAdminPool(); }
@@ -2408,8 +3304,8 @@ function triggerEndgame() {
     managers.forEach((m, i) => {
         let c = ['text-yellow-400', 'text-stone-300', 'text-orange-400', 'text-stone-500', 'text-stone-600', 'text-stone-700'];
         let t = i === 0 ? "🏆 1. Platz" : i === 1 ? "🥈 2. Platz" : i === 2 ? "🥉 3. Platz" : `${i + 1}. Platz`;
-        let loserHtml = m.loserBonusText ? `<div class="text-[10px] text-pink-400 font-bold uppercase mt-1 animate-pulse">🎁 ${m.loserBonusText}</div>` : '';
-        podium.innerHTML += `<div class="bg-black/50 border border-stone-700 p-4 rounded-xl flex justify-between items-center mb-2 ${i === 0 ? 'bg-yellow-900/20 border-yellow-500/50' : ''}"><div><div class="${c[i]} font-black text-sm uppercase tracking-wider">${t}</div><div class="text-white font-bold text-lg">${m.name}</div><div class="text-[10px] text-stone-500">Vorrat: ${m.budget.toLocaleString()} ${Config.currency.symbol}</div>${loserHtml}</div><div class="text-3xl font-black ${c[i]}">${m.totalPoints} <span class="text-xs text-stone-400">Pkt.</span></div></div>`;
+        let loserHtml = m.loserBonusText ? `<div class="text-xs text-pink-400 font-bold uppercase mt-1 animate-pulse">🎁 ${m.loserBonusText}</div>` : '';
+        podium.innerHTML += `<div class="bg-black/50 border border-stone-700 p-4 rounded-xl flex justify-between items-center mb-2 ${i === 0 ? 'bg-yellow-900/20 border-yellow-500/50' : ''}"><div><div class="${c[i]} font-black text-sm uppercase tracking-wider">${t}</div><div class="text-white font-bold text-lg">${m.name}</div><div class="text-xs text-stone-500">Vorrat: ${m.budget.toLocaleString()} ${Config.currency.symbol}</div>${loserHtml}</div><div class="text-3xl font-black ${c[i]}">${m.totalPoints} <span class="text-xs text-stone-400">Pkt.</span></div></div>`;
     });
     if ($('endgame-modal')) $('endgame-modal').classList.remove('hidden');
     fireConfetti();
@@ -2427,7 +3323,7 @@ function fireConfetti() {
 document.addEventListener('keydown', function (e) {
     const isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT';
     if (e.key === 'Escape') {
-        const modals = ['shortcuts-modal', 'custom-modal', 'confirm-modal', 'edit-modal', 'category-modal', 'event-modal', 'block-modal', 'gamble-modal', 'blind-modal', 'dutch-modal', 'wheel-modal', 'perks-modal', 'gamble-choice-modal', 'perk-catalog-modal', 'joker-phase-modal'];
+        const modals = ['shortcuts-modal', 'custom-modal', 'confirm-modal', 'edit-modal', 'category-modal', 'block-modal', 'gamble-modal', 'blind-modal', 'dutch-modal', 'wheel-modal', 'perks-modal', 'gamble-choice-modal', 'perk-catalog-modal', 'joker-phase-modal'];
         modals.forEach(id => {
             const el = document.getElementById(id);
             if (el && !el.classList.contains('hidden')) {
@@ -2445,7 +3341,6 @@ document.addEventListener('keydown', function (e) {
         if ($('perks-modal') && !$('perks-modal').classList.contains('hidden')) { applyPerksAndStart(); return; }
         if ($('confirm-modal') && !$('confirm-modal').classList.contains('hidden')) { if ($('confirm-yes-btn')) $('confirm-yes-btn').click(); return; }
         if ($('custom-modal') && !$('custom-modal').classList.contains('hidden')) { closeModal(); return; }
-        if ($('event-modal') && !$('event-modal').classList.contains('hidden')) { $('event-modal').classList.add('hidden'); return; }
         if ($('block-modal') && !$('block-modal').classList.contains('hidden')) { if ($('block-confirm-btn')) $('block-confirm-btn').click(); return; }
         if ($('gamble-modal') && !$('gamble-modal').classList.contains('hidden')) { if ($('gamble-confirm-btn')) $('gamble-confirm-btn').click(); return; }
         if ($('blind-modal') && !$('blind-modal').classList.contains('hidden')) { if ($('blind-confirm-btn')) $('blind-confirm-btn').click(); return; }

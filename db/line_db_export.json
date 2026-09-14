@@ -47,7 +47,7 @@
       },
       {
         "id": "item_6",
-        "name": "🦄 Der Freitags-Früh-Geher",
+        "name": "Der Freitags-Früh-Geher",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -70,7 +70,7 @@
       },
       {
         "id": "item_8",
-        "name": "🦄 Der 'Ist-mir-egal'-Schichtleiter",
+        "name": "Der 'Ist-mir-egal'-Schichtleiter",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -326,7 +326,7 @@
     "KOLLEGE": [
       {
         "id": "item_30",
-        "name": "🦄 Der Takt-Retter",
+        "name": "Der Takt-Retter",
         "tier": "gut",
         "cost": 90000,
         "score": 98,
@@ -338,7 +338,7 @@
       },
       {
         "id": "item_31",
-        "name": "🦄 Der Pausen-Bäcker",
+        "name": "Der Pausen-Bäcker",
         "tier": "gut",
         "cost": 90000,
         "score": 99,
@@ -748,7 +748,7 @@
       },
       {
         "id": "item_63",
-        "name": "🦄 Strategischer Klogang",
+        "name": "Strategischer Klogang",
         "tier": "gut",
         "cost": 120000,
         "score": 98,
@@ -804,7 +804,7 @@
       },
       {
         "id": "item_68",
-        "name": "🦄 Das 'Kalibrierungs-Manöver'",
+        "name": "Das 'Kalibrierungs-Manöver'",
         "tier": "gut",
         "cost": 120000,
         "score": 99,
@@ -1115,7 +1115,7 @@
       },
       {
         "id": "item_92",
-        "name": "🦄 Gehörschutz im Pausenraum",
+        "name": "Gehörschutz im Pausenraum",
         "tier": "gut",
         "cost": 65000,
         "score": 99,
@@ -1127,7 +1127,7 @@
       },
       {
         "id": "item_93",
-        "name": "🦄 Stempelkarten-Terror",
+        "name": "Stempelkarten-Terror",
         "tier": "gut",
         "cost": 65000,
         "score": 98,
@@ -1537,7 +1537,7 @@
       },
       {
         "id": "item_125",
-        "name": "🦄 'Liegt noch bei der Technischen Koordination'",
+        "name": "'Liegt noch bei der Technischen Koordination'",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -1549,7 +1549,7 @@
       },
       {
         "id": "item_126",
-        "name": "🦄 'Der Container steckt im Zoll fest'",
+        "name": "'Der Container steckt im Zoll fest'",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -1816,7 +1816,7 @@
       },
       {
         "id": "item_149",
-        "name": "🦄 Das neue Modell wird komplett gestrichen",
+        "name": "Das neue Modell wird komplett gestrichen",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -1850,7 +1850,7 @@
       },
       {
         "id": "item_152",
-        "name": "🦄 Der Betriebsrat wurde geschmiert",
+        "name": "Der Betriebsrat wurde geschmiert",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -2172,7 +2172,7 @@
       },
       {
         "id": "item_177",
-        "name": "🦄 Der Kaffee schmeckt nach Bremsflüssigkeit",
+        "name": "Der Kaffee schmeckt nach Bremsflüssigkeit",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -2206,7 +2206,7 @@
       },
       {
         "id": "item_180",
-        "name": "🦄 Bierverbot (inoffiziell ignoriert)",
+        "name": "Bierverbot (inoffiziell ignoriert)",
         "tier": "gut",
         "cost": 105000,
         "score": 99,
@@ -2495,7 +2495,7 @@
     "CHAOS": [
       {
         "id": "item_204",
-        "name": "🦄 Der Schweißroboter dreht durch",
+        "name": "Der Schweißroboter dreht durch",
         "tier": "gut",
         "cost": 85000,
         "score": 98,
@@ -2529,7 +2529,7 @@
       },
       {
         "id": "item_207",
-        "name": "🦄 Der Lackier-Roboter sprüht alles rot",
+        "name": "Der Lackier-Roboter sprüht alles rot",
         "tier": "gut",
         "cost": 85000,
         "score": 99,
@@ -2895,7 +2895,7 @@
       },
       {
         "id": "item_237",
-        "name": "🦄 Die Dauer-Frühschicht",
+        "name": "Die Dauer-Frühschicht",
         "tier": "gut",
         "cost": 105000,
         "score": 98,
@@ -3017,7 +3017,7 @@
       },
       {
         "id": "item_414",
-        "name": "🦄 Die Einspring-Prämie",
+        "name": "Die Einspring-Prämie",
         "tier": "gut",
         "cost": 105000,
         "score": 99,

@@ -3,6 +3,7 @@
   "windowTitle": "🏗️ Abenteuer Eigenheim – Die Dauerbaustelle",
   "gameTitle": "Abenteuer Eigenheim",
   "themeIcon": "🏡",
+  "pointsSound": "hammer",
   "colors": {
     "primary": "amber-600",
     "gradientStart": "orange-600",
@@ -143,112 +144,112 @@
     {
       "id": 1,
       "title": "KfW-Förderung überraschend bewilligt!",
-      "desc": "Ein plötzlicher Geldregen vom Staat rettet den ärmsten Bauherren vor der Privatinsolvenz.",
+      "desc": "Plötzlicher Geldregen vom Staat: Die KfW-Förderung rettet {gewinner} mit {betrag} vor der Privatinsolvenz.",
       "action": "bonus_lowest",
       "value": 0.2
     },
     {
       "id": 2,
       "title": "Zoll-Razzia auf der Baustelle!",
-      "desc": "Wer auffällig schnell vorankommt, zieht Blicke auf sich. Der reichste Bauherr muss Strafe zahlen!",
+      "desc": "Wer auffällig schnell baut, zieht den Zoll an. Razzia auf der Baustelle von {verlierer}: {betrag} Strafe.",
       "action": "tax_highest",
       "value": 0.2
     },
     {
       "id": 3,
       "title": "Richtfest-Umlage!",
-      "desc": "Die Zimmerleute haben Durst. Es wird rücksichtslos der Hut herumgereicht – einer profitiert.",
+      "desc": "Richtfest bei {gewinner}! Die Zimmerleute haben Durst, der Hut geht rum – je {anteil} geben: {verlierer}. Die Umlage bringt {betrag}.",
       "action": "robin_hood_tax",
       "value": 0.1
     },
     {
       "id": 4,
       "title": "Preisschock beim Baustahl!",
-      "desc": "Die Weltmarktpreise explodieren. Jeder Bauherr muss bluten und eine Pauschale nachschießen.",
+      "desc": "Preisschock beim Baustahl! Je {betrag} nachschießen müssen: {alle}.",
       "action": "tax_all",
       "value": 50000
     },
     {
       "id": 5,
       "title": "Unerwarteter Fund beim Erdaushub!",
-      "desc": "Keine Weltkriegsbombe, sondern eine Kiste alter Münzen! Der Bauleiter schüttet einen Bonus an alle aus.",
+      "desc": "Keine Weltkriegsbombe, sondern eine Kiste alter Münzen! Der Bauleiter zahlt je {betrag} aus an: {alle}.",
       "action": "bonus_all",
       "value": 50000
     },
     {
       "id": 6,
       "title": "Lob vom Sicherheitsinspektor!",
-      "desc": "Wer seine Joker (Sicherheitsreserven) brav aufgespart hat, bekommt eine Prämie der Berufsgenossenschaft.",
+      "desc": "Lob vom Sicherheitsinspektor: {betrag} pro aufgesparter Reserve. Prämie für: {gewinner}. Nichts für: {verlierer}.",
       "action": "bonus_for_unused_jokers",
       "value": 50000
     },
     {
       "id": 7,
       "title": "Bauträger insolvent!",
-      "desc": "Der Generalunternehmer hat sich nach Mallorca abgesetzt. 'Schlüsselfertig'-Aktionen sind vorerst gesperrt.",
+      "desc": "Der Generalunternehmer hat sich nach Mallorca abgesetzt. {joker}-Joker gesperrt bei: {verlierer}.",
       "action": "disable_joker",
       "value": "autoBuy"
     },
     {
       "id": 8,
       "title": "Stromausfall im Verteilerkasten!",
-      "desc": "Nichts geht mehr auf der Baustelle. Die nächsten LKW-Lieferungen müssen komplett im Dunkeln blind entladen werden.",
+      "desc": "Stromausfall im Verteilerkasten! Die nächsten {anzahl} LKW-Lieferungen werden im Dunkeln entladen. Betroffen: {alle}.",
       "action": "blind_draws",
       "value": 2
     },
     {
       "id": 9,
       "title": "Kran-Miete versehentlich verlängert!",
-      "desc": "Das tonnenschwere Monstrum stand ungenutzt herum. Die Extrakosten werden auf alle aufgeteilt.",
+      "desc": "Die Kran-Miete wurde versehentlich verlängert. Extrakosten je {betrag}: {alle}.",
       "action": "tax_all",
       "value": 25000
     },
     {
       "id": 10,
       "title": "Baumarkt-Tiefpreisgarantie!",
-      "desc": "Nachträglicher Kassenbon-Check! Ein Bauherr bekommt 50% der letzten Investition zurückerstattet.",
+      "desc": "Kassenbon-Check! {gewinner} bekommt für „{karte}“ {betrag} Tiefpreisgarantie zurück.",
       "action": "refund_last_purchase",
       "value": 0.5
     },
     {
       "id": 11,
       "title": "Gewerkschaftsstreit im Bauhauptgewerbe!",
-      "desc": "Die Arbeiter legen die Kellen nieder. Niemand kann mehr einen Baustopp gegen andere verhängen.",
+      "desc": "Streit im Bauhauptgewerbe, die Kellen liegen still. {joker}-Joker verfallen bei: {verlierer}.",
       "action": "disable_joker",
       "value": "block"
     },
     {
       "id": 12,
       "title": "Zinseszinsschock der Hausbank!",
-      "desc": "Die Verträge wurden neu verhandelt. Es gibt ab sofort keinerlei finanzielle Zuschüsse mehr zurück.",
+      "desc": "Die Hausbank hat die Verträge neu verhandelt. Keine {joker}-Joker mehr für: {verlierer}.",
       "action": "disable_joker",
       "value": "bonus"
     },
     {
       "id": 13,
       "title": "Nachbarschaftshilfe eskaliert!",
-      "desc": "Der Gartenzaun steht 2 cm zu weit links. Tauschen und gegenseitiges Aushelfen ist heute unmöglich!",
+      "desc": "Der Gartenzaun steht 2 cm zu weit links, Nachbarschaftshilfe ist unmöglich. {joker}-Joker weg bei: {verlierer}.",
       "action": "disable_joker",
       "value": "gamble"
     },
     {
       "id": 14,
       "title": "Kollektive Mittagspause!",
-      "desc": "Die Handwerker sitzen glücklich beim Mettbrötchen. Absolute Ruhe auf der Baustelle. Keine Vorkommnisse.",
+      "desc": "Kollektive Mittagspause beim Mettbrötchen. {alle} genießen die Ruhe auf der Baustelle.",
       "action": "nothing",
       "value": 0
     },
     {
       "id": 15,
       "title": "Das Richtfest verbindet!",
-      "desc": "Bei Bier und Bratwurst vertragen sich Bauherren und Handwerker wieder. Alle verbrauchten Joker werden regeneriert!",
+      "desc": "Bei Bier und Bratwurst vertragen sich alle wieder! Joker regeneriert für: {gewinner}.",
       "action": "restore_jokers",
       "value": 1
     },
     {
       "id": 16,
       "title": "Wasserschaden im Rohbau!",
-      "desc": "Ein Rohr ist geplatzt! Eine komplett zufällige Kategorie wird unter Wasser gesetzt und ist absolut wertlos.",
+      "desc": "Rohrbruch im Rohbau! „{kategorie}“ steht unter Wasser und ist wertlos. Nasse Füße haben: {verlierer}.",
       "action": "destroy_random_category",
       "value": 0
     }
