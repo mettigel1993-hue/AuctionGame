@@ -27,6 +27,11 @@ const JOKER_ICONS = { block: 'fa-ban', autoBuy: 'fa-handshake-angle', bonus: 'fa
 const jokerIcon = key => `<i class="fa-solid ${JOKER_ICONS[key] || 'fa-star'}" aria-hidden="true"></i>`;
 const jokerColor = c => c === 'orange' ? 'yellow' : c;
 
+// Holo frame (board) and holo trail (card flight) for the top cards. Used to be the "unicorn" flag in the
+// decks, which showed as a 🦄 in the name; the score decides now, so no marker is needed in the text.
+const HOLO_MIN_SCORE = 95;
+const isHolo = card => (card?.score || 0) >= HOLO_MIN_SCORE;
+
 // =====================================================================
 // BOOTLOADER
 // =====================================================================
@@ -498,34 +503,125 @@ function cardPoints(m, card, cat) {
 }
 const managerPoints = m => Object.keys(m.team).reduce((sum, cat) => sum + (m.team[cat] ? cardPoints(m, m.team[cat], cat) : 0), 0);
 
-// Active category column glows, finished ones are dimmed with a check mark (header + every row)
+// Only the running category is a column of the matrix - it takes the whole leftover width and
+// carries its question and progress. Everything played and everything still to come lives in the
+// track beside the board. Runs on every category switch too, so no re-render is needed.
 function markCategoryColumns() {
+    const rows = document.querySelectorAll('#matrix-body tr');
     activeCategories.forEach((key, i) => {
-        const active = key === activeMatrixAuctionCategory, done = completedCategoryNames.includes(key.toLowerCase());
-        document.querySelectorAll(`#matrix-header-row th:nth-child(${i + 2}), #matrix-body td:nth-child(${i + 2})`).forEach(cell => {
-            cell.classList.toggle('is-active-col', active);
-            cell.classList.toggle('is-done-col', done && !active);
+        const active = key === activeMatrixAuctionCategory;
+        const th = document.querySelector(`#matrix-header-row th:nth-child(${i + 2})`);
+        if (!th) return;
+        th.classList.toggle('is-active-col', active);
+        th.classList.toggle('col-next', !active);
+        th.style.width = active ? '' : '0';  // '' = the active column takes the rest
+        rows.forEach(tr => {
+            const td = tr.children[i + 1];
+            if (!td) return;
+            td.classList.toggle('col-active', active);
+            td.classList.toggle('col-next', !active);
         });
     });
+    renderCategoryQueue();
+    // zweimal: der erste Lauf misst noch das alte Layout, der zweite raeumt den Rest weg
+    requestAnimationFrame(() => { fitBoardRows(); requestAnimationFrame(fitBoardRows); });
 }
+
+// Share the height the board actually has between the player rows, so zooming in or resizing
+// shrinks the cards instead of producing a scrollbar. Below the floor the board scrolls -
+// the player cell itself (name, jokers, budget) cannot get smaller than that.
+function fitBoardRows() {
+    const wrap = document.querySelector('.matrix-table-wrap > div'), head = $('matrix-header-row');
+    if (!wrap || !head || !managers.length) return;
+    const perRow = (wrap.clientHeight - head.offsetHeight) / managers.length;
+    const slot = Math.max(58, Math.min(118, Math.round(perRow) - 18)); // 18px = padding of the slot cell
+    const st = document.documentElement.style;
+    st.setProperty('--slot-min', slot + 'px');
+    st.setProperty('--row-pad', Math.max(3, Math.min(14, Math.round((perRow - 90) / 2))) + 'px');
+    // enge Zeilen verlieren die Textabzeichen und das Wort "Punkte" - dafuer bleibt alles lesbar
+    document.getElementById('matrix-body').classList.toggle('is-dense', perRow < 136);
+}
+window.addEventListener('resize', fitBoardRows); // fires on browser zoom too
+
+// Die Spur neben dem Brett: ein Platz je Kategorie der Runde, in Spielreihenfolge von oben nach
+// unten. Ein kommender Platz ist leer, der laufende bekommt den roten Ring, ein gespielter fuellt
+// sich mit dem Symbol der Kategorie - und zeigt beim Hover, wer dort was fuer wie viel gekauft hat.
+function renderCategoryQueue() {
+    const track = $('category-queue'); if (!track) return;
+    const esc = s => String(s ?? '').replace(/[<>&"]/g, c => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' })[c]);
+    track.innerHTML = activeCategories.map(key => {
+        const c = Config.categories[key] || {}, lower = key.toLowerCase(), name = esc(c.name || key);
+        const active = key === activeMatrixAuctionCategory;
+        const done = !active && completedCategoryNames.includes(lower);
+        const rows = done ? managers.map(m => {
+            const card = m.team[lower];
+            if (!card) return `<div class="ct-row"><span class="ct-p">${esc(m.name)}</span><span class="ct-c">nicht gekauft</span></div>`;
+            const pts = cardPoints(m, card, lower);
+            return `<div class="ct-row"><span class="ct-p">${esc(m.name)}</span><span class="ct-c">${esc(card.name)}</span>
+                <span class="ct-m">${(card.paid ?? card.cost ?? 0).toLocaleString()} ${Config.currency.symbol} · ${pts >= 0 ? '+' : ''}${pts}</span></div>`;
+        }).join('') : '';
+        return `<div class="ct-tile ${active ? 'is-active' : done ? 'is-done' : 'is-open'}"${done ? '' : ` title="${name}"`}>
+            <span class="ct-icon">${c.icon || ''}</span>
+            ${done ? `<div class="ct-tip"><b>${name}</b>${rows}</div>` : ''}
+        </div>`;
+    }).join('');
+}
+
+// The waiting category slides in from the track: its freshly revealed column wipes in from the
+// right, while the place of the category just finished fills up with its symbol.
+function slideCategoryIn(key, doneKey) {
+    if (reducedMotion()) return;
+    const tile = document.querySelectorAll('#category-queue .ct-tile')[activeCategories.indexOf(doneKey)];
+    if (tile) restartClass(tile, 'ct-fill');
+    const i = activeCategories.indexOf(key); if (i < 0) return;
+    const th = document.querySelector(`#matrix-header-row th:nth-child(${i + 2})`);
+    const cells = [th, ...document.querySelectorAll(`#matrix-body tr > :nth-child(${i + 2})`)].filter(Boolean);
+    cells.forEach(el => restartClass(el, 'col-enter'));
+}
+
+// Kurzform fuer die Geldkachel: 1M / 0,9M - bei kleinem Startbudget in Tausend, sonst stuende dort nur 0.
+function shortMoney(v) {
+    if (!v) return '0';
+    const [div, suffix] = startingBudget >= 1e6 ? [1e6, 'M'] : startingBudget >= 1e4 ? [1e3, 'k'] : [1, ''];
+    const n = v / div;
+    return (n >= 10 ? Math.round(n) : Math.round(n * 10) / 10).toLocaleString('de-DE') + suffix;
+}
+const jokerTileIcon = () => '<i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>';
+
+// Die Jokerkachel zeigt nur die Anzahl - der Klick klappt die einzelnen Joker ueber dem Brett auf.
+function toggleJokerTray(id, ev) {
+    if (ev) ev.stopPropagation();
+    const tile = $(`joker-tile-${id}`), wasOpen = tile?.classList.contains('is-open');
+    document.querySelectorAll('.p-jokers.is-open').forEach(t => t.classList.remove('is-open'));
+    if (tile && !wasOpen) tile.classList.add('is-open');
+}
+document.addEventListener('click', () => document.querySelectorAll('.p-jokers.is-open').forEach(t => t.classList.remove('is-open')));
 
 function renderMatrix() {
     const thead = $('matrix-header-row'); const tbody = $('matrix-body');
     if (!thead || !tbody) return;
 
-    let hHtml = `<th class="py-3 px-4 w-[15%] bg-stone-800 shadow-sm">${Config.terminology.playerSingular}</th>`;
+    let hHtml = `<th class="py-3 px-4 bg-stone-800 shadow-sm" style="width:220px">${Config.terminology.playerSingular}</th>`;
     const colorSet = ['text-red-400', 'text-orange-400', 'text-purple-400', 'text-rose-400', 'text-yellow-400', 'text-green-400', 'text-cyan-400'];
 activeCategories.forEach((cat, idx) => {
         let cData = Config.categories[cat];
         let isActive = (cat === activeMatrixAuctionCategory);
-        
-        let btnClass = isActive 
-            ? "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors" 
+
+        let btnClass = isActive
+            ? "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors"
             : "matrix-cat-btn w-full h-full bg-transparent hover:bg-stone-800 text-stone-400 text-xs font-bold py-2 border-b-2 border-transparent transition-colors";
-        
+
+        // Question, chapter count and one dot per player slot used to live in a bar above the board.
+        // They are rendered for every column but only shown for the active one (CSS), so a category
+        // switch needs no re-render.
+        const lower = cat.toLowerCase(), taken = managers.filter(m => m.team[lower]).length, open = managers.length - taken;
+        const dots = managers.map(m => `<i class="${m.team[lower] ? 'is-filled' : ''}"></i>`).join('');
+        const meta = `<span class="cat-head-q">${cData.desc || ''}</span>
+                      <span class="cat-head-meta"><b>${idx + 1} / ${activeCategories.length}</b><span class="cat-head-dots">${dots}</span><small>${open ? `noch ${open} von ${managers.length} offen` : 'komplett vergeben'}</small></span>`;
+
         // Hinweis: p-0 im <th> sorgt dafür, dass der Button 100% der Zelle ausfüllt
-        hHtml += `<th title="${cData.desc}" class="p-0 text-center border-l border-stone-700/50 w-[10%] bg-stone-800 shadow-sm align-middle h-full">
-                    <button onclick="selectMatrixAuctionCategory('${cat}', this)" class="${btnClass}"><span class="block text-base leading-none">${cData.icon}</span><span class="block text-xs leading-tight mt-1">${cData.name}</span></button>
+        hHtml += `<th title="${cData.name} – ${cData.desc}" class="p-0 text-center border-l border-stone-700/50 bg-stone-800 shadow-sm align-middle h-full">
+                    <button onclick="selectMatrixAuctionCategory('${cat}', this)" class="${btnClass}"><span class="cat-head-icon block text-base leading-none">${cData.icon}</span><span class="cat-head-name block text-xs leading-tight mt-1">${cData.name}</span>${meta}</button>
                   </th>`;
     });
 
@@ -534,54 +630,62 @@ activeCategories.forEach((cat, idx) => {
 
     managers.forEach(m => {
         const isBlk = m.id === blockedPlayerId;
-let jokersHtml = `<div class="flex w-full justify-between items-center mt-1.5">`;
+// Die Joker liegen hinter der Jokerkachel: ein Klick klappt sie ueber dem Brett auf.
+let jokerTray = '', jokerTotal = 0;
 const fnMap = { block: 'useBlockJoker', bonus: 'useBonusJoker', autoBuy: 'useAutoBuyJoker', gamble: 'useGambleJoker', skip: 'useSkipJoker' };
 for (let jKey in Config.terminology.jokers) {
-    if (m.jokers[jKey] > 0) { 
+    if (m.jokers[jKey] > 0) {
+        jokerTotal += m.jokers[jKey];
         let jData = Config.terminology.jokers[jKey];
-        let countLabel = m.jokers[jKey] > 1 ? `<span class="absolute -top-1.5 -right-1.5 bg-black text-white text-xs px-1 rounded-full border border-stone-600">${m.jokers[jKey]}</span>` : '';
+        let countLabel = m.jokers[jKey] > 1 ? `<span class="jtray-cnt">${m.jokers[jKey]}</span>` : '';
         let c = jokerColor(jData.color || 'stone');
-        // RAND ENTFERNT: 'border border-stone-700 hover:border-${c}-500' wurde hier gelöscht
         const roundLocked = (jKey === 'block' && jokerPhaseState.blockUsed) || (jKey === 'autoBuy' && jokerPhaseState.autoBuyUsed);
-        let cls = `relative w-7 h-7 flex justify-center items-center rounded bg-black/20 border border-stone-700 text-${c}-400 hover:border-${c}-400 transition-all${roundLocked ? ' opacity-30 cursor-not-allowed' : ''}`;
-        jokersHtml += `<button onclick="${fnMap[jKey]}(${m.id})" title="${jData.label}${roundLocked ? ' – diese Runde schon gespielt' : ''}" class="${cls}" aria-label="${jData.label}">${jokerIcon(jKey)}${countLabel}</button>`;
+        let cls = `jtray-btn text-${c}-400 hover:border-${c}-400${roundLocked ? ' is-locked' : ''}`;
+        jokerTray += `<button onclick="${fnMap[jKey]}(${m.id})" title="${jData.label}${roundLocked ? ' – diese Runde schon gespielt' : ''}" class="${cls}" aria-label="${jData.label}">${jokerIcon(jKey)}${countLabel}</button>`;
     }
 }
-jokersHtml += `</div>`;  
 
         let slots = activeCategories.map(k => renderSlotCell(m.id, k.toLowerCase(), m.team[k.toLowerCase()])).join('');
-        let blkOverlay = isBlk ? `<div class="blocked-badge text-xs font-black text-white bg-red-600 inline-block px-1.5 py-0.5 rounded mb-1 shadow-md">🔒 GESPERRT</div>` : '';
-        let cbBadge = m.cashbackActive ? `<div class="shield-badge text-xs text-yellow-400 font-bold bg-yellow-950/40 px-1.5 py-0.5 rounded border border-yellow-600 mt-1 inline-block" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</div>` : '';
-        let perkBadge = m.perk !== 'NONE' ? `<div class="text-xs font-bold text-indigo-400 bg-indigo-950/30 px-1 py-0.5 
-" title="${Config.perks[m.perk]?.desc || ''}">${Config.perks[m.perk]?.name || m.perk}</div>` : '';
+        let blkOverlay = isBlk ? `<span class="blocked-badge pbadge is-lock">🔒 Gesperrt</span>` : '';
+        let cbBadge = m.cashbackActive ? `<span class="shield-badge pbadge is-shield" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</span>` : '';
+        let perkBadge = m.perk !== 'NONE' ? `<span class="pbadge is-perk" title="${Config.perks[m.perk]?.desc || ''}">${Config.perks[m.perk]?.name || m.perk}</span>` : '';
+        // bei engen Zeilen tritt an die Stelle der Abzeichen ein farbiger Punkt neben dem Namen
+        let stateDot = isBlk ? '<span class="pstate is-lock" title="Gesperrt"></span>'
+            : m.cashbackActive ? '<span class="pstate is-shield" title="Bonus aktiv"></span>'
+            : m.perk !== 'NONE' ? `<span class="pstate is-perk" title="${Config.perks[m.perk]?.name || ''}"></span>` : '';
 
         let bp = managerPoints(m);
         let isLow = m.budget < (startingBudget * 0.15);
-        let textColor = isLow ? 'text-red-500' : 'text-orange-400';
-        let barColor = isLow ? 'bg-red-500' : 'bg-orange-500';
-        let p = Math.max(0, Math.min(100, (m.budget / startingBudget) * 100));
+        const pos = playerJokerOrder.indexOf(m.id) + 1;
 
 tbody.innerHTML += `
             <tr class="${isBlk ? 'row-blocked bg-red-950/40 border-l-4 border-red-500 grayscale transition opacity-80' : 'hover:bg-stone-900/30 transition'}${m.cashbackActive ? ' row-shielded' : ''}">
-                <td class="py-4 px-3 border-r border-stone-700/80 align-top">
-    <div class="flex flex-col gap-1 w-full">
-        ${blkOverlay}
-        <div class="flex items-center justify-between gap-2 pb-0.5">
-            ${(() => { const pos = playerJokerOrder.indexOf(m.id) + 1; return pos ? `<span class="joker-order${pos === 1 ? ' is-next' : ''}" title="Joker-Reihenfolge: Platz ${pos}">${pos}</span>` : ''; })()}
-            <input type="text" value="${m.name}" onchange="renameManager(${m.id}, this.value)" class="bg-transparent text-sm font-black text-white focus:outline-none w-full">
-            
-            <span class="text-xs font-black text-amber-400 bg-amber-950/40 px-2 py-0.5 rounded whitespace-nowrap cursor-help shadow-sm" title="Punkte">
-                <i class="fa-solid fa-star text-xs mr-0.5"></i><span id="points-num-${m.id}">${bp}</span>
-            </span>
+                <td class="player-col align-top">
+    <div class="pcell">
+        <div class="ptile p-name">
+            <div class="p-name-top">
+                ${pos ? `<span class="joker-order${pos === 1 ? ' is-next' : ''}" title="Joker-Reihenfolge: Platz ${pos}">${pos}</span>` : ''}
+                <input type="text" value="${m.name}" onchange="renameManager(${m.id}, this.value)" class="p-name-input" aria-label="Name">
+                ${stateDot}
+            </div>
+            <div class="pbadges">${blkOverlay}${perkBadge}${cbBadge}</div>
         </div>
-        ${perkBadge}${cbBadge}${jokersHtml}
-        
-        <div class="relative mt-1.5 w-full bg-black/20 px-1.5 py-1 rounded border border-stone-700/30 flex items-center gap-2">
-            <span id="budget-display-${m.id}" class="text-xs font-black ${textColor}${isLow ? ' budget-low' : ''} transition-colors whitespace-nowrap">
-                ${m.budget.toLocaleString()} ${Config.currency.symbol}
-            </span>
-            <div class="flex-1 bg-amber-800 rounded-full h-1.5 overflow-hidden border border-stone-700">
-                <div class="${barColor} h-1.5 rounded-full transition-all duration-500" style="width: ${p}%"></div>
+        <div class="ptile-row">
+            <div class="ptile p-jokers${jokerTotal ? '' : ' is-empty'}" id="joker-tile-${m.id}">
+                <button class="ptile-btn" onclick="toggleJokerTray(${m.id}, event)" aria-label="Joker öffnen" title="Joker öffnen">
+                    <span class="pt-corner">${jokerTotal}</span>
+                    <span class="pt-glyph">${jokerTileIcon()}</span>
+                </button>
+                <div class="jtray">${jokerTray || '<span class="jtray-none">keine Joker</span>'}</div>
+            </div>
+            <div class="ptile p-money${isLow ? ' is-low' : ''}">
+                <span class="pt-corner" id="budget-short-${m.id}">${shortMoney(m.budget)}</span>
+                <span class="pt-glyph pt-cur">${Config.currency.symbol}</span>
+                <span class="pt-tip" id="budget-display-${m.id}">${m.budget.toLocaleString()} ${Config.currency.symbol}</span>
+            </div>
+            <div class="ptile p-points">
+                <span class="pt-corner">Punkte</span>
+                <span class="pt-val${bp < 0 ? ' is-neg' : ''}" id="points-num-${m.id}">${bp}</span>
             </div>
         </div>
     </div>
@@ -600,11 +704,11 @@ function renderSlotCell(mId, k, pObj) {
     : '--';
   if (!pObj) {
     const emptyHighlight = isProtege ? 'bg-yellow-950/20 shadow-[inset_0_0_0_2px_rgba(234,179,8,0.3)] rounded-lg' : '';
-    return `<td class="py-2 px-1 text-center border-l border-stone-700/40"><div class="h-[80px] ${emptyHighlight}"></div></td>`;
+    return `<td class="py-2 px-1 text-center border-l border-stone-700/40"><div class="slot-empty h-[80px] ${emptyHighlight}"></div></td>`;
 }
     // Metal frame per tier (bronze / silver / gold / holo); pips repeat the tier for colour-blind players
-    const tierCls = pObj.unicorn ? 'tier-unicorn' : `tier-${pObj.tier}`;
-    const pips = '<i></i>'.repeat(pObj.unicorn ? 1 : pObj.tier === 'gut' ? 3 : pObj.tier === 'mittel' ? 2 : 1);
+    const tierCls = isHolo(pObj) ? 'tier-unicorn' : `tier-${pObj.tier}`;
+    const pips = '<i></i>'.repeat(isHolo(pObj) ? 1 : pObj.tier === 'gut' ? 3 : pObj.tier === 'mittel' ? 2 : 1);
     let displayScore = pObj.score || 0; let isBoosted = false;
     if (m) {
         if (m.perk === 'perk1' && isProtege) { displayScore = Math.floor(displayScore * getConf('perks','perk1_protegeMultiplier')); isBoosted = true; }
@@ -614,7 +718,7 @@ function renderSlotCell(mId, k, pObj) {
 
     let scoreHtml = isBoosted ? `<i class="fa-solid fa-arrow-trend-up text-xs text-yellow-400"></i> <span class="text-yellow-400 font-black animate-pulse">${displayScore}</span>` : `<i class="fa-solid fa-star text-xs text-lime-400"></i> ${displayScore}`;
 
-    return `<td class="py-2 px-0.5 text-center border-l border-stone-700/40 relative group/cell"><div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card slot-frame ${tierCls} relative cursor-pointer h-[115px]"><div class="slot-score">${scoreHtml}</div><div class="slot-face ${specialBorderClass} group-hover/card:bg-red-950"><span class="text-2xl mb-1 group-hover/card:hidden">${pObj.icon}</span><span class="text-2xl mb-1 hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="text-xs font-bold text-white leading-tight w-full px-0.5 line-clamp-2 group-hover/card:text-red-400">${pObj.name}</span></div><div class="slot-pips" aria-hidden="true">${pips}</div></div><div class="absolute top-[90px] left-1/2 transform -translate-x-1/2 w-56 bg-stone-800 border-2 border-stone-600 text-stone-200 p-3 rounded-xl shadow-2xl opacity-0 invisible group-hover/cell:opacity-100 group-hover/cell:visible transition-all duration-200 z-[100] pointer-events-none flex flex-col items-start text-left"><div class="font-black text-white text-sm mb-1 leading-tight">${pObj.name}</div><div class="text-xs italic leading-snug text-stone-400 mb-2">${pObj.desc}</div><div class="mt-auto text-amber-400 font-bold text-xs w-full text-right">${pObj.cost.toLocaleString()} ${Config.currency.symbol}</div></div></td>`;
+    return `<td class="py-2 px-0.5 text-center border-l border-stone-700/40 relative group/cell"><div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card slot-frame ${tierCls} relative cursor-pointer h-[115px]"><div class="slot-score">${scoreHtml}</div><div class="slot-face ${specialBorderClass} group-hover/card:bg-red-950"><span class="slot-icon text-2xl mb-1 group-hover/card:hidden">${pObj.icon}</span><span class="slot-icon text-2xl mb-1 hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="slot-name text-xs font-bold text-white leading-tight w-full px-0.5 line-clamp-2 group-hover/card:text-red-400">${pObj.name}</span></div><div class="slot-pips" aria-hidden="true">${pips}</div></div><div class="absolute top-[90px] left-1/2 transform -translate-x-1/2 w-56 bg-stone-800 border-2 border-stone-600 text-stone-200 p-3 rounded-xl shadow-2xl hidden group-hover/cell:flex z-[100] pointer-events-none flex-col items-start text-left"><div class="font-black text-white text-sm mb-1 leading-tight">${pObj.name}</div><div class="text-xs italic leading-snug text-stone-400 mb-2">${pObj.desc}</div><div class="mt-auto text-amber-400 font-bold text-xs w-full text-right">${pObj.cost.toLocaleString()} ${Config.currency.symbol}</div></div></td>`;
 }
 
 function renderAdminPool() {
@@ -792,7 +896,7 @@ function playShowcase(key) {
     const [pA, pB] = [0, 1].map(i => managers[i]?.name || `${Config.terminology.playerSingular} ${i + 1}`);
     const perk = k => getConf('perks', k);
     const deck = Object.values(itemDatabase).flat();
-    const sample = (tier, skip = 0) => deck.filter(c => c.tier === tier && !c.unicorn)[skip]
+    const sample = (tier, skip = 0) => deck.filter(c => c.tier === tier && !isHolo(c))[skip]
         || { icon: '🂠', name: 'Beispielkarte', tier, score: { gut: 90, mittel: 60, schlecht: 20 }[tier] };
     const card = (c, id, cls = '') => `<div class="pk-card slot-frame tier-${c.tier} ${cls}" id="pk-${id}"><div class="slot-score">★ <b>${c.score}</b></div><div class="slot-face"><span class="pk-icon">${c.icon}</span><span class="pk-name">${c.name}</span></div></div>`;
     const eventValue = (action, fallback) => Number(Config.events?.find(e => e.action === action)?.value) || fallback;
@@ -1175,7 +1279,7 @@ function processPurchase(manager, price, item, cat) {
         let dbIdx = itemDatabase[catKey].findIndex(x => x.id === item.id);
         if (dbIdx !== -1) { let purchasedItem = itemDatabase[catKey].splice(dbIdx, 1)[0]; purchasedItem.owner = manager.name; usedDatabase.push(purchasedItem); }
     }
-    manager.team[cat.toLowerCase()] = { ...item, type: cat };
+    manager.team[cat.toLowerCase()] = { ...item, type: cat, paid: price }; // paid = Zuschlagspreis fuer die Kategorien-Spur
     manager.budget -= price; draftedIds.push(item.id); animateBudgetChange(manager.id, price, false);
     let cashbackVal = 0, cbText = "";
     if (buyerHadCashback) {
@@ -1879,7 +1983,7 @@ function flyCardToSlot(item, m, price = 0, { pointsBefore } = {}) {
     if (typeof closeCardExpand === 'function') closeCardExpand();
     if (!item || !m || reducedMotion()) return;
     const el = document.createElement('div');
-    el.className = 'fx-scene fly-card' + (item.unicorn ? ' is-unicorn' : '');
+    el.className = 'fx-scene fly-card' + (isHolo(item) ? ' is-unicorn' : '');
     el.style.setProperty('--tier', TIER_COLOR[item.tier] || TIER_COLOR.mittel);
     el.innerHTML = `<span class="fly-icon">${item.icon || ''}</span><span class="fly-name">${item.name}</span>`;
     document.body.appendChild(el); // mounted now so popups wait; positioned next frame, once the board has re-rendered
@@ -1945,7 +2049,9 @@ function countBudget(m, price) { // odometer from the old to the new budget
     const to = m.budget, from = to + price, t0 = performance.now(), sym = Config.currency.symbol;
     const tick = now => {
         const t = Math.min(1, (now - t0) / 900);
-        el.textContent = `${Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3))).toLocaleString()} ${sym}`;
+        const now$ = Math.round(from + (to - from) * (1 - Math.pow(1 - t, 3)));
+        el.textContent = `${now$.toLocaleString()} ${sym}`;
+        const short = $(`budget-short-${m.id}`); if (short) short.textContent = shortMoney(now$);
         if (t < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
@@ -3249,23 +3355,21 @@ function playBoardPause(key, done) {
     setTimeout(s.finish, 3000);
 }
 
-// Column jump: a glowing frame slides from the finished column to the next one, whose header announces itself
+// Chapter card: the board dims for 1.8 s and the next category announces itself. Click / Space / Enter skips.
 function playCategorySwitch(fromKey, toKey) {
-    const th = key => document.querySelector(`#matrix-header-row th:nth-child(${activeCategories.indexOf(key) + 2})`);
-    const body = $('matrix-body')?.getBoundingClientRect(), a = th(fromKey)?.getBoundingClientRect(), b = th(toKey)?.getBoundingClientRect();
-    const cat = Config.categories[toKey];
-    let switched = false;
-    const switchNow = () => { if (!switched) { switched = true; selectMatrixAuctionCategory(toKey); } };
-    if (!body || !a || !b) return switchNow();
-    const s = mountScene('col-jump-scene', `<div class="col-jump"></div><div class="col-next"><small>Als Nächstes</small><b>${cat?.icon || ''} ${cat?.name || toKey}</b></div>`, switchNow);
-    const frame = s.el.querySelector('.col-jump'), next = s.el.querySelector('.col-next');
-    const box = r => ({ left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: body.bottom - r.top + 'px' });
-    Object.assign(frame.style, box(a));
-    Object.assign(next.style, { left: b.left + b.width / 2 + 'px', top: b.bottom + 14 + 'px' });
+    const cat = Config.categories[toKey], pos = activeCategories.indexOf(toKey) + 1;
+    selectMatrixAuctionCategory(toKey); // board behind the card is already on the new category
+    const s = mountScene('chapter-scene', `
+        <div class="chapter-card">
+            <div class="chapter-kicker">Kapitel ${pos} / ${activeCategories.length}</div>
+            <div class="chapter-icon">${cat?.icon || ''}</div>
+            <div class="chapter-name">${cat?.name || toKey}</div>
+            <div class="chapter-desc">${cat?.desc || ''}</div>
+        </div>`);
     sfx.whoosh();
-    frame.animate([box(a), box(b)], { duration: 850, easing: 'cubic-bezier(.45,0,.2,1)', fill: 'forwards' });
-    s.at(850, () => { switchNow(); next.classList.add('show'); sfx.chime(); });
-    s.at(2800, s.finish);
+    s.at(450, sfx.chime);
+    s.at(1700, () => slideCategoryIn(toKey, fromKey)); // runs into the card's fade-out, so the column is seen arriving
+    s.at(1800, s.finish);
 }
 
 function forceShowCatalog() { boolForceShowCatalog = true; manualCatalogHide = false; renderAdminPool(); }

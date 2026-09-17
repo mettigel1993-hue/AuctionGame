@@ -1,0 +1,14 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 1440, "h": 900, "title": "A · Bühne" },
+    { "file": "Kontrollraum.dc.html", "x": 1560, "y": 0, "w": 1440, "h": 900, "title": "B · Kontrollraum" },
+    { "file": "Arena.dc.html", "x": 3120, "y": 0, "w": 1440, "h": 900, "title": "C · Arena" }
+  ],
+  "annotations": [
+    { "id": "a-buehne", "x": 0, "y": -150, "w": 460, "text": "A · BÜHNE\nKarte mittig, Fahrgäste als Kachelreihe unten.\nAlle vier gleich groß und gleich weit weg - niemand sitzt weiter vorn.\nBricht ab acht Fahrgästen: die Reihe wird dann zweizeilig." },
+    { "id": "b-kontrollraum", "x": 1560, "y": -150, "w": 460, "text": "B · KONTROLLRAUM\nFahrgäste links als Liste, Karte mittig, Auktionsstand rechts.\nAm nächsten am jetzigen Spiel und der einzige Entwurf, der acht Fahrgäste\nohne Umbruch trägt. Dafür bleiben der Mitte nur 876 statt 1440 Pixel Breite -\ndie Karte steht hier am gedrängtesten, auch wenn sie selbst am größten ist." },
+    { "id": "c-arena", "x": 3120, "y": -150, "w": 460, "text": "C · ARENA\nFahrgäste sitzen links und rechts am Tisch, Karte allein im Licht.\nDie stärkste Inszenierung - und die einzige, die bei mehr als sechs\nFahrgästen wirklich nicht mehr aufgeht." },
+    { "id": "gemeinsam", "x": 0, "y": 960, "w": 700, "text": "In allen dreien gleich: keine Zellrahmen und keine Tabellenlinien mehr - Flächen unterscheiden\nsich durch Helligkeit, dazu einzelne Haarlinien als Trenner und ein roter Ring um den, der dran ist.\nDer Kategoriekopf schrumpft vom Block auf ein bis zwei Zeilen. Die Kategorien-Spur bleibt, aber\nals kleine Marken. Farben, Schriften und Radien sind exakt die des Bahn-Themes." }
+  ],
+  "launch": { "view": "canvas" }
+}

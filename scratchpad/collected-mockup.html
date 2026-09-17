@@ -1,0 +1,210 @@
+<title>Gamesa – Sammel-Icons Mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:wght@500;700;800&family=Outfit:wght@400;600;800;900&family=Noto+Color+Emoji&display=swap">
+<style>
+  :root {
+    --bg: #0c0d0f; --card: #15171a; --line: #33383e; --line-soft: #1e2226;
+    --primary: #ec0016; --primary-rgb: 236,0,22; --accent: #f5a623;
+    --muted: #9aa3ac; --dim: #5a6169; --text: #f5f5f4;
+    --display: 'Fira Sans Condensed', 'Outfit', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 'Outfit', 'Noto Color Emoji', sans-serif; padding: 34px 20px 60px; }
+  .wrap { max-width: 1260px; margin: 0 auto; display: grid; gap: 40px; }
+  header.page { display: grid; gap: 8px; }
+  .kicker { font-size: 11px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+  h1 { margin: 0; font-family: var(--display); font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.05; text-transform: uppercase; }
+  .lede { margin: 0; max-width: 72ch; color: var(--muted); }
+
+  .variant { display: grid; gap: 12px; }
+  .variant-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px 14px; }
+  .tag { padding: 3px 11px; border-radius: 999px; font-size: 12px; font-weight: 900; letter-spacing: .1em; color: #0b0b0b; background: var(--accent); }
+  .variant-head h2 { margin: 0; font-family: var(--display); font-size: 24px; font-weight: 800; text-transform: uppercase; }
+  .variant-head p { margin: 0; flex: 1 1 320px; min-width: 0; color: var(--muted); }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--dim); margin: 0 2px; }
+  .facts b { color: var(--text); font-weight: 600; }
+
+  .screen { border: 1px solid var(--line); border-radius: 16px; background: var(--bg); overflow: hidden; }
+  .topbar { display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: var(--card); border-bottom: 1px solid var(--line-soft); }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 20px; font-weight: 800; text-transform: uppercase; color: var(--primary); }
+  .topbar-right { margin-left: auto; display: flex; gap: 7px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 11px; border-radius: 9px; border: 1px solid var(--line); background: rgba(0,0,0,.4); color: var(--muted); font: 700 12px 'Outfit', sans-serif; }
+
+  .field-row { display: flex; align-items: stretch; gap: 12px; margin: 14px; }
+  .board-wrap { flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: var(--card); overflow-x: auto; }
+  .board { display: grid; min-width: max-content; width: 100%; }
+  .cell { border-left: 1px solid rgba(255,255,255,.05); border-top: 1px solid rgba(255,255,255,.05); padding: 8px 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+  .head { border-top: 0; padding: 9px 6px; background: rgba(255,255,255,.02); text-align: center; }
+  .head-name { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--muted); }
+  .head.is-active { background: rgba(var(--primary-rgb), .16); box-shadow: inset 0 4px 0 var(--primary); }
+  .head.is-active .head-name { color: var(--primary); font-size: 14px; }
+  .head.is-active .head-icon { font-size: 26px; }
+  .head-icon { font-size: 18px; }
+
+  .player { align-items: stretch; gap: 5px; padding: 9px 12px; }
+  .player-top { display: flex; align-items: center; gap: 7px; }
+  .player-num { display: grid; place-items: center; width: 19px; height: 19px; border-radius: 50%; border: 1px solid var(--primary); font-size: 11px; font-weight: 800; color: var(--primary); flex: none; }
+  .player-name { font-weight: 800; font-size: 13px; }
+  .player-pts { margin-left: auto; padding: 1px 6px; border-radius: 5px; font-size: 11px; font-weight: 800; color: var(--accent); background: rgba(245,166,35,.12); font-variant-numeric: tabular-nums; }
+
+  .card { position: relative; border-radius: 9px; padding: 2px; background: var(--metal); }
+  .card-face { position: relative; border-radius: 7px; overflow: hidden; padding: 10px 8px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; background: radial-gradient(120% 70% at 50% 0%, var(--tint), transparent 70%), #0b0c0e; }
+  .card-score { position: absolute; top: 6px; right: 6px; z-index: 2; padding: 1px 7px; border-radius: 4px; font-size: 13px; font-weight: 800; color: var(--shine); background: rgba(0,0,0,.72); border: 1px solid var(--edge); }
+  .card-icon { font-size: 38px; }
+  .card-name { font-size: 15px; font-weight: 700; text-align: center; }
+  .is-big .card-face { height: 128px; }
+  .slot-open { width: 100%; height: 128px; border: 1px dashed rgba(var(--primary-rgb), .45); border-radius: 9px; color: var(--dim); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; display: grid; place-items: center; }
+  .t-schlecht { --metal: linear-gradient(145deg, #4a2e1c, #a86b3c 42%, #3d2616 58%, #8c5a34); --tint: rgba(168,107,60,.16); --shine: #e2a878; --edge: rgba(168,107,60,.55); }
+  .t-mittel { --metal: linear-gradient(145deg, #5c6168, #e3e7ec 42%, #50555c 58%, #b9bec5); --tint: rgba(210,216,224,.12); --shine: #e3e7ec; --edge: rgba(200,206,214,.5); }
+  .t-gut { --metal: linear-gradient(145deg, #7a4f00, #ffe08a 42%, #7f5800 58%, #f2c14e); --tint: rgba(250,204,21,.18); --shine: #fde68a; --edge: rgba(242,193,78,.6); }
+
+  /* ============ Variante 1: Sammel-Leiste in der Spielerzeile ============ */
+  .strip-col { border-top: 0; align-items: stretch; padding: 9px 10px; }
+  .strip-head { font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); text-align: left; margin-bottom: 4px; }
+  .icon-row { display: flex; flex-wrap: wrap; gap: 5px; align-content: flex-start; }
+  .picon { position: relative; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 7px; background: var(--metal); cursor: default; }
+  .picon > span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 6px; background: rgba(11,12,14,.55); font-size: 15px; }
+  .picon .tip { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(4px); width: 168px; padding: 9px 10px; border-radius: 9px; background: #0b0c0e; border: 1px solid var(--line); box-shadow: 0 10px 24px rgba(0,0,0,.5); font-size: 11px; line-height: 1.4; color: var(--muted); opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 5; text-align: left; }
+  .picon .tip b { display: block; color: var(--text); font-size: 12px; margin-bottom: 2px; }
+  .picon .tip .tip-row { display: flex; justify-content: space-between; margin-top: 3px; }
+  .picon .tip .tip-row em { font-style: normal; color: var(--accent); font-weight: 700; }
+  .picon.is-hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  .strip-empty { font-size: 11px; color: var(--dim); font-style: italic; padding: 3px 0; }
+
+  /* ============ Variante 2: Sammel-Tafel als eigene Kachel neben dem Feld ============ */
+  .board2 { display: grid; grid-template-columns: 190px 1fr; }
+  .colhead { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; padding: 9px 6px; border-top: 0; background: rgba(255,255,255,.02); font-size: 10px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--dim); }
+
+  .track-panel { flex: none; width: 210px; display: flex; flex-direction: column; gap: 9px; padding: 10px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); }
+  .track-head { display: flex; align-items: center; justify-content: center; gap: 6px; padding-bottom: 8px; border-bottom: 1px solid var(--line-soft); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+  .track-grid { display: grid; gap: 7px; }
+  .track-player { display: flex; align-items: center; gap: 6px; }
+  .track-player .pname { flex: none; width: 62px; font-size: 11px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .track-icons { display: flex; flex-wrap: wrap; gap: 4px; }
+  .ticon { position: relative; width: 22px; height: 22px; border-radius: 5px; background: var(--metal); display: grid; place-items: center; }
+  .ticon > span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 4px; background: rgba(11,12,14,.55); font-size: 11px; }
+  .ticon .tip { position: absolute; bottom: calc(100% + 7px); left: 50%; transform: translateX(-50%) translateY(4px); width: 160px; padding: 8px 9px; border-radius: 8px; background: #0b0c0e; border: 1px solid var(--line); box-shadow: 0 10px 24px rgba(0,0,0,.5); font-size: 11px; line-height: 1.35; color: var(--muted); opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 5; text-align: left; }
+  .ticon .tip b { display: block; color: var(--text); font-size: 11.5px; margin-bottom: 2px; }
+  .ticon .tip .tip-row { display: flex; justify-content: space-between; margin-top: 2px; }
+  .ticon .tip .tip-row em { font-style: normal; color: var(--accent); font-weight: 700; }
+  .ticon.is-hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  .track-sum { margin-left: auto; font-size: 10px; color: var(--dim); font-variant-numeric: tabular-nums; flex: none; }
+
+  .note { display: flex; gap: 10px; margin: 6px 14px 0; padding: 12px 14px; border-radius: 10px; background: rgba(245,166,35,.08); border: 1px solid rgba(245,166,35,.25); font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .note b { color: var(--accent); }
+</style>
+
+<div class="wrap">
+  <header class="page">
+    <div class="kicker">Spielfeld · Sammel-Icons</div>
+    <h1>Fertige Kategorien werden zu kleinen Icons</h1>
+    <p class="lede">Statt für jede fertige Kategorie eine eigene schmale Spalte zu behalten, wird sie zu einem einzigen kleinen Icon. Wer welche Karte zu welchem Preis (und mit wie vielen Punkten) gekauft hat, steht im Tooltip beim Hover. Zwei Varianten, wo diese Icons landen.</p>
+  </header>
+
+  <!-- ============ VARIANTE 1 ============ -->
+  <section class="variant" id="v1">
+    <div class="variant-head">
+      <span class="tag">1</span>
+      <h2>Sammel-Leiste je Spielerzeile</h2>
+      <p>Die fertigen Kategorien bilden eine eigene, schmale Spalte direkt neben dem Spielernamen — pro Spieler eine Reihe kleiner Icons statt einer Mini-Spalte pro Kategorie. Die Matrix bleibt: Name → Sammlung → aktive Kategorie.</p>
+    </div>
+    <div class="facts"><b>Matrixspalten:</b> 2 statt 1+N &nbsp;·&nbsp; <b>Breite fest,</b> wächst nicht mit Kategorien &nbsp;·&nbsp; <b>Hover:</b> direkt am Icon</div>
+    <div class="screen">
+      <div class="topbar">
+        <div class="brand"><span>🚆</span> SEHR GEEHRTE FAHRGÄSTE</div>
+        <div class="topbar-right"><div class="chip">Bahnsteig</div><div class="chip">⚙️</div></div>
+      </div>
+      <div class="field-row">
+        <div class="board-wrap">
+          <div class="board" style="grid-template-columns: 200px 190px minmax(320px,1fr)">
+            <div class="cell head"><div class="head-name">Fahrgast</div></div>
+            <div class="cell head"><div class="head-icon">🗂️</div><div class="head-name">Gesammelt</div></div>
+            <div class="cell head is-active"><div class="head-icon">🪑</div><div class="head-name">Der Sitzplatz</div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">3</span><span class="player-name">Fahrgast 1</span><span class="player-pts">838k</span></div></div>
+            <div class="cell strip-col">
+              <div class="icon-row">
+                <div class="picon t-mittel"><span>🚉</span><div class="tip"><b>Der Bahnhof</b><div class="tip-row">Bahnsteighalle<em>+64</em></div><div class="tip-row">gekauft für <span>410k</span></div></div></div>
+                <div class="picon t-gut is-hover"><span>👤</span><div class="tip"><b>Die Mitreisenden</b><div class="tip-row">Der Vielfahrer<em>+27</em></div><div class="tip-row">gekauft für <span>180k</span></div></div></div>
+              </div>
+            </div>
+            <div class="cell is-big"><div class="card t-mittel"><div class="card-score">+57</div><div class="card-face"><span class="card-icon">🛋️</span><span class="card-name">Fensterplatz</span></div></div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">1</span><span class="player-name">Fahrgast 2</span><span class="player-pts">892k</span></div></div>
+            <div class="cell strip-col">
+              <div class="icon-row">
+                <div class="picon t-schlecht"><span>🚉</span><div class="tip"><b>Der Bahnhof</b><div class="tip-row">Provisorium<em>−5</em></div><div class="tip-row">gekauft für <span>60k</span></div></div></div>
+              </div>
+            </div>
+            <div class="cell is-big"><div class="slot-open">offen</div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">2</span><span class="player-name">Fahrgast 3</span><span class="player-pts">970k</span></div></div>
+            <div class="cell strip-col"><div class="strip-empty">noch nichts</div></div>
+            <div class="cell is-big"><div class="card t-gut"><div class="card-score">+61</div><div class="card-face"><span class="card-icon">🌙</span><span class="card-name">Ruheabteil</span></div></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>Wichtig:</b> Die Spalte „Gesammelt“ hat eine feste Breite und wächst mit jeder fertigen Kategorie nur in der Höhe (Icons brechen um), nie in der Breite — die aktive Kategorie behält immer den Rest des Platzes.</div>
+    </div>
+  </section>
+
+  <!-- ============ VARIANTE 2 ============ -->
+  <section class="variant" id="v2">
+    <div class="variant-head">
+      <span class="tag">2</span>
+      <h2>Sammel-Tafel neben dem Feld</h2>
+      <p>Die Matrix selbst bleibt so schlank wie möglich — nur Name und aktive Kategorie. Alle fertigen Kategorien wandern komplett aus der Tabelle heraus in eine eigene Tafel daneben (spiegelbildlich zur „Wartet"-Tafel): Zeilen = Spieler, Icons = ihre gekauften Karten je fertiger Kategorie.</p>
+    </div>
+    <div class="facts"><b>Matrix:</b> nur 2 Spalten, nie breiter &nbsp;·&nbsp; <b>Tafel wächst</b> mit jeder fertigen Kategorie &nbsp;·&nbsp; <b>Direkter Vergleich</b> aller Spieler auf einen Blick</div>
+    <div class="screen">
+      <div class="topbar">
+        <div class="brand"><span>🚆</span> SEHR GEEHRTE FAHRGÄSTE</div>
+        <div class="topbar-right"><div class="chip">Bahnsteig</div><div class="chip">⚙️</div></div>
+      </div>
+      <div class="field-row">
+        <div class="board-wrap">
+          <div class="board2" style="grid-template-columns:200px 1fr">
+            <div class="cell head"><div class="head-name">Fahrgast</div></div>
+            <div class="cell head is-active"><div class="head-icon">🪑</div><div class="head-name">Der Sitzplatz</div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">3</span><span class="player-name">Fahrgast 1</span><span class="player-pts">838k</span></div></div>
+            <div class="cell is-big"><div class="card t-mittel"><div class="card-score">+57</div><div class="card-face"><span class="card-icon">🛋️</span><span class="card-name">Fensterplatz</span></div></div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">1</span><span class="player-name">Fahrgast 2</span><span class="player-pts">892k</span></div></div>
+            <div class="cell is-big"><div class="slot-open">offen</div></div>
+
+            <div class="cell player"><div class="player-top"><span class="player-num">2</span><span class="player-name">Fahrgast 3</span><span class="player-pts">970k</span></div></div>
+            <div class="cell is-big"><div class="card t-gut"><div class="card-score">+61</div><div class="card-face"><span class="card-icon">🌙</span><span class="card-name">Ruheabteil</span></div></div></div>
+          </div>
+        </div>
+        <div class="track-panel">
+          <div class="track-head">🗂️ Gesammelt (2)</div>
+          <div class="track-grid">
+            <div class="track-player">
+              <span class="pname">Fahrgast 1</span>
+              <div class="track-icons">
+                <div class="ticon t-mittel"><span>🚉</span><div class="tip"><b>Der Bahnhof</b><div class="tip-row">Bahnsteighalle<em>+64</em></div><div class="tip-row">für <span>410k</span></div></div></div>
+                <div class="ticon t-gut is-hover"><span>👤</span><div class="tip"><b>Die Mitreisenden</b><div class="tip-row">Der Vielfahrer<em>+27</em></div><div class="tip-row">für <span>180k</span></div></div></div>
+              </div>
+              <span class="track-sum">91 Pkt.</span>
+            </div>
+            <div class="track-player">
+              <span class="pname">Fahrgast 2</span>
+              <div class="track-icons">
+                <div class="ticon t-schlecht"><span>🚉</span><div class="tip"><b>Der Bahnhof</b><div class="tip-row">Provisorium<em>−5</em></div><div class="tip-row">für <span>60k</span></div></div></div>
+              </div>
+              <span class="track-sum">−5 Pkt.</span>
+            </div>
+            <div class="track-player">
+              <span class="pname">Fahrgast 3</span>
+              <div class="track-icons"><span style="font-size:11px;color:var(--dim);font-style:italic">noch nichts</span></div>
+              <span class="track-sum">0 Pkt.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="note"><b>Wichtig:</b> Diese Tafel steht auf der anderen Seite als die „Wartet"-Tafel für kommende Kategorien — links Vergangenheit, rechts Zukunft, Mitte die Gegenwart. Bei vielen Kategorien wird die Tafel scrollbar statt breiter.</div>
+    </div>
+  </section>
+</div>

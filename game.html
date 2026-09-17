@@ -716,7 +716,15 @@
             box-shadow: var(--e3), inset 0 1px 0 var(--ctl-hi);
             border-radius: var(--r-lg);
             overflow: hidden;
+            height: 100%;
         }
+        /* The board should use the height it has instead of leaving a gap above the dock.
+           A flex chain instead of height:100% - the wrappers get their height from flex-grow,
+           so their computed height stays `auto` and percentages would not resolve. */
+        #board-area { display: flex; flex-direction: column; min-height: 0; }
+        #view-matrix .matrix-table-wrap { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+        #view-matrix .matrix-table-wrap > div { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+        #view-matrix .matrix-table-wrap table { flex: 1 1 auto; }
 
         /* Opaque on purpose: this <th> is position:sticky, and sticky + backdrop-filter
            forces the compositor to re-blur the strip on every scroll frame. */
@@ -741,7 +749,7 @@
            without touching engine.js.
            `td + td` skips the player-name column; :not(.absolute) skips the hover
            tooltip, which is a sibling div inside the same cell. */
-        #matrix-body td + td > div:not(.absolute) { min-height: 104px; }
+        #matrix-body td + td > div:not(.absolute) { min-height: var(--slot-min, clamp(56px, 11vh, 104px)); }
 
         /* Card chips: same elevation language as the controls. Targets the engine's
            generated markup from CSS - engine.js is untouched. */
@@ -1054,7 +1062,7 @@
         .fly-name { font-size: 12px; font-weight: 800; line-height: 1.1; }
         #matrix-body .slot-land { animation: slotLand .8s ease-out; }
         @keyframes slotLand { 0% { transform: scale(1.14); box-shadow: 0 0 0 3px var(--tier), 0 0 36px var(--tier); } 100% { transform: none; } }
-        #matrix-body .budget-low { animation: budgetLow 1.3s ease-in-out infinite; }
+        #matrix-body .budget-low, #matrix-body .p-money.is-low .pt-corner { animation: budgetLow 1.3s ease-in-out infinite; }
         @keyframes budgetLow { 50% { text-shadow: 0 0 10px rgba(239,68,68,.9); transform: scale(1.08); } }
 
         /* --- Joker: Kontrolle (stamp + chains) / Entschädigung (golden shield) --- */
@@ -1131,32 +1139,160 @@
         .points-fly { position: fixed; z-index: 800; pointer-events: none; padding: 4px 12px; border-radius: 999px; font-size: 20px; font-weight: 900; white-space: nowrap; color: #111; background: linear-gradient(135deg, #fde047, #f59e0b); box-shadow: 0 0 0 2px rgba(255,255,255,.7), 0 8px 24px rgba(245,158,11,.55); }
         .points-bump { animation: pointsBump .7s cubic-bezier(.2,1.6,.4,1); }
         @keyframes pointsBump { 30% { transform: scale(1.45); box-shadow: 0 0 0 3px #fde047, 0 0 24px rgba(253,224,71,.8); } }
-        #matrix-header-row th.is-active-col { box-shadow: inset 2px 0 0 rgba(var(--clr-primary-rgb), .75), inset -2px 0 0 rgba(var(--clr-primary-rgb), .75), inset 0 3px 0 var(--clr-primary), inset 0 0 0 999px rgba(var(--clr-primary-rgb), .14); }
-        #matrix-body td.is-active-col { box-shadow: inset 2px 0 0 rgba(var(--clr-primary-rgb), .45), inset -2px 0 0 rgba(var(--clr-primary-rgb), .45), inset 0 0 0 999px rgba(var(--clr-primary-rgb), .06); }
-        #matrix-body td.is-active-col > div:empty { border-radius: var(--r-md); animation: emptySlotPulse 1.8s ease-in-out infinite; }
-        @keyframes emptySlotPulse { 50% { background: rgba(var(--clr-primary-rgb), .14); box-shadow: inset 0 0 0 1px rgba(var(--clr-primary-rgb), .5); } }
-        #matrix-body td.is-done-col > div { filter: saturate(.45) brightness(.72); }
-        #matrix-header-row th.is-done-col { position: relative; }
-        #matrix-header-row th.is-done-col .matrix-cat-btn { opacity: .55; }
-        #matrix-header-row th.is-done-col::after { content: '✓'; position: absolute; top: 4px; right: 5px; width: 18px; height: 18px; display: grid; place-items: center; border-radius: 50%; font-size: 12px; font-weight: 900; color: #111; background: #eab308; box-shadow: 0 0 8px rgba(234,179,8,.6); }
-        .fx-scene.board-pause, .fx-scene.col-jump-scene { background: transparent; }
+        /* Only the header shows the state - the board stays calm and the bought cards keep their colours */
+        #matrix-header-row th.is-active-col { box-shadow: inset 0 4px 0 var(--clr-primary), inset 0 0 0 999px rgba(var(--clr-primary-rgb), .16); }
+        #matrix-header-row th.is-active-col .matrix-cat-btn { color: var(--clr-primary); border-bottom-color: transparent; }
+        .fx-scene.board-pause { background: transparent; }
         .pause-pill { position: fixed; left: 50%; bottom: 120px; transform: translateX(-50%); overflow: hidden; padding: 10px 24px 14px; border-radius: 999px; font-size: 18px; font-weight: 800; color: #fff; background: rgba(12,12,16,.88); border: 1px solid rgba(var(--clr-primary-rgb), .6); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
         .pause-pill b { font-size: 22px; color: var(--clr-primary); font-variant-numeric: tabular-nums; }
         .pause-pill::after { content: ''; position: absolute; left: 0; bottom: 0; width: 100%; height: 4px; transform-origin: left; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); animation: pauseBar 3s linear forwards; }
         @keyframes pauseBar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
         #matrix-body .col-sweep { animation: colSweep .65s ease-out; }
         @keyframes colSweep { 40% { transform: scale(1.06); box-shadow: 0 0 0 3px var(--clr-primary), 0 0 28px rgba(var(--clr-primary-rgb), .65); } }
-        .col-jump { position: fixed; pointer-events: none; border-radius: 12px; border: 2px solid var(--clr-primary); box-shadow: 0 0 0 1px rgba(var(--clr-primary-rgb), .3), 0 0 40px rgba(var(--clr-primary-rgb), .6), inset 0 0 30px rgba(var(--clr-primary-rgb), .2); }
-        .col-next { position: fixed; z-index: 1; padding: 10px 20px; border-radius: 14px; text-align: center; white-space: nowrap; color: #111; background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end)); box-shadow: 0 14px 34px rgba(0,0,0,.55); opacity: 0; transform: translate(-50%, 0) scale(.5); transition: transform .45s cubic-bezier(.2,1.6,.4,1), opacity .2s; }
-        .col-next::before { content: ''; position: absolute; left: 50%; top: -8px; margin-left: -8px; border: 8px solid transparent; border-top: 0; border-bottom-color: var(--gradient-start); }
-        .col-next.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
-        .col-next small { display: block; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
-        .col-next b { display: block; font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: 22px; }
+        /* Kategorien-Spur links neben dem Brett (engine.js renderCategoryQueue): ein Platz je
+           Kategorie, leer bis sie gespielt ist. Kein gemeinsamer Rahmen - nur die einzelnen Kacheln.
+           Steht ausserhalb von #board-area, damit renderMatrix() unangetastet bleibt. */
+        .cat-track { flex: none; width: 58px; display: flex; flex-direction: column; gap: 8px; padding: 2px 0; min-height: 0; }
+        .cat-track:empty { display: none; }
+        /* kein overflow hier - das wuerde die Ergebnis-Box am Rand abschneiden */
+        .ct-tile { position: relative; flex: 1 1 0; min-height: 22px; max-height: 54px; display: grid; place-items: center; border-radius: 10px; }
+        .ct-tile .ct-icon { font-size: clamp(14px, 2.4vh, 20px); line-height: 1; opacity: .28; filter: grayscale(1); }
+        /* noch nicht gespielt: leerer Platzhalter, das Symbol nur angedeutet */
+        .ct-tile.is-open { border: 1.5px dashed var(--border-color); background: rgba(255,255,255,.015); }
+        /* laufende Kategorie */
+        .ct-tile.is-active { border: 2px solid var(--clr-primary); background: rgba(var(--clr-primary-rgb), .14); box-shadow: 0 0 0 1px var(--clr-primary), 0 0 16px rgba(var(--clr-primary-rgb), .4); }
+        /* gespielt: neutral gefuellt, keine Qualitaetsfarbe - nur das Symbol zaehlt */
+        .ct-tile.is-done { border: 1px solid var(--border-color); background: rgba(255,255,255,.055); }
+        .ct-tile.is-done .ct-icon, .ct-tile.is-active .ct-icon { opacity: 1; filter: none; }
+        .ct-tile.is-done:hover { border-color: rgba(255,255,255,.28); }
+        /* der Platz der gerade fertigen Kategorie fuellt sich mit ihrem Symbol */
+        .ct-tile.ct-fill { animation: ctFillRing .7s ease-out; }
+        .ct-tile.ct-fill .ct-icon { animation: ctFill .7s cubic-bezier(.2,1.4,.35,1) both; }
+        @keyframes ctFill { from { transform: scale(.5); opacity: 0; } 65% { transform: scale(1.22); } to { transform: none; opacity: 1; } }
+        @keyframes ctFillRing { 40% { box-shadow: 0 0 0 3px var(--clr-primary), 0 0 20px rgba(var(--clr-primary-rgb), .6); } }
+        /* Ergebnis der Kategorie, oeffnet nach rechts ueber das Brett */
+        .ct-tip { position: absolute; left: calc(100% + 9px); top: 50%; transform: translateY(-50%) translateX(-6px); width: 340px; padding: 10px 12px; border-radius: 10px; background: var(--bg-card, #15171a); border: 1px solid var(--border-color); box-shadow: 0 12px 28px rgba(0,0,0,.6); font-size: 12px; line-height: 1.35; color: var(--text-muted); text-align: left; opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 60; }
+        .ct-tile:hover .ct-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
+        .ct-tip b { display: block; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--border-subtle); font-size: 12.5px; color: #fff; }
+        .ct-row { display: flex; align-items: baseline; gap: 7px; margin-top: 4px; }
+        .ct-row .ct-p { flex: none; width: 72px; font-size: 11.5px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        /* zwei Zeilen je Karte - sonst wird die Box bei acht Fahrgaesten hoeher als das Brett */
+        .ct-row .ct-c { flex: 1; min-width: 0; font-style: italic; line-height: 1.25; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .ct-row .ct-m { flex: none; font-weight: 700; color: var(--clr-accent, #f5a623); font-variant-numeric: tabular-nums; }
+        /* Board layout "Lupe": the running category takes the leftover width and carries the question
+           and progress that used to sit in a bar above the board. Every other column is an icon tile. */
+        #matrix-header-row th .cat-head-q,
+        #matrix-header-row th .cat-head-meta { display: none; }
+        #matrix-header-row th:not(.is-active-col) .cat-head-name { display: none; }
+        #matrix-header-row th:not(.is-active-col) .cat-head-icon { font-size: 20px; }
+        #matrix-header-row th.is-active-col .matrix-cat-btn { padding: 10px 12px; }
+        #matrix-header-row th.is-active-col .cat-head-icon { font-size: 30px; }
+        #matrix-header-row th.is-active-col .cat-head-name { margin-top: 4px; font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: .02em; line-height: 1.1; text-transform: uppercase; color: #fff; }
+        #matrix-header-row th.is-active-col .cat-head-q { display: block; margin-top: 2px; font-size: 12px; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--text-muted); }
+        #matrix-header-row th.is-active-col .cat-head-meta { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 6px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
+        #matrix-header-row th.is-active-col .cat-head-meta b { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--clr-primary); }
+        .cat-head-dots { display: flex; gap: 4px; }
+        .cat-head-dots i { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(var(--clr-primary-rgb), .55); }
+        .cat-head-dots i.is-filled { background: var(--clr-primary); }
+        @media (max-height: 760px) {
+            #matrix-header-row th.is-active-col .matrix-cat-btn { padding: 5px 10px; }
+            #matrix-header-row th.is-active-col .cat-head-icon { font-size: 22px; }
+            #matrix-header-row th.is-active-col .cat-head-name { font-size: 16px; }
+            #matrix-header-row th.is-active-col .cat-head-q { display: none; }
+        }
+
+        /* Only the running category is a column - played and upcoming ones live in the track beside
+           the board, so the matrix never grows wider than name + active category. */
+        #matrix-header-row th.col-next, #matrix-body td.col-next { display: none; }
+        @keyframes colEnter { from { opacity: 0; transform: translateX(34px) scale(.94); } to { opacity: 1; transform: none; } }
+        #matrix-header-row th.col-enter > *, #matrix-body td.col-enter > * { animation: colEnter .55s cubic-bezier(.2,1,.3,1) both; }
+
+        /* Active column: room for the card, empty cells read as open places */
+        #matrix-body td.col-active .slot-frame, #matrix-body td.col-active .slot-empty { height: 100%; min-height: var(--slot-min, clamp(70px, 14vh, 118px)); }
+        /* ---- Fahrgastspalte: vier Kacheln, kein Spaltenrahmen ----
+           Die Spalte bleibt technisch eine Tabellenspalte - nur so fluchten alle Fahrgaeste
+           weiterhin zeilengenau mit ihren Karten. Sichtbar ist davon nichts mehr. */
+        #matrix-header-row th:first-child { background: transparent; box-shadow: none; padding-left: 14px; color: var(--text-dim); }
+        #matrix-body td.player-col { height: 1px; /* laesst .pcell auf die Zeilenhoehe wachsen */
+            background: transparent; border-right: 0; border-top-color: transparent;
+            padding: var(--row-pad, clamp(4px, 1.2vh, 12px)) 8px var(--row-pad, clamp(4px, 1.2vh, 12px)) 2px; }
+        .pcell { height: 100%; display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
+        .ptile-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; min-height: 0; }
+        .ptile { position: relative; display: grid; place-items: center; align-content: center; border-radius: 10px; border: 1px solid var(--border-subtle); background: var(--bg-card); min-height: 0; }
+        #matrix-body .is-dense .pcell, #matrix-body.is-dense .pcell { gap: 4px; }
+        #matrix-body.is-dense .ptile-row { gap: 4px; }
+
+        /* Namenskachel */
+        .p-name { justify-items: stretch; align-content: center; gap: 3px; padding: 6px 10px; background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(0,0,0,.25)); }
+        .p-name-top { display: flex; align-items: center; gap: 7px; min-width: 0; }
+        .p-name-input { flex: 1; min-width: 0; background: transparent; border: 0; outline: none; color: #fff;
+            font-family: var(--font-display), sans-serif; font-size: clamp(14px, 2.1vh, 21px); font-weight: 800; letter-spacing: .01em; text-transform: uppercase; }
+        .p-name-input:focus { box-shadow: 0 0 0 2px rgba(var(--clr-primary-rgb), .5); border-radius: 4px; }
+        .pbadges { display: flex; flex-wrap: wrap; gap: 4px; }
+        .pbadge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 7px; border-radius: 6px; font-size: 10px; font-weight: 800; white-space: nowrap; }
+        .pbadge.is-lock { color: #fff; background: var(--clr-primary); }
+        .pbadge.is-shield { color: var(--clr-accent); background: rgba(245,166,35,.14); border: 1px solid rgba(245,166,35,.4); }
+        .pbadge.is-perk { color: #a5b4fc; background: rgba(99,102,241,.16); border: 1px solid rgba(99,102,241,.4); }
+        .pstate { display: none; flex: none; width: 9px; height: 9px; border-radius: 50%; }
+        .pstate.is-lock { background: var(--clr-primary); } .pstate.is-shield { background: var(--clr-accent); } .pstate.is-perk { background: #818cf8; }
+        /* wird es eng, tritt der Punkt an die Stelle der Abzeichen */
+        #matrix-body.is-dense .pbadges { display: none; }
+        #matrix-body.is-dense .pstate { display: block; }
+
+        /* die drei kleinen Kacheln: Zeichen in der Mitte, Wert oben rechts */
+        .pt-corner { position: absolute; top: 3px; right: 6px; font-size: 11px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text); }
+        #matrix-body.is-dense .pt-corner { font-size: 9.5px; top: 2px; right: 4px; }
+        .pt-glyph { font-size: clamp(15px, 2.6vh, 26px); line-height: 1; }
+        .pt-cur { font-family: var(--font-display), sans-serif; font-weight: 900; color: var(--clr-primary); }
+        .p-jokers { color: #c084fc; }
+        .p-jokers .ptile-btn { width: 100%; height: 100%; display: grid; place-items: center; background: none; border: 0; color: inherit; cursor: pointer; border-radius: 10px; }
+        .p-jokers:hover { border-color: #c084fc; background: rgba(192,132,252,.1); }
+        .p-jokers.is-empty { opacity: .45; }
+        .p-money.is-low { border-color: rgba(var(--clr-primary-rgb), .6); background: rgba(var(--clr-primary-rgb), .1); }
+        .p-money.is-low .pt-corner { color: var(--clr-primary); }
+        .p-points .pt-corner { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
+        #matrix-body.is-dense .p-points .pt-corner { display: none; }
+        .p-points .pt-val { font-family: var(--font-display), sans-serif; font-size: clamp(16px, 3vh, 28px); font-weight: 900; line-height: 1; color: var(--clr-accent); font-variant-numeric: tabular-nums; }
+        .p-points .pt-val.is-neg { color: #f87171; }
+
+        /* genauer Kontostand beim Zeigen auf die Geldkachel */
+        .pt-tip { position: absolute; left: calc(100% + 6px); top: 50%; transform: translateY(-50%) translateX(-5px); padding: 4px 10px; border-radius: 8px;
+            background: var(--bg-card, #15171a); border: 1px solid var(--border-color); box-shadow: 0 10px 22px rgba(0,0,0,.6);
+            font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; font-variant-numeric: tabular-nums;
+            opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 55; }
+        .p-money:hover .pt-tip { opacity: 1; transform: translateY(-50%); }
+
+        /* Joker-Fach: klappt zur Seite ueber das Brett auf - nach oben wuerde es den eigenen Namen verdecken */
+        .jtray { position: absolute; left: calc(100% + 6px); top: 50%; margin-top: -26px; display: flex; gap: 5px; padding: 7px; border-radius: 11px;
+            background: var(--bg-card, #15171a); border: 1px solid var(--border-color); box-shadow: 0 14px 30px rgba(0,0,0,.65);
+            opacity: 0; pointer-events: none; transform: translateX(-6px); transition: opacity .13s, transform .13s; z-index: 60; }
+        .p-jokers.is-open .jtray { opacity: 1; pointer-events: auto; transform: none; }
+        .jtray-btn { position: relative; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 9px; border: 1px solid var(--border-color); background: rgba(255,255,255,.04); font-size: 16px; transition: border-color .15s, background .15s; }
+        .jtray-btn:hover { background: rgba(255,255,255,.09); }
+        .jtray-btn.is-locked { opacity: .3; cursor: not-allowed; }
+        .jtray-cnt { position: absolute; top: -5px; right: -5px; min-width: 15px; height: 15px; padding: 0 3px; display: grid; place-items: center; border-radius: 99px; border: 1px solid var(--border-color); background: #000; color: #fff; font-size: 10px; font-weight: 800; }
+        .jtray-none { padding: 0 6px; font-size: 11px; color: var(--text-dim); white-space: nowrap; }
+        /* the frame stretches with the row, so the face has to stretch with it - percentage
+           heights stop resolving that deep inside a table cell, flex does it reliably */
+        #matrix-body .slot-frame { display: flex; }
+        #matrix-body .slot-face { flex: 1; min-width: 0; height: auto; align-self: stretch; }
+        #matrix-body td.col-active .slot-empty { display: grid; place-items: center; border: 2px dashed rgba(var(--clr-primary-rgb), .3); border-radius: var(--r-lg); }
+        #matrix-body td.col-active .slot-empty::after { content: 'OFFEN'; font-size: 11px; font-weight: 900; letter-spacing: .18em; color: var(--text-dim); }
+
+        /* Chapter card on category switch (engine.js playCategorySwitch) */
+        .fx-scene.chapter-scene { display: grid; place-items: center; padding: 20px; background: rgba(8,8,10,.82); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .chapter-card { text-align: center; animation: chapterIn .5s cubic-bezier(.2,1.2,.4,1) both; }
+        .chapter-kicker { font-size: 13px; font-weight: 900; letter-spacing: .28em; text-transform: uppercase; color: var(--clr-accent); }
+        .chapter-icon { margin: 10px 0 6px; font-size: clamp(56px, 9vw, 92px); line-height: 1; }
+        .chapter-name { font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: clamp(32px, 6vw, 64px); font-weight: 900; line-height: 1.05; text-transform: uppercase; text-wrap: balance; color: #fff; }
+        .chapter-name::after { content: ''; display: block; width: 90px; height: 4px; margin: 14px auto 0; border-radius: 99px; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); }
+        .chapter-desc { margin-top: 14px; font-size: clamp(15px, 2vw, 20px); font-style: italic; color: var(--text-muted); }
+        @keyframes chapterIn { from { opacity: 0; transform: translateY(24px) scale(.94); } }
+
         @media (prefers-reduced-motion: reduce) {
-            .shred-card, .shred-body, .shred-led, .shred-out i, .points-bump, #matrix-body td.is-active-col > div:empty, #matrix-body .col-sweep { animation: none; }
+            .shred-card, .shred-body, .shred-led, .shred-out i, .points-bump, #matrix-body .col-sweep, .chapter-card { animation: none; }
             .shred-card, .shred-out i { opacity: 0; }
             .shred-stamp { animation: none; opacity: 1; transform: translate(-50%, -50%) rotate(-12deg); }
-            .col-next { transition: none; }
         }
 
         /* --- Joker: Umbuchung (swap) --- */
@@ -1530,7 +1666,7 @@
 
         @media (prefers-reduced-motion: reduce) {
             .draw-flipper, .blind-row, .blind-track i { transition: none; }
-            .fly-card.is-unicorn, #matrix-body .budget-low, .shield-badge, .swap-card, .swap-arrow,
+            .fly-card.is-unicorn, #matrix-body .budget-low, #matrix-body .p-money.is-low .pt-corner, .shield-badge, .swap-card, .swap-arrow,
             .dutch-live, #dutch-price.is-rolling, #dutch-buttons-container button, .dutch-pricebox.is-jolt, .dutch-intro, .dutch-intro span,
             #dutch-modal.is-critical .dutch-alert, #dutch-modal.is-critical .dutch-title, #dutch-modal.is-sold::after,
             :where([id$="-modal"]), :where([id$="-modal"], #card-expand-overlay) > * { animation: none; }
@@ -1584,9 +1720,12 @@
     </header>
 
     <main class="flex-grow p-4 md:p-6" id="main-content">
-        <div id="view-matrix" class="flex flex-col h-full min-h-[calc(100vh-130px)]">
-            <!-- Board Area (overlay target) -->
-            <div id="board-area" class="flex-grow overflow-hidden relative">
+        <div id="view-matrix" class="flex flex-col h-[calc(100vh-130px)]">
+            <!-- Board plus the category backlog beside it -->
+            <div id="board-row" class="flex-grow flex items-stretch gap-3 min-h-0">
+            <!-- Kategorien-Spur (engine.js renderCategoryQueue) -->
+            <aside id="category-queue" class="cat-track" aria-label="Kategorien der Runde"></aside>
+            <div id="board-area" class="flex-1 min-w-0 overflow-hidden relative">
                 <div class="matrix-table-wrap h-full overflow-hidden relative">
                     <div class="overflow-x-auto h-full">
                         <table class="w-full text-left border-collapse table-fixed">
@@ -1610,6 +1749,7 @@
                         <div id="expand-card-price" class="text-base font-bold text-lime-400"></div>
                     </div>
                 </div>
+            </div>
             </div>
 
             <!-- Bottom Dock -->
@@ -1648,24 +1788,15 @@
                     <button onclick="executeMatrixAuction()" class="glass-action-btn btn-buy">Kaufen</button>
                 </div>
 
-                <!-- Action Icons -->
-                <div class="flex items-center gap-1.5 px-3 py-2">
-                    <!-- Wheel -->
-                    <button onclick="spinBonusWheelAll()" class="dock-icon-btn group" title="Glücksrad drehen" aria-label="Glücksrad drehen">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="1" fill="currentColor"/><line x1="8" y1="2" x2="8" y2="4.5" stroke="currentColor" stroke-width="0.8"/><line x1="8" y1="11.5" x2="8" y2="14" stroke="currentColor" stroke-width="0.8"/><line x1="2" y1="8" x2="4.5" y2="8" stroke="currentColor" stroke-width="0.8"/><line x1="11.5" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="0.8"/><line x1="3.8" y1="3.8" x2="5.4" y2="5.4" stroke="currentColor" stroke-width="0.8"/><line x1="10.6" y1="10.6" x2="12.2" y2="12.2" stroke="currentColor" stroke-width="0.8"/><line x1="12.2" y1="3.8" x2="10.6" y2="5.4" stroke="currentColor" stroke-width="0.8"/><line x1="5.4" y1="10.6" x2="3.8" y2="12.2" stroke="currentColor" stroke-width="0.8"/></svg>
-                    </button>
-                    <!-- Sale -->
-                    <button onclick="startDutchAuction()" class="dock-icon-btn" title="Notverkauf / Sale" aria-label="Notverkauf / Sale">
-                        <i class="fa-solid fa-fire text-xs" aria-hidden="true"></i>
-                    </button>
-                    <!-- Blind -->
-                    <button onclick="triggerBlindAuctionEvent()" class="dock-icon-btn" title="Blind-Deal" aria-label="Blind-Deal">
-                        <i class="fa-solid fa-eye-slash text-xs" aria-hidden="true"></i>
-                    </button>
-                    <!-- Punish -->
+                <!-- Punish -->
+                <div class="flex items-center px-3 py-2 dock-sep">
                     <button id="btn-punish" onclick="punishLoser()" class="dock-icon-btn dock-icon-danger" title="Loser bestrafen" aria-label="Loser bestrafen">
                         <i class="fa-solid fa-skull text-xs" aria-hidden="true"></i>
                     </button>
+                </div>
+
+                <!-- Action Icons -->
+                <div class="flex items-center gap-1.5 px-3 py-2">
                     <!-- Joker Info (hover) -->
                     <div class="relative">
                         <button class="dock-icon-btn" id="joker-hover-btn" title="Joker-Übersicht" aria-label="Joker-Übersicht">
@@ -1675,14 +1806,6 @@
                             <div id="joker-legend" class="text-xs"></div>
                         </div>
                     </div>
-                    <!-- Joker phase: no longer forced open every round, available on demand -->
-                    <button onclick="openJokerPhase()" class="dock-icon-btn" title="Joker-Phase öffnen" aria-label="Joker-Phase öffnen">
-                        <i class="fa-solid fa-bolt text-xs" aria-hidden="true"></i>
-                    </button>
-                    <!-- Sound on/off (fail animation effects) -->
-                    <button id="btn-sound-toggle" onclick="toggleSound()" class="dock-icon-btn" title="Ton aus" aria-label="Ton aus">
-                        <i class="fa-solid fa-volume-high text-xs" aria-hidden="true"></i>
-                    </button>
                     <!-- Undo -->
                     <button id="btn-undo-purchase" onclick="undoLastPurchase()" class="dock-icon-btn hidden" title="Letzten Kauf stornieren" aria-label="Letzten Kauf stornieren">
                         <i class="fa-solid fa-rotate-left text-xs" aria-hidden="true"></i>
