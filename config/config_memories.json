@@ -253,7 +253,7 @@
     "name": "Der peinliche Topfschnitt",
     "desc": "Kein Geld für den Friseur. Deine Mutter hat zur Küchenschere und einer Salatschüssel gegriffen. Das Trauma dieser Frisur wird dich auf jedem Klassenfoto verfolgen.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "✂️",
     "dbCategory": "LOSER",

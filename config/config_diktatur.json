@@ -263,7 +263,7 @@
     "name": "Machtvakuum",
     "desc": "Kein Titel, kein Palast, keine Anhänger. Nur ein leerer Schreibtisch, ein zerknülltes Dekret und ein Volk, das deinen Namen schon wieder vergessen hat. Selbst die Geheimpolizei führt dich nicht mehr in den Akten.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "💀",
     "dbCategory": "LOSER",

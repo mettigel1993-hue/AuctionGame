@@ -253,7 +253,7 @@
     "name": "Brieffreundschaft mit dem Vorstand",
     "desc": "Du kannst deine Pacht nicht zahlen. Dafür bekommst du wöchentlich laminierte Abmahnungen wegen unzulässiger Heckenhöhe und falscher Kompostierung.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "✉️",
     "dbCategory": "LOSER",

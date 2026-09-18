@@ -258,7 +258,7 @@
     "name": "Kaffeepause am defekten Automaten",
     "desc": "Keine Kohle für den Pausensnack. Du verbringst deine hart erkämpften 15 Minuten damit, traurig auf das leuchtende 'Außer Betrieb'-Schild zu starren.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "☕",
     "dbCategory": "LOSER",

@@ -263,7 +263,7 @@
     "name": "Connection Lost",
     "desc": "Verbindung zum Server verloren. Ping: 9999ms. Kein Loadout, kein Team, keine Hoffnung. Du starrst auf einen Ladebildschirm während alle anderen spielen.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "📡",
     "dbCategory": "LOSER",

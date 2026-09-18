@@ -474,18 +474,14 @@
         .theme-t-wedding .dock-icon-danger { border-color: rgba(185,28,28,0.45); color: #b91c1c; }
         .theme-t-wedding .dock-icon-danger:hover { background: rgba(185,28,28,0.12); color: #991b1b; }
         .theme-t-wedding .dock-popup { border-color: #dccbaa; box-shadow: 0 12px 32px rgba(120,95,55,0.22); }
-        .theme-t-wedding .dock-popup::after { border-top-color: #dccbaa; }
+        .theme-t-wedding .dock-popup::after { border-bottom-color: #dccbaa; }
 
         /* --- 9. matrix table --- */
-        .theme-t-wedding #matrix-header-row th {
+        .theme-t-wedding .cat-headline .ch-name {
             background: #eee4d2 !important;
             border-bottom-color: #dccbaa !important;
             color: #6f6152 !important;
         }
-        .theme-t-wedding #matrix-body tr:hover { background: rgba(195,154,63,0.09); }
-        .theme-t-wedding #matrix-body td { border-bottom-color: #e7dcc4 !important; }
-        .theme-t-wedding #matrix-dock { border-top-color: #dccbaa !important; }
-        .theme-t-wedding .dock-sep { border-right-color: #dccbaa !important; }
         .theme-t-wedding #matrix-search-results {
             background: rgba(253,250,243,0.97) !important;
             border-color: #dccbaa !important;
@@ -554,15 +550,16 @@
         .dock-icon-danger:hover { border-color: #ef4444; color: #fff; background: linear-gradient(180deg, rgba(239,68,68,.34) 0%, rgba(127,29,29,.30) 100%); }
 
         /* Dock Popups (joker hover, log click) */
+        /* Hängt in der Kopfleiste, klappt also nach unten auf - oben ist das Fenster zu Ende. */
         .dock-popup {
-            position: absolute; bottom: calc(100% + 10px);
+            position: absolute; top: calc(100% + 10px);
             background: var(--bg-card, #1a1a2e); border: 1px solid var(--border-color);
             border-radius: var(--r-lg); padding: 12px 14px; z-index: 150;
             box-shadow: var(--e3);
         }
         .dock-popup::after {
-            content: ''; position: absolute; top: 100%; right: 14px;
-            border: 7px solid transparent; border-top-color: var(--border-color);
+            content: ''; position: absolute; bottom: 100%; right: 14px;
+            border: 7px solid transparent; border-bottom-color: var(--border-color);
         }
 
         /* Joker order index next to each player name; 1 = next in line. Tinted primary
@@ -651,15 +648,6 @@
 
         .dock-icon-btn.is-sm { width: var(--ctl-h-sm); height: var(--ctl-h-sm); border-radius: var(--r-sm); }
 
-        /* Dock shell. Was an inline style with a #12060a fallback belonging to no theme. */
-        #matrix-dock {
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
-            box-shadow: 0 -6px 18px rgba(0,0,0,0.22);
-        }
-        /* Vertical rule between dock sections. Was three inline border-right styles;
-           the wedding theme keys off this class now (see the wedding block). */
-        .dock-sep { border-right: 1px solid var(--border-subtle); }
 
         /* One visible focus indicator for everything that can take focus.
            Before this, :focus-visible appeared nowhere in the stylesheet and five
@@ -708,59 +696,110 @@
         .glass-input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
         .glass-input[type=number] { -moz-appearance: textfield; appearance: textfield; }
 
-        #view-matrix .matrix-table-wrap {
-            background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0.12) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
-            box-shadow: var(--e3), inset 0 1px 0 var(--ctl-hi);
-            border-radius: var(--r-lg);
-            overflow: hidden;
-            height: 100%;
-        }
-        /* The board should use the height it has instead of leaving a gap above the dock.
-           A flex chain instead of height:100% - the wrappers get their height from flex-grow,
-           so their computed height stays `auto` and percentages would not resolve. */
-        #board-area { display: flex; flex-direction: column; min-height: 0; }
-        #view-matrix .matrix-table-wrap { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-        #view-matrix .matrix-table-wrap > div { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-        #view-matrix .matrix-table-wrap table { flex: 1 1 auto; }
-
-        /* Opaque on purpose: this <th> is position:sticky, and sticky + backdrop-filter
-           forces the compositor to re-blur the strip on every scroll frame. */
-        #matrix-header-row th {
-            background: var(--bg-card-2) !important;
-            border-bottom: 1px solid var(--border-color) !important;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-            font-size: 12px;
-            /* 10 category columns at 1280px: long German words must break instead of overlapping */
-            hyphens: auto;
-            overflow-wrap: anywhere;
-        }
+        /* ======================================================================
+           Das Brett: keine Tabelle mehr. Oben die Kategorien als Marken, darunter
+           die laufende Kategorie, dann Ziehen, die gezogene Karte in der Mitte,
+           das Kaufmenü darunter und zuunterst die Fahrgäste als Kachelreihe.
+           ====================================================================== */
         #matrix-body { hyphens: auto; overflow-wrap: anywhere; }
 
-        #matrix-body tr { transition: background 0.15s; }
-        #matrix-body tr:hover { background: rgba(var(--clr-primary-rgb), 0.05); }
-        #matrix-body td { border-bottom: 1px solid var(--border-subtle) !important; }
+        /* laufende Kategorie: eine Zeile, kein Block */
+        .cat-headline { flex: none; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 10px; text-align: center; }
+        .cat-headline .ch-top { display: flex; align-items: baseline; gap: 11px; }
+        .cat-headline .ch-name { font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: clamp(17px, 2.6vh, 25px); font-weight: 900; letter-spacing: .04em; text-transform: uppercase; color: #fff; }
+        .cat-headline .ch-pos { font-size: 13px; font-weight: 700; color: var(--clr-primary); font-variant-numeric: tabular-nums; }
+        .cat-headline .ch-sub { font-size: 12.5px; font-style: italic; color: var(--text-dim); }
+        .cat-headline .ch-sub b { font-style: normal; font-weight: 700; color: var(--text-muted); }
 
-        /* Empty slots are h-[80px] and filled cards h-[115px] in the engine templates,
-           so rows resized as cards were bought. min-height beats the inline height
-           without touching engine.js.
-           `td + td` skips the player-name column; :not(.absolute) skips the hover
-           tooltip, which is a sibling div inside the same cell. */
-        #matrix-body td + td > div:not(.absolute) { min-height: var(--slot-min, clamp(56px, 11vh, 104px)); }
+        /* Ziehen */
+        .draw-btn { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 26px; border: 0; border-radius: 13px;
+            background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-hover));
+            box-shadow: 0 8px 26px rgba(var(--clr-primary-rgb), .42), inset 0 1px 0 rgba(255,255,255,.18);
+            font-size: clamp(14px, 2vh, 18px); font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: #fff; cursor: pointer;
+            transition: transform .14s cubic-bezier(.4,0,.2,1), box-shadow .18s; }
+        .draw-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(var(--clr-primary-rgb), .55), inset 0 1px 0 rgba(255,255,255,.22); }
+        .draw-btn:active { transform: translateY(1px); }
+        .draw-btn:focus-visible { outline: none; box-shadow: var(--e2), var(--ring); }
 
-        /* Card chips: same elevation language as the controls. Targets the engine's
-           generated markup from CSS - engine.js is untouched. */
-        #matrix-body td + td > div[onclick] {
-            box-shadow: var(--e2), inset 0 1px 0 var(--ctl-hi);
-            transition: transform .14s cubic-bezier(.4,0,.2,1), box-shadow .18s, background .18s, border-color .18s;
-        }
-        #matrix-body td + td > div[onclick]:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--e3);
-        }
+        /* die gezogene Karte, allein im Licht */
+        #stage { position: relative; overflow: hidden; }
+        #stage > .active-card { flex: none; transform-origin: center; }
+        .bid-row { justify-content: center; padding: 2px 0 6px; }
+        #stage::before { content: ''; position: absolute; left: 50%; top: 50%; width: 1000px; height: 760px; transform: translate(-50%, -50%);
+            background: radial-gradient(ellipse 45% 50% at 50% 46%, rgba(var(--clr-primary-rgb), .17), rgba(var(--clr-primary-rgb), .05) 46%, transparent 72%); pointer-events: none; }
+        .active-card { position: relative; width: min(430px, 42vw); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(5px, 1.2vh, 13px);
+            padding: clamp(14px, 3vh, 32px) clamp(20px, 3vw, 40px); border-radius: 22px; text-align: center; cursor: pointer;
+            background: linear-gradient(180deg, #1c1f23, #131518); box-shadow: 0 32px 70px rgba(0,0,0,.72), inset 0 1px 0 rgba(255,255,255,.07);
+            transition: transform .16s cubic-bezier(.4,0,.2,1), box-shadow .2s; }
+        .active-card:hover { transform: translateY(-3px); box-shadow: 0 38px 80px rgba(0,0,0,.78), inset 0 1px 0 rgba(255,255,255,.1); }
+        .active-card.is-empty { cursor: default; box-shadow: inset 0 0 0 1.5px var(--border-subtle); background: rgba(255,255,255,.015); }
+        .active-card.is-empty:hover { transform: none; box-shadow: inset 0 0 0 1.5px var(--border-subtle); }
+        .ac-icon { font-size: clamp(34px, 8vh, 78px); line-height: 1; }
+        .active-card.is-empty .ac-icon { display: none; }
+        .ac-name { font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: clamp(19px, 3.8vh, 36px); font-weight: 800; line-height: 1.06; text-wrap: balance; color: #fff; }
+        .active-card.is-empty .ac-name { font-size: 15px; font-weight: 600; font-style: italic; color: var(--text-dim); text-transform: none; }
+        .ac-desc { font-size: clamp(12px, 1.8vh, 17px); font-style: italic; line-height: 1.4; color: var(--text-muted); text-wrap: pretty; }
+        .ac-price { font-family: var(--font-display), sans-serif; font-size: clamp(17px, 3.2vh, 32px); font-weight: 900; color: var(--clr-accent); font-variant-numeric: tabular-nums; }
+
+        /* Kaufmenü unter der Karte */
+        .bid-row { position: relative; display: flex; align-items: center; gap: 10px; z-index: 30; }
+        .bid-label { font-size: 10px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); }
+        .bid-field { position: relative; }
+        .bid-btn { display: flex; align-items: center; gap: 9px; padding: 7px 14px; border: 0; border-radius: 13px; cursor: pointer;
+            background: rgba(255,255,255,.055); color: #fff; font-family: var(--font-display), sans-serif; font-size: clamp(20px, 3.4vh, 32px); font-weight: 900; font-variant-numeric: tabular-nums;
+            transition: background .15s, box-shadow .15s; }
+        .bid-btn i { font-size: 12px; color: var(--text-dim); }
+        .bid-btn:hover { background: rgba(255,255,255,.1); }
+        .bid-btn.is-buyer { padding: 9px 14px; font-size: clamp(14px, 2.2vh, 20px); font-weight: 800; text-transform: uppercase; color: var(--clr-accent); background: rgba(var(--clr-accent-rgb), .12); }
+        .bid-btn.is-buyer i { color: var(--clr-accent); }
+        .bid-btn.is-buyer:hover { background: rgba(var(--clr-accent-rgb), .2); }
+        .bid-field.is-open .bid-btn { box-shadow: 0 0 0 1.5px rgba(255,255,255,.25); }
+        .bid-field.is-open .bid-btn.is-buyer { box-shadow: 0 0 0 1.5px rgba(var(--clr-accent-rgb), .55); }
+        .bid-field.is-open .bid-btn i { transform: rotate(180deg); }
+
+        .bid-pop { position: absolute; top: calc(100% + 10px); left: 50%; transform: translateX(-50%) translateY(6px); width: 330px; padding: 12px; border-radius: 18px;
+            background: var(--bg-card); box-shadow: 0 24px 54px rgba(0,0,0,.72), inset 0 1px 0 rgba(255,255,255,.06);
+            display: flex; flex-direction: column; gap: 11px; opacity: 0; pointer-events: none; transition: opacity .14s, transform .14s; z-index: 50; }
+        .bid-field.is-open .bid-pop { opacity: 1; pointer-events: auto; transform: translateX(-50%); }
+        .bid-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+        .bid-step { height: 42px; border: 0; border-radius: 11px; background: rgba(255,255,255,.05); color: var(--text-muted);
+            font-size: 14px; font-weight: 800; font-variant-numeric: tabular-nums; cursor: pointer; transition: background .15s, color .15s; }
+        .bid-step:hover { background: rgba(255,255,255,.1); color: #fff; }
+        .bid-step.is-up { background: rgba(var(--clr-primary-rgb), .16); box-shadow: inset 0 0 0 1.5px rgba(var(--clr-primary-rgb), .5); color: #fff; }
+        .bid-step.is-up:hover { background: rgba(var(--clr-primary-rgb), .26); }
+        .bid-manual { display: flex; align-items: center; gap: 8px; }
+        .bid-manual-input { flex: 1; min-width: 0; height: 44px; padding: 0 14px; border: 0; border-radius: 11px; background: rgba(0,0,0,.45);
+            color: #fff; font-family: var(--font-display), sans-serif; font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
+        .bid-manual-input:focus { outline: none; box-shadow: 0 0 0 1.5px var(--clr-primary); }
+        .bid-manual-input::-webkit-outer-spin-button, .bid-manual-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .bid-manual-input { -moz-appearance: textfield; appearance: textfield; }
+        .bid-set { height: 44px; padding: 0 18px; border: 0; border-radius: 11px; background: rgba(255,255,255,.06); color: var(--text-muted); font-size: 13px; font-weight: 800; cursor: pointer; }
+        .bid-set:hover { background: rgba(255,255,255,.12); color: #fff; }
+        .bid-hint { display: flex; justify-content: space-between; gap: 12px; font-size: 11.5px; color: var(--text-dim); }
+
+        .bid-buyer-list { display: flex; flex-direction: column; gap: 3px; max-height: 40vh; overflow-y: auto; }
+        .bid-buyer { display: flex; align-items: center; gap: 10px; padding: 9px 11px; border: 0; border-radius: 11px; background: transparent; color: #fff;
+            font-size: 14.5px; font-weight: 700; text-align: left; cursor: pointer; transition: background .13s; }
+        .bid-buyer:hover { background: rgba(255,255,255,.06); }
+        .bid-buyer .bb-num { flex: none; display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,.08); color: var(--text-muted); font-size: 11px; font-weight: 800; }
+        .bid-buyer .bb-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .bid-buyer .bb-cash { flex: none; font-size: 12.5px; font-weight: 600; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+        .bid-buyer.is-picked { background: rgba(var(--clr-accent-rgb), .14); color: var(--clr-accent); }
+        .bid-buyer.is-picked .bb-num { background: var(--clr-accent); color: #0b0b0b; }
+        .bid-buyer.is-out { opacity: .38; cursor: not-allowed; }
+        .bid-buyer .bb-tag { flex: none; font-size: 10px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
+        .bid-confirm { display: flex; align-items: center; justify-content: center; gap: 9px; height: 46px; margin-top: 4px; border: 0; border-radius: 12px;
+            background: #4ade80; color: #06210f; font-size: 15px; font-weight: 800; cursor: pointer; transition: filter .15s; }
+        .bid-confirm:hover { filter: brightness(1.08); }
+        .bid-confirm:disabled { opacity: .4; cursor: not-allowed; }
+
+        /* Kopfleiste: die Werkzeuge, die früher unter dem Brett standen */
+        .head-icon-btn { display: grid; place-items: center; width: 30px; height: 30px; border-radius: var(--r-md); border: 1px solid var(--border-color);
+            background: rgba(0,0,0,.4); color: var(--text-muted); font-size: 12px; cursor: pointer; transition: color .15s, border-color .15s, background .15s; }
+        .head-icon-btn:hover { color: #fff; background: rgba(255,255,255,.07); }
+        .head-icon-btn.is-joker { color: #c084fc; border-color: rgba(192,132,252,.35); }
+        .head-icon-btn.is-danger { color: var(--clr-primary); border-color: rgba(var(--clr-primary-rgb), .4); }
+        .head-icon-btn:focus-visible { outline: none; box-shadow: var(--ring); }
 
         /* Rarity frames on board slots: a 2px metal border per tier, pips on the bottom edge.
            Only on the board - the draw card stays neutral so the tier isn't known while bidding.
@@ -1092,8 +1131,7 @@
             70% { transform: translate(-50%, -50%) scale(1.2); }
             100% { transform: translate(-50%, -50%) scale(1); }
         }
-        #matrix-body tr.row-blocked > td:first-child { background-image: repeating-linear-gradient(-35deg, transparent 0 14px, rgba(239,68,68,.16) 14px 22px); }
-        #matrix-body tr.row-shielded > td:first-child { box-shadow: inset 4px 0 0 #facc15, inset 0 0 26px rgba(250,204,21,.16); }
+        .pcell.is-blocked { background-image: repeating-linear-gradient(-35deg, transparent 0 14px, rgba(239,68,68,.16) 14px 22px); }
         .shield-badge { animation: shieldGlow 2.2s ease-in-out infinite; }
         @keyframes shieldGlow { 50% { box-shadow: 0 0 12px rgba(250,204,21,.55); } }
 
@@ -1140,8 +1178,6 @@
         .points-bump { animation: pointsBump .7s cubic-bezier(.2,1.6,.4,1); }
         @keyframes pointsBump { 30% { transform: scale(1.45); box-shadow: 0 0 0 3px #fde047, 0 0 24px rgba(253,224,71,.8); } }
         /* Only the header shows the state - the board stays calm and the bought cards keep their colours */
-        #matrix-header-row th.is-active-col { box-shadow: inset 0 4px 0 var(--clr-primary), inset 0 0 0 999px rgba(var(--clr-primary-rgb), .16); }
-        #matrix-header-row th.is-active-col .matrix-cat-btn { color: var(--clr-primary); border-bottom-color: transparent; }
         .fx-scene.board-pause { background: transparent; }
         .pause-pill { position: fixed; left: 50%; bottom: 120px; transform: translateX(-50%); overflow: hidden; padding: 10px 24px 14px; border-radius: 999px; font-size: 18px; font-weight: 800; color: #fff; background: rgba(12,12,16,.88); border: 1px solid rgba(var(--clr-primary-rgb), .6); box-shadow: 0 10px 30px rgba(0,0,0,.5); }
         .pause-pill b { font-size: 22px; color: var(--clr-primary); font-variant-numeric: tabular-nums; }
@@ -1149,18 +1185,18 @@
         @keyframes pauseBar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
         #matrix-body .col-sweep { animation: colSweep .65s ease-out; }
         @keyframes colSweep { 40% { transform: scale(1.06); box-shadow: 0 0 0 3px var(--clr-primary), 0 0 28px rgba(var(--clr-primary-rgb), .65); } }
-        /* Kategorien-Spur links neben dem Brett (engine.js renderCategoryQueue): ein Platz je
-           Kategorie, leer bis sie gespielt ist. Kein gemeinsamer Rahmen - nur die einzelnen Kacheln.
-           Steht ausserhalb von #board-area, damit renderMatrix() unangetastet bleibt. */
-        .cat-track { flex: none; width: 58px; display: flex; flex-direction: column; gap: 8px; padding: 2px 0; min-height: 0; }
+        /* Kategorien-Spur über dem Brett (engine.js renderCategoryQueue): ein Platz je Kategorie,
+           leer bis sie gespielt ist. Kein gemeinsamer Rahmen - nur die einzelnen Marken. */
+        .cat-track { flex: none; display: flex; justify-content: center; align-items: center; gap: 7px; padding: 2px 0 0; }
         .cat-track:empty { display: none; }
         /* kein overflow hier - das wuerde die Ergebnis-Box am Rand abschneiden */
-        .ct-tile { position: relative; flex: 1 1 0; min-height: 22px; max-height: 54px; display: grid; place-items: center; border-radius: 10px; }
-        .ct-tile .ct-icon { font-size: clamp(14px, 2.4vh, 20px); line-height: 1; opacity: .28; filter: grayscale(1); }
+        .ct-tile { position: relative; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; }
+        .ct-tile .ct-icon { font-size: 14px; line-height: 1; opacity: .28; filter: grayscale(1); }
         /* noch nicht gespielt: leerer Platzhalter, das Symbol nur angedeutet */
         .ct-tile.is-open { border: 1.5px dashed var(--border-color); background: rgba(255,255,255,.015); }
         /* laufende Kategorie */
-        .ct-tile.is-active { border: 2px solid var(--clr-primary); background: rgba(var(--clr-primary-rgb), .14); box-shadow: 0 0 0 1px var(--clr-primary), 0 0 16px rgba(var(--clr-primary-rgb), .4); }
+        .ct-tile.is-active { width: 36px; height: 36px; border-radius: 11px; border: 2px solid var(--clr-primary); background: rgba(var(--clr-primary-rgb), .14); box-shadow: 0 0 0 1px var(--clr-primary), 0 0 16px rgba(var(--clr-primary-rgb), .4); }
+        .ct-tile.is-active .ct-icon { font-size: 18px; }
         /* gespielt: neutral gefuellt, keine Qualitaetsfarbe - nur das Symbol zaehlt */
         .ct-tile.is-done { border: 1px solid var(--border-color); background: rgba(255,255,255,.055); }
         .ct-tile.is-done .ct-icon, .ct-tile.is-active .ct-icon { opacity: 1; filter: none; }
@@ -1170,57 +1206,32 @@
         .ct-tile.ct-fill .ct-icon { animation: ctFill .7s cubic-bezier(.2,1.4,.35,1) both; }
         @keyframes ctFill { from { transform: scale(.5); opacity: 0; } 65% { transform: scale(1.22); } to { transform: none; opacity: 1; } }
         @keyframes ctFillRing { 40% { box-shadow: 0 0 0 3px var(--clr-primary), 0 0 20px rgba(var(--clr-primary-rgb), .6); } }
-        /* Ergebnis der Kategorie, oeffnet nach rechts ueber das Brett */
-        .ct-tip { position: absolute; left: calc(100% + 9px); top: 50%; transform: translateY(-50%) translateX(-6px); width: 340px; padding: 10px 12px; border-radius: 10px; background: var(--bg-card, #15171a); border: 1px solid var(--border-color); box-shadow: 0 12px 28px rgba(0,0,0,.6); font-size: 12px; line-height: 1.35; color: var(--text-muted); text-align: left; opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 60; }
-        .ct-tile:hover .ct-tip { opacity: 1; transform: translateY(-50%) translateX(0); }
+        /* Ergebnis der Kategorie, klappt unter der Marke auf */
+        .ct-tip { position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%) translateY(-5px); width: 340px; padding: 10px 12px; border-radius: 10px; background: var(--bg-card, #15171a); border: 1px solid var(--border-color); box-shadow: 0 12px 28px rgba(0,0,0,.6); font-size: 12px; line-height: 1.35; color: var(--text-muted); text-align: left; opacity: 0; pointer-events: none; transition: opacity .12s, transform .12s; z-index: 70; }
+        .ct-tile:hover .ct-tip { opacity: 1; transform: translateX(-50%); }
         .ct-tip b { display: block; margin-bottom: 6px; padding-bottom: 5px; border-bottom: 1px solid var(--border-subtle); font-size: 12.5px; color: #fff; }
         .ct-row { display: flex; align-items: baseline; gap: 7px; margin-top: 4px; }
         .ct-row .ct-p { flex: none; width: 72px; font-size: 11.5px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         /* zwei Zeilen je Karte - sonst wird die Box bei acht Fahrgaesten hoeher als das Brett */
         .ct-row .ct-c { flex: 1; min-width: 0; font-style: italic; line-height: 1.25; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .ct-row .ct-m { flex: none; font-weight: 700; color: var(--clr-accent, #f5a623); font-variant-numeric: tabular-nums; }
-        /* Board layout "Lupe": the running category takes the leftover width and carries the question
-           and progress that used to sit in a bar above the board. Every other column is an icon tile. */
-        #matrix-header-row th .cat-head-q,
-        #matrix-header-row th .cat-head-meta { display: none; }
-        #matrix-header-row th:not(.is-active-col) .cat-head-name { display: none; }
-        #matrix-header-row th:not(.is-active-col) .cat-head-icon { font-size: 20px; }
-        #matrix-header-row th.is-active-col .matrix-cat-btn { padding: 10px 12px; }
-        #matrix-header-row th.is-active-col .cat-head-icon { font-size: 30px; }
-        #matrix-header-row th.is-active-col .cat-head-name { margin-top: 4px; font-family: var(--font-display), 'Noto Color Emoji', sans-serif; font-size: 20px; font-weight: 900; letter-spacing: .02em; line-height: 1.1; text-transform: uppercase; color: #fff; }
-        #matrix-header-row th.is-active-col .cat-head-q { display: block; margin-top: 2px; font-size: 12px; font-style: italic; text-transform: none; letter-spacing: 0; color: var(--text-muted); }
-        #matrix-header-row th.is-active-col .cat-head-meta { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 6px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
-        #matrix-header-row th.is-active-col .cat-head-meta b { font-size: 12px; font-variant-numeric: tabular-nums; color: var(--clr-primary); }
         .cat-head-dots { display: flex; gap: 4px; }
         .cat-head-dots i { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(var(--clr-primary-rgb), .55); }
         .cat-head-dots i.is-filled { background: var(--clr-primary); }
-        @media (max-height: 760px) {
-            #matrix-header-row th.is-active-col .matrix-cat-btn { padding: 5px 10px; }
-            #matrix-header-row th.is-active-col .cat-head-icon { font-size: 22px; }
-            #matrix-header-row th.is-active-col .cat-head-name { font-size: 16px; }
-            #matrix-header-row th.is-active-col .cat-head-q { display: none; }
-        }
 
-        /* Only the running category is a column - played and upcoming ones live in the track beside
-           the board, so the matrix never grows wider than name + active category. */
-        #matrix-header-row th.col-next, #matrix-body td.col-next { display: none; }
-        @keyframes colEnter { from { opacity: 0; transform: translateX(34px) scale(.94); } to { opacity: 1; transform: none; } }
-        #matrix-header-row th.col-enter > *, #matrix-body td.col-enter > * { animation: colEnter .55s cubic-bezier(.2,1,.3,1) both; }
-
-        /* Active column: room for the card, empty cells read as open places */
-        #matrix-body td.col-active .slot-frame, #matrix-body td.col-active .slot-empty { height: 100%; min-height: var(--slot-min, clamp(70px, 14vh, 118px)); }
-        /* ---- Fahrgastspalte: vier Kacheln, kein Spaltenrahmen ----
-           Die Spalte bleibt technisch eine Tabellenspalte - nur so fluchten alle Fahrgaeste
-           weiterhin zeilengenau mit ihren Karten. Sichtbar ist davon nichts mehr. */
-        #matrix-header-row th:first-child { background: transparent; box-shadow: none; padding-left: 14px; color: var(--text-dim); }
-        #matrix-body td.player-col { height: 1px; /* laesst .pcell auf die Zeilenhoehe wachsen */
-            background: transparent; border-right: 0; border-top-color: transparent;
-            padding: var(--row-pad, clamp(4px, 1.2vh, 12px)) 8px var(--row-pad, clamp(4px, 1.2vh, 12px)) 2px; }
-        .pcell { height: 100%; display: grid; grid-template-rows: 1fr 1fr; gap: 6px; }
-        .ptile-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; min-height: 0; }
-        .ptile { position: relative; display: grid; place-items: center; align-content: center; border-radius: 10px; border: 1px solid var(--border-subtle); background: var(--bg-card); min-height: 0; }
-        #matrix-body .is-dense .pcell, #matrix-body.is-dense .pcell { gap: 4px; }
-        #matrix-body.is-dense .ptile-row { gap: 4px; }
+        /* ---- Fahrgäste: eine Kachel je Person, nebeneinander unter der Bühne ---- */
+        .player-strip { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 10px; padding: 8px 4px 4px; }
+        /* ab fünf Fahrgästen zwei Reihen, sonst wird jede Kachel schmaler als ihr Inhalt */
+        .player-strip.is-wrapped { grid-auto-flow: row; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .pcell { position: relative; display: flex; flex-direction: column; gap: 7px; padding: 11px 13px; border-radius: 16px; background: rgba(255,255,255,.035); }
+        .player-strip.is-dense .pcell { gap: 5px; padding: 8px 11px; }
+        .ptile-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+        .ptile { position: relative; display: grid; place-items: center; align-content: center; border-radius: 10px; }
+        /* Protégé: die Kachel dessen, der diese Kategorien gewählt hat, leuchtet golden */
+        .pcell.is-protege { background: rgba(250,204,21,.07); box-shadow: inset 0 0 0 1.5px rgba(250,204,21,.45), 0 0 22px rgba(250,204,21,.16); }
+        .pcell.is-protege-now { box-shadow: inset 0 0 0 2px #facc15, 0 0 30px rgba(250,204,21,.4); }
+        .pcell.is-blocked { background: rgba(239,68,68,.09); box-shadow: inset 0 0 0 1.5px rgba(239,68,68,.5); }
+        .pcell.is-shielded { box-shadow: inset 0 0 0 1.5px rgba(250,204,21,.55), 0 0 22px rgba(250,204,21,.18); }
 
         /* Namenskachel */
         .p-name { justify-items: stretch; align-content: center; gap: 3px; padding: 6px 10px; background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(0,0,0,.25)); }
@@ -1236,12 +1247,13 @@
         .pstate { display: none; flex: none; width: 9px; height: 9px; border-radius: 50%; }
         .pstate.is-lock { background: var(--clr-primary); } .pstate.is-shield { background: var(--clr-accent); } .pstate.is-perk { background: #818cf8; }
         /* wird es eng, tritt der Punkt an die Stelle der Abzeichen */
-        #matrix-body.is-dense .pbadges { display: none; }
-        #matrix-body.is-dense .pstate { display: block; }
+        .player-strip.is-dense .pbadges { display: none; }
+        .player-strip.is-dense .pstate { display: block; }
 
         /* die drei kleinen Kacheln: Zeichen in der Mitte, Wert oben rechts */
+        .ptile-row .ptile { border: 1px solid var(--border-subtle); background: var(--bg-card); min-height: clamp(38px, 6vh, 54px); }
         .pt-corner { position: absolute; top: 3px; right: 6px; font-size: 11px; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; color: var(--text); }
-        #matrix-body.is-dense .pt-corner { font-size: 9.5px; top: 2px; right: 4px; }
+        .player-strip.is-dense .pt-corner { font-size: 9.5px; top: 2px; right: 4px; }
         .pt-glyph { font-size: clamp(15px, 2.6vh, 26px); line-height: 1; }
         .pt-cur { font-family: var(--font-display), sans-serif; font-weight: 900; color: var(--clr-primary); }
         .p-jokers { color: #c084fc; }
@@ -1251,7 +1263,7 @@
         .p-money.is-low { border-color: rgba(var(--clr-primary-rgb), .6); background: rgba(var(--clr-primary-rgb), .1); }
         .p-money.is-low .pt-corner { color: var(--clr-primary); }
         .p-points .pt-corner { font-size: 9px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--text-dim); }
-        #matrix-body.is-dense .p-points .pt-corner { display: none; }
+        .player-strip.is-dense .p-points .pt-corner { display: none; }
         .p-points .pt-val { font-family: var(--font-display), sans-serif; font-size: clamp(16px, 3vh, 28px); font-weight: 900; line-height: 1; color: var(--clr-accent); font-variant-numeric: tabular-nums; }
         .p-points .pt-val.is-neg { color: #f87171; }
 
@@ -1272,12 +1284,22 @@
         .jtray-btn.is-locked { opacity: .3; cursor: not-allowed; }
         .jtray-cnt { position: absolute; top: -5px; right: -5px; min-width: 15px; height: 15px; padding: 0 3px; display: grid; place-items: center; border-radius: 99px; border: 1px solid var(--border-color); background: #000; color: #fff; font-size: 10px; font-weight: 800; }
         .jtray-none { padding: 0 6px; font-size: 11px; color: var(--text-dim); white-space: nowrap; }
-        /* the frame stretches with the row, so the face has to stretch with it - percentage
-           heights stop resolving that deep inside a table cell, flex does it reliably */
-        #matrix-body .slot-frame { display: flex; }
-        #matrix-body .slot-face { flex: 1; min-width: 0; height: auto; align-self: stretch; }
-        #matrix-body td.col-active .slot-empty { display: grid; place-items: center; border: 2px dashed rgba(var(--clr-primary-rgb), .3); border-radius: var(--r-lg); }
-        #matrix-body td.col-active .slot-empty::after { content: 'OFFEN'; font-size: 11px; font-weight: 900; letter-spacing: .18em; color: var(--text-dim); }
+        /* Der Kartenplatz der laufenden Kategorie, unten in jeder Fahrgastkachel:
+           leer ein gestrichelter Umriss, gekauft die Karte in ihrem Rahmen. */
+        .p-slot { display: block; }
+        .p-slot .slot-frame { display: flex; height: clamp(44px, 7.5vh, 66px); }
+        .p-slot .slot-face { flex: 1; min-width: 0; height: auto; align-self: stretch; flex-direction: row; gap: 8px; justify-content: flex-start; padding: 4px 9px; }
+        .p-slot .slot-icon { font-size: clamp(17px, 3vh, 26px); margin: 0; }
+        .p-slot .slot-name { flex: 1; min-width: 0; font-size: clamp(9.5px, 1.5vh, 12px); line-height: 1.15; text-align: left;
+            display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .p-slot .slot-pips { display: none; }
+        .p-slot .slot-empty { height: clamp(44px, 7.5vh, 66px); display: grid; place-items: center; border: 1.5px dashed rgba(var(--clr-primary-rgb), .32); border-radius: var(--r-md); }
+        .p-slot .slot-empty::after { content: 'offen'; font-size: 10px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; color: var(--text-dim); }
+        .p-slot .slot-empty.is-done::after { content: 'raus'; }
+        .player-strip.is-dense .p-slot .slot-frame, .player-strip.is-dense .p-slot .slot-empty { height: clamp(30px, 4.6vh, 40px); }
+        .player-strip.is-dense .p-slot .slot-name { display: none; }
+        .player-strip.is-dense .ptile-row .ptile { min-height: clamp(32px, 4.8vh, 44px); }
+        .player-strip.is-dense .p-name-input { font-size: clamp(13px, 1.8vh, 17px); }
 
         /* Chapter card on category switch (engine.js playCategorySwitch) */
         .fx-scene.chapter-scene { display: grid; place-items: center; padding: 20px; background: rgba(8,8,10,.82); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
@@ -1710,6 +1732,31 @@
             <button onclick="openCategoryModal()" class="bg-black/40 hover:bg-orange-900 text-stone-300 hover:text-white text-xs font-bold px-2.5 py-1.5 rounded-lg transition border border-stone-700" title="Kategorien verwalten" aria-label="Kategorien verwalten">
                 <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
             </button>
+
+            <!-- Joker-Übersicht, Loserkarte, Storno und Log - früher in der Leiste unter dem Brett -->
+            <div class="relative">
+                <button class="head-icon-btn is-joker" id="joker-hover-btn" title="Joker-Übersicht" aria-label="Joker-Übersicht">
+                    <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                </button>
+                <div id="joker-hover-popup" class="dock-popup hidden" style="right:0; min-width:220px;">
+                    <div id="joker-legend" class="text-xs"></div>
+                </div>
+            </div>
+            <button id="btn-punish" onclick="punishLoser()" class="head-icon-btn is-danger" title="Loserkarte zuteilen" aria-label="Loserkarte zuteilen">
+                <i class="fa-solid fa-skull" aria-hidden="true"></i>
+            </button>
+            <button id="btn-undo-purchase" onclick="undoLastPurchase()" class="head-icon-btn hidden" title="Letzten Kauf stornieren" aria-label="Letzten Kauf stornieren">
+                <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+            </button>
+            <div class="relative">
+                <button class="head-icon-btn" id="log-toggle-btn" onclick="toggleLogPopup()" title="Aktivitäten-Log" aria-label="Aktivitäten-Log">
+                    <i class="fa-solid fa-list" aria-hidden="true"></i>
+                </button>
+                <div id="log-popup" class="dock-popup hidden" style="right:0; width:280px; max-height:250px;">
+                    <div class="text-xs font-black text-white/30 uppercase tracking-widest mb-2 border-b border-white/[0.06] pb-1">Aktivitäten-Log</div>
+                    <ul id="sap-log-list" class="overflow-y-auto space-y-1 pr-1 tags-scrollbar text-xs" style="max-height:200px;"></ul>
+                </div>
+            </div>
             <button onclick="document.getElementById('settings-modal').classList.remove('hidden'); initSettingsModal()" class="bg-black/40 hover:bg-stone-700 text-stone-300 hover:text-white text-xs font-bold px-2.5 py-1.5 rounded-lg transition border border-stone-700" title="Spiel-Einstellungen" aria-label="Spiel-Einstellungen">
                 <i class="fa-solid fa-gear" aria-hidden="true"></i>
             </button>
@@ -1721,21 +1768,66 @@
 
     <main class="flex-grow p-4 md:p-6" id="main-content">
         <div id="view-matrix" class="flex flex-col h-[calc(100vh-130px)]">
-            <!-- Board plus the category backlog beside it -->
-            <div id="board-row" class="flex-grow flex items-stretch gap-3 min-h-0">
-            <!-- Kategorien-Spur (engine.js renderCategoryQueue) -->
-            <aside id="category-queue" class="cat-track" aria-label="Kategorien der Runde"></aside>
-            <div id="board-area" class="flex-1 min-w-0 overflow-hidden relative">
-                <div class="matrix-table-wrap h-full overflow-hidden relative">
-                    <div class="overflow-x-auto h-full">
-                        <table class="w-full text-left border-collapse table-fixed">
-                            <thead class="sticky top-0 z-[40] shadow-md">
-                                <tr id="matrix-header-row" class="text-xs uppercase tracking-wider font-black text-stone-400"></tr>
-                            </thead>
-                            <tbody id="matrix-body" class="divide-y divide-white/[0.04] text-sm"></tbody>
-                        </table>
+            <div id="board-area" class="flex-1 min-h-0 relative flex flex-col">
+
+                <!-- Kategorien der Runde als Marken (engine.js renderCategoryQueue) -->
+                <div id="category-queue" class="cat-track" aria-label="Kategorien der Runde"></div>
+
+                <!-- Laufende Kategorie (engine.js markCategoryColumns) -->
+                <div id="cat-headline" class="cat-headline"></div>
+
+                <!-- Ziehen steht über der Karte -->
+                <div class="flex justify-center shrink-0 pt-1">
+                    <button id="btn-draw" onclick="drawMatrixRandomPlayer()" class="draw-btn theme-font-display">
+                        <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                        <span id="btn-draw-label">Neue Lieferung Ziehen</span>
+                    </button>
+                </div>
+
+                <!-- Bühne: die gezogene Karte -->
+                <div id="stage" class="flex-1 min-h-0 flex items-center justify-center py-2">
+                    <div id="active-card" class="active-card is-empty" onclick="openCardExpand()" title="Karte vergrößern">
+                        <div id="active-card-icon" class="ac-icon"></div>
+                        <div id="matrix-active-bid-target" class="ac-name">Nichts gezogen</div>
+                        <div id="matrix-active-bid-desc" class="ac-desc"></div>
+                        <div id="matrix-active-bid-start-price" class="ac-price"></div>
                     </div>
                 </div>
+
+                <!-- Kaufmenü: Betrag antippen ändert ihn, Fahrgast antippen schlägt zu -->
+                <div id="bid-row" class="bid-row shrink-0">
+                        <span class="bid-label">Zuschlag</span>
+                        <div class="bid-field" id="bid-amount-field">
+                            <button type="button" class="bid-btn" onclick="toggleBidMenu('amount', event)" aria-label="Betrag ändern">
+                                <span id="bid-amount-view">—</span>
+                                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="bid-pop" id="bid-amount-pop">
+                                <div class="bid-steps" id="bid-steps"></div>
+                                <div class="bid-manual">
+                                    <input type="number" id="bid-manual-input" class="bid-manual-input" aria-label="Betrag frei eingeben" placeholder="Betrag">
+                                    <button type="button" class="bid-set" onclick="applyManualBid()">Setzen</button>
+                                </div>
+                                <div class="bid-hint" id="bid-hint"></div>
+                            </div>
+                        </div>
+                        <div class="bid-field" id="bid-buyer-field">
+                            <button type="button" class="bid-btn is-buyer" onclick="toggleBidMenu('buyer', event)" aria-label="Käufer wählen">
+                                <span id="bid-buyer-view">Fahrgast wählen</span>
+                                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="bid-pop" id="bid-buyer-pop">
+                                <div id="bid-buyer-list" class="bid-buyer-list"></div>
+                                <button type="button" class="bid-confirm" onclick="executeMatrixAuction()">
+                                    <i class="fa-solid fa-check" aria-hidden="true"></i>
+                                    <span id="bid-confirm-label">Zuschlag erteilen</span>
+                                </button>
+                            </div>
+                        </div>
+                </div>
+
+                <!-- Fahrgäste (engine.js renderMatrix) -->
+                <div id="matrix-body" class="player-strip shrink-0"></div>
 
                 <!-- Card Expand Overlay (only covers the board) -->
                 <div id="card-expand-overlay" class="absolute inset-0 bg-black/85 z-[80] hidden items-center justify-center p-6" style="display:none;">
@@ -1752,80 +1844,16 @@
             </div>
             </div>
 
-            <!-- Bottom Dock -->
-            <div id="matrix-dock" class="flex items-stretch shrink-0">
-                <!-- Draw Button -->
-                <div class="flex items-center px-3 py-2 dock-sep">
-                    <button id="btn-draw" onclick="drawMatrixRandomPlayer()" class="relative group overflow-hidden glass-action-btn btn-primary theme-font-display">
-                        Neue Lieferung Ziehen
-                    </button>
-                </div>
-
-                <!-- Card Preview -->
-                <div class="flex-1 flex items-center gap-2 px-3 py-2 dock-sep min-w-0">
-                    <div class="min-w-0 flex-1">
-                        <div id="matrix-active-bid-target" class="text-sm font-black text-white leading-tight truncate">Nichts gezogen</div>
-                        <div id="matrix-active-bid-desc" class="text-xs text-stone-400 italic truncate mt-0.5"></div>
-                        <div id="matrix-active-bid-start-price" class="text-xs font-bold text-lime-400 mt-0.5"></div>
-                    </div>
-                    <button id="btn-expand-card" onclick="openCardExpand()" class="dock-icon-btn is-sm" title="Karte vergrößern" aria-label="Gezogene Karte vergrößern">
-                        <i class="fa-solid fa-up-right-and-down-left-from-center text-xs" aria-hidden="true"></i>
-                    </button>
-                </div>
-
-                <!-- Hidden search (kept for engine.js compatibility) -->
-                <div class="hidden">
-                    <input type="text" id="matrix-manual-search" oninput="handleMatrixSearch(this.value)" placeholder="Karte suchen..." aria-label="Karte suchen">
-                    <ul id="matrix-search-results" class="hidden"></ul>
-                </div>
-
-                <!-- Auction Controls -->
-                <div class="flex items-center gap-2 px-3 py-2 dock-sep">
-                    <select id="matrix-auction-buyer" class="glass-input w-44" aria-label="Käufer wählen"></select>
-                    <button onclick="addBid(-getConf('economy','biddingStep'))" class="dock-icon-btn is-sm" title="Betrag senken (Biet-Schrittweite)" aria-label="Betrag senken"><i class="fa-solid fa-minus" aria-hidden="true"></i></button>
-                    <input type="number" id="matrix-auction-price" class="glass-input w-24 text-center" placeholder="Betrag..." aria-label="Kaufpreis">
-                    <button onclick="addBid(getConf('economy','biddingStep'))" class="dock-icon-btn is-sm" title="Betrag erhöhen (Biet-Schrittweite)" aria-label="Betrag erhöhen"><i class="fa-solid fa-plus" aria-hidden="true"></i></button>
-                    <button onclick="executeMatrixAuction()" class="glass-action-btn btn-buy">Kaufen</button>
-                </div>
-
-                <!-- Punish -->
-                <div class="flex items-center px-3 py-2 dock-sep">
-                    <button id="btn-punish" onclick="punishLoser()" class="dock-icon-btn dock-icon-danger" title="Loser bestrafen" aria-label="Loser bestrafen">
-                        <i class="fa-solid fa-skull text-xs" aria-hidden="true"></i>
-                    </button>
-                </div>
-
-                <!-- Action Icons -->
-                <div class="flex items-center gap-1.5 px-3 py-2">
-                    <!-- Joker Info (hover) -->
-                    <div class="relative">
-                        <button class="dock-icon-btn" id="joker-hover-btn" title="Joker-Übersicht" aria-label="Joker-Übersicht">
-                            <i class="fa-solid fa-wand-magic-sparkles text-xs" aria-hidden="true"></i>
-                        </button>
-                        <div id="joker-hover-popup" class="dock-popup hidden" style="right:0; min-width:220px;">
-                            <div id="joker-legend" class="text-xs"></div>
-                        </div>
-                    </div>
-                    <!-- Undo -->
-                    <button id="btn-undo-purchase" onclick="undoLastPurchase()" class="dock-icon-btn hidden" title="Letzten Kauf stornieren" aria-label="Letzten Kauf stornieren">
-                        <i class="fa-solid fa-rotate-left text-xs" aria-hidden="true"></i>
-                    </button>
-                    <!-- Log (click) -->
-                    <div class="relative">
-                        <button class="dock-icon-btn" id="log-toggle-btn" onclick="toggleLogPopup()" title="Aktivitäten-Log" aria-label="Aktivitäten-Log">
-                            <i class="fa-solid fa-list text-xs" aria-hidden="true"></i>
-                        </button>
-                        <div id="log-popup" class="dock-popup hidden" style="right:0; width:280px; max-height:250px;">
-                            <div class="text-xs font-black text-white/30 uppercase tracking-widest mb-2 border-b border-white/[0.06] pb-1">Aktivitäten-Log</div>
-                            <ul id="sap-log-list" class="overflow-y-auto space-y-1 pr-1 tags-scrollbar text-xs" style="max-height:200px;"></ul>
-                        </div>
-                    </div>
-                </div>
+            <!-- Steuerelemente, die die Spiellogik liest. Das Kaufmenü über der Fahrgastreihe
+                 schreibt in genau diese beiden Felder - executeMatrixAuction() bleibt unberührt. -->
+            <div class="hidden">
+                <select id="matrix-auction-buyer" aria-label="Käufer wählen"></select>
+                <input type="number" id="matrix-auction-price" aria-label="Kaufpreis">
+                <input type="text" id="matrix-manual-search" oninput="handleMatrixSearch(this.value)" aria-label="Karte suchen">
+                <ul id="matrix-search-results" class="hidden"></ul>
+                <div id="panel-toggle-col"></div>
+                <div id="right-panel"><div id="right-panel-content"></div></div>
             </div>
-
-            <!-- Hidden right panel elements for engine.js compatibility -->
-            <div id="panel-toggle-col" class="hidden"></div>
-            <div id="right-panel" class="hidden"><div id="right-panel-content" class="hidden"></div></div>
         </div>
 
         <div id="view-admin" class="hidden h-full flex flex-col gap-4">

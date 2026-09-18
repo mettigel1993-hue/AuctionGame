@@ -248,7 +248,7 @@
     "name": "Luft und Liebe",
     "desc": "Du hast den finanziellen Tiefpunkt erreicht. Du überlegst nun, ob man aus Gitterstäbe-Rost und Staubflocken etwas drehen kann.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "💨",
     "dbCategory": "LOSER",

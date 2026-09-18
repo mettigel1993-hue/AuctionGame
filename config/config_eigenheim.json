@@ -258,7 +258,7 @@
     "name": "Leben im Bauwagen",
     "desc": "Das Baugeld ist weg, das Haus hat kein Dach. Du haust dir die nächste Dose Liebstöckel-Eintopf auf dem Campingkocher warm und hoffst auf besseres Wetter.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "🚐",
     "dbCategory": "LOSER",

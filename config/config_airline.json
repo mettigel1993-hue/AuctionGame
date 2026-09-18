@@ -288,7 +288,7 @@
     "name": "Ticket für den Frachtraum",
     "desc": "Die Airline ist fast pleite. Du musst den Flug zwischen schlecht gesicherten Koffern und Hühnerkäfigen verbringen.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "📦",
     "dbCategory": "LOSER",

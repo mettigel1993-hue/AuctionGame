@@ -503,43 +503,41 @@ function cardPoints(m, card, cat) {
 }
 const managerPoints = m => Object.keys(m.team).reduce((sum, cat) => sum + (m.team[cat] ? cardPoints(m, m.team[cat], cat) : 0), 0);
 
-// Only the running category is a column of the matrix - it takes the whole leftover width and
-// carries its question and progress. Everything played and everything still to come lives in the
-// track beside the board. Runs on every category switch too, so no re-render is needed.
+// Die laufende Kategorie steht als eine Zeile über der Bühne: Name, Platz in der Runde, Frage
+// und ein Punkt je Fahrgast. Läuft auch bei jedem Kategoriewechsel, ein Re-Render ist unnötig.
 function markCategoryColumns() {
-    const rows = document.querySelectorAll('#matrix-body tr');
-    activeCategories.forEach((key, i) => {
-        const active = key === activeMatrixAuctionCategory;
-        const th = document.querySelector(`#matrix-header-row th:nth-child(${i + 2})`);
-        if (!th) return;
-        th.classList.toggle('is-active-col', active);
-        th.classList.toggle('col-next', !active);
-        th.style.width = active ? '' : '0';  // '' = the active column takes the rest
-        rows.forEach(tr => {
-            const td = tr.children[i + 1];
-            if (!td) return;
-            td.classList.toggle('col-active', active);
-            td.classList.toggle('col-next', !active);
-        });
-    });
+    const head = $('cat-headline');
+    if (head) {
+        const key = activeMatrixAuctionCategory, c = Config.categories[key] || {};
+        const idx = activeCategories.indexOf(key) + 1, lower = (key || '').toLowerCase();
+        const taken = managers.filter(m => m.team[lower]).length, open = managers.length - taken;
+        const dots = managers.map(m => `<i class="${m.team[lower] ? 'is-filled' : ''}" title="${m.name}${m.team[lower] ? ': versorgt' : ': noch offen'}"></i>`).join('');
+        head.innerHTML = `<div class="ch-top">
+                <span class="ch-name">${c.name || key || ''}</span>
+                <span class="ch-pos">${idx || '–'} / ${activeCategories.length}</span>
+                <span class="cat-head-dots">${dots}</span>
+            </div>
+            <div class="ch-sub">${c.desc || ''} · <b>${open ? `noch ${open} von ${managers.length} offen` : 'komplett vergeben'}</b></div>`;
+    }
     renderCategoryQueue();
-    // zweimal: der erste Lauf misst noch das alte Layout, der zweite raeumt den Rest weg
-    requestAnimationFrame(() => { fitBoardRows(); requestAnimationFrame(fitBoardRows); });
+    renderBidUI();
 }
 
-// Share the height the board actually has between the player rows, so zooming in or resizing
-// shrinks the cards instead of producing a scrollbar. Below the floor the board scrolls -
-// the player cell itself (name, jokers, budget) cannot get smaller than that.
+// Die Kachelreihe bricht um, sobald die einzelne Kachel schmaler würde als ihr Inhalt.
+// Alles andere skaliert über clamp() mit der Fensterhöhe, auch beim Zoomen.
 function fitBoardRows() {
-    const wrap = document.querySelector('.matrix-table-wrap > div'), head = $('matrix-header-row');
-    if (!wrap || !head || !managers.length) return;
-    const perRow = (wrap.clientHeight - head.offsetHeight) / managers.length;
-    const slot = Math.max(58, Math.min(118, Math.round(perRow) - 18)); // 18px = padding of the slot cell
-    const st = document.documentElement.style;
-    st.setProperty('--slot-min', slot + 'px');
-    st.setProperty('--row-pad', Math.max(3, Math.min(14, Math.round((perRow - 90) / 2))) + 'px');
-    // enge Zeilen verlieren die Textabzeichen und das Wort "Punkte" - dafuer bleibt alles lesbar
-    document.getElementById('matrix-body').classList.toggle('is-dense', perRow < 136);
+    const strip = $('matrix-body');
+    if (!strip || !managers.length) return;
+    const perCell = strip.clientWidth / Math.min(managers.length, 4);
+    strip.classList.toggle('is-wrapped', managers.length > 4);
+    strip.classList.toggle('is-dense', managers.length > 4 || perCell < 240);
+
+    // Bleibt für die Karte zu wenig Höhe, wird sie kleiner statt abgeschnitten.
+    const stage = $('stage'), card = $('active-card');
+    if (!stage || !card) return;
+    card.style.transform = '';
+    const avail = stage.clientHeight - 8, need = card.offsetHeight;
+    if (need > avail && need > 0) card.style.transform = `scale(${Math.max(.42, avail / need)})`;
 }
 window.addEventListener('resize', fitBoardRows); // fires on browser zoom too
 
@@ -560,23 +558,21 @@ function renderCategoryQueue() {
             return `<div class="ct-row"><span class="ct-p">${esc(m.name)}</span><span class="ct-c">${esc(card.name)}</span>
                 <span class="ct-m">${(card.paid ?? card.cost ?? 0).toLocaleString()} ${Config.currency.symbol} · ${pts >= 0 ? '+' : ''}${pts}</span></div>`;
         }).join('') : '';
-        return `<div class="ct-tile ${active ? 'is-active' : done ? 'is-done' : 'is-open'}"${done ? '' : ` title="${name}"`}>
+        return `<button type="button" class="ct-tile ${active ? 'is-active' : done ? 'is-done' : 'is-open'}"
+                onclick="selectMatrixAuctionCategory('${key}')" title="${name}${done ? ' – gespielt' : active ? ' – läuft' : ''}">
             <span class="ct-icon">${c.icon || ''}</span>
             ${done ? `<div class="ct-tip"><b>${name}</b>${rows}</div>` : ''}
-        </div>`;
+        </button>`;
     }).join('');
 }
 
-// The waiting category slides in from the track: its freshly revealed column wipes in from the
-// right, while the place of the category just finished fills up with its symbol.
+// Beim Wechsel füllt sich der Platz der gerade fertigen Kategorie mit ihrem Symbol,
+// und die frisch geleerten Kartenplätze der Fahrgäste wischen herein.
 function slideCategoryIn(key, doneKey) {
     if (reducedMotion()) return;
     const tile = document.querySelectorAll('#category-queue .ct-tile')[activeCategories.indexOf(doneKey)];
     if (tile) restartClass(tile, 'ct-fill');
-    const i = activeCategories.indexOf(key); if (i < 0) return;
-    const th = document.querySelector(`#matrix-header-row th:nth-child(${i + 2})`);
-    const cells = [th, ...document.querySelectorAll(`#matrix-body tr > :nth-child(${i + 2})`)].filter(Boolean);
-    cells.forEach(el => restartClass(el, 'col-enter'));
+    document.querySelectorAll('#matrix-body .p-slot').forEach(el => restartClass(el, 'col-enter'));
 }
 
 // Kurzform fuer die Geldkachel: 1M / 0,9M - bei kleinem Startbudget in Tausend, sonst stuende dort nur 0.
@@ -598,35 +594,10 @@ function toggleJokerTray(id, ev) {
 document.addEventListener('click', () => document.querySelectorAll('.p-jokers.is-open').forEach(t => t.classList.remove('is-open')));
 
 function renderMatrix() {
-    const thead = $('matrix-header-row'); const tbody = $('matrix-body');
-    if (!thead || !tbody) return;
-
-    let hHtml = `<th class="py-3 px-4 bg-stone-800 shadow-sm" style="width:220px">${Config.terminology.playerSingular}</th>`;
-    const colorSet = ['text-red-400', 'text-orange-400', 'text-purple-400', 'text-rose-400', 'text-yellow-400', 'text-green-400', 'text-cyan-400'];
-activeCategories.forEach((cat, idx) => {
-        let cData = Config.categories[cat];
-        let isActive = (cat === activeMatrixAuctionCategory);
-
-        let btnClass = isActive
-            ? "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors"
-            : "matrix-cat-btn w-full h-full bg-transparent hover:bg-stone-800 text-stone-400 text-xs font-bold py-2 border-b-2 border-transparent transition-colors";
-
-        // Question, chapter count and one dot per player slot used to live in a bar above the board.
-        // They are rendered for every column but only shown for the active one (CSS), so a category
-        // switch needs no re-render.
-        const lower = cat.toLowerCase(), taken = managers.filter(m => m.team[lower]).length, open = managers.length - taken;
-        const dots = managers.map(m => `<i class="${m.team[lower] ? 'is-filled' : ''}"></i>`).join('');
-        const meta = `<span class="cat-head-q">${cData.desc || ''}</span>
-                      <span class="cat-head-meta"><b>${idx + 1} / ${activeCategories.length}</b><span class="cat-head-dots">${dots}</span><small>${open ? `noch ${open} von ${managers.length} offen` : 'komplett vergeben'}</small></span>`;
-
-        // Hinweis: p-0 im <th> sorgt dafür, dass der Button 100% der Zelle ausfüllt
-        hHtml += `<th title="${cData.name} – ${cData.desc}" class="p-0 text-center border-l border-stone-700/50 bg-stone-800 shadow-sm align-middle h-full">
-                    <button onclick="selectMatrixAuctionCategory('${cat}', this)" class="${btnClass}"><span class="cat-head-icon block text-base leading-none">${cData.icon}</span><span class="cat-head-name block text-xs leading-tight mt-1">${cData.name}</span>${meta}</button>
-                  </th>`;
-    });
-
-    thead.innerHTML = hHtml;
-    tbody.innerHTML = '';
+    const strip = $('matrix-body');
+    if (!strip) return;
+    const activeKey = (activeMatrixAuctionCategory || '').toLowerCase();
+    strip.innerHTML = '';
 
     managers.forEach(m => {
         const isBlk = m.id === blockedPlayerId;
@@ -645,7 +616,9 @@ for (let jKey in Config.terminology.jokers) {
     }
 }
 
-        let slots = activeCategories.map(k => renderSlotCell(m.id, k.toLowerCase(), m.team[k.toLowerCase()])).join('');
+        // Nur die laufende Kategorie hat einen Platz in der Kachel - die fertigen liegen in der Spur oben.
+        let slot = activeKey ? renderSlotCell(m.id, activeKey, m.team[activeKey]) : '';
+        const isProtegeNow = activeKey && m.protegeCats?.includes(activeKey);
         let blkOverlay = isBlk ? `<span class="blocked-badge pbadge is-lock">🔒 Gesperrt</span>` : '';
         let cbBadge = m.cashbackActive ? `<span class="shield-badge pbadge is-shield" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</span>` : '';
         let perkBadge = m.perk !== 'NONE' ? `<span class="pbadge is-perk" title="${Config.perks[m.perk]?.desc || ''}">${Config.perks[m.perk]?.name || m.perk}</span>` : '';
@@ -658,10 +631,14 @@ for (let jKey in Config.terminology.jokers) {
         let isLow = m.budget < (startingBudget * 0.15);
         const pos = playerJokerOrder.indexOf(m.id) + 1;
 
-tbody.innerHTML += `
-            <tr class="${isBlk ? 'row-blocked bg-red-950/40 border-l-4 border-red-500 grayscale transition opacity-80' : 'hover:bg-stone-900/30 transition'}${m.cashbackActive ? ' row-shielded' : ''}">
-                <td class="player-col align-top">
-    <div class="pcell">
+const cellCls = ['pcell',
+    isBlk ? 'is-blocked' : '',
+    m.cashbackActive ? 'is-shielded' : '',
+    m.protegeCats?.length ? 'is-protege' : '',
+    isProtegeNow ? 'is-protege-now' : ''].filter(Boolean).join(' ');
+
+strip.innerHTML += `
+    <div class="${cellCls}" id="pcell-${m.id}">
         <div class="ptile p-name">
             <div class="p-name-top">
                 ${pos ? `<span class="joker-order${pos === 1 ? ' is-next' : ''}" title="Joker-Reihenfolge: Platz ${pos}">${pos}</span>` : ''}
@@ -688,23 +665,20 @@ tbody.innerHTML += `
                 <span class="pt-val${bp < 0 ? ' is-neg' : ''}" id="points-num-${m.id}">${bp}</span>
             </div>
         </div>
-    </div>
-</td>
-
-                ${slots}
-            </tr>`;
+        <div class="p-slot" id="slot-${m.id}">${slot}</div>
+    </div>`;
 });
+    strip.classList.toggle('is-wrapped', managers.length > 4);
+    strip.classList.toggle('is-dense', managers.length > 4);
     markCategoryColumns();
 }
 function renderSlotCell(mId, k, pObj) {
     let m = managers.find(x => x.id === mId);
     let isProtege = (m && m.protegeCats && m.protegeCats.includes(k));
-   let specialBorderClass = isProtege
-    ? 'shadow-[inset_0_0_0_2px_rgba(234,179,8,0.55),inset_0_0_14px_rgba(234,179,8,0.25)]' // no bg class: a translucent fill would let the metal frame show through
-    : '--';
+    // Die Foerderung markiert jetzt die ganze Fahrgastkachel (golden), nicht mehr den Kartenplatz.
+    const specialBorderClass = '';
   if (!pObj) {
-    const emptyHighlight = isProtege ? 'bg-yellow-950/20 shadow-[inset_0_0_0_2px_rgba(234,179,8,0.3)] rounded-lg' : '';
-    return `<td class="py-2 px-1 text-center border-l border-stone-700/40"><div class="slot-empty h-[80px] ${emptyHighlight}"></div></td>`;
+    return `<div class="slot-empty"></div>`;
 }
     // Metal frame per tier (bronze / silver / gold / holo); pips repeat the tier for colour-blind players
     const tierCls = isHolo(pObj) ? 'tier-unicorn' : `tier-${pObj.tier}`;
@@ -718,7 +692,7 @@ function renderSlotCell(mId, k, pObj) {
 
     let scoreHtml = isBoosted ? `<i class="fa-solid fa-arrow-trend-up text-xs text-yellow-400"></i> <span class="text-yellow-400 font-black animate-pulse">${displayScore}</span>` : `<i class="fa-solid fa-star text-xs text-lime-400"></i> ${displayScore}`;
 
-    return `<td class="py-2 px-0.5 text-center border-l border-stone-700/40 relative group/cell"><div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card slot-frame ${tierCls} relative cursor-pointer h-[115px]"><div class="slot-score">${scoreHtml}</div><div class="slot-face ${specialBorderClass} group-hover/card:bg-red-950"><span class="slot-icon text-2xl mb-1 group-hover/card:hidden">${pObj.icon}</span><span class="slot-icon text-2xl mb-1 hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="slot-name text-xs font-bold text-white leading-tight w-full px-0.5 line-clamp-2 group-hover/card:text-red-400">${pObj.name}</span></div><div class="slot-pips" aria-hidden="true">${pips}</div></div><div class="absolute top-[90px] left-1/2 transform -translate-x-1/2 w-56 bg-stone-800 border-2 border-stone-600 text-stone-200 p-3 rounded-xl shadow-2xl hidden group-hover/cell:flex z-[100] pointer-events-none flex-col items-start text-left"><div class="font-black text-white text-sm mb-1 leading-tight">${pObj.name}</div><div class="text-xs italic leading-snug text-stone-400 mb-2">${pObj.desc}</div><div class="mt-auto text-amber-400 font-bold text-xs w-full text-right">${pObj.cost.toLocaleString()} ${Config.currency.symbol}</div></div></td>`;
+    return `<div onclick="removePlayerFromMatrix(${mId}, '${k}')" class="group/card slot-frame ${tierCls} relative cursor-pointer" title="${pObj.name} – ${pObj.desc} (${pObj.cost.toLocaleString()} ${Config.currency.symbol})"><div class="slot-score">${scoreHtml}</div><div class="slot-face ${specialBorderClass} group-hover/card:bg-red-950"><span class="slot-icon group-hover/card:hidden">${pObj.icon}</span><span class="slot-icon hidden group-hover/card:inline text-red-500"><i class="fa-solid fa-toilet"></i></span><span class="slot-name font-bold text-white group-hover/card:text-red-400">${pObj.name}</span></div><div class="slot-pips" aria-hidden="true">${pips}</div></div>`;
 }
 
 function renderAdminPool() {
@@ -1104,16 +1078,8 @@ function selectMatrixAuctionCategory(cat, btn) {
         initCategoryDeck(cat);
     }
     activeMatrixAuctionCategory = cat;
-    
-    // Alle Buttons auf "Inaktiv" setzen
-    document.querySelectorAll('.matrix-cat-btn').forEach(b => b.className = "matrix-cat-btn w-full h-full bg-transparent hover:bg-stone-800 text-stone-400 text-xs font-bold py-2 border-b-2 border-transparent transition-colors");
-    
-    if (!btn) document.querySelectorAll('.matrix-cat-btn').forEach(b => { if (b.getAttribute('onclick')?.includes(`'${cat}'`)) btn = b; });
-    
-    // Den geklickten Button auf "Aktiv" setzen
-    if (btn) btn.className = "matrix-cat-btn w-full h-full bg-stone-900 text-orange-400 text-xs font-black py-2 border-b-2 border-orange-500 transition-colors";
-    markCategoryColumns();
-    
+    renderMatrix(); // die Kartenplätze zeigen immer die laufende Kategorie
+
     if (blindDrawsLeft === 0 && $('matrix-active-bid-target')) {
         activeMatrixAuctionItem = null;
         $('matrix-active-bid-target').innerHTML = `<span class="text-stone-600 italic text-xs font-medium">Lieferung noch ausstehend...</span>`;
@@ -1139,6 +1105,110 @@ function saveCategories() {
 function addBid(amount) {
     let input = $('matrix-auction-price');
     if (input) input.value = Math.max(0, (parseInt(input.value) || 0) + amount);
+    renderBidUI();
+}
+
+// =====================================================================
+// KAUFMENÜ UNTER DER KARTE
+// Die Oberfläche schreibt nur in #matrix-auction-price und #matrix-auction-buyer -
+// executeMatrixAuction() und der ganze Kaufweg bleiben unverändert.
+// =====================================================================
+function toggleBidMenu(which, ev) {
+    if (ev) ev.stopPropagation();
+    const field = $(which === 'amount' ? 'bid-amount-field' : 'bid-buyer-field');
+    const open = field?.classList.contains('is-open');
+    closeBidMenus();
+    if (field && !open) {
+        field.classList.add('is-open');
+        if (which === 'amount') { const i = $('bid-manual-input'); if (i) { i.value = $('matrix-auction-price')?.value || ''; i.focus(); i.select(); } }
+    }
+}
+function closeBidMenus() { document.querySelectorAll('.bid-field.is-open').forEach(f => f.classList.remove('is-open')); }
+document.addEventListener('click', e => { if (!e.target.closest('.bid-field')) closeBidMenus(); });
+
+function applyManualBid() {
+    const v = parseInt($('bid-manual-input')?.value);
+    if (!isNaN(v) && v >= 0) { $('matrix-auction-price').value = v; renderBidUI(); }
+    closeBidMenus();
+}
+
+// Der Käufer wird gewählt, der Zuschlag folgt mit dem Knopf darunter.
+function pickBuyer(id) {
+    const sel = $('matrix-auction-buyer'); if (sel) sel.value = String(id);
+    renderBidUI();
+}
+
+// Die gezogene Karte in der Mitte und das Kaufmenü darunter auf den aktuellen Stand bringen.
+function renderBidUI() {
+    const card = $('active-card'), icon = $('active-card-icon');
+    if (card) {
+        const it = activeMatrixAuctionItem;
+        card.classList.toggle('is-empty', !it);
+        if (icon) icon.textContent = it && !blindDrawsLeft ? (it.icon || '') : it ? '❓' : '';
+    }
+
+    const priceInput = $('matrix-auction-price'), sel = $('matrix-auction-buyer');
+    const price = parseInt(priceInput?.value);
+    const view = $('bid-amount-view'); if (view) view.textContent = isNaN(price) ? '—' : price.toLocaleString();
+
+    const step = getConf('economy', 'biddingStep') || 1000;
+    const steps = $('bid-steps');
+    if (steps) steps.innerHTML = [-5 * step, -step, step, 5 * step].map(d =>
+        `<button type="button" class="bid-step${d > 0 ? ' is-up' : ''}" onclick="addBid(${d})">${d > 0 ? '+' : '−'}${Math.abs(d).toLocaleString()}</button>`).join('');
+
+    // Nur wer in dieser Kategorie noch keine Karte hat, kann sie bekommen.
+    const cat = (activeMatrixAuctionItem?.type || activeMatrixAuctionCategory || '').toLowerCase();
+    const open = managers.filter(m => !cat || !m.team[cat]);
+    const chosen = managers.find(m => String(m.id) === String(sel?.value));
+    if (chosen && !open.includes(chosen) && sel) { sel.value = ''; }
+
+    const list = $('bid-buyer-list');
+    if (list) list.innerHTML = open.length ? open.map(m => {
+        const out = m.id === blockedPlayerId, poor = !isNaN(price) && m.budget < price;
+        const tag = out ? '<span class="bb-tag">gesperrt</span>' : poor ? '<span class="bb-tag">zu teuer</span>' : '';
+        return `<button type="button" class="bid-buyer${String(m.id) === String(sel?.value) ? ' is-picked' : ''}${out ? ' is-out' : ''}"
+                    onclick="pickBuyer(${m.id})"${out ? ' disabled' : ''}>
+                <span class="bb-num">${playerJokerOrder.indexOf(m.id) + 1 || '·'}</span>
+                <span class="bb-name">${m.name}</span>${tag}
+                <span class="bb-cash">${shortMoney(m.budget)}</span>
+            </button>`;
+    }).join('') : `<div class="jtray-none" style="padding:10px">Alle ${Config.terminology.playerPlural || 'Spieler'} sind in dieser Kategorie versorgt.</div>`;
+
+    const buyerView = $('bid-buyer-view');
+    if (buyerView) buyerView.textContent = chosen && open.includes(chosen) ? chosen.name : `${Config.terminology.playerSingular} wählen`;
+
+    const confirm = $('bid-confirm-label');
+    if (confirm) confirm.textContent = !isNaN(price) && chosen ? `Für ${price.toLocaleString()} zuschlagen` : 'Zuschlag erteilen';
+
+    const hint = $('bid-hint');
+    if (hint) hint.innerHTML = activeMatrixAuctionItem
+        ? `<span>Kartenwert ${activeMatrixAuctionItem.cost.toLocaleString()} ${Config.currency.symbol}</span><span>${chosen ? `${chosen.name} hat ${shortMoney(chosen.budget)}` : `${open.length} offen`}</span>`
+        : '<span>Noch nichts gezogen</span>';
+
+    requestAnimationFrame(fitBoardRows); // die Karte muss gerendert sein, bevor sie gemessen wird
+}
+
+// Sackgasse: keiner der noch offenen Fahrgäste kann die billigste Restkarte der Kategorie
+// bezahlen. Weiterziehen bringt dann nichts mehr - alle offenen bekommen die Loserkarte.
+// Nur ein Vorschlag, bestätigt wird er vom Spielleiter (Joker können die Lage noch drehen).
+function checkCategoryDeadlock(cat) {
+    const open = managers.filter(m => !m.team[cat] && m.id !== blockedPlayerId);
+    if (!open.length) return false;
+    const stillAvailable = itemDatabase[activeMatrixAuctionCategory] || [];
+    const deck = activeCategoryDeck.filter(c => stillAvailable.some(x => x.id === c.id));
+    if (!deck.length) return false;
+    const cheapest = Math.min(...deck.map(c => c.cost));
+    if (open.some(m => m.budget >= cheapest)) return false;
+
+    const names = open.map(m => `<strong>${m.name}</strong>`).join(', ');
+    showConfirmModal(
+        `Die billigste verbliebene Karte kostet <strong>${cheapest.toLocaleString()} ${Config.currency.symbol}</strong> –
+         das kann niemand mehr bezahlen.<br><br>${names} ${open.length > 1 ? 'bekommen' : 'bekommt'}
+         die Loserkarte für <strong>${Config.categories[activeMatrixAuctionCategory]?.name || activeMatrixAuctionCategory}</strong>
+         (${Config.punishCardTemplate.score} Punkte)?`,
+        () => { open.forEach(m => givePenaltyCard(m, activeMatrixAuctionCategory, true)); }
+    );
+    return true;
 }
 
 function drawMatrixRandomPlayer() {
@@ -1159,6 +1229,7 @@ function drawMatrixRandomPlayer() {
         if (needsRender) renderMatrix();
     }
     let cat = activeMatrixAuctionCategory.toLowerCase();
+    if (checkCategoryDeadlock(cat)) return; // niemand kann den Rest bezahlen: Loserkarten statt weiterziehen
     if (managers.every(m => m.team[cat] === null) && pendingSpecialEvent && specialEventsRemaining.length > 0) {
         pendingSpecialEvent = false;
         let ev = specialEventsRemaining.splice(Math.floor(Math.random() * specialEventsRemaining.length), 1)[0];
@@ -1184,6 +1255,7 @@ function drawMatrixRandomPlayer() {
         $('matrix-active-bid-desc').innerHTML = getDynamicDescHtml(item);
     }
     if ($('matrix-auction-price')) $('matrix-auction-price').value = item.cost;
+    renderBidUI(); // Karte und Kaufmenü auf die frisch gezogene Ware setzen
     playDrawAnimation(item);
 }
 
@@ -1339,8 +1411,7 @@ function givePenaltyCard(m, catKey, dropAnimation = false) {
     addLog(`Strafe: ${m.name} bekommt "${tpl.name}".`, "alert");
     resetMatrixActiveBid(); // also returns the unsold card on the table to the hand
     if (dropAnimation) {
-        const row = managers.indexOf(m) + 1, col = activeCategories.indexOf(key) + 2;
-        document.querySelector(`#matrix-body tr:nth-child(${row}) td:nth-child(${col}) > div`)?.classList.add('penalty-drop');
+        document.querySelector(`#slot-${m.id} > div`)?.classList.add('penalty-drop');
     }
     checkCategoryCompletion(cat); // a penalty card can be the one that fills the category
     checkEndgame();
@@ -1503,8 +1574,7 @@ function playSpotlightOfShame(m, item, done) {
     const line = Config.terminology?.bankruptLine || 'Pleite. Einfach nur pleite.';
 
     // aim the spotlight at the player's name on the board
-    const row = managers.indexOf(m) + 1;
-    const nameEl = document.querySelector(`#matrix-body tr:nth-child(${row}) td:first-child input`);
+    const nameEl = document.querySelector(`#pcell-${m.id} .p-name-input`);
     nameEl?.scrollIntoView({ block: 'center' });
     const r = nameEl?.getBoundingClientRect();
     const target = r ? { x: r.left + Math.min(r.width, 160) / 2, y: r.top + r.height / 2 } : { x: innerWidth * 0.15, y: innerHeight * 0.4 };
@@ -1991,7 +2061,7 @@ function flyCardToSlot(item, m, price = 0, { pointsBefore } = {}) {
     const end = () => { releaseKeys(); el.remove(); sceneEnded(); };
     requestAnimationFrame(() => {
         const key = Object.keys(m.team).find(k => m.team[k]?.id === item.id);
-        const slot = key && document.querySelector(`#matrix-body tr:nth-child(${managers.indexOf(m) + 1}) td:nth-child(${activeCategories.indexOf(key.toUpperCase()) + 2}) > div`);
+        const slot = key && document.querySelector(`#slot-${m.id} > div`);
         if (!slot || !el.animate) return end();
         const r = slot.getBoundingClientRect();
         const from = pointsBefore ?? managerPoints(m) - cardPoints(m, m.team[key], key);
@@ -2059,7 +2129,7 @@ function countBudget(m, price) { // odometer from the old to the new budget
 
 // Effect laid over one player row (Kontrolle stamp, Entschädigung shield). Returns the scene, or null.
 function playRowFx(m, cls, html, ms) {
-    const r = document.querySelector(`#matrix-body tr:nth-child(${managers.indexOf(m) + 1})`)?.getBoundingClientRect();
+    const r = $(`pcell-${m.id}`)?.getBoundingClientRect();
     if (!r || reducedMotion()) return null;
     const s = mountScene('row-fx ' + cls, `<div class="row-fx-box" style="left:${r.left}px;top:${r.top}px;width:${r.width}px;height:${r.height}px">${html}</div>`);
     s.at(ms, s.finish);
@@ -3346,9 +3416,8 @@ function announceCategoryFinished() {
 // 3 s on the board before the wheel: the finished column lights up card by card, a pill counts down.
 // Click / Space / Enter starts the wheel right away. Not shortened for reduced motion (it's a reading pause).
 function playBoardPause(key, done) {
-    const col = activeCategories.indexOf(key) + 2;
     const s = mountScene('board-pause', `<div class="pause-pill">🎡 Glücksrad in <b>3</b></div>`, done);
-    document.querySelectorAll(`#matrix-body td:nth-child(${col}) > div`).forEach((cell, i) => s.at(200 + i * 220, () => {
+    document.querySelectorAll('#matrix-body .p-slot > div').forEach((cell, i) => s.at(200 + i * 220, () => {
         cell.classList.remove('col-sweep'); void cell.offsetWidth; cell.classList.add('col-sweep');
     }));
     [2, 1].forEach((n, i) => s.at(1000 * (i + 1), () => { const b = s.el.querySelector('.pause-pill b'); if (b) b.textContent = n; sfx.tick(); }));

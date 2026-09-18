@@ -263,7 +263,7 @@
     "name": "Fallschaden beim Absprung",
     "desc": "Kein Loadout, kein Loot, kein Kill. Du hast den Fallschirm zu spät gezogen, bist auf einem Container gelandet und lagst tot im Dreck, bevor die erste Zone überhaupt kam. Der Squad hat es kommentarlos gefilmt.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "💀",
     "dbCategory": "LOSER",

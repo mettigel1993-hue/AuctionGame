@@ -263,7 +263,7 @@
     "name": "Ohne Fahrschein erwischt",
     "desc": "Erhöhtes Beförderungsentgelt: 60 €. Der Kontrolleur notiert in aller Ruhe deine Personalien, während der komplette Großraumwagen zuschaut und niemand auch nur so tut, als würde er wegsehen.",
     "cost": 0,
-    "score": -5,
+    "score": -20,
     "tier": "schlecht",
     "icon": "🚫",
     "dbCategory": "LOSER",
