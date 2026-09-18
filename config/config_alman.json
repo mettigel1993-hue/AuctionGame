@@ -4,15 +4,9 @@
   "gameTitle": "Alman Eskalation",
   "themeIcon": "🌻",
   "pointsSound": "stamp",
-  "colors": {
-    "primary": "green-500",
-    "gradientStart": "green-500",
-    "gradientEnd": "lime-400"
-  },
   "currency": {
     "name": "Rechtsschutz-Budget",
     "symbol": "€",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -104,35 +98,35 @@
     },
     "perk1": {
       "name": "🌻 Garten-Nazi",
-      "desc": "Zwei Kategorien sind seine Lieblinge (+50% Punkte am Ende, immun gegen Löschung)."
+      "desc": "Zwei Kategorien sind seine Lieblinge (+{{perk1_protegeMultiplier|pct}}% Punkte am Ende, immun gegen Löschung)."
     },
     "perk2": {
       "name": "💰 Bausparer",
-      "desc": "Gibt am Ende +5 Punkte pro 20.000 € übrigem Restbudget."
+      "desc": "Gibt am Ende +{{perk2_interestMultiplier|num}} Punkte pro {{perk2_interestDivisor|num}} € übrigem Restbudget."
     },
     "perk3": {
       "name": "♻️ Müll-Trenner",
-      "desc": "Sämtliche Schrott-Karten (Meme-Tier) geben ihm am Ende +50% Punkte."
+      "desc": "Sämtliche Schrott-Karten (Meme-Tier) geben ihm am Ende +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🎰 Sportwetten-Sören",
-      "desc": "-25% Startbudget. Dafür +25% bei Events, Rad-Gewinnen & 25% Cashback pro Aktenkauf."
+      "desc": "-{{perk4_budgetMultiplier|pctdown}}% Startbudget. Dafür +{{perk4_incomeMultiplier|pct}}% bei Events, Rad-Gewinnen & {{perk4_incomeMultiplier|pct}}% Cashback pro Aktenkauf."
     },
     "perk5": {
       "name": "👀 Vergleichsportal-Nutzer",
-      "desc": "Reklamation gewährt die freie Auswahl aus 3 gezogenen Akten."
+      "desc": "Reklamation gewährt die freie Auswahl aus {{perk5_gambleChoices|num}} gezogenen Akten."
     },
     "perk6": {
       "name": "🛡️ Teflon-Alman",
-      "desc": "Absolut immun gegen finanzielle Strafen! +10% auf Schicksalsrad-Gewinne."
+      "desc": "Absolut immun gegen finanzielle Strafen! +{{perk6_wheelBonusMultiplier|pct}}% auf Schicksalsrad-Gewinne."
     },
     "perk7": {
       "name": "👮 Hilfssheriff",
-      "desc": "Startet mit 2x Anzeige. Ist absolut immun gegen fremde Anzeigen!"
+      "desc": "Startet mit {{perk7_startingBlocks|num}}x Anzeige. Ist absolut immun gegen fremde Anzeigen!"
     },
     "perk8": {
       "name": "👷 Malocher",
-      "desc": "Startet komplett ohne Joker (0). Dafür pauschal +10 Punkte pro verbauter Akte am Ende."
+      "desc": "Startet komplett ohne Joker (0). Dafür pauschal +{{perk8_flatScoreBonus|num}} Punkte pro verbauter Akte am Ende."
     }
   },
   "events": [
@@ -262,12 +256,31 @@
     ]
   },
   "theme": {
-    "description": "Amtsstube-Grün & Bürokratie-Beige – wirkt wie ein verwittertes Grundbuchamt",
     "font": "Rajdhani",
-    "mood": "militärisch-behördlich, schwerfällig, grün wie Gartenarbeit",
     "primaryColor": "#4ade80",
     "accentColor": "#a3e635",
     "bgBase": "#0f1a0f",
     "bgCard": "#162016"
+  },
+  "auctionAnimation": {
+    "striker": "📋",
+    "strikeStyle": "stamp",
+    "calls": [
+      "Antrag eingereicht …",
+      "Antrag geprüft …",
+      "Genehmigt!"
+    ],
+    "dealConfirmTitle": "✅ GENEHMIGT!"
+  },
+  "mysteryBox": {
+    "icon": "🗑️",
+    "motion": "shake",
+    "particles": [
+      "♻️",
+      "🥫",
+      "🍾",
+      "📰"
+    ],
+    "shout": "MÜLLTRENNUNG!"
   }
 }

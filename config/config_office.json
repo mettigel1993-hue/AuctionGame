@@ -4,15 +4,9 @@
   "gameTitle": "Survive the Office",
   "themeIcon": "☕",
   "pointsSound": "mail",
-  "colors": {
-    "primary": "blue-500",
-    "gradientStart": "blue-600",
-    "gradientEnd": "cyan-500"
-  },
   "currency": {
     "name": "Abteilungsbudget",
     "symbol": "€",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -109,35 +103,35 @@
     },
     "perk1": {
       "name": "🎯 Der Inselbegabte",
-      "desc": "Zwei Kernkompetenzen bringen +50% Leistung. Absolut resistent gegen plötzliche Strategiewechsel von oben."
+      "desc": "Zwei Kernkompetenzen bringen +{{perk1_protegeMultiplier|pct}}% Leistung. Absolut resistent gegen plötzliche Strategiewechsel von oben."
     },
     "perk2": {
       "name": "🐷 Der Budget-Geizhals",
-      "desc": "Spart das Abteilungsbudget. Je 20.000 € Restbudget gibt's am Jahresende 5 Extra-Performance-Punkte."
+      "desc": "Spart das Abteilungsbudget. Je {{perk2_interestDivisor|num}} € Restbudget gibt's am Jahresende {{perk2_interestMultiplier|num}} Extra-Performance-Punkte."
     },
     "perk3": {
       "name": "🔥 Der Feuerlöscher",
-      "desc": "Liebt es, wenn es brennt. Miese Tickets (Stufe 🤡) bringen am Ende fette +50% Aufschlag."
+      "desc": "Liebt es, wenn es brennt. Miese Tickets (Stufe 🤡) bringen am Ende fette +{{perk3_badTierMultiplier|pct}}% Aufschlag."
     },
     "perk4": {
       "name": "🚀 Der High-Performer",
-      "desc": "Burnout-Gefahr: Startet mit -25% Budget, casht dafür aber bei Boni, Spesen & am Roulette +25% extra ab!"
+      "desc": "Burnout-Gefahr: Startet mit -{{perk4_budgetMultiplier|pctdown}}% Budget, casht dafür aber bei Boni, Spesen & am Roulette +{{perk4_incomeMultiplier|pct}}% extra ab!"
     },
     "perk5": {
       "name": "🤝 Der Vitamin-B-Schnorrer",
-      "desc": "Nutzt sein Netzwerk: Zieht beim Delegieren 3 Optionen aus dem Backlog und wählt die Rosine."
+      "desc": "Nutzt sein Netzwerk: Zieht beim Delegieren {{perk5_gambleChoices|num}} Optionen aus dem Backlog und wählt die Rosine."
     },
     "perk6": {
       "name": "👑 Der Vorstands-Neffe",
-      "desc": "Immunität gegen alle finanziellen Katastrophen. Beim Mitarbeitergespräch (Rad) gibt's pauschal +10%."
+      "desc": "Immunität gegen alle finanziellen Katastrophen. Beim Mitarbeitergespräch (Rad) gibt's pauschal +{{perk6_wheelBonusMultiplier|pct}}%."
     },
     "perk7": {
       "name": "🤫 Die Büro-Petze",
-      "desc": "Verteilt 2x endlose Meetings an Kollegen und drückt Anrufe anderer blockierender Kollegen einfach weg (Immun)."
+      "desc": "Verteilt {{perk7_startingBlocks|num}}x endlose Meetings an Kollegen und drückt Anrufe anderer blockierender Kollegen einfach weg (Immun)."
     },
     "perk8": {
       "name": "⏱️ Der Workaholic",
-      "desc": "Hat keine Zeit für Joker-Spielchen. Dafür ackert er hart und kriegt +10 Extra-Punkte pro abgeschlossenem Ticket."
+      "desc": "Hat keine Zeit für Joker-Spielchen. Dafür ackert er hart und kriegt +{{perk8_flatScoreBonus|num}} Extra-Punkte pro abgeschlossenem Ticket."
     }
   },
   "events": [
@@ -267,12 +261,31 @@
     ]
   },
   "theme": {
-    "description": "Corporate Blau & Indigo – steril wie ein Großraumbüro unter Neonlicht",
     "font": "Audiowide",
-    "mood": "kalt, korporativ, wie ein SAP-Dashboard oder eine PowerPoint-Präsentation",
     "primaryColor": "#38bdf8",
     "accentColor": "#818cf8",
     "bgBase": "#060a10",
     "bgCard": "#0d1420"
+  },
+  "auctionAnimation": {
+    "striker": "📎",
+    "strikeStyle": "stamp",
+    "calls": [
+      "Meeting …",
+      "Follow-up …",
+      "Deadline!"
+    ],
+    "dealConfirmTitle": "✅ APPROVED!"
+  },
+  "mysteryBox": {
+    "icon": "🗃️",
+    "motion": "shake",
+    "particles": [
+      "📝",
+      "📎",
+      "🗒️",
+      "☕"
+    ],
+    "shout": "DRUCKER-STAU!"
   }
 }

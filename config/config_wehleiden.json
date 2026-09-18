@@ -4,15 +4,9 @@
   "gameTitle": "Ausbruch aus Wehlheiden",
   "themeIcon": "🚨",
   "pointsSound": "keysAndGate",
-  "colors": {
-    "primary": "orange-500",
-    "gradientStart": "orange-600",
-    "gradientEnd": "yellow-500"
-  },
   "currency": {
     "name": "Zigaretten-Vorrat",
     "symbol": "🚬",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -99,35 +93,35 @@
     },
     "perk1": {
       "name": "🎯 Inspektor Gadget der Unterwelt",
-      "desc": "Hat Taschen in Taschen. +50% auf zwei Kernkompetenzen und die Wärter finden bei ihm nicht mal Staub."
+      "desc": "Hat Taschen in Taschen. +{{perk1_protegeMultiplier|pct}}% auf zwei Kernkompetenzen und die Wärter finden bei ihm nicht mal Staub."
     },
     "perk2": {
       "name": "🐷 Der Lungenbrötchen-Baron",
-      "desc": "Rauchen ist tödlich, Sparen macht frei! Für je 20.000 gebunkerte Zichten gibt's zum Schluss 5 Punkte extra aufs Fluchtkonto."
+      "desc": "Rauchen ist tödlich, Sparen macht frei! Für je {{perk2_interestDivisor|num}} gebunkerte Zichten gibt's zum Schluss {{perk2_interestMultiplier|num}} Punkte extra aufs Fluchtkonto."
     },
     "perk3": {
       "name": "🔥 Der Schrottplatz-MacGyver",
-      "desc": "Baut aus Kaugummi und Büroklammern 'nen Hubschrauber. Schrott-Karten (🤡) kriegen am Ende einen +50% Genialitäts-Boost."
+      "desc": "Baut aus Kaugummi und Büroklammern 'nen Hubschrauber. Schrott-Karten (🤡) kriegen am Ende einen +{{perk3_badTierMultiplier|pct}}% Genialitäts-Boost."
     },
     "perk4": {
       "name": "🚀 Der Spätzünder-Escobar",
-      "desc": "Fängt als kleiner Fisch an (-25% Startkapital), aber casht im Lategame bei allen Boni & Rädern fette +25% extra ab!"
+      "desc": "Fängt als kleiner Fisch an (-{{perk4_budgetMultiplier|pctdown}}% Startkapital), aber casht im Lategame bei allen Boni & Rädern fette +{{perk4_incomeMultiplier|pct}}% extra ab!"
     },
     "perk5": {
       "name": "🤝 Der Strippenzieher",
-      "desc": "Kennt den Schwippschwager vom Cousin vom Wärter. Hat beim Schmuggeln immer 3 Optionen zur Auswahl."
+      "desc": "Kennt den Schwippschwager vom Cousin vom Wärter. Hat beim Schmuggeln immer {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "👑 Der Liebling des Direktors",
-      "desc": "Immunität gegen finanzielle Strafen. Beim Schmuggel-Roulette gibt's pauschal +10%."
+      "desc": "Immunität gegen finanzielle Strafen. Beim Schmuggel-Roulette gibt's pauschal +{{perk6_wheelBonusMultiplier|pct}}%."
     },
     "perk7": {
       "name": "🤫 Der Judas vom C-Block",
-      "desc": "Verkauft seine eigene Mutter für 'nen extra Pudding. Schickt 2 Leute ins Loch und hat selbst eine 'Du kommst aus dem Gefängnis frei'-Karte gegen die Iso."
+      "desc": "Verkauft seine eigene Mutter für 'nen extra Pudding. Schickt {{perk7_startingBlocks|num}} Leute ins Loch und hat selbst eine 'Du kommst aus dem Gefängnis frei'-Karte gegen die Iso."
     },
     "perk8": {
       "name": "⏱️ Der Tunnel-Gräber",
-      "desc": "Keine Zeit für Freunde, der Löffel ruft! Spielt komplett jokerlos, schaufelt sich aber harte +10 Extra-Punkte pro Karte frei."
+      "desc": "Keine Zeit für Freunde, der Löffel ruft! Spielt komplett jokerlos, schaufelt sich aber harte +{{perk8_flatScoreBonus|num}} Extra-Punkte pro Karte frei."
     }
   },
   "events": [
@@ -257,12 +251,31 @@
     ]
   },
   "theme": {
-    "description": "Knast-Orange & Beton-Schwarz – verwittert wie ein altes Schreibmaschinenformular",
     "font": "Special Elite",
-    "mood": "rau, abgenutzt, wie handgeschriebene Gefängnisnotizen auf Packpapier",
     "primaryColor": "#fb923c",
     "accentColor": "#fcd34d",
     "bgBase": "#0d0a06",
     "bgCard": "#181210"
+  },
+  "auctionAnimation": {
+    "striker": "🥄",
+    "strikeStyle": "swing",
+    "calls": [
+      "Wärter schläft …",
+      "Gitter durchgesägt …",
+      "Über die Mauer!"
+    ],
+    "dealConfirmTitle": "🏃 AUSGEBROCHEN!"
+  },
+  "mysteryBox": {
+    "icon": "🎂",
+    "motion": "shake",
+    "particles": [
+      "⛓️",
+      "🔑",
+      "🥄",
+      "🪚"
+    ],
+    "shout": "FEILE IM KUCHEN!"
   }
 }

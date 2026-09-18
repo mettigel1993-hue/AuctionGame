@@ -4,15 +4,9 @@
   "gameTitle": "Abenteuer Eigenheim",
   "themeIcon": "🏡",
   "pointsSound": "hammer",
-  "colors": {
-    "primary": "amber-600",
-    "gradientStart": "orange-600",
-    "gradientEnd": "yellow-600"
-  },
   "currency": {
     "name": "Maurerbrausen",
     "symbol": "🍺",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -109,35 +103,35 @@
     },
     "perk1": {
       "name": "🧱 Der Beton-Flüsterer",
-      "desc": "Hat den Rohbau im Griff. Zwei Kategorien bringen +50% Punkte am Ende und sind immun gegen Abriss-Events."
+      "desc": "Hat den Rohbau im Griff. Zwei Kategorien bringen +{{perk1_protegeMultiplier|pct}}% Punkte am Ende und sind immun gegen Abriss-Events."
     },
     "perk2": {
       "name": "🐷 Der Centfuchser-Architekt",
-      "desc": "Streicht heimlich den Balkon aus dem Bauplan, um das Budget zu retten. Jeder gerettete Cent bringt am Ende Punkte."
+      "desc": "Streicht heimlich den Balkon aus dem Bauplan, um das Budget zu retten. Je {{perk2_interestDivisor|num}} gerettete Euro bringen am Ende {{perk2_interestMultiplier|num}} Punkte."
     },
     "perk3": {
       "name": "🍼 Der Bauschaum-Künstler",
-      "desc": "Was nicht passt, wird passend gesprüht. Sämtliche Pfusch-Karten (Schrott-Tier) geben am Ende +50% Punkte."
+      "desc": "Was nicht passt, wird passend gesprüht. Sämtliche Pfusch-Karten (Schrott-Tier) geben am Ende +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🎰 Der Dispo-Dauerzocker",
-      "desc": "Lebt gefährlich am Rande der Privatinsolvenz, greift dafür aber bei jeder staatlichen Förderung im Lategame doppelt ab."
+      "desc": "Lebt gefährlich am Rande der Privatinsolvenz (-{{perk4_budgetMultiplier|pctdown}}% Startbudget), greift dafür bei jeder staatlichen Förderung um +{{perk4_incomeMultiplier|pct}}% kräftiger zu."
     },
     "perk5": {
       "name": "📞 Der MyHammer-Dauergast",
-      "desc": "Hat für jedes Problem einen billigen Subunternehmer parat. Darf beim Tauschen aus 3 Optionen wählen."
+      "desc": "Hat für jedes Problem einen billigen Subunternehmer parat. Darf beim Tauschen aus {{perk5_gambleChoices|num}} Optionen wählen."
     },
     "perk6": {
       "name": "🛡️ Das reiche Erben-Kind",
-      "desc": "Bauverzörung? Egal, Papa überweist nach. Absolut immun gegen finanzielle Strafen und kriegt Bonus am Schicksalsrad."
+      "desc": "Bauverzögerung? Egal, Papa überweist nach. Absolut immun gegen finanzielle Strafen und kriegt am Schicksalsrad pauschal +{{perk6_wheelBonusMultiplier|pct}}%."
     },
     "perk7": {
       "name": "⚖️ Der Paragraphen-Reiter",
-      "desc": "Hat die Landesbauordnung als Bettlektüre. Startet mit zwei Baustopps und lacht über gegnerische Anzeigen."
+      "desc": "Hat die Landesbauordnung als Bettlektüre. Startet mit {{perk7_startingBlocks|num}} Baustopps und lacht über gegnerische Anzeigen."
     },
     "perk8": {
       "name": "🔨 Der Akkord-Maurer",
-      "desc": "Frühstückt drei Mettbrötchen und zieht die Wände komplett jokerlos hoch – dafür zählt am Ende jede einzelne Karte extra."
+      "desc": "Frühstückt drei Mettbrötchen und zieht die Wände komplett jokerlos hoch – dafür zählt am Ende jede einzelne Karte +{{perk8_flatScoreBonus|num}} Punkte extra."
     }
   },
   "events": [
@@ -267,12 +261,31 @@
     ]
   },
   "theme": {
-    "description": "Warnwesten-Orange & Betonmischer-Grau – der staubige Look einer Großbaustelle",
     "font": "Oswald",
-    "mood": "hektisch, laut, nach Estrich und billigem Filterkaffee riechend",
     "primaryColor": "#d97706",
     "accentColor": "#eab308",
     "bgBase": "#111411",
     "bgCard": "#1c1f1c"
+  },
+  "auctionAnimation": {
+    "striker": "🔨",
+    "strikeStyle": "swing",
+    "calls": [
+      "Angebot …",
+      "Nachtrag …",
+      "Nachtrag 2!"
+    ],
+    "dealConfirmTitle": "🏠 GEKAUFT!"
+  },
+  "mysteryBox": {
+    "icon": "🧰",
+    "motion": "shake",
+    "particles": [
+      "🧱",
+      "🪵",
+      "🔩",
+      "🪛"
+    ],
+    "shout": "BAUSTELLE!"
   }
 }

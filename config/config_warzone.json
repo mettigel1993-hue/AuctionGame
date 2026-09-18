@@ -4,15 +4,9 @@
   "gameTitle": "Warzone Legenden",
   "themeIcon": "🪂",
   "pointsSound": "shots",
-  "colors": {
-    "primary": "lime-400",
-    "gradientStart": "lime-400",
-    "gradientEnd": "orange-500"
-  },
   "currency": {
     "name": "Cash",
     "symbol": "$",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -114,35 +108,35 @@
     },
     "perk1": {
       "name": "🎯 Der IGL",
-      "desc": "Callt zwei Kernbereiche perfekt durch (+50% Punkte am Ende). Immun gegen Zonen-Zerstörung in diesen Bereichen."
+      "desc": "Callt zwei Kernbereiche perfekt durch (+{{perk1_protegeMultiplier|pct}}% Punkte am Ende). Immun gegen Zonen-Zerstörung in diesen Bereichen."
     },
     "perk2": {
       "name": "🐷 Der Camper",
-      "desc": "Gibt niemals Cash aus, sondern liegt im Busch. Für je 20.000 $ Restbudget gibt's am Ende 5 Extra-Punkte."
+      "desc": "Gibt niemals Cash aus, sondern liegt im Busch. Für je {{perk2_interestDivisor|num}} $ Restbudget gibt's am Ende {{perk2_interestMultiplier|num}} Extra-Punkte."
     },
     "perk3": {
       "name": "🔥 Der Troll-Andy",
-      "desc": "Spielt bewusst den größten Müll und feiert es. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+      "desc": "Spielt bewusst den größten Müll und feiert es. Karten der Stufe 🤡 bringen am Ende satte +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🚀 Der Hot-Dropper",
-      "desc": "Startet mit -25% Budget, zieht dafür aus Events, Glücksrad und jedem Chaos +25% raus!"
+      "desc": "Startet mit -{{perk4_budgetMultiplier|pctdown}}% Budget, zieht dafür aus Events, Glücksrad und jedem Chaos +{{perk4_incomeMultiplier|pct}}% raus!"
     },
     "perk5": {
       "name": "🤝 Der Looter",
-      "desc": "Kennt jede Kiste und jeden Buy-Spot. Beim Loadout-Drop gibt's 3 Optionen zur Auswahl."
+      "desc": "Kennt jede Kiste und jeden Buy-Spot. Beim Loadout-Drop gibt's {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "👑 Der Content-Creator",
-      "desc": "Hat Sponsoren und ein Publikum. Immun gegen finanzielle Katastrophen, beim Glücksrad pauschal +10% obendrauf."
+      "desc": "Hat Sponsoren und ein Publikum. Immun gegen finanzielle Katastrophen, beim Glücksrad pauschal +{{perk6_wheelBonusMultiplier|pct}}% obendrauf."
     },
     "perk7": {
       "name": "🤫 Der Jammer-Techniker",
-      "desc": "Setzt 2x den Jammer gegen Mitspieler ein und ist selbst komplett immun gegen fremde Jammer!"
+      "desc": "Setzt {{perk7_startingBlocks|num}}x den Jammer gegen Mitspieler ein und ist selbst komplett immun gegen fremde Jammer!"
     },
     "perk8": {
       "name": "⏱️ Der Ranked-Sweat",
-      "desc": "Verzichtet komplett auf Joker, spielt dafür knallhart auf Punkte. Bringt +10 Extra-Punkte pro ergatterter Karte."
+      "desc": "Verzichtet komplett auf Joker, spielt dafür knallhart auf Punkte. Bringt +{{perk8_flatScoreBonus|num}} Extra-Punkte pro ergatterter Karte."
     }
   },
   "events": [
@@ -270,9 +264,7 @@
     "tags": []
   },
   "theme": {
-    "description": "Gasgrün & Verdansk-Orange auf taktischem Nachtgrau",
     "font": "Black Ops One",
-    "mood": "militärisch, laut, adrenalingeladen – wie ein Killcam-Freeze im Endcircle",
     "primaryColor": "#a3e635",
     "accentColor": "#f97316",
     "bgBase": "#0a0d09",
@@ -283,6 +275,25 @@
     "priceEmoji": "💵",
     "dealConfirmTitle": "🎯 SECURED!",
     "dealRescuedTitle": "🚁 LAST-SECOND REBUY!",
-    "dealBlindTitle": "🙈 BLIND GELOOTET!"
+    "dealBlindTitle": "🙈 BLIND GELOOTET!",
+    "striker": "🎯",
+    "strikeStyle": "pulse",
+    "calls": [
+      "Target spotted …",
+      "Locked …",
+      "Eliminated!"
+    ]
+  },
+  "mysteryBox": {
+    "icon": "📦",
+    "carrier": "🪂",
+    "motion": "drop",
+    "particles": [
+      "💨",
+      "💥",
+      "🎖️",
+      "💵"
+    ],
+    "shout": "AIRDROP!"
   }
 }

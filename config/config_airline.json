@@ -5,15 +5,9 @@
   "themeIcon": "✈️",
   "pointsSound": "cabinChime",
   "databaseFile": "db/airline_db.json",
-  "colors": {
-    "primary": "sky-500",
-    "gradientStart": "sky-600",
-    "gradientEnd": "blue-600"
-  },
   "currency": {
     "name": "Budget",
     "symbol": "€",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -139,35 +133,35 @@
     },
     "perk1": {
       "name": "💺 Der Beinfreiheit-Beschneider",
-      "desc": "Zählt jeden Zentimeter. +50% Bonuspunkte auf Objekte aus seinen zwei zugewiesenen Kernkompetenzen."
+      "desc": "Zählt jeden Zentimeter. +{{perk1_protegeMultiplier|pct}}% Bonuspunkte auf Objekte aus seinen zwei zugewiesenen Kernkompetenzen."
     },
     "perk2": {
       "name": "📜 Der Kleingedruckten-Akrobat",
-      "desc": "Erfindet Gebühren, wo keine sind. Spart sein Budget auf und kassiert am Ende extrem hohe Zinsen für nicht ausgegebenes Geld."
+      "desc": "Erfindet Gebühren, wo keine sind. Spart sein Budget auf: je {{perk2_interestDivisor|num}} übrige Meilen bringen am Ende {{perk2_interestMultiplier|num}} Punkte."
     },
     "perk3": {
       "name": "🛢️ Der dubiose Flotten-Finanzier",
-      "desc": "Liebt Panzertape. Schrott-Karten (🤡) erhalten am Spielende pauschal einen gewaltigen +50% Punkte-Bonus!"
+      "desc": "Liebt Panzertape. Schrott-Karten (🤡) erhalten am Spielende pauschal einen gewaltigen +{{perk3_badTierMultiplier|pct}}% Punkte-Bonus!"
     },
     "perk4": {
       "name": "💨 Der Atemluft-Besteuerer",
-      "desc": "Startet mit 25% weniger Kapital, holt aber bei jedem Cashback und finanziellen Bonus +25% mehr raus."
+      "desc": "Startet mit {{perk4_budgetMultiplier|pctdown}}% weniger Kapital, holt aber bei jedem Cashback und finanziellen Bonus +{{perk4_incomeMultiplier|pct}}% mehr raus."
     },
     "perk5": {
       "name": "🕶️ Der Hangar-Hehler",
-      "desc": "Kennt die Jungs von der Gepäckabfertigung. Hat beim Tauschen/Schmuggeln immer 3 Optionen zur Auswahl."
+      "desc": "Kennt die Jungs von der Gepäckabfertigung. Hat beim Tauschen/Schmuggeln immer {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "🎰 Der Radar-Roulette-Spieler",
-      "desc": "Fliegt blind durchs Unwetter. Bekommt auf alle Gewinne am Glücksrad pauschal +10% Bonus."
+      "desc": "Fliegt blind durchs Unwetter. Bekommt auf alle Gewinne am Glücksrad pauschal +{{perk6_wheelBonusMultiplier|pct}}% Bonus."
     },
     "perk7": {
       "name": "🌩️ Der Tower-Saboteur",
-      "desc": "Böse Zungen behaupten, er kappt fremde Funkantennen. Startet mit einem Extra-Block-Joker ins Spiel."
+      "desc": "Böse Zungen behaupten, er kappt fremde Funkantennen. Startet mit {{perk7_startingBlocks|num}} Block-Jokern ins Spiel und ist selbst immun."
     },
     "perk8": {
       "name": "⭐ Der 5-Sterne-Fälscher",
-      "desc": "Spielt komplett ohne Joker, lässt aber Bewertungs-Bots laufen: +10 Punkte pauschal auf absolut jede gekaufte Karte."
+      "desc": "Spielt komplett ohne Joker, lässt aber Bewertungs-Bots laufen: +{{perk8_flatScoreBonus|num}} Punkte pauschal auf absolut jede gekaufte Karte."
     }
   },
   "events": [
@@ -296,5 +290,26 @@
       "Insolvenz",
       "Strafe"
     ]
+  },
+  "auctionAnimation": {
+    "striker": "🛎️",
+    "strikeStyle": "stamp",
+    "calls": [
+      "Boarding Gruppe 1 …",
+      "Boarding Gruppe 2 …",
+      "Final Call!"
+    ],
+    "dealConfirmTitle": "🎫 BOARDED – SITZ 34F!"
+  },
+  "mysteryBox": {
+    "icon": "🧳",
+    "motion": "squeeze",
+    "particles": [
+      "🎫",
+      "🧦",
+      "🩴",
+      "🪥"
+    ],
+    "shout": "PASST NICHT REIN!"
   }
 }

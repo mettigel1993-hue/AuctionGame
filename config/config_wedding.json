@@ -4,15 +4,9 @@
   "gameTitle": "Die Horror-Hochzeit",
   "themeIcon": "💒",
   "pointsSound": "glasses",
-  "colors": {
-    "primary": "rose-600",
-    "gradientStart": "rose-600",
-    "gradientEnd": "amber-400"
-  },
   "currency": {
     "name": "Hochzeitsbudget",
     "symbol": "💸",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -114,35 +108,35 @@
     },
     "perk1": {
       "name": "🎯 Der Wedding-Planner",
-      "desc": "Hat zwei Kern-Kategorien im Griff (+50% Punkte am Ende). Immun gegen Stornierungen in diesen Bereichen."
+      "desc": "Hat zwei Kern-Kategorien im Griff (+{{perk1_protegeMultiplier|pct}}% Punkte am Ende). Immun gegen Stornierungen in diesen Bereichen."
     },
     "perk2": {
       "name": "🐷 Der Geizhals-Gatte",
-      "desc": "Spart das Hochzeitsbudget wie ein Irrer. Für je 20.000 💸 Restbudget gibt's am Ende 5 Extra-Punkte."
+      "desc": "Spart das Hochzeitsbudget wie ein Irrer. Für je {{perk2_interestDivisor|num}} 💸 Restbudget gibt's am Ende {{perk2_interestMultiplier|num}} Extra-Punkte."
     },
     "perk3": {
       "name": "🔥 Der Chaos-Liebhaber",
-      "desc": "Liebt es, wenn die Hochzeit eskaliert. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+      "desc": "Liebt es, wenn die Hochzeit eskaliert. Karten der Stufe 🤡 bringen am Ende satte +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🚀 Die Drama-Queen",
-      "desc": "Startet mit -25% Budget, casht dafür bei Events, Roulette und jedem Skandal fette +25% ab!"
+      "desc": "Startet mit -{{perk4_budgetMultiplier|pctdown}}% Budget, casht dafür bei Events, Roulette und jedem Skandal fette +{{perk4_incomeMultiplier|pct}}% ab!"
     },
     "perk5": {
       "name": "🤝 Die Brautjungfer mit Connections",
-      "desc": "Kennt jeden Floristen, jeden DJ und jeden Caterer. Beim Umtauschen gibt's 3 Optionen zur Auswahl."
+      "desc": "Kennt jeden Floristen, jeden DJ und jeden Caterer. Beim Umtauschen gibt's {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "👑 Das Lieblingskind der Schwiegereltern",
-      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Hochzeitsroulette gibt's pauschal +10% obendrauf."
+      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Hochzeitsroulette gibt's pauschal +{{perk6_wheelBonusMultiplier|pct}}% obendrauf."
     },
     "perk7": {
       "name": "🤫 Die Klatschtante",
-      "desc": "Verteilt 2x Redeverbot an Mitspieler und ist selbst komplett immun gegen fremde Redeverbote!"
+      "desc": "Verteilt {{perk7_startingBlocks|num}}x Redeverbot an Mitspieler und ist selbst komplett immun gegen fremde Redeverbote!"
     },
     "perk8": {
       "name": "⏱️ Die Bridezilla",
-      "desc": "Verzichtet komplett auf Joker, kontrolliert aber jedes Detail! Bringt fette +10 Extra-Punkte pro ergatterter Karte."
+      "desc": "Verzichtet komplett auf Joker, kontrolliert aber jedes Detail! Bringt fette +{{perk8_flatScoreBonus|num}} Extra-Punkte pro ergatterter Karte."
     }
   },
   "events": [
@@ -270,9 +264,7 @@
     "tags": []
   },
   "theme": {
-    "description": "Elfenbein & Champagner-Gold mit Blush – helle, elegante Hochzeitseinladung",
     "font": "Great Vibes / Cormorant Garamond",
-    "mood": "hell und romantisch, kalligrafische Schrift und florale Ornamente auf Elfenbein",
     "primaryColor": "#c39a3f",
     "accentColor": "#d99aa6",
     "bgBase": "#f7f2e8",
@@ -283,6 +275,24 @@
     "priceEmoji": "💍",
     "dealConfirmTitle": "💍 JA, ICH WILL!",
     "dealRescuedTitle": "💐 LAST-MINUTE DEAL!",
-    "dealBlindTitle": "🙈 BRAUTSTRAUSS GEFANGEN!"
+    "dealBlindTitle": "🙈 BRAUTSTRAUSS GEFANGEN!",
+    "striker": "🥂",
+    "strikeStyle": "swing",
+    "calls": [
+      "Will noch jemand …",
+      "Einspruch? …",
+      "Niemand!"
+    ]
+  },
+  "mysteryBox": {
+    "icon": "🎁",
+    "motion": "creep",
+    "particles": [
+      "🥀",
+      "🌹",
+      "🖤",
+      "💀"
+    ],
+    "shout": "BUH!"
   }
 }

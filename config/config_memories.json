@@ -4,15 +4,9 @@
   "gameTitle": "Core Memories",
   "themeIcon": "💾",
   "pointsSound": "coin8bit",
-  "colors": {
-    "primary": "fuchsia-600",
-    "gradientStart": "fuchsia-600",
-    "gradientEnd": "cyan-500"
-  },
   "currency": {
     "name": "Taschengeld",
     "symbol": "✨",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -104,35 +98,35 @@
     },
     "perk1": {
       "name": "🧸 Nostalgie-Nerd",
-      "desc": "Wählt bei Spielstart 2 zufällige Lieblings-Kategorien. Karten darin bringen +50% Punkte & sind immun gegen Trendwechsel!"
+      "desc": "Wählt bei Spielstart 2 zufällige Lieblings-Kategorien. Karten darin bringen +{{perk1_protegeMultiplier|pct}}% Punkte & sind immun gegen Trendwechsel!"
     },
     "perk2": {
       "name": "🐷 Sparschwein-König",
-      "desc": "Am Ende des Spiels gibt es für je 20.000 ✨ Rest-Taschengeld fette 5 Extra-Punkte (Vibes)."
+      "desc": "Am Ende des Spiels gibt es für je {{perk2_interestDivisor|num}} ✨ Rest-Taschengeld fette {{perk2_interestMultiplier|num}} Extra-Punkte (Vibes)."
     },
     "perk3": {
       "name": "🩹 Pflaster-Sammler",
-      "desc": "Traumata und Peinlichkeiten (Karten-Stufe 🤡) bringen am Ende +50% Punkte."
+      "desc": "Traumata und Peinlichkeiten (Karten-Stufe 🤡) bringen am Ende +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🚀 Pausenhof-Zocker",
-      "desc": "Startet mit -25% Taschengeld, bekommt aber +25% auf alle Gewinne (Events, Roulette, Spardose)!"
+      "desc": "Startet mit -{{perk4_budgetMultiplier|pctdown}}% Taschengeld, bekommt aber +{{perk4_incomeMultiplier|pct}}% auf alle Gewinne (Events, Roulette, Spardose)!"
     },
     "perk5": {
       "name": "🃏 Diddl-Mogul (Scout)",
-      "desc": "Beim Schulhof-Tausch (Tauschen-Joker) darf aus 3 zufälligen Karten gewählt werden."
+      "desc": "Beim Schulhof-Tausch (Tauschen-Joker) darf aus {{perk5_gambleChoices|num}} zufälligen Karten gewählt werden."
     },
     "perk6": {
       "name": "🍀 Glücksbärchi",
-      "desc": "Absolut immun gegen jeglichen Geldverlust durch Events! +10% auf alle Roulette-Gewinne."
+      "desc": "Absolut immun gegen jeglichen Geldverlust durch Events! +{{perk6_wheelBonusMultiplier|pct}}% auf alle Roulette-Gewinne."
     },
     "perk7": {
       "name": "🤫 Die Ober-Petze",
-      "desc": "Startet mit 2x Hausarrest-Joker und ist selbst komplett immun gegen Hausarrest durch andere!"
+      "desc": "Startet mit {{perk7_startingBlocks|num}}x Hausarrest-Joker und ist selbst komplett immun gegen Hausarrest durch andere!"
     },
     "perk8": {
       "name": "🏃 Draufgänger",
-      "desc": "Startet komplett OHNE Joker. Dafür gibt es am Ende fette +10 Extra-Punkte auf JEDE gesammelte Erinnerung."
+      "desc": "Startet komplett OHNE Joker. Dafür gibt es am Ende fette +{{perk8_flatScoreBonus|num}} Extra-Punkte auf JEDE gesammelte Erinnerung."
     }
   },
   "events": [
@@ -262,12 +256,31 @@
     ]
   },
   "theme": {
-    "description": "Fuchsia & Cyan Retro-Pixel – 90er Game Boy Palette, Neon auf Schwarz",
     "font": "Press Start 2P",
-    "mood": "nostalgisch, pixelig, wie Super Nintendo auf einem alten Röhren-TV",
     "primaryColor": "#e879f9",
     "accentColor": "#22d3ee",
     "bgBase": "#0a0015",
     "bgCard": "#130020"
+  },
+  "auctionAnimation": {
+    "striker": "🔮",
+    "strikeStyle": "pulse",
+    "calls": [
+      "Erinnerst du dich …?",
+      "… ja …",
+      "Für immer!"
+    ],
+    "dealConfirmTitle": "💫 CORE MEMORY!"
+  },
+  "mysteryBox": {
+    "icon": "🔮",
+    "motion": "bloom",
+    "particles": [
+      "✨",
+      "💫",
+      "⭐",
+      "🌟"
+    ],
+    "shout": "ERINNERUNG FREIGESCHALTET"
   }
 }

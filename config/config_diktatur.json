@@ -4,15 +4,9 @@
   "gameTitle": "Bananenrepublik",
   "themeIcon": "🎖️",
   "pointsSound": "brassFanfare",
-  "colors": {
-    "primary": "amber-500",
-    "gradientStart": "amber-500",
-    "gradientEnd": "red-600"
-  },
   "currency": {
     "name": "Staatskasse",
     "symbol": "💵",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -114,35 +108,35 @@
     },
     "perk1": {
       "name": "🎯 Der Chefideologe",
-      "desc": "Hat zwei Kern-Ressorts fest im Griff (+50% Punkte am Ende). Immun gegen Konfiszierungen in diesen Bereichen."
+      "desc": "Hat zwei Kern-Ressorts fest im Griff (+{{perk1_protegeMultiplier|pct}}% Punkte am Ende). Immun gegen Konfiszierungen in diesen Bereichen."
     },
     "perk2": {
       "name": "🐷 Der Staatsschatzmeister",
-      "desc": "Zweigt die Staatskasse konsequent auf Privatkonten um. Für je 20.000 💵 Restbudget gibt's am Ende 5 Extra-Punkte."
+      "desc": "Zweigt die Staatskasse konsequent auf Privatkonten um. Für je {{perk2_interestDivisor|num}} 💵 Restbudget gibt's am Ende {{perk2_interestMultiplier|num}} Extra-Punkte."
     },
     "perk3": {
       "name": "🔥 Der Größenwahnsinnige",
-      "desc": "Je absurder das Regime, desto besser. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+      "desc": "Je absurder das Regime, desto besser. Karten der Stufe 🤡 bringen am Ende satte +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🚀 Der Revolutionär",
-      "desc": "Startet mit -25% Budget, kassiert dafür bei Events, Glücksrad und jeder Krise fette +25% ab!"
+      "desc": "Startet mit -{{perk4_budgetMultiplier|pctdown}}% Budget, kassiert dafür bei Events, Glücksrad und jeder Krise fette +{{perk4_incomeMultiplier|pct}}% ab!"
     },
     "perk5": {
       "name": "🤝 Der Waffenhändler",
-      "desc": "Hat überall Kontakte und drei Telefone. Beim Putsch gibt's 3 Optionen zur Auswahl."
+      "desc": "Hat überall Kontakte und drei Telefone. Beim Putsch gibt's {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "👑 Der Erbdiktator",
-      "desc": "Papa war schon Präsident. Absolut immun gegen finanzielle Katastrophen, beim Glücksrad gibt's pauschal +10% obendrauf."
+      "desc": "Papa war schon Präsident. Absolut immun gegen finanzielle Katastrophen, beim Glücksrad gibt's pauschal +{{perk6_wheelBonusMultiplier|pct}}% obendrauf."
     },
     "perk7": {
       "name": "🤫 Der Geheimdienstchef",
-      "desc": "Verhängt 2x Hausarrest gegen Mitspieler und ist selbst komplett immun gegen fremden Hausarrest!"
+      "desc": "Verhängt {{perk7_startingBlocks|num}}x Hausarrest gegen Mitspieler und ist selbst komplett immun gegen fremden Hausarrest!"
     },
     "perk8": {
       "name": "⏱️ Der Bürokrat",
-      "desc": "Verzichtet komplett auf Joker, stempelt dafür jedes Dokument doppelt. Bringt +10 Extra-Punkte pro ergatterter Karte."
+      "desc": "Verzichtet komplett auf Joker, stempelt dafür jedes Dokument doppelt. Bringt +{{perk8_flatScoreBonus|num}} Extra-Punkte pro ergatterter Karte."
     }
   },
   "events": [
@@ -270,9 +264,7 @@
     "tags": []
   },
   "theme": {
-    "description": "Propaganda-Gold & Militär-Oliv – wie ein Plakat, das seit 30 Jahren an derselben Wand klebt",
     "font": "Anton",
-    "mood": "pompös, militärisch, absurd erhaben – Prunk auf bröckelndem Beton",
     "primaryColor": "#eab308",
     "accentColor": "#dc2626",
     "bgBase": "#0b0a04",
@@ -283,6 +275,24 @@
     "priceEmoji": "💵",
     "dealConfirmTitle": "🖋️ DEKRET UNTERZEICHNET!",
     "dealRescuedTitle": "🤝 DEAL IM HINTERZIMMER!",
-    "dealBlindTitle": "🙈 BLIND ENTEIGNET!"
+    "dealBlindTitle": "🙈 BLIND ENTEIGNET!",
+    "striker": "🖋️",
+    "strikeStyle": "swing",
+    "calls": [
+      "Erste Lesung …",
+      "Zweite Lesung …",
+      "Einstimmig!"
+    ]
+  },
+  "mysteryBox": {
+    "icon": "🗳️",
+    "motion": "shake",
+    "particles": [
+      "📜",
+      "✖️",
+      "🎖️",
+      "🍌"
+    ],
+    "shout": "100 % ZUSTIMMUNG!"
   }
 }

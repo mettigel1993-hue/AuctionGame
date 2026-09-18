@@ -4,15 +4,9 @@
   "gameTitle": "Sehr geehrte Fahrgäste",
   "themeIcon": "🚆",
   "pointsSound": "chime",
-  "colors": {
-    "primary": "red-600",
-    "gradientStart": "red-600",
-    "gradientEnd": "amber-500"
-  },
   "currency": {
     "name": "Reisekasse",
     "symbol": "🎫",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -114,35 +108,35 @@
     },
     "perk1": {
       "name": "🎯 Der Vielfahrer",
-      "desc": "Kennt zwei Kern-Kategorien in- und auswendig (+50% Punkte am Ende). Immun gegen Streichungen in diesen Bereichen."
+      "desc": "Kennt zwei Kern-Kategorien in- und auswendig (+{{perk1_protegeMultiplier|pct}}% Punkte am Ende). Immun gegen Streichungen in diesen Bereichen."
     },
     "perk2": {
       "name": "🐷 Der Sparpreis-Jäger",
-      "desc": "Bucht nur mit Sparpreis-Finder. Für je 20.000 🎫 Restbudget gibt's am Ende 5 Extra-Punkte."
+      "desc": "Bucht nur mit Sparpreis-Finder. Für je {{perk2_interestDivisor|num}} 🎫 Restbudget gibt's am Ende {{perk2_interestMultiplier|num}} Extra-Punkte."
     },
     "perk3": {
       "name": "🔥 Der Chaos-Pendler",
-      "desc": "Fährt täglich und hat längst aufgehört zu hoffen. Karten der Stufe 🤡 bringen am Ende satte +50% Punkte."
+      "desc": "Fährt täglich und hat längst aufgehört zu hoffen. Karten der Stufe 🤡 bringen am Ende satte +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🚀 Der Risiko-Umsteiger",
-      "desc": "Startet mit -25% Budget, plant 3 Minuten Umsteigezeit und kassiert bei Events, Roulette und jedem Zwischenfall fette +25% ab!"
+      "desc": "Startet mit -{{perk4_budgetMultiplier|pctdown}}% Budget, plant 3 Minuten Umsteigezeit und kassiert bei Events, Roulette und jedem Zwischenfall fette +{{perk4_incomeMultiplier|pct}}% ab!"
     },
     "perk5": {
       "name": "🤝 Der Stammgast am Schalter",
-      "desc": "Kennt jeden im Reisezentrum beim Vornamen. Beim Umbuchen gibt's 3 Optionen zur Auswahl."
+      "desc": "Kennt jeden im Reisezentrum beim Vornamen. Beim Umbuchen gibt's {{perk5_gambleChoices|num}} Optionen zur Auswahl."
     },
     "perk6": {
       "name": "👑 Die 1.-Klasse-Dauerkarte",
-      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Roulette gibt's pauschal +10% obendrauf."
+      "desc": "Absolut immun gegen finanzielle Katastrophen! Beim Roulette gibt's pauschal +{{perk6_wheelBonusMultiplier|pct}}% obendrauf."
     },
     "perk7": {
       "name": "🤫 Der Kontrolleur-Flüsterer",
-      "desc": "Verteilt 2x Kontrolle an Mitspieler und ist selbst komplett immun gegen fremde Kontrollen!"
+      "desc": "Verteilt {{perk7_startingBlocks|num}}x Kontrolle an Mitspieler und ist selbst komplett immun gegen fremde Kontrollen!"
     },
     "perk8": {
       "name": "⏱️ Der Pünktlichkeitsfanatiker",
-      "desc": "Verzichtet komplett auf Joker, führt aber seit 1998 eine Excel-Tabelle! Bringt fette +10 Extra-Punkte pro ergatterter Karte."
+      "desc": "Verzichtet komplett auf Joker, führt aber seit 1998 eine Excel-Tabelle! Bringt fette +{{perk8_flatScoreBonus|num}} Extra-Punkte pro ergatterter Karte."
     }
   },
   "events": [
@@ -270,9 +264,7 @@
     "tags": []
   },
   "theme": {
-    "description": "Graphit & Verkehrsrot – ein nächtlicher Bahnsteig kurz vor der Durchsage",
     "font": "Fira Sans Condensed",
-    "mood": "kühl, technisch, resigniert – Signalfarben auf nassem Beton",
     "primaryColor": "#ec0016",
     "accentColor": "#f5a623",
     "bgBase": "#0c0d0f",
@@ -283,6 +275,29 @@
     "priceEmoji": "🚆",
     "dealConfirmTitle": "🎫 FAHRKARTE GELÖST!",
     "dealRescuedTitle": "🚉 GERADE NOCH ERWISCHT!",
-    "dealBlindTitle": "🙈 BLIND GEBUCHT!"
+    "dealBlindTitle": "🙈 BLIND GEBUCHT!",
+    "striker": "🎫",
+    "strikeStyle": "stamp",
+    "calls": [
+      "Einfahrt …",
+      "Türen schließen …",
+      "Abfahrt!"
+    ]
+  },
+  "mysteryBox": {
+    "icon": "🚆",
+    "motion": "shake",
+    "particles": [
+      "🎫",
+      "📄",
+      "🕐",
+      "🚆"
+    ],
+    "ticker": [
+      "+5 Min",
+      "+12 Min",
+      "+47 Min"
+    ],
+    "shout": "BETRIEBSSTÖRUNG!"
   }
 }

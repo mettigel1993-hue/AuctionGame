@@ -134,7 +134,7 @@ function initGame(count, budget) {
         managers.push({
             id: i, name: `${Config.terminology.playerSingular} ${i}`, budget: startingBudget,
             perk: 'NONE', protegeCats: [],
-            jokers: { block: getConf('jokers','block'), bonus: getConf('jokers','bonus'), autoBuy: getConf('jokers','autoBuy'), gamble: getConf('jokers','gamble'), skip: getConf('jokers','skip') },
+            jokers: startingJokers(),
             cashbackActive: false, team: tm
         });
     }
@@ -494,6 +494,24 @@ function filterAdminCategory(cat, btn) {
 }
 
 // Points a card is worth for this player, perks included
+// Feste Geldbeträge in Ereignissen sind auf das Standard-Startbudget geeicht.
+// Wird mit einem anderen Budget gespielt, wachsen oder schrumpfen sie im selben Verhältnis.
+const eventMoney = v => Math.round((Number(v) || 0) * (startingBudget / getConf('economy', 'startingBudget')));
+
+// Perk-Beschreibungen tragen Platzhalter statt fester Zahlen, damit ein geänderter
+// Regler im Einstellungsmenü nicht stumm einen falschen Text stehen lässt.
+// {{perk1_protegeMultiplier|pct}} -> 50   ·  |pctdown -> 25  ·  |num -> 20.000
+function fillConfNumbers(text) {
+    return String(text || '').replace(/\{\{(\w+)\|(pct|pctdown|num)\}\}/g, (_, key, fmt) => {
+        const v = getConf('perks', key);
+        if (v === undefined) return '?';
+        if (fmt === 'pct') return Math.round((v - 1) * 100);
+        if (fmt === 'pctdown') return Math.round((1 - v) * 100);
+        return Number(v).toLocaleString('de-DE');
+    });
+}
+const perkDesc = key => fillConfNumbers(Config.perks?.[key]?.desc || '');
+
 function cardPoints(m, card, cat) {
     let s = card?.score || 0;
     if (m.perk === 'perk1' && m.protegeCats?.includes(cat)) s = Math.floor(s * getConf('perks','perk1_protegeMultiplier'));
@@ -621,7 +639,7 @@ for (let jKey in Config.terminology.jokers) {
         const isProtegeNow = activeKey && m.protegeCats?.includes(activeKey);
         let blkOverlay = isBlk ? `<span class="blocked-badge pbadge is-lock">🔒 Gesperrt</span>` : '';
         let cbBadge = m.cashbackActive ? `<span class="shield-badge pbadge is-shield" title="Schützt bis zum nächsten Kauf">🛡️ Bonus aktiv</span>` : '';
-        let perkBadge = m.perk !== 'NONE' ? `<span class="pbadge is-perk" title="${Config.perks[m.perk]?.desc || ''}">${Config.perks[m.perk]?.name || m.perk}</span>` : '';
+        let perkBadge = m.perk !== 'NONE' ? `<span class="pbadge is-perk" title="${perkDesc(m.perk)}">${Config.perks[m.perk]?.name || m.perk}</span>` : '';
         // bei engen Zeilen tritt an die Stelle der Abzeichen ein farbiger Punkt neben dem Namen
         let stateDot = isBlk ? '<span class="pstate is-lock" title="Gesperrt"></span>'
             : m.cashbackActive ? '<span class="pstate is-shield" title="Bonus aktiv"></span>'
@@ -800,7 +818,7 @@ function showPerksModal() {
         phtml += `<div class="mb-4 bg-stone-800 p-3 rounded-lg border border-stone-600">
             <input type="text" id="perk-name-${m.id}" value="${m.name}" placeholder="Name eingeben..." class="w-full bg-transparent text-sm font-black text-orange-400 mb-1.5 border-b border-stone-600 focus:border-orange-500 outline-none pb-1 transition-colors">
             <select id="perk-select-${m.id}" onchange="updatePerkDesc(${m.id})" class="w-full bg-stone-900 border border-stone-500 text-white rounded p-2 text-xs outline-none font-bold shadow-inner">${opts}</select>
-            <p class="text-xs text-stone-300 mt-2 italic leading-snug" id="perk-desc-${m.id}">${Config.perks[assigned].desc}</p>
+            <p class="text-xs text-stone-300 mt-2 italic leading-snug" id="perk-desc-${m.id}">${perkDesc(assigned)}</p>
         </div>`;
     });
     $('perk-setup-list').innerHTML = phtml;
@@ -809,7 +827,11 @@ function showPerksModal() {
     $('perks-modal').classList.remove('hidden');
 }
 
-function updatePerkDesc(mId) { const pKey = $(`perk-select-${mId}`)?.value; if (Config.perks[pKey]) $(`perk-desc-${mId}`).innerText = Config.perks[pKey].desc; }
+function updatePerkDesc(mId) { const pKey = $(`perk-select-${mId}`)?.value; if (Config.perks[pKey]) $(`perk-desc-${mId}`).innerText = perkDesc(pKey); }
+
+// Startausstattung an Jokern - eine Quelle: die Einstellungen.
+const startingJokers = () => ({ block: getConf('jokers','block'), bonus: getConf('jokers','bonus'),
+    autoBuy: getConf('jokers','autoBuy'), gamble: getConf('jokers','gamble'), skip: getConf('jokers','skip') });
 
 function applyPerksAndStart() {
     managers.forEach(m => {
@@ -818,7 +840,7 @@ function applyPerksAndStart() {
         if (nameInput && nameInput.value.trim() !== '') m.name = nameInput.value.trim();
         
         selectedPerksPending[m.id] = pKey; m.perk = pKey; m.protegeCats = [];
-        m.jokers = { block: 1, bonus: 1, autoBuy: 1, gamble: 1, skip: 1 };
+        m.jokers = startingJokers();
         if (pKey === 'perk1') {
             let cats = [...activeCategories];
             for (let i = 0; i < 2; i++) { if (cats.length > 0) m.protegeCats.push(cats.splice(Math.floor(Math.random() * cats.length), 1)[0].toLowerCase()); }
@@ -837,7 +859,7 @@ function startGameWithoutPerks() {
         const nameInput = $(`perk-name-${m.id}`);
         if (nameInput && nameInput.value.trim() !== '') m.name = nameInput.value.trim();
         
-        m.perk = 'NONE'; m.protegeCats = []; m.jokers = { block: 1, bonus: 1, autoBuy: 1, gamble: 1, skip: 1 }; 
+        m.perk = 'NONE'; m.protegeCats = []; m.jokers = startingJokers();
     });
     if ($('perks-modal')) $('perks-modal').classList.add('hidden');
     renderMatrix(); updateBuyerDropdown(); renderAdminPool(); renderEventsPool(); updateEventChanceDisplays();
@@ -850,7 +872,7 @@ function openPerkCatalog() {
     Object.keys(Config.perks).forEach(key => {
         if (key === 'NONE') return;
         let p = Config.perks[key];
-        container.innerHTML += `<div class="bg-stone-800 border border-orange-500/30 p-4 rounded-xl shadow-inner flex flex-col"><div class="text-lg font-black text-orange-400 mb-2">${p.name}</div><div class="text-xs text-stone-300 leading-relaxed flex-grow">${p.desc}</div><button onclick="playShowcase('${key}')" class="mt-3 self-start bg-stone-900 hover:bg-orange-600 text-stone-300 hover:text-white text-xs font-bold py-1.5 px-3 rounded-lg border border-stone-600 hover:border-orange-500 transition"><i class="fa-solid fa-play mr-1" aria-hidden="true"></i> So wirkt's</button></div>`;
+        container.innerHTML += `<div class="bg-stone-800 border border-orange-500/30 p-4 rounded-xl shadow-inner flex flex-col"><div class="text-lg font-black text-orange-400 mb-2">${p.name}</div><div class="text-xs text-stone-300 leading-relaxed flex-grow">${perkDesc(key)}</div><button onclick="playShowcase('${key}')" class="mt-3 self-start bg-stone-900 hover:bg-orange-600 text-stone-300 hover:text-white text-xs font-bold py-1.5 px-3 rounded-lg border border-stone-600 hover:border-orange-500 transition"><i class="fa-solid fa-play mr-1" aria-hidden="true"></i> So wirkt's</button></div>`;
     });
     if ($('perk-catalog-modal')) $('perk-catalog-modal').classList.remove('hidden');
 }
@@ -1638,10 +1660,6 @@ function syncSoundButton() {
     btn.title = muted ? 'Ton an' : 'Ton aus';
     btn.setAttribute('aria-label', btn.title);
 }
-function toggleSound() {
-    try { localStorage.setItem('gamesa_sound_muted', isSoundMuted() ? '0' : '1'); } catch (e) {}
-    syncSoundButton();
-}
 document.addEventListener('DOMContentLoaded', syncSoundButton);
 // One enveloped oscillator: quick attack, exponential decay; freqEnd glides the pitch. `at` = delay in seconds.
 function tone(ctx, { type = 'sine', freq, freqEnd, at = 0, dur = 0.3, vol = 0.3, attack = 0.005 }) {
@@ -1927,8 +1945,10 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
     if (!item || !buyer) return;
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const k = Math.max(1500, getConf('ui', 'auctionHammerDuration')) / 5000; // timeline below is authored for 5 s
-    const sym = Config.currency.symbol;
-    const stamp = Config.auctionAnimation?.dealConfirmTitle || '🔨 VERKAUFT!';
+    const sym = Config.currency.symbol, A = Config.auctionAnimation || {};
+    const stamp = A.dealConfirmTitle || '🔨 VERKAUFT!';
+    const calls = A.calls?.length === 3 ? A.calls : ['Zum Ersten …', 'Zum Zweiten …', 'Zum Dritten!'];
+    const striker = A.striker ? `<span class="auction-striker">${A.striker}</span>` : GAVEL_SVG;
     const sparks = Array.from({ length: 18 }, (_, i) => `<i style="--a:${i * 20 + Math.round(Math.random() * 10)}deg; --d:${90 + Math.round(Math.random() * 70)}px"></i>`).join('');
 
     const overlay = document.createElement('div');
@@ -1936,8 +1956,9 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
     overlay.setAttribute('role', 'alert');
     overlay.innerHTML = `
         <div class="auction-lot">
-            <div class="auction-gavel" aria-hidden="true">${GAVEL_SVG}</div>
+            <div class="auction-gavel is-${A.strikeStyle || 'swing'}" aria-hidden="true">${striker}</div>
             <div class="auction-shock" aria-hidden="true"></div>
+            <div class="auction-chroma" aria-hidden="true"></div>
             <div class="auction-sparks" aria-hidden="true">${sparks}</div>
             <div class="auction-icon">${item.icon || ''}</div>
             <div class="auction-name">${item.name}</div>
@@ -1960,7 +1981,7 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
     const restart = (el, cls) => { if (!el) return; el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); };
     const strike = (text, power) => {
         restart(gavel, 'is-striking');
-        if (!reduced) restart(lot, power >= 1 ? 'is-sold-hit' : 'is-hit');
+        if (!reduced) restart(lot, power >= 1 ? 'is-sold-hit' : power >= 0.6 ? 'is-hit-2' : 'is-hit');
         if (call) { call.textContent = text; restart(call, 'is-new'); }
         sfx.gavel(power);
     };
@@ -1985,13 +2006,15 @@ function playAuctionAnimation(price, item, buyer, opts = {}) {
 
     const at = (ms, fn) => timers.push(setTimeout(fn, ms * k));
     requestAnimationFrame(() => overlay.classList.add('show'));
-    at(900,  () => strike('Zum Ersten …', 0.55));
-    at(1700, () => strike('Zum Zweiten …', 0.75));
+    at(900,  () => strike(calls[0], 0.55));
+    at(1700, () => strike(calls[1], 0.75));
     at(2500, () => {
-        strike('Zum Dritten!', 1);
-        overlay.classList.add('is-sold');
-        sfx.chaching();
-        countUp(700 * k);
+        strike(calls[2], 1);
+        timers.push(setTimeout(() => {
+            overlay.classList.add('is-sold');
+            sfx.chaching();
+            countUp(700 * k);
+        }, 130 * k));
     });
     at(4600, finish);
 }
@@ -2177,10 +2200,18 @@ function playBlindReveal(drawn, guesses, { winner, broke, tied, price }, onDone)
         const diff = Math.abs(g.guess - drawn.cost);
         return `<div class="blind-row${g.mgr === winner ? ' is-winner' : ''}"><span class="blind-who">${g.mgr.name}</span><span class="blind-guess">${g.guess.toLocaleString()} ${sym}</span><span class="blind-track"><i style="--w:${Math.max(3, diff / maxDiff * 100)}%"></i></span><span class="blind-diff">± ${diff.toLocaleString()}</span><span class="blind-note">💸 zu wenig Budget</span></div>`;
     }).join('');
+    const B = Config.mysteryBox, tier = `--tier:${TIER_COLOR[drawn.tier] || TIER_COLOR.mittel}`;
+    const box = B
+        ? `<div class="mbox mbox-themed is-${B.motion || 'shake'}" aria-hidden="true" style="${tier}">
+               <div class="mbox-burst"></div><div class="mbox-icon">${B.carrier ? `<span class="mbox-carrier">${B.carrier}</span>` : ''}${B.icon}</div><div class="mbox-ticker"></div></div>
+           <div class="mbox-fx" aria-hidden="true" style="${tier}">
+               <div class="mbox-parts">${Array.from({ length: 16 }, (_, i) => `<i style="--a:${i * 22.5 + Math.round(Math.random() * 14)}deg; --d:${110 + Math.round(Math.random() * 90)}px; --r:${Math.round(Math.random() * 540 - 270)}deg">${B.particles[i % B.particles.length]}</i>`).join('')}</div>
+               ${B.shout ? `<div class="mbox-shout">${B.shout}</div>` : ''}</div>`
+        : `<div class="mbox" aria-hidden="true"><div class="mbox-burst"></div><div class="mbox-lid"></div><div class="mbox-body"><span>?</span></div></div>`;
     const s = mountScene('blind-scene', `
         <div class="blind-panel">
             <div class="blind-stage">
-                <div class="mbox" aria-hidden="true"><div class="mbox-burst"></div><div class="mbox-lid"></div><div class="mbox-body"><span>?</span></div></div>
+                ${box}
                 <div class="draw-card"><div class="draw-flipper">
                     <div class="draw-face draw-back"><span>${cat?.icon || '🂠'}</span></div>
                     <div class="draw-face draw-front">
@@ -2205,6 +2236,8 @@ function playBlindReveal(drawn, guesses, { winner, broke, tied, price }, onDone)
 
     // the box: shaking, shaking harder, bursting open; the card rises out of it and flips
     stage('is-shaking'); sfx.drumroll(2000);
+    const ticker = s.el.querySelector('.mbox-ticker');
+    (B?.ticker || []).forEach((txt, i) => s.at(250 + i * 600, () => { ticker.textContent = txt; restartClass(ticker, 'is-new'); sfx.tick(); }));
     s.at(1100, () => stage('is-shaking-hard'));
     s.at(2100, () => { stage('is-open'); sfx.hit(); });
     s.at(2700, () => { stage('is-flipped'); sfx.flip(); });
@@ -2279,6 +2312,7 @@ function jokerRoundLimitHit(type) {
 
 function useBlockJoker(id) {
     const m = managers.find(x => x.id === id); if (!m || m.jokers.block <= 0) return showModal("Verbraucht!", "Keine Joker mehr verfügbar.");
+    if (m.id === blockedPlayerId) return showModal("🚫 Blockiert!", "Du bist in Isolation!");
     if (jokerRoundLimitHit('block')) return;
     const s = $('block-select'); if (s) { s.innerHTML = ''; managers.forEach(mgr => { if (mgr.id !== id) s.innerHTML += `<option value="${mgr.id}">${mgr.name}</option>`; }); }
     blockInitiatorId = id; if ($('block-modal')) $('block-modal').classList.remove('hidden');
@@ -2390,6 +2424,7 @@ function useBonusJoker(id) {
     const m = managers.find(x => x.id === id);
     if (m) {
         if (m.jokers.bonus <= 0) return showModal("Verbraucht", "Joker bereits benutzt.");
+        if (m.id === blockedPlayerId) return showModal("🚫 Blockiert!", "Du bist in Isolation!");
         m.jokers.bonus--; m.cashbackActive = true;
         addLog(`Bonus: ${m.name} sichert sich Rückzahlung.`, "event");
         renderMatrix();
@@ -2558,6 +2593,7 @@ function playClawScene(m, item, price, factor, { onGrab, onDone }) {
 
 function useGambleJoker(id) {
     const m = managers.find(x => x.id === id); if (!m || m.jokers.gamble <= 0) return showModal("Verbraucht", "Joker bereits benutzt.");
+    if (m.id === blockedPlayerId) return showModal("🚫 Blockiert!", "Du bist in Isolation!");
     const select = $('gamble-select'); if (!select) return; select.innerHTML = ''; let hasCards = false;
     for (let c in m.team) {
         if (m.team[c]) {
@@ -2776,10 +2812,10 @@ function eventTextContext(ev, before, jokersBefore) {
         case "bonus_lowest": gewinner = [minM]; betrag = delta(minM); break;
         case "tax_highest": verlierer = [maxM]; betrag = delta(maxM); break;
         case "robin_hood_tax": gewinner = [minM]; verlierer = managers.filter(m => m !== minM); betrag = delta(minM); break;
-        case "tax_all": case "bonus_all": betrag = ev.value; break;
+        case "tax_all": case "bonus_all": betrag = eventMoney(ev.value); break;
         case "bonus_for_unused_jokers":
             gewinner = managers.filter((m, i) => jokersAt(jokersBefore[i]) > 0);
-            verlierer = managers.filter((m, i) => !jokersAt(jokersBefore[i])); betrag = ev.value; break;
+            verlierer = managers.filter((m, i) => !jokersAt(jokersBefore[i])); betrag = eventMoney(ev.value); break;
         case "disable_joker": verlierer = managers.filter((m, i) => jokersBefore[i][ev.value] > 0); break;
         case "refund_last_purchase": {
             const m = managers.find(x => x.id === lastPurchase.managerId);
@@ -2817,9 +2853,9 @@ function eventImpactRows(ev, before, jokersBefore) {
         case "bonus_lowest": formula[minI] = `Kleinstes Budget: ${money(before[minI])} × ${pct}`; break;
         case "tax_highest": formula[maxI] = `Größtes Budget: ${money(before[maxI])} × ${pct}`; break;
         case "robin_hood_tax": managers.forEach((m, i) => formula[i] = i === minI ? 'Kleinstes Budget: bekommt alle Abgaben' : `Abgabe: ${money(before[i])} × ${pct}`); break;
-        case "tax_all": managers.forEach((m, i) => formula[i] = `Pauschal −${money(ev.value)}`); break;
-        case "bonus_all": managers.forEach((m, i) => formula[i] = `Pauschal +${money(ev.value)}`); break;
-        case "bonus_for_unused_jokers": managers.forEach((m, i) => { const n = jokerSum(jokersBefore[i]); if (n) formula[i] = `${n} ungenutzte Joker × ${money(ev.value)}`; }); break;
+        case "tax_all": managers.forEach((m, i) => formula[i] = `Pauschal −${money(eventMoney(ev.value))}`); break;
+        case "bonus_all": managers.forEach((m, i) => formula[i] = `Pauschal +${money(eventMoney(ev.value))}`); break;
+        case "bonus_for_unused_jokers": managers.forEach((m, i) => { const n = jokerSum(jokersBefore[i]); if (n) formula[i] = `${n} ungenutzte Joker × ${money(eventMoney(ev.value))}`; }); break;
         case "refund_last_purchase": { const i = managers.findIndex(m => m.id === lastPurchase.managerId); if (i >= 0) formula[i] = `Letzter Kauf: ${money(lastPurchase.cost)} × ${pct}`; break; }
     }
     const rank = budgets => { const sorted = [...budgets].sort((a, b) => b - a); return budgets.map(b => sorted.indexOf(b) + 1); };
@@ -2924,9 +2960,9 @@ function executeEventLogic(evObj) {
         case "bonus_lowest": actual = applyBudgetChange(lowest, Math.floor(lowest.budget * evObj.value), "event"); return `🏆 ${lowest.name} erhält +${actual.toLocaleString()} ${Config.currency.symbol}!`;
         case "tax_highest": actual = applyBudgetChange(highest, -Math.floor(highest.budget * evObj.value), "event"); if (actual === 0) return `🛡️ Der Angriff prallt an ${highest.name} ab!`; return `💥 ${highest.name} verliert ${Math.abs(actual).toLocaleString()} ${Config.currency.symbol}!`;
         case "robin_hood_tax": let collected = 0; managers.forEach(m => { if (m.id !== lowest.id) { let tax = Math.floor(m.budget * evObj.value); collected += Math.abs(applyBudgetChange(m, -tax, "event")); } }); actual = applyBudgetChange(lowest, collected, "event"); return `🎟️ ${lowest.name} profitiert und erhält +${actual.toLocaleString()} ${Config.currency.symbol}!`;
-        case "tax_all": managers.forEach(m => { let act = applyBudgetChange(m, -evObj.value, "event"); if (act === 0) msgs.push(`${m.name} immun`); }); return `💸 Strafzahlung! Vorräte belastet${msgs.length > 0 ? ' (außer ' + msgs.join(', ') + ')' : ''}.`;
-        case "bonus_all": managers.forEach(m => { applyBudgetChange(m, evObj.value, "event"); }); return `💰 Jeder freut sich über einen Bonus!`;
-        case "bonus_for_unused_jokers": managers.forEach(m => { let count = m.jokers.block + m.jokers.bonus + m.jokers.autoBuy + m.jokers.gamble + m.jokers.skip; if (count > 0) { let bonus = count * evObj.value; actual = applyBudgetChange(m, bonus, "event"); msgs.push(`${m.name}`); } }); if (msgs.length === 0) return "Niemand hat mehr Joker übrig."; return `🎁 Geldregen für Sparer!`;
+        case "tax_all": managers.forEach(m => { let act = applyBudgetChange(m, -eventMoney(evObj.value), "event"); if (act === 0) msgs.push(`${m.name} immun`); }); return `💸 Strafzahlung! Vorräte belastet${msgs.length > 0 ? ' (außer ' + msgs.join(', ') + ')' : ''}.`;
+        case "bonus_all": managers.forEach(m => { applyBudgetChange(m, eventMoney(evObj.value), "event"); }); return `💰 Jeder freut sich über einen Bonus!`;
+        case "bonus_for_unused_jokers": managers.forEach(m => { let count = m.jokers.block + m.jokers.bonus + m.jokers.autoBuy + m.jokers.gamble + m.jokers.skip; if (count > 0) { let bonus = count * eventMoney(evObj.value); actual = applyBudgetChange(m, bonus, "event"); msgs.push(`${m.name}`); } }); if (msgs.length === 0) return "Niemand hat mehr Joker übrig."; return `🎁 Geldregen für Sparer!`;
         case "disable_joker": managers.forEach(m => m.jokers[evObj.value] = 0); return `🚫 Alle '${Config.terminology.jokers[evObj.value]?.label || evObj.value}'-Joker verfallen sofort!`;
         case "blind_draws": blindDrawsLeft += evObj.value; return `❓ Die nächsten ${evObj.value} gezogenen Objekte sind VERDECKT.`;
         case "refund_last_purchase": if (lastPurchase.managerId !== null) { let m = managers.find(x => x.id === lastPurchase.managerId); if (m) { let refund = Math.floor(lastPurchase.cost * evObj.value); actual = applyBudgetChange(m, refund, "event"); return `🛒 ${m.name} erhält Erstattung (+${actual.toLocaleString()})!`; } } return "Aktion verfällt.";
@@ -3130,6 +3166,30 @@ function drawGameShowWheel() {
 
 function setWheelRotation(deg) { const c = $('gs-wheel'); if (c) c.style.transform = `rotate(${deg}deg)`; }
 
+// brief overshoot-and-settle past the landing angle, like a physical wheel with momentum
+function settleWheelOvershoot(end, done) {
+    const overshoot = 5;
+    const outMs = 140, backMs = 220;
+    const easeOut = t => 1 - Math.pow(1 - t, 2);
+    const easeBack = t => 1 - Math.pow(1 - t, 3);
+    const t0 = performance.now();
+    const outFrame = now => {
+        const t = Math.min(1, (now - t0) / outMs);
+        setWheelRotation(end + overshoot * easeOut(t));
+        if (t < 1) { WHEEL.raf = requestAnimationFrame(outFrame); return; }
+        const t1 = performance.now();
+        const backFrame = now2 => {
+            const t2 = Math.min(1, (now2 - t1) / backMs);
+            setWheelRotation(end + overshoot * (1 - easeBack(t2)));
+            if (t2 < 1) { WHEEL.raf = requestAnimationFrame(backFrame); return; }
+            setWheelRotation(end);
+            done();
+        };
+        WHEEL.raf = requestAnimationFrame(backFrame);
+    };
+    WHEEL.raf = requestAnimationFrame(outFrame);
+}
+
 // which segment sits under the pointer (top) for a given clockwise rotation
 function wheelSegmentAt(rot) {
     const n = WHEEL.values.length, a = (((-rot) % 360) + 360) % 360;
@@ -3172,12 +3232,16 @@ function spinNextPlayer() {
         const rot = start + (end - start) * ease(t);
         setWheelRotation(rot);
         const s = wheelSegmentAt(rot);
-        if (s !== lastSeg) { lastSeg = s; if (!skipped) { sfx.tick(); restartClass($('gs-pointer'), 'flap'); } }
+        if (s !== lastSeg) { lastSeg = s; if (!skipped) { sfx.tick(); restartClass($('gs-pointer'), 'flap'); restartClass($('gs-wheel-wrap'), 'tick-pop'); } }
         if (t < 1) { WHEEL.raf = requestAnimationFrame(frame); return; }
-        WHEEL.rotation = end % 360; setWheelRotation(WHEEL.rotation);
         WHEEL.skipSpin = null;
         modal?.classList.remove('is-spinning');
-        landWheelResult();
+        if (reduced || skipped) {
+            WHEEL.rotation = end % 360; setWheelRotation(WHEEL.rotation);
+            landWheelResult();
+        } else {
+            settleWheelOvershoot(end, () => { WHEEL.rotation = end % 360; landWheelResult(); });
+        }
     };
     WHEEL.skipSpin = () => { skipped = true; };
     WHEEL.raf = requestAnimationFrame(frame);
@@ -3297,37 +3361,6 @@ function animateBudgetLeftToRight(id, amt) {
         cell.parentElement.appendChild(el);
         setTimeout(() => el.remove(), getConf('roulette','spinDurationMs'));
     }
-}
-
-// =====================================================================
-// SUCHFUNKTION
-// =====================================================================
-document.addEventListener('click', function (e) {
-    const sIn = $('matrix-manual-search'), sRes = $('matrix-search-results');
-    if (sIn && sRes && !sIn.contains(e.target) && !sRes.contains(e.target)) sRes.classList.add('hidden');
-});
-
-function handleMatrixSearch(q) {
-    const resC = $('matrix-search-results'); if (!resC) return;
-    if (!q || q.trim().length < 2) { resC.classList.add('hidden'); return; }
-    const lq = q.toLowerCase(); let matches = [];
-    for (let cat in itemDatabase) itemDatabase[cat].forEach(item => { if (item.name.toLowerCase().includes(lq) || item.desc.toLowerCase().includes(lq)) matches.push({ ...item, type: cat }); });
-    if (matches.length === 0) { resC.innerHTML = '<li class="p-2 text-xs text-stone-500 italic text-center">Nichts gefunden</li>'; resC.classList.remove('hidden'); return; }
-    resC.innerHTML = ''; matches.slice(0, 8).forEach(m => { resC.innerHTML += `<li onclick="selectManualMatrixCard('${m.id}', '${m.type}')" class="p-2 border-b border-stone-700/50 hover:bg-stone-700 cursor-pointer transition flex items-center gap-2"><span class="text-base">${m.icon}</span><div class="flex flex-col overflow-hidden"><span class="text-xs font-bold text-white truncate w-full">${m.name}</span><span class="text-xs text-yellow-400 font-bold">ab ${m.cost.toLocaleString()} ${Config.currency.symbol}</span></div></li>`; });
-    resC.classList.remove('hidden');
-}
-
-function selectManualMatrixCard(id, cat) {
-    if (blindDrawsLeft > 0) return;
-    selectMatrixAuctionCategory(cat);
-    const item = itemDatabase[cat]?.find(x => x.id === id); if (!item) return;
-    activeMatrixAuctionItem = { ...item, type: cat };
-    if ($('matrix-active-bid-target')) $('matrix-active-bid-target').innerHTML = `${item.name}`;
-    if ($('matrix-active-bid-start-price')) $('matrix-active-bid-start-price').innerText = `Kosten: ${item.cost.toLocaleString()} ${Config.currency.symbol}`;
-    if ($('matrix-active-bid-desc')) $('matrix-active-bid-desc').innerHTML = getDynamicDescHtml(item);
-    if ($('matrix-auction-price')) $('matrix-auction-price').value = item.cost;
-    if ($('matrix-manual-search')) $('matrix-manual-search').value = '';
-    if ($('matrix-search-results')) $('matrix-search-results').classList.add('hidden');
 }
 
 // =====================================================================
@@ -3472,7 +3505,7 @@ function triggerEndgame() {
         m.totalPoints = basePoints;
         if (m.perk === 'perk2') { let rendite = Math.floor(m.budget / getConf('perks','perk2_interestDivisor')) * getConf('perks','perk2_interestMultiplier'); m.totalPoints += rendite; if (rendite > 0) m.loserBonusText += `+${rendite} (Spar-Bonus)`; }
     });
-    managers.sort((a, b) => b.totalPoints - a.totalPoints);
+    managers.sort((a, b) => b.totalPoints - a.totalPoints || b.budget - a.budget); // Gleichstand: mehr Restbudget gewinnt
     const podium = $('endgame-podium'); if (!podium) return; podium.innerHTML = '';
     managers.forEach((m, i) => {
         let c = ['text-yellow-400', 'text-stone-300', 'text-orange-400', 'text-stone-500', 'text-stone-600', 'text-stone-700'];
@@ -3532,35 +3565,23 @@ document.addEventListener('keydown', function (e) {
     if (keyLower === 'u') { switchView('used'); return; }
     if (keyLower === 's') { switchView('shredded'); return; }
     if (keyLower === 'g') { spinBonusWheelAll(); return; }
-    if (['1', '2', '3', '4', '5', '6', '7'].includes(e.key)) {
+    if (['1', '2', '3', '4', '5', '6', '7', '8'].includes(e.key)) {
         const selectId = currentView === 'matrix' ? 'matrix-auction-buyer' : 'auction-buyer';
         const selectEl = $(selectId);
-        if (selectEl && managers.find(x => x.id == e.key)) selectEl.value = e.key;
+        if (selectEl && managers.find(x => x.id == e.key)) { selectEl.value = e.key; renderBidUI(); }
         return;
     }
     if (currentView === 'matrix') {
         if (e.key === ' ' || e.code === 'Space') { e.preventDefault(); drawMatrixRandomPlayer(); }
-        else if (e.key === 'ArrowUp') { e.preventDefault(); let inp = $('matrix-auction-price'); if (inp) inp.value = (parseInt(inp.value) || 0) + (Config.currency?.step || 5000); }
-        else if (e.key === 'ArrowDown') { e.preventDefault(); let inp = $('matrix-auction-price'); if (inp) inp.value = Math.max(0, (parseInt(inp.value) || 0) - (Config.currency?.step || 5000)); }
+        else if (e.key === 'ArrowUp') { e.preventDefault(); addBid(getConf('economy','biddingStep')); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); addBid(-getConf('economy','biddingStep')); }
         else if (keyLower === 'z') { if ($('btn-undo-purchase') && !$('btn-undo-purchase').classList.contains('hidden')) undoLastPurchase(); }
-        else if (keyLower === 'f') { e.preventDefault(); if ($('matrix-manual-search')) $('matrix-manual-search').focus(); }
     } else if (currentView === 'admin') {
-        if (e.key === 'ArrowUp') { e.preventDefault(); let inp = $('auction-price'); if (inp) inp.value = (parseInt(inp.value) || 0) + (Config.currency?.step || 5000); }
-        else if (e.key === 'ArrowDown') { e.preventDefault(); let inp = $('auction-price'); if (inp) inp.value = Math.max(0, (parseInt(inp.value) || 0) - (Config.currency?.step || 5000)); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); let inp = $('auction-price'); if (inp) inp.value = (parseInt(inp.value) || 0) + getConf('economy','biddingStep'); }
+        else if (e.key === 'ArrowDown') { e.preventDefault(); let inp = $('auction-price'); if (inp) inp.value = Math.max(0, (parseInt(inp.value) || 0) - getConf('economy','biddingStep')); }
     }
 });
 
 // =====================================================================
 // PANEL TOGGLE
 // =====================================================================
-let rightPanelCollapsed = false;
-
-function toggleRightPanel() {
-    rightPanelCollapsed = !rightPanelCollapsed;
-    const panel = $('right-panel');
-    const icon  = $('panel-toggle-icon');
-    if (!panel || !icon) return;
-    panel.classList.toggle('panel-collapsed', rightPanelCollapsed);
-    icon.classList.toggle('fa-chevron-right', !rightPanelCollapsed);
-    icon.classList.toggle('fa-chevron-left',   rightPanelCollapsed);
-}

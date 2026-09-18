@@ -4,15 +4,9 @@
   "gameTitle": "Survive the Line",
   "themeIcon": "🏭",
   "pointsSound": "impactWrench",
-  "colors": {
-    "primary": "orange-500",
-    "gradientStart": "orange-500",
-    "gradientEnd": "yellow-400"
-  },
   "currency": {
     "name": "Werksbudget",
     "symbol": "€",
-    "startAmount": 1000000,
     "step": 5000
   },
   "terminology": {
@@ -109,35 +103,35 @@
     },
     "perk1": {
       "name": "🧨 Takt-Terrorist",
-      "desc": "Zwei zufällige Kategorien bringen +50% Punkte und sind immun gegen Nullungs-Events."
+      "desc": "Zwei zufällige Kategorien bringen +{{perk1_protegeMultiplier|pct}}% Punkte und sind immun gegen Nullungs-Events."
     },
     "perk2": {
       "name": "📈 Schwäbischer Schichtleiter",
-      "desc": "Für je 20.000 € Restbudget gibt es am Ende 5 Punkte extra."
+      "desc": "Für je {{perk2_interestDivisor|num}} € Restbudget gibt es am Ende {{perk2_interestMultiplier|num}} Punkte extra."
     },
     "perk3": {
       "name": "♻️ Toleranz-Ignorant",
-      "desc": "Alle 'schlechten' Bauteile geben am Ende +50% Punkte."
+      "desc": "Alle 'schlechten' Bauteile geben am Ende +{{perk3_badTierMultiplier|pct}}% Punkte."
     },
     "perk4": {
       "name": "🎲 Pausenraum-Buchmacher",
-      "desc": "-25% Startbudget. Dafür +25% auf alle positiven Einnahmen (Events, Rad, Cashback)."
+      "desc": "-{{perk4_budgetMultiplier|pctdown}}% Startbudget. Dafür +{{perk4_incomeMultiplier|pct}}% auf alle positiven Einnahmen (Events, Rad, Cashback)."
     },
     "perk5": {
       "name": "🕵️ Lieferanten-Erpresser",
-      "desc": "Beim Outsourcen (Tausch) wählst du aus 3 Karten, statt blind zu ziehen."
+      "desc": "Beim Outsourcen (Tausch) wählst du aus {{perk5_gambleChoices|num}} Karten, statt blind zu ziehen."
     },
     "perk6": {
       "name": "🛡️ Unkündbares Betriebsinventar",
-      "desc": "Immun gegen Budget-Strafen durch Events. +10% auf Schicksalsrad-Gewinne."
+      "desc": "Immun gegen Budget-Strafen durch Events. +{{perk6_wheelBonusMultiplier|pct}}% auf Schicksalsrad-Gewinne."
     },
     "perk7": {
       "name": "👨‍⚖️ QS-Diktator",
-      "desc": "Startet mit 2x Nacharbeit-Joker. Absolut immun gegen fremde Nacharbeit!"
+      "desc": "Startet mit {{perk7_startingBlocks|num}}x Nacharbeit-Joker. Absolut immun gegen fremde Nacharbeit!"
     },
     "perk8": {
       "name": "⚡ Hirn aus, Schlagschrauber an",
-      "desc": "Startet ohne jegliche Joker. Dafür +10 Punkte für JEDE Karte am Ende."
+      "desc": "Startet ohne jegliche Joker. Dafür +{{perk8_flatScoreBonus|num}} Punkte für JEDE Karte am Ende."
     }
   },
   "events": [
@@ -267,12 +261,31 @@
     ]
   },
   "theme": {
-    "description": "Industrie-Orange & Stahl-Grau – Warnfarben einer Werkshalle",
     "font": "Bebas Neue",
-    "mood": "laut, maschinell, Schilder und Warnleuchten, Schichtbeginn",
     "primaryColor": "#f97316",
     "accentColor": "#fbbf24",
     "bgBase": "#100d08",
     "bgCard": "#1a1410"
+  },
+  "auctionAnimation": {
+    "striker": "🦾",
+    "strikeStyle": "swing",
+    "calls": [
+      "Karosserie …",
+      "Lackierung …",
+      "Endkontrolle!"
+    ],
+    "dealConfirmTitle": "🚗 VOM BAND GELAUFEN!"
+  },
+  "mysteryBox": {
+    "icon": "📦",
+    "motion": "slide",
+    "particles": [
+      "🔩",
+      "⚙️",
+      "🔧",
+      "🛞"
+    ],
+    "shout": "QUALITÄTSKONTROLLE!"
   }
 }
